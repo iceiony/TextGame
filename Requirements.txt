@@ -1,0 +1,20 @@
+
+UI and Interaction requirements:
+1. Users type commands in natural language.
+2. Text transformations in colour , gradient and glow from sources positioned in different locations .
+3. Ability for background transformation of colour and image.
+4. Animation at side of text and text surrounding images/animation.
+5. Animations replaced by text.
+6. Text position display effects ( fade in from top to bottom ).
+7. Page effects of shake + sound effects in relation.
+8. Background sound with generic tracks. 
+9. Transition in story through natural language from user input.
+10. For devices with no keyboard, display icons for text commonly typed by the user.
+11. Highlight of key items that can be queried through the console .
+12. Main scenario transition to clear out previous scenario text.
+13. Transition of additional information from queries to be displayed at the bottom of main scenario text and get replaced by new 
+    query results with when necessary.
+14. Word double click to place type the word in the command console. For touchscreen devices , tapping on text will place it in the console.
+16. "Text blocks" can actually be code that contain widgets, canvas , images , styling elements or other components, not just text. 
+17. For touchscreen devices tapping on the word in the console will select it for dragging. Dragging and dropping outside the console will delete the word. 
+18. Long text blocks that do not fit display to be paginated extra text will be hidden and can be displayed by scrolling down .
