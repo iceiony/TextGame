@@ -1,7 +1,25 @@
 game = {};
 
-game.State = function() { };
+game.State = function() {
+       this.stateObj =  JSON.parse(localStorage.persistateState);
 
-game.State.prototype.transfer = function(symbol) {
-  console.log("state transfer by "+symbol);
+        //create circular refferences in given stateObj
+        for(var property in this.stateObj){
+            if(property!=="current"){
+                for(var child in this.stateObj[property]){
+                    if(child!=="content"){
+                      var propertyTopKey = this.stateObj[property][child];
+                        this.stateObj[property][child] = this.stateObj[propertyTopKey];
+                    }
+                }
+            }
+        }
+       this.stateObj["current"] = this.stateObj[this.stateObj["current"]]
+       this.stateObj["current"] = this.stateObj[localStorage.currentStateKey];
+};
+
+game.State.prototype.transfer = function(symbol){
+    this.stateObj["current"] = this.stateObj["current"][symbol];
+    localStorage.currentStateKey = symbol;
+    return this.stateObj["current"].content
 };
