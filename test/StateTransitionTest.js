@@ -1,5 +1,13 @@
 StateTest = TestCase("When State is used with a ClearTransform");
 
+//create mock tranfser object
+mockTransform = function(){this.wasHashInvoked = false;};
+mockTransform.prototype = new transform.ClearTransform();
+mockTransform.prototype.hash = function(input){
+    this.wasHashInvoked = true;
+    return input;
+}
+
 StateTest.prototype.setUp= function(){
 
    /* given an existing local storage*/
@@ -20,16 +28,9 @@ StateTest.prototype.setUp= function(){
     localStorage.persistateState = JSON.stringify(fakeState);
     localStorage.currentStateKey = "current";
 
-    //create mock tranfser object
-    mockTransformObj = function(){this.wasHashInvoked = true;};
-    mockTransformObj.prototype = transform.ClearTransform();
-    mockTransformObj.prototype.hash = function(input){
-        this.wasHashInvoked = true;
-        return input;
-    }
-
     /* create a state object as the test subject*/
-    StateTest.Subject = new game.State(mockTransformObj);
+    StateTest.mockTransformObj = new mockTransform();
+    StateTest.Subject = new game.State(StateTest.mockTransformObj);
 }
 
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
@@ -43,5 +44,6 @@ StateTest.prototype["test state will transfer for synonim of symbol"] = function
 }
 
 StateTest.prototype["test the State obect uses transformation on imput before transfer "] = function(){
-    assertTrue(StateTest.transferCalled);
+    StateTest.Subject.transfer("symbol")
+    assertTrue(StateTest.mockTransformObj.wasHashInvoked);
 }
