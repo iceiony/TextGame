@@ -12,6 +12,7 @@ game.State = function() {
                         this.stateObj[property][child] = this.stateObj[propertyTopKey];
                     }
                 }
+                this.stateObj[property]["name"] = property;
             }
         }
        this.stateObj["current"] = this.stateObj[this.stateObj["current"]]
@@ -20,6 +21,6 @@ game.State = function() {
 
 game.State.prototype.transfer = function(symbol){
     this.stateObj["current"] = this.stateObj["current"][symbol];
-    localStorage.currentStateKey = symbol;
+    localStorage.currentStateKey = this.stateObj["current"].name;
     return this.stateObj["current"].content
 };
