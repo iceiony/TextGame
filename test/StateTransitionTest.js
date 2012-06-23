@@ -6,13 +6,13 @@ StateTest.prototype.setUp= function(){
    fakeState = {};
 
     //state map object
-    fakeState["symbol"] = {
+    fakeState["testState"] = {
         content:"Transfer state text"
     };
     fakeState["initial"] = {
                                     "content":"Initial state text",
-                                    "symbol":"symbol",
-                                    "synonim":"symbol"
+                                    "symbol":"testState",
+                                    "synonim":"testState"
                                     };
     fakeState["current"] = "initial";
 
@@ -26,10 +26,10 @@ StateTest.prototype.setUp= function(){
 
 StateTest.prototype["test state transfer for symbol"] = function(){
     assertSame("Transfer state text",StateTest.Subject.transfer("symbol"));
-    assertSame("symbol",localStorage.currentStateKey);
+    assertSame("testState",localStorage.currentStateKey);
 }
 
 StateTest.prototype["test state transfer for synonim"] = function(){
    assertSame("Transfer state text",StateTest.Subject.transfer("synonim"));
-    assertSame("synonim",localStorage.currentStateKey);
+    assertSame("testState",localStorage.currentStateKey);
 }
