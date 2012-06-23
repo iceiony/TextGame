@@ -20,8 +20,15 @@ StateTest.prototype.setUp= function(){
     localStorage.persistateState = JSON.stringify(fakeState);
     localStorage.currentStateKey = "current";
 
+    //create mock tranfser object
+    mockTranferFunction = function(input)
+    {
+        StateTest.transferCalled = true;
+        return input;
+    }
+
     /* create a state object as the test subject*/
-    StateTest.Subject = new game.State();
+    StateTest.Subject = new game.State(mockTranferFunction);
 }
 
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
@@ -31,5 +38,9 @@ StateTest.prototype["test state will transfer for symbol passed"] = function(){
 
 StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
    assertSame("Transfer state text",StateTest.Subject.transfer("synonim"));
-    assertSame("testState",localStorage.currentStateKey);
+   assertSame("testState",localStorage.currentStateKey);
+}
+
+StateTest.prototype["test the State obect uses transformation on imput before transfer "] = function(){
+    assertTrue(StateTest.transferCalled);
 }
