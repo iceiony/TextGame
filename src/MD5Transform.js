@@ -1,3 +1,3 @@
-transform.MD5Transform = function(input){
+hash.md5Hash = function(input){
     return $.md5(input);
 }

@@ -1,7 +1,7 @@
 game = {};
 
-game.State = function(transformFunction) {
-    this.transform = transformFunction;
+game.State = function(hashFunction) {
+    this.hash = hashFunction;
 
    //desereliase state from localStorage
    this.stateObj =  JSON.parse(localStorage.persistateState);
@@ -25,7 +25,7 @@ game.State = function(transformFunction) {
 };
 
 game.State.prototype.transfer = function(symbol){
-    var symbolHash = this.transform(symbol);
+    var symbolHash = this.hash(symbol);
     this.stateObj["current"] = this.stateObj["current"][symbolHash];
     localStorage.currentStateKey = this.stateObj["current"].name;
     return this.stateObj["current"].content

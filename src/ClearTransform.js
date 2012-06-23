@@ -1,7 +1,7 @@
-transform = {};
+hash = {};
 
 
-transform.ClearTransform = function(input)
+hash.clearHash = function(input)
 {
     return input;
 }
