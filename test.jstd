@@ -1,3 +1,4 @@
 load:
-  - src/State.js
-  - test/StateTransitionTest.js
+  - src/*.js
+  - test/*.js
+  - lib/*.js
