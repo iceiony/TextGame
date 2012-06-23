@@ -1,19 +1,9 @@
-MD5TransformTest = TestCase("MD5");
+HashFunctions = TestCase("Transform functions on user text");
 
-MD5TransformTest.prototype.setUp = function () {
-    MD5TransformTest.Subject = new transform.MD5Transform();
+HashFunctions.prototype["test the MD5Transform function hashes the given imput to an md5 byte string"] = function(){
+    assertSame("e59f088359c343614fb86f52b839b42f",transform.MD5Transform("the text I want to hash"));
 }
 
-MD5TransformTest.prototype["test the transform hashes the given imput to an md5 byte string"] = function(){
-    assertSame("e59f088359c343614fb86f52b839b42f",MD5TransformTest.Subject.hash("the text I want to hash"));
-}
-
-ClearTransformTest = TestCase("ClearTransform");
-
-ClearTransformTest.prototype.setUp = function () {
-    ClearTransformTest.Subject = new transform.ClearTransform();
-}
-
-ClearTransformTest.prototype["test the transform hash outputs the same value as the input"] = function(){
-    assertSame("some random input",ClearTransformTest.Subject.hash("some random input"));
+HashFunctions.prototype["test the ClearTransform function outputs the same value as the input"] = function(){
+    assertSame("some random input", transform.ClearTransform("some random input"));
 }

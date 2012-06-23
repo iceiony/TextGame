@@ -1,8 +1,7 @@
 transform = {};
 
-transform.ClearTransform = function(){};
 
-transform.ClearTransform.prototype.hash = function(input)
+transform.ClearTransform = function(input)
 {
     return input;
 }
