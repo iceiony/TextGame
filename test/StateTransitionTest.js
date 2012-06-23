@@ -1,4 +1,4 @@
-StateTest = TestCase("State");
+StateTest = TestCase("When State is used with a ClearTransform");
 
 StateTest.prototype.setUp= function(){
 
@@ -24,12 +24,12 @@ StateTest.prototype.setUp= function(){
     StateTest.Subject = new game.State();
 }
 
-StateTest.prototype["test state transfer for symbol"] = function(){
+StateTest.prototype["test state will transfer for symbol passed"] = function(){
     assertSame("Transfer state text",StateTest.Subject.transfer("symbol"));
     assertSame("testState",localStorage.currentStateKey);
 }
 
-StateTest.prototype["test state transfer for synonim"] = function(){
+StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
    assertSame("Transfer state text",StateTest.Subject.transfer("synonim"));
     assertSame("testState",localStorage.currentStateKey);
 }
