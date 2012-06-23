@@ -21,14 +21,15 @@ StateTest.prototype.setUp= function(){
     localStorage.currentStateKey = "current";
 
     //create mock tranfser object
-    mockTranferFunction = function(input)
-    {
-        StateTest.transferCalled = true;
+    mockTransformObj = function(){this.wasHashInvoked = true;};
+    mockTransformObj.prototype = transform.ClearTransform();
+    mockTransformObj.prototype.hash = function(input){
+        this.wasHashInvoked = true;
         return input;
     }
 
     /* create a state object as the test subject*/
-    StateTest.Subject = new game.State(mockTranferFunction);
+    StateTest.Subject = new game.State(mockTransformObj);
 }
 
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
