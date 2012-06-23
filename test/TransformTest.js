@@ -2,7 +2,6 @@ MD5TransformTest = TestCase("MD5");
 
 MD5TransformTest.prototype.setUp = function () {
     MD5TransformTest.Subject = new transform.MD5Transform();
-    console.log($.md5);
 }
 
 MD5TransformTest.prototype["test the transform hashes the given imput to an md5 byte string"] = function(){
