@@ -34,6 +34,7 @@ StateTest.prototype.setUp= function(){
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
     assertSame("Transfer state text",StateTest.Subject.transfer("symbol"));
     assertSame("testState",localStorage.currentStateKey);
+    assertSame("testState",StateTest.Subject.stateObj.current.name);
 };
 
 StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
@@ -45,6 +46,13 @@ StateTest.prototype["test the State obect uses transformation on imput before tr
     StateTest.Subject.transfer("symbol")
     assertTrue(StateTest.wasHashInvoked);
 };
+
+StateTest.prototype["test that if no transition exists the state does not change"] = function()
+{
+    StateTest.Subject.transfer("symbol");
+    StateTest.Subject.transfer("random input");
+    assertSame("testState",localStorage.currentStateKey);
+}
 
 StateTest.prototype["test the state can have wild card transitions for arbitrary input"] = function(){
     StateTest.Subject.transfer("asfasfasdf");
