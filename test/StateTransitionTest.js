@@ -7,10 +7,14 @@ StateTest.prototype.setUp= function(){
         "testState":{
             content:"Transfer state text"
         },
+        "wild card state":{
+            content:"some state text "
+        },
         "initial":{
             content:"Initial state text",
             "symbol":"testState",
-            "synonim":"testState"
+            "synonim":"testState",
+            "*": "wild card state"
         },
         "current":"initial"
     };
@@ -41,3 +45,8 @@ StateTest.prototype["test the State obect uses transformation on imput before tr
     StateTest.Subject.transfer("symbol")
     assertTrue(StateTest.wasHashInvoked);
 };
+
+StateTest.prototype["test the state can have wild card transitions for arbitrary input"] = function(){
+    StateTest.Subject.transfer("asfasfasdf");
+    assertSame("wild card state",localStorage.currentStateKey);
+}
