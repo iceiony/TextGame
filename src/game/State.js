@@ -30,7 +30,7 @@ game.State.prototype.transfer = function(symbol){
     else if(this.stateObj["current"]["*"]){
         console.log("badum");
         this.stateObj["current"]= this.stateObj["current"]["*"];
-    }
+    };
     localStorage.currentStateKey = this.stateObj["current"].name;
     return this.stateObj["current"].content
 };
