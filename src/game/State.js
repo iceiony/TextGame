@@ -1,5 +1,3 @@
-game = {};
-
 game.State = function(hashFunction) {
     this.hash = hashFunction;
 

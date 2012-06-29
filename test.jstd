@@ -1,4 +1,7 @@
 load:
-  - src/*.js
+  - src/game/Game.js
+  - src/game/State.js
+  - src/game/Engine.js
+  - src/Transform/*.js
   - test/*.js
   - lib/*.js
