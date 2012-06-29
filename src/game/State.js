@@ -24,7 +24,13 @@ game.State = function(hashFunction) {
 
 game.State.prototype.transfer = function(symbol){
     var symbolHash = this.hash(symbol);
-    this.stateObj["current"] = this.stateObj["current"][symbolHash];
+    if( this.stateObj["current"][symbolHash]) {
+        this.stateObj["current"] = this.stateObj["current"][symbolHash];
+    }
+    else if(this.stateObj["current"]["*"]){
+        console.log("badum");
+        this.stateObj["current"]= this.stateObj["current"]["*"];
+    }
     localStorage.currentStateKey = this.stateObj["current"].name;
     return this.stateObj["current"].content
 };
