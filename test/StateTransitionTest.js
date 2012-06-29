@@ -10,7 +10,7 @@ StateTest.prototype.setUp= function(){
         content:"Transfer state text"
     };
     fakeState["initial"] = {
-                                    "content":"Initial state text",
+                                    content:"Initial state text",
                                     "symbol":"testState",
                                     "synonim":"testState"
                                     };
@@ -24,21 +24,21 @@ StateTest.prototype.setUp= function(){
     StateTest.mockTransformFunction = function(input){
         StateTest.wasHashInvoked = true;
         return input;
-    }
+    };
     StateTest.Subject = new game.State(StateTest.mockTransformFunction);
-}
+};
 
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
     assertSame("Transfer state text",StateTest.Subject.transfer("symbol"));
     assertSame("testState",localStorage.currentStateKey);
-}
+};
 
 StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
    assertSame("Transfer state text",StateTest.Subject.transfer("synonim"));
    assertSame("testState",localStorage.currentStateKey);
-}
+};
 
 StateTest.prototype["test the State obect uses transformation on imput before transfer "] = function(){
     StateTest.Subject.transfer("symbol")
     assertTrue(StateTest.wasHashInvoked);
-}
+};

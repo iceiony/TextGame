@@ -14,11 +14,11 @@ game.State = function(hashFunction) {
                 if(child!=="content"){
                   var propertyTopKey = this.stateObj[property][child];
                     this.stateObj[property][child] = this.stateObj[propertyTopKey];
-                }
-            }
+                };
+            };
             this.stateObj[property]["name"] = property;
-        }
-    }
+        };
+    };
    this.stateObj["current"] = this.stateObj[this.stateObj["current"]]
    this.stateObj["current"] = this.stateObj[localStorage.currentStateKey];
 
