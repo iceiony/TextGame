@@ -3,18 +3,17 @@ StateTest = TestCase("When State is used with a ClearTransform");
 StateTest.prototype.setUp= function(){
 
    /* given an existing local storage*/
-   fakeState = {};
-
-    //state map object
-    fakeState["testState"] = {
-        content:"Transfer state text"
+    var fakeState = {
+        "testState":{
+            content:"Transfer state text"
+        },
+        "initial":{
+            content:"Initial state text",
+            "symbol":"testState",
+            "synonim":"testState"
+        },
+        "current":"initial"
     };
-    fakeState["initial"] = {
-                                    content:"Initial state text",
-                                    "symbol":"testState",
-                                    "synonim":"testState"
-                                    };
-    fakeState["current"] = "initial";
 
     //actual state persistance
     localStorage.persistateState = JSON.stringify(fakeState);
