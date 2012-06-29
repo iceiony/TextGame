@@ -16,7 +16,7 @@ StateTest.prototype.setUp= function(){
     };
 
     //actual state persistance
-    localStorage.persistateState = JSON.stringify(fakeState);
+    localStorage.persistantState = JSON.stringify(fakeState);
     localStorage.currentStateKey = "current";
 
     /* create a state object as the test subject*/

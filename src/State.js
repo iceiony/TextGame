@@ -4,7 +4,7 @@ game.State = function(hashFunction) {
     this.hash = hashFunction;
 
    //desereliase state from localStorage
-   this.stateObj =  JSON.parse(localStorage.persistateState);
+   this.stateObj =  JSON.parse(localStorage.persistantState);
 
     //deserialisation step
     //create circular refferences in given stateObj
