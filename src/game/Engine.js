@@ -8,3 +8,7 @@ game.Engine.prototype.loadStory = function(gameStory) {
     localStorage.persistantState = JSON.stringify(gameStory);
     this.state = new game.State(hash.clearHash);
 };
+
+game.Engine.prototype.process = function(input){
+    this.state.transfer(input);
+};
