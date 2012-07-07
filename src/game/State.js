@@ -1,5 +1,4 @@
 game.State = function(hashFunction) {
-    this.hash = hashFunction;
 
    //desereliase state from localStorage
    this.stateObj =  JSON.parse(localStorage.persistantState);
@@ -24,7 +23,7 @@ game.State = function(hashFunction) {
                     matches.push(regObjPair);
                     continue;
                 };
-                if(child!=="content"){
+                if( child !== "content" && child!== "functions"){
                   var propertyTopKey = this.stateObj[property][child];
                     this.stateObj[property][child] = this.stateObj[propertyTopKey];
                 };

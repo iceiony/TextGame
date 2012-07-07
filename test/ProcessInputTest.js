@@ -4,6 +4,7 @@ ProcessTest.prototype.setUp = function(){
 
     var mockStory = {
         "initial":{
+            functions:[function(input){StoryLoadTest.wasTransictionFunctionUsed=true;return input;}],
             content:"Where am I, but more importantly , WHO am I ?",
             "I am Adrian": "remember"
         },
@@ -23,3 +24,9 @@ ProcessTest.prototype["test that engine tries to execute a transition on the sta
    StoryLoadTest.Subject.process("input from user");
    assertTrue(StoryLoadTest.wasTransitionCalled);
 };
+
+ProcessTest.prototype["test that engine uses the transition functions specified in the state object when transfering state"] = function(){
+   StoryLoadTest.Subject.process("input from user");
+   assertTrue(StoryLoadTest.wasTransictionFunctionUsed);
+};
+
