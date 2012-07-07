@@ -53,7 +53,7 @@ StateTest.prototype["test the state can have wild card transitions for arbitrary
     assertSame("wild card state",localStorage.currentStateKey);
 }
 
-StateTest.prototype["test the state can have wild card transitions for arbitrary input"] = function(){
+StateTest.prototype["test the state  can have transitions with wild card placeholders"] = function(){
     StateTest.Subject.transfer("some text asfasfasdf other text");
     assertSame("wild card state 2",localStorage.currentStateKey);
 }
