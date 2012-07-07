@@ -1,4 +1,4 @@
-game.State = function(hashFunction) {
+game.State = function() {
 
    //desereliase state from localStorage
    this.stateObj =  JSON.parse(localStorage.persistantState);
@@ -53,4 +53,8 @@ game.State.prototype.transfer = function(symbol){
     };
     localStorage.currentStateKey = this.stateObj["current"].name;
     return this.stateObj["current"].content
+};
+
+game.State.prototype.getCurrent = function(){
+    return this.stateObj["current"];
 };

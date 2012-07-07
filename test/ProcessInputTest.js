@@ -4,7 +4,7 @@ ProcessTest.prototype.setUp = function(){
 
     var mockStory = {
         "initial":{
-            functions:[function(input){StoryLoadTest.wasTransictionFunctionUsed=true;return input;}],
+            functions:["custom1"],
             content:"Where am I, but more importantly , WHO am I ?",
             "I am Adrian": "remember"
         },
@@ -13,6 +13,8 @@ ProcessTest.prototype.setUp = function(){
         }
     };
     StoryLoadTest.Subject = new game.Engine();
+    StoryLoadTest.Subject.custom["custom1"] = function(input){StoryLoadTest.wasTransictionFunctionUsed=true;return input;};
+
     StoryLoadTest.Subject.loadStory(mockStory);
     StoryLoadTest.Subject.state.transfer = function(input){
         StoryLoadTest.wasTransitionCalled = true;

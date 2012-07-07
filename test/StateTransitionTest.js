@@ -33,7 +33,7 @@ StateTest.prototype.setUp= function(){
 StateTest.prototype["test state will transfer for symbol passed"] = function(){
     assertSame("Transfer state text",StateTest.Subject.transfer("symbol"));
     assertSame("testState",localStorage.currentStateKey);
-    assertSame("testState",StateTest.Subject.stateObj.current.name);
+    assertSame("testState",StateTest.Subject.getCurrent().name);
 };
 
 StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
