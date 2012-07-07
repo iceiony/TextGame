@@ -23,9 +23,8 @@ game.State = function(hashFunction) {
 };
 
 game.State.prototype.transfer = function(symbol){
-    var symbolHash = this.hash(symbol);
-    if( this.stateObj["current"][symbolHash]) {
-        this.stateObj["current"] = this.stateObj["current"][symbolHash];
+    if( this.stateObj["current"][symbol]) {
+        this.stateObj["current"] = this.stateObj["current"][symbol];
     }
     else if(this.stateObj["current"]["*"]){
         console.log("badum");
