@@ -42,12 +42,13 @@ game.StateManager = function() {
 
 game.StateManager.prototype.transfer = function(symbol){
     var i,
+        length,
         wildCardMatch;
     if( this.state_definition["current"][symbol]) {
         this.state_definition["current"] = this.state_definition["current"][symbol];
     }
     else {
-        for(i=0;i<this.state_definition["current"]["WildCardMatches"].length;i++) {
+        for(i=0,length=this.state_definition["current"]["WildCardMatches"].length ;i<length;i++) {
             wildCardMatch = this.state_definition["current"]["WildCardMatches"][i];
             if(symbol.search(wildCardMatch.regex)==0){
                 this.state_definition["current"]= wildCardMatch.held_state;
