@@ -1,17 +1,16 @@
 "use strict";
-game.Engine = function(){
-    this.state = new game.StateManager();
+Game.Engine = function(){
+    this.state = new Game.StateManager();
     this.custom = {};
 };
 
-game.Engine.prototype.loadStory = function(gameStory) {
-    gameStory.current="initial";
+Game.Engine.prototype.loadStory = function(gameStory) {
     localStorage.currentStateKey = "initial";
     localStorage.persistantState = JSON.stringify(gameStory);
-    this.state = new game.StateManager();
+    this.state = new Game.StateManager();
 };
 
-game.Engine.prototype.process = function(input){
+Game.Engine.prototype.process = function(input){
     var processedInput = input,
         i,
         length,

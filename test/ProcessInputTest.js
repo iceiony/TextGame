@@ -15,7 +15,7 @@ ProcessTest.prototype.setUp = function(){
             content:"Yes, that's it, that is my name. How could I forget"
         }
     };
-    StoryLoadTest.Subject = new game.Engine();
+    StoryLoadTest.Subject = new Game.Engine();
     StoryLoadTest.Subject.custom["custom1"] = function(input){StoryLoadTest.wasTransictionFunctionUsed=true;return input;};
 
     StoryLoadTest.Subject.loadStory(mockStory);

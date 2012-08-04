@@ -29,7 +29,7 @@ StateTest.prototype.setUp= function(){
     localStorage.persistantState = JSON.stringify(mockState);
     localStorage.currentStateKey = "initial";
 
-    StateTest.Subject = new game.StateManager();
+    StateTest.Subject = new Game.StateManager();
 };
 
 StateTest.prototype["test state will transfer for symbol passed"] = function(){

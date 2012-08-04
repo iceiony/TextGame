@@ -1,59 +1,60 @@
 "use strict";
-game.StateManager = function() {
-    var regexFromString = function(input){
+Game.StateManager = function() {
+    var generateRegex = function(inputString){
                         //TODO : refactor the next function's replace
-                        input = input.replace("*",".+").replace("*",".+").replace("*",".+").replace("*",".+");
-                        return new RegExp(input,"i");
+                        inputString = inputString.replace("*",".+").replace("*",".+").replace("*",".+").replace("*",".+");
+                        return new RegExp(inputString,"i");
                       },
         state_name,
-        wildcard_matches,
+        wild_card_transitions,
         transition_string,
-        next_state_name;
-
-   //desereliase state from localStorage
-   this.state_definition =  JSON.parse(localStorage.persistantState);
+        next_state_name,
+        state_definition =  JSON.parse(localStorage.persistantState);
 
     //deserialisation step
     //create circular refferences in given stateObj
-    for(state_name in this.state_definition){
-        if(state_name!=="current"){
-            wildcard_matches = [];
-            this.state_definition[state_name].transitions = this.state_definition[state_name].transitions || {};
+    for(state_name in state_definition){
+        state_definition[state_name].name = state_name;
 
-            for(transition_string in this.state_definition[state_name].transitions){
+        if(state_definition[state_name].transitions){
+            wild_card_transitions = [];
+            for(transition_string in state_definition[state_name].transitions){
                 if(transition_string.search("\\*")!==-1){
-                    wildcard_matches.push({
-                        matching_state: this.state_definition[this.state_definition[state_name].transitions[transition_string]],
-                        regex:regexFromString(transition_string)
+                    wild_card_transitions.push({
+                        state: state_definition[state_definition[state_name].transitions[transition_string]],
+                        regex: generateRegex(transition_string)
                     });
                     continue;
                 };
-                next_state_name = this.state_definition[state_name].transitions[transition_string];
-                this.state_definition[state_name].transitions[transition_string] = this.state_definition[next_state_name];
+                next_state_name = state_definition[state_name].transitions[transition_string];
+                state_definition[state_name].transitions[transition_string] = state_definition[next_state_name];
 
             };
-            this.state_definition[state_name]["name"] = state_name;
-            this.state_definition[state_name]["WildCardMatches"]= wildcard_matches;
+            state_definition[state_name].transitions.wildCards= wild_card_transitions;
         };
     };
-   this.state_definition["current"] = this.state_definition[this.state_definition["current"]];
-   this.state_definition["current"] = this.state_definition[localStorage.currentStateKey];
+
+   this.state_definition = state_definition;
+   this.state_definition["current"] = state_definition[localStorage.currentStateKey];
+
 };
 
-game.StateManager.prototype.transfer = function(symbol){
+Game.StateManager.prototype.transfer = function(symbol){
     var i,
         length,
         wild_card_match,
         current_state = this.state_definition["current"];
 
+    if(!current_state.transitions) return current_state.content;//if no transitions just return current content
+
     if( current_state.transitions[symbol] ) {
         current_state = current_state.transitions[symbol];
     }
     else {
-        for(i=0,length=current_state["WildCardMatches"].length ;i<length;i+=1) {
-            wild_card_match = current_state["WildCardMatches"][i];
+        for(i=0,length=current_state.transitions.wildCards.length ;i<length;i+=1) {
+            wild_card_match = current_state.transitions.wildCards[i];
             if(symbol.search(wild_card_match.regex)==0){
-                current_state= wild_card_match.matching_state;
+                current_state= wild_card_match.state;
                 break;
             };
         };
@@ -64,6 +65,6 @@ game.StateManager.prototype.transfer = function(symbol){
     return current_state.content
 };
 
-game.StateManager.prototype.getCurrent = function(){
+Game.StateManager.prototype.getCurrent = function(){
     return this.state_definition["current"];
 };

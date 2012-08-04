@@ -13,7 +13,7 @@ StoryLoadTest.prototype.setUp = function(){
             content:"Yes, that's it, that is my name. How could I forget"
         }
     };
-    StoryLoadTest.Subject = new game.Engine();
+    StoryLoadTest.Subject = new Game.Engine();
     StoryLoadTest.Subject.loadStory(mockStory);
 };
 
