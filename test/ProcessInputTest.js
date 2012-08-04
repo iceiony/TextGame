@@ -21,7 +21,8 @@ var ProcessTest = new TestCase("When the game engine processes the user's input"
         };
         Subject = new Game.Engine();
         Subject.custom["custom1"] = function(input){
-            wasTransictionFunctionUsed=true;return input;};
+            wasTransictionFunctionUsed=true;return input;
+        };
 
         Subject.loadStory(mockStory);
         Subject.state.transfer = function(input){
