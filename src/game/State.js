@@ -12,7 +12,7 @@ Game.StateManager = function() {
         state_definition =  JSON.parse(localStorage.persistantState);
 
     //deserialisation step
-    //create circular refferences in given stateObj
+    //create circular refferences in given state_definition
     for(state_name in state_definition){
         state_definition[state_name].name = state_name;
 
