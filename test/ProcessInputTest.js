@@ -7,7 +7,9 @@ ProcessTest.prototype.setUp = function(){
         "initial":{
             functions:["custom1"],
             content:"Where am I, but more importantly , WHO am I ?",
-            "I am Adrian": "remember"
+            transitions:{
+                          "I am Adrian": "remember"
+            }
         },
         "remember":{
             content:"Yes, that's it, that is my name. How could I forget"

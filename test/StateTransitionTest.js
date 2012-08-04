@@ -4,7 +4,7 @@ var StateTest = TestCase("When current State is used with a ClearTransform");
 StateTest.prototype.setUp= function(){
 
    /* given an existing local storage*/
-    var fakeState = {
+    var mockState = {
         "testState":{
             content:"Transfer state text"
         },
@@ -16,17 +16,18 @@ StateTest.prototype.setUp= function(){
         },
         "initial":{
             content:"Initial state text",
-            "symbol":"testState",
-            "synonim":"testState",
-            "some text * other text": "wild card state 2",
-            "*": "wild card state"
-        },
-        "current":"initial"
+            transitions:{
+                "symbol":"testState",
+                "synonim":"testState",
+                "some text * other text": "wild card state 2",
+                "*": "wild card state"
+            }
+        }
     };
 
     //actual state persistance
-    localStorage.persistantState = JSON.stringify(fakeState);
-    localStorage.currentStateKey = "current";
+    localStorage.persistantState = JSON.stringify(mockState);
+    localStorage.currentStateKey = "initial";
 
     StateTest.Subject = new game.StateManager();
 };

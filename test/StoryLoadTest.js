@@ -5,7 +5,9 @@ StoryLoadTest.prototype.setUp = function(){
     var mockStory = {
         "initial":{
             content:"Where am I, but more importantly , WHO am I ?",
-            "I am Adrian": "remember"
+            transitions:{
+                "I am Adrian": "remember"
+            }
         },
         "remember":{
             content:"Yes, that's it, that is my name. How could I forget"
