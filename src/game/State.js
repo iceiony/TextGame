@@ -1,62 +1,64 @@
 "use strict";
-game.State = function() {
+game.StateManager = function() {
+    var regexFromString = function(input){
+                        //TODO : refactor the next function's replace
+                        input = input.replace("*",".+").replace("*",".+").replace("*",".+").replace("*",".+");
+                        return new RegExp(input,"i");
+                      },
+        state_name,
+        wildcard_matches,
+        transition_string,
+        next_state_name;
 
    //desereliase state from localStorage
-   this.stateObj =  JSON.parse(localStorage.persistantState);
-
-    //TODO : refactor the next function's replace
-    var createRegex = function(input){
-        input = input.replace("*",".+").replace("*",".+").replace("*",".+").replace("*",".+");
-        return new RegExp(input,"i");
-    };
+   this.state_definition =  JSON.parse(localStorage.persistantState);
 
     //deserialisation step
     //create circular refferences in given stateObj
-    for(var property in this.stateObj){
-        if(property!=="current"){
-            var matches = [];
-            for(var child in this.stateObj[property]){
-                if(child.search("\\*")!==-1){
-                    var regObjPair = {
-                                        obj: this.stateObj[this.stateObj[property][child]],
-                                        reg:createRegex(child)
-                                      };
-                    matches.push(regObjPair);
+    for(state_name in this.state_definition){
+        if(state_name!=="current"){
+            wildcard_matches = [];
+            for(transition_string in this.state_definition[state_name]){
+                if(transition_string.search("\\*")!==-1){
+                    wildcard_matches.push({
+                        held_state: this.state_definition[this.state_definition[state_name][transition_string]],
+                        regex:regexFromString(transition_string)
+                    });
                     continue;
                 };
-                if( child !== "content" && child!== "functions"){
-                  var propertyTopKey = this.stateObj[property][child];
-                    this.stateObj[property][child] = this.stateObj[propertyTopKey];
+                if( transition_string !== "content" && transition_string!== "functions"){
+                   next_state_name = this.state_definition[state_name][transition_string];
+                    this.state_definition[state_name][transition_string] = this.state_definition[next_state_name];
                 };
 
             };
-            this.stateObj[property]["name"] = property;
-            this.stateObj[property]["WildCardMatches"]= matches;
+            this.state_definition[state_name]["name"] = state_name;
+            this.state_definition[state_name]["WildCardMatches"]= wildcard_matches;
         };
     };
-   this.stateObj["current"] = this.stateObj[this.stateObj["current"]];
-   this.stateObj["current"] = this.stateObj[localStorage.currentStateKey];
-
+   this.state_definition["current"] = this.state_definition[this.state_definition["current"]];
+   this.state_definition["current"] = this.state_definition[localStorage.currentStateKey];
 };
 
-game.State.prototype.transfer = function(symbol){
-    var index;
-    if( this.stateObj["current"][symbol]) {
-        this.stateObj["current"] = this.stateObj["current"][symbol];
+game.StateManager.prototype.transfer = function(symbol){
+    var i,
+        wildCardMatch;
+    if( this.state_definition["current"][symbol]) {
+        this.state_definition["current"] = this.state_definition["current"][symbol];
     }
     else {
-        for(index=0;index<this.stateObj["current"]["WildCardMatches"].length;index++) {
-            var regObjPair = this.stateObj["current"]["WildCardMatches"][index];
-            if(symbol.search(regObjPair.reg)==0){
-                this.stateObj["current"]= regObjPair.obj;
+        for(i=0;i<this.state_definition["current"]["WildCardMatches"].length;i++) {
+            wildCardMatch = this.state_definition["current"]["WildCardMatches"][i];
+            if(symbol.search(wildCardMatch.regex)==0){
+                this.state_definition["current"]= wildCardMatch.held_state;
                 break;
             };
         };
     };
-    localStorage.currentStateKey = this.stateObj["current"].name;
-    return this.stateObj["current"].content
+    localStorage.currentStateKey = this.state_definition["current"].name;
+    return this.state_definition["current"].content
 };
 
-game.State.prototype.getCurrent = function(){
-    return this.stateObj["current"];
+game.StateManager.prototype.getCurrent = function(){
+    return this.state_definition["current"];
 };
