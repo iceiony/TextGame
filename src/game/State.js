@@ -1,4 +1,6 @@
 "use strict";
+Game.namespace("Game.StateManager");
+
 Game.StateManager = function() {
     var generateRegex = function(inputString){
                         //TODO : refactor the next function's replace

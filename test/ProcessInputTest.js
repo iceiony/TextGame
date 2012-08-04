@@ -16,7 +16,8 @@ ProcessTest.prototype.setUp = function(){
         }
     };
     StoryLoadTest.Subject = new Game.Engine();
-    StoryLoadTest.Subject.custom["custom1"] = function(input){StoryLoadTest.wasTransictionFunctionUsed=true;return input;};
+    StoryLoadTest.Subject.custom["custom1"] = function(input){
+        StoryLoadTest.wasTransictionFunctionUsed=true;return input;};
 
     StoryLoadTest.Subject.loadStory(mockStory);
     StoryLoadTest.Subject.state.transfer = function(input){

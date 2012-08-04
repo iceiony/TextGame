@@ -1,4 +1,6 @@
 "use strict";
+Game.namespace("Game.Engine");
+
 Game.Engine = function(){
     this.state = new Game.StateManager();
     this.custom = {};

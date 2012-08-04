@@ -1,6 +1,6 @@
 "use strict";
-var transform = transform || {};
+Game.namespace("Game.Transform");
 
-transform.clearHash = function(input){
+Game.Transform.clearHash = function(input){
     return input;
 };
