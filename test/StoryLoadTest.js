@@ -1,4 +1,5 @@
-StoryLoadTest = new TestCase("When loading the game story");
+"use strict";
+var StoryLoadTest = new TestCase("When loading the game story");
 
 StoryLoadTest.prototype.setUp = function(){
     var mockStory = {

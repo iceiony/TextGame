@@ -1,4 +1,5 @@
-ProcessTest = new TestCase("When the game engine processes the user's input");
+"use strict";
+var ProcessTest = new TestCase("When the game engine processes the user's input");
 
 ProcessTest.prototype.setUp = function(){
 

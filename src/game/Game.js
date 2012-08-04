@@ -1,2 +1,3 @@
 // just defined the game "namespace"
-game = {};
+"use strict";
+var game = game || {};

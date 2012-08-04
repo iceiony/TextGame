@@ -1,6 +1,6 @@
-hash = {};
+"use strict";
+var transform = transform || {};
 
-hash.clearHash = function(input)
-{
+transform.clearHash = function(input){
     return input;
 };

@@ -1,3 +1,4 @@
+"use strict";
 game.State = function() {
 
    //desereliase state from localStorage
@@ -39,6 +40,7 @@ game.State = function() {
 };
 
 game.State.prototype.transfer = function(symbol){
+    var index;
     if( this.stateObj["current"][symbol]) {
         this.stateObj["current"] = this.stateObj["current"][symbol];
     }

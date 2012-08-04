@@ -1,4 +1,5 @@
-StateTest = TestCase("When current State is used with a ClearTransform");
+"use strict";
+var StateTest = TestCase("When current State is used with a ClearTransform");
 
 StateTest.prototype.setUp= function(){
 

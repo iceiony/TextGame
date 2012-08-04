@@ -1,3 +1,4 @@
+"use strict";
 game.Engine = function(){
     this.state = new game.State();
     this.custom = {};
