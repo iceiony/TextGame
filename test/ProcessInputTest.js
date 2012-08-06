@@ -20,9 +20,9 @@ var ProcessTest = new TestCase("When the game engine processes the user's input"
                 if(substr_start>0){
                     wasFunctionChained=true;
                     return input.substr(0,substr_start);
-                }
+                };
             }
-        }
+        };
 
         var mockStory = {
             "initial":{

@@ -18,11 +18,12 @@ Game.Engine.prototype.process = function(input){
         length,
         currentState = this.state.getCurrent();
 
-    //execute attached functions
+    //execute preTransition functions
     if(currentState.preTransition){
         for(i=0,length=currentState.preTransition.length;i <length;i+=1){
-            processedInput = this.custom[currentState.preTransition[i]](input);
+            processedInput = this.custom[currentState.preTransition[i]](processedInput);
         };
     };
+
     this.state.transfer(processedInput);
 };
