@@ -35,13 +35,13 @@ var StateTest = TestCase("When current State is used with a ClearTransform");
     };
 
     StateTest.prototype["test state will transfer for symbol passed"] = function(){
-        assertSame("Transfer state text",Subject.transition("symbol"));
+        assertSame("Transfer state text",Subject.transition("symbol").content);
         assertSame("testState",localStorage.currentStateKey);
         assertSame("testState",Subject.getCurrent().name);
     };
 
     StateTest.prototype["test state will transfer for synonim of symbol"] = function(){
-       assertSame("Transfer state text",Subject.transition("synonim"));
+       assertSame("Transfer state text",Subject.transition("synonim").content);
        assertSame("testState",localStorage.currentStateKey);
     };
 

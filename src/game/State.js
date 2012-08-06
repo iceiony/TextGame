@@ -47,7 +47,7 @@ Game.StateManager.prototype.transition = function(symbol){
         wild_card_match,
         current_state = this.state_definition["current"];
 
-    if(!current_state.transitions) return current_state.content;//if no transitions just return current content
+    if(!current_state.transitions) return current_state;//if no transitions just return current content
 
     if( current_state.transitions[symbol] ) {
         current_state = current_state.transitions[symbol];
@@ -64,7 +64,7 @@ Game.StateManager.prototype.transition = function(symbol){
 
     this.state_definition["current"] = current_state;
     localStorage.currentStateKey = current_state.name;
-    return current_state.content
+    return current_state
 };
 
 Game.StateManager.prototype.getCurrent = function(){
