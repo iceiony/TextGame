@@ -1,5 +1,5 @@
 "use strict";
-var ProcessTest = new TestCase("When the game engine processes the user's input");
+var PreTransitionTest = new TestCase("When the game engine processes the user's input");
 (function(){
     var Subject = new Game.Engine(),
         defaultTransferFunction,
@@ -7,7 +7,7 @@ var ProcessTest = new TestCase("When the game engine processes the user's input"
         wasPreTransitionCalled=false,
         wasFunctionChained= false;
 
-    ProcessTest.prototype.setUp = function(){
+    PreTransitionTest.prototype.setUp = function(){
 
         Subject = new Game.Engine();
         Subject.custom = {
@@ -46,17 +46,17 @@ var ProcessTest = new TestCase("When the game engine processes the user's input"
         }
     };
 
-    ProcessTest.prototype["test that engine tries to execute a transition on the state"] = function(){
+    PreTransitionTest.prototype["test that engine tries to execute a transition on the state"] = function(){
         Subject.process("I am Adrian");
        assertTrue(wasPreTransitionCalled);
     };
 
-    ProcessTest.prototype["test that engine uses the preTransition functions specified"] = function(){
+    PreTransitionTest.prototype["test that engine uses the preTransition functions specified"] = function(){
         Subject.process("I am Adrian");
        assertTrue(wasTransictionFunctionUsed);
     };
 
-    ProcessTest.prototype["test that engine chains the call for functions in preTransition"] = function(){
+    PreTransitionTest.prototype["test that engine chains the call for functions in preTransition"] = function(){
         Subject.process("I am Adrian");
         assertEquals("remember",Subject.state.getCurrent().name);
         assertTrue(wasFunctionChained);
