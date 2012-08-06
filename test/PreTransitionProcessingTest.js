@@ -1,5 +1,5 @@
 "use strict";
-var PreTransitionTest = new TestCase("When the game engine processes the user's input");
+var PreTransitionTest = new TestCase("When the game engine processes the user's input with preTransition functions speciffied");
 (function(){
     var Subject = new Game.Engine(),
         defaultTransferFunction,
