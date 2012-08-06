@@ -37,7 +37,7 @@ Game.namespace("Game.Engine");
                 processedInput = this.custom[currentState.preTransition[i]](processedInput);
             };
         };
-        this.state.transfer(processedInput);
+        this.state.transition(processedInput);
 
         _prepareNewScene.call(this,this.state.getCurrent());
     };

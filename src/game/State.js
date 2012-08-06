@@ -41,7 +41,7 @@ Game.StateManager = function() {
 
 };
 
-Game.StateManager.prototype.transfer = function(symbol){
+Game.StateManager.prototype.transition = function(symbol){
     var i,
         length,
         wild_card_match,

@@ -20,7 +20,7 @@ var StoryLoadTest = new TestCase("When loading the game story");
     };
 
     StoryLoadTest.prototype["test that the state is holding the story transitions"] = function(){
-        assertSame("Yes, that's it, that is my name. How could I forget", Subject.state.transfer("I am Adrian"));
+        assertSame("Yes, that's it, that is my name. How could I forget", Subject.state.transition("I am Adrian"));
     };
 
     StoryLoadTest.prototype["test that the state is saved immediately in the local session"] = function(){

@@ -1,11 +1,11 @@
 "use strict";
-var PostTransitionTest = new TestCase("When the game engine processes the user's input with postTransition speciffied");
+var PreRenderTest = new TestCase("When the game engine processes the user's input with postTransition speciffied");
 (function(){
     var Subject = new Game.Engine(),
         wasPostProcessingUsed=false,
         wasPostProcessingChained= false;
 
-    PostTransitionTest.prototype.setUp = function(){
+    PreRenderTest.prototype.setUp = function(){
 
         Subject = new Game.Engine();
         Subject.custom = {
@@ -37,12 +37,12 @@ var PostTransitionTest = new TestCase("When the game engine processes the user's
 
     };
 
-    PostTransitionTest.prototype["test that engine uses the postTransition functions specified"] = function(){
+    PreRenderTest.prototype["test that engine uses the postTransition functions specified"] = function(){
         Subject.process("I am Adrian");
        assertTrue(wasPostProcessingUsed);
     };
 
-    PostTransitionTest.prototype["test that engine chains the call for functions in postTransition"] = function(){
+    PreRenderTest.prototype["test that engine chains the call for functions in postTransition"] = function(){
         Subject.process("I am Adrian");
         assertTrue(Subject.state.getCurrent().content.search("Random manipulation at the end")>=0);
         assertTrue(wasPostProcessingChained);

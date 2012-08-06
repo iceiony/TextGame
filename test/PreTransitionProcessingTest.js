@@ -39,8 +39,8 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
 
         Subject.loadStory(mockStory);
 
-        defaultTransferFunction = Subject.state.transfer;
-        Subject.state.transfer = function(input){
+        defaultTransferFunction = Subject.state.transition;
+        Subject.state.transition = function(input){
             wasTransitionCalled = true;
             return defaultTransferFunction.call(Subject.state,input);
         }
