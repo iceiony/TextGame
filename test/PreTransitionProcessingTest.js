@@ -3,8 +3,8 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
 (function(){
     var Subject = new Game.Engine(),
         defaultTransferFunction,
-        wasTransictionFunctionUsed=false,
-        wasPreTransitionCalled=false,
+        wasTransitionFunctionUsed=false,
+        wasTransitionCalled=false,
         wasFunctionChained= false;
 
     PreTransitionTest.prototype.setUp = function(){
@@ -12,7 +12,7 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
         Subject = new Game.Engine();
         Subject.custom = {
             "custom1" : function(input){
-                wasTransictionFunctionUsed=true;
+                wasTransitionFunctionUsed=true;
                 return input+"custom1 manipulation";
             },
             "custom2" : function(input){
@@ -41,19 +41,19 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
 
         defaultTransferFunction = Subject.state.transfer;
         Subject.state.transfer = function(input){
-            wasPreTransitionCalled = true;
+            wasTransitionCalled = true;
             return defaultTransferFunction.call(Subject.state,input);
         }
     };
 
     PreTransitionTest.prototype["test that engine tries to execute a transition on the state"] = function(){
         Subject.process("I am Adrian");
-       assertTrue(wasPreTransitionCalled);
+       assertTrue(wasTransitionCalled);
     };
 
     PreTransitionTest.prototype["test that engine uses the preTransition functions specified"] = function(){
         Subject.process("I am Adrian");
-       assertTrue(wasTransictionFunctionUsed);
+       assertTrue(wasTransitionFunctionUsed);
     };
 
     PreTransitionTest.prototype["test that engine chains the call for functions in preTransition"] = function(){
