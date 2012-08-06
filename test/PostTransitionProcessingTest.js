@@ -15,6 +15,7 @@ var PostTransitionTest = new TestCase("When the game engine processes the user's
             },
             "doSomePostManipulation" : function(new_scene){
                 new_scene.content += " Random manipulation at the end";
+                wasPostProcessingChained =true;
                 return new_scene;
             }
         };
@@ -24,10 +25,10 @@ var PostTransitionTest = new TestCase("When the game engine processes the user's
                 content:"Where am I, but more importantly , WHO am I ?",
                 transitions:{
                   "I am Adrian": "remember"
-                },
-                postTransition:["doSomePostRecording","doSomePostManipulation"]
+                }
             },
             "remember":{
+                preRender:["doSomePostRecording","doSomePostManipulation"],
                 content:"Yes, that's it, that is my name. How could I forget"
             }
         };
