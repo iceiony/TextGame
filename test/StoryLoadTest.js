@@ -16,8 +16,8 @@ var StoryLoadTest = new TestCase("When loading the game story");
             }
         };
 
-        localStorage.persistantState = undefined;
-        localStorage.currentStateKey = undefined;
+        delete(localStorage.persistantState);
+        delete(localStorage.currentStateKey);
 
         Subject = new Game.Engine();
         Subject.loadStory(mockStory);

@@ -13,7 +13,8 @@ Game.StateManager = function() {
         next_state_name,
         state_definition;
 
-    if(localStorage.persistantState === 'undefined') return;
+    if(typeof localStorage.persistantState === 'undefined') return;
+
     state_definition =  JSON.parse(localStorage.persistantState);
 
     //deserialisation step
