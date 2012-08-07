@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./lib/jquery.min.js" ></script>
+    <script type="text/javascript" src="./lib/md5.js" ></script>
+    <script type="text/javascript" src="./src/Game/Game.js" ></script>
+    <script type="text/javascript" src="./src/Game/Engine.js"></script>
+    <script type="text/javascript" src="./src/Game/State.js" ></script>
+    <script type="text/javascript" src="./src/Story.js" ></script>
+
+    <script type="text/javascript">
+        "use strict";
+        $(document).ready(function(){
+            var input_field= $('#input'),
+                output_div= $('#output'),
+                engine=new Game.Engine();
+
+            input_field.focus();
+            engine.loadStory(Story);
+            output_div.text(engine.state.getCurrent().content);
+
+            $("#consoleForm").submit( function(event){
+                event.preventDefault();
+
+                engine.process(input_field.val());
+                output_div.text(engine.state.getCurrent().content);
+
+                input_field.focus();
+                return false;
+            });
+        });
+
+
+    </script>
+    <title></title>
+</head>
+<body style="background-color:#f0f0f0;">
+
+<div id="output" style="background-color:white;width:40em;height:20em">
+    
+</div>
+<form id="consoleForm">
+<input id="input" name="input" type="text" style="width:20em;margin-top:1em;border-width:0px"/>
+</form>
+
+</body>
+</html>
