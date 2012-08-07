@@ -15,6 +15,10 @@ var StoryLoadTest = new TestCase("When loading the game story");
                 content:"Yes, that's it, that is my name. How could I forget"
             }
         };
+
+        localStorage.persistantState = undefined;
+        localStorage.currentStateKey = undefined;
+
         Subject = new Game.Engine();
         Subject.loadStory(mockStory);
     };
