@@ -6,6 +6,7 @@ Game.namespace("Game.StateManager");
         inputString = inputString.replace("*",".+").replace("*",".+").replace("*",".+").replace("*",".+");
         return new RegExp(inputString,"i");
         },
+
         //after deserialisation, creates circular refferences and transition lookups
         buildDefinition = function(raw_definition){
             var state_name,
@@ -15,6 +16,7 @@ Game.namespace("Game.StateManager");
                 transition_text_string,
                 i,
                 length;
+
             for(state_name in raw_definition){
                 raw_definition[state_name].name = state_name;
                 transitions = raw_definition[state_name].transitions;
@@ -24,6 +26,10 @@ Game.namespace("Game.StateManager");
                     wild_card_transitions = [];
                     raw_definition[state_name].transitions = {};
                     for(target_state_name in transitions){
+                        if(typeof transitions[target_state_name] === 'string' ){
+                            transitions[target_state_name] = [transitions[target_state_name]];
+                        }
+
                         for(i=0,length=transitions[target_state_name].length;i<length;i+=1){
                             transition_text_string= transitions[target_state_name][i];
                             if(transition_text_string.search("\\*")!==-1){
@@ -39,7 +45,6 @@ Game.namespace("Game.StateManager");
                     raw_definition[state_name].transitions.wildCards= wild_card_transitions;
                 };
             };
-
             return raw_definition;
         };
 
