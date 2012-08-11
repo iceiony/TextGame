@@ -21,8 +21,8 @@ var StateTest = TestCase("When current State is used with a ClearTransform");
                 content:"Initial state text",
                 transitions:{
                     "testState":["symbol","synonim"],
-                    "wild card state 2": ["some text * other text"] ,
-                    "wild card state": ["*"]
+                    "wild card state 2": "some text * other text" ,
+                    "wild card state": "*"
                 }
             }
         };
