@@ -1,5 +1,5 @@
 "use strict";
-var DefaultFunctionsTest = new TestCase("When the game engine processes the user's input with no preProcessing or preRender functions defined");
+var DefaultFunctionsTest = new TestCase("When no pre transition or render functions are defined");
 (function(){
     var Subject = new Game.Engine(),
         wasPreTransitionFunctionUsed=false,
@@ -8,7 +8,6 @@ var DefaultFunctionsTest = new TestCase("When the game engine processes the user
         wasPreRenderFunctionChained=false;
 
     DefaultFunctionsTest.prototype.setUp = function(){
-
         Subject = new Game.Engine({
             preTransition:["preTransition1","preTransition2"],
             preRender:["preRender1","preRender2"]
@@ -36,9 +35,11 @@ var DefaultFunctionsTest = new TestCase("When the game engine processes the user
             }
         };
 
-        Subject.state.getCurrent() = {
-            content:"fake state",
-            name:"firstState"
+        Subject.state.getCurrent = function(){
+            return {
+                content:"fake state",
+                    name:"firstState"
+            };
         };
         Subject.state.transition = function(input){
             return {

@@ -25,12 +25,12 @@ Game.namespace("Game.Engine");
         localStorage.persistantState = JSON.stringify(gameStory);
         this.state = new Game.StateManager();
     };
+
     Game.Engine.prototype.process = function(input){
         var processedInput = input,
             i,
             length,
             currentState = this.state.getCurrent();
-
         //execute preTransition functions
         if(currentState.preTransition){
             for(i=0,length=currentState.preTransition.length;i <length;i+=1){
