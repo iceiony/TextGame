@@ -29,7 +29,7 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
                 content:"Where am I, but more importantly , WHO am I ?",
                 preTransition:["custom1","custom2"],
                 transitions:{
-                  "I am Adrian": "remember"
+                    "remember": ["I am Adrian"]
                 }
             },
             "remember":{

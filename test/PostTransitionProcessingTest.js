@@ -24,7 +24,7 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
             "initial":{
                 content:"Where am I, but more importantly , WHO am I ?",
                 transitions:{
-                  "I am Adrian": "remember"
+                    "remember" : ["I am Adrian"]
                 }
             },
             "remember":{

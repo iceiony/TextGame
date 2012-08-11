@@ -8,7 +8,7 @@ var StoryLoadTest = new TestCase("When loading the game story");
             "initial":{
                 content:"Where am I, but more importantly , WHO am I ?",
                 transitions:{
-                    "I am Adrian": "remember"
+                    "remember": ["I am Adrian"]
                 }
             },
             "remember":{
