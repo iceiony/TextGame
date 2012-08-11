@@ -3,20 +3,32 @@ Game.namespace("Game.Engine");
 (function(){
     //decleare private functions withing scope
     var _prepareNewScene = function(state){
-        var length=0,
+        var prerender = state.preRender || (this.defaults && this.defaults.preRender),
+            length=0,
             i=0;
-        if(state.preRender){
-            for(i=0,length=state.preRender.length;i<length;i+=1){
-                state = this.custom[state.preRender[i]](state);
+        if(prerender){
+            for(i=0,length=prerender.length;i<length;i+=1){
+                state = this.custom[prerender[i]](state);
             }
         }
         return state;
     };
 
     //constructor
-    Game.Engine = function(){
+    Game.Engine = function(params){
         this.state = new Game.StateManager();
         this.custom = {};
+
+        if(typeof params!=='undefined'){
+            if(typeof params.preTransition !== 'undefined'){
+                this.defaults = {};
+                this.defaults.preTransition = params.preTransition;
+            }
+            if(typeof params.preRender !=='undefined'){
+                this.defaults = this.defaults||{};
+                this.defaults.preRender = params.preRender;
+            }
+        }
     }
 
     //public members
@@ -30,11 +42,13 @@ Game.namespace("Game.Engine");
         var processedInput = input,
             i,
             length,
-            currentState = this.state.getCurrent();
+            currentState = this.state.getCurrent(),
+            preTransitions = currentState.preTransition || (this.defaults && this.defaults.preTransition);
+
         //execute preTransition functions
-        if(currentState.preTransition){
-            for(i=0,length=currentState.preTransition.length;i <length;i+=1){
-                processedInput = this.custom[currentState.preTransition[i]](processedInput);
+        if(preTransitions){
+            for(i=0,length=preTransitions.length;i <length;i+=1){
+                processedInput = this.custom[preTransitions[i]](processedInput);
             };
         };
         this.state.transition(processedInput);

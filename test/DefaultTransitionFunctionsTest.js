@@ -31,16 +31,18 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
             },
             "preRender2" : function(new_scene){
                 new_scene.content += " Random manipulation at the end";
+                wasPreRenderFunctionChained = true;
                 return new_scene;
             }
         };
 
         Subject.state.getCurrent = function(){
-            return {
-                content:"fake state",
+                return {
+                    content:"fake state",
                     name:"firstState"
-            };
+                };
         };
+
         Subject.state.transition = function(input){
             return {
                 content:"fake state after transfer",
@@ -56,7 +58,6 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
 
     DefaultFunctionsTest.prototype["test that engine chains the call for default pre transition"] = function(){
         Subject.process("I am Adrian");
-        assertEquals("secondState",Subject.state.getCurrent().name);
         assertTrue(wasPreTransitionFunctionChained);
     };
 
@@ -66,7 +67,6 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
     };
 
     DefaultFunctionsTest.prototype["test that engine chains the call for default pre render"] = function(){
-        assertEquals(Subject.state.getCurrent().content.search("Random manipulation at the end")>=0);
         assertTrue(wasPreRenderFunctionChained);
     };
 }());
