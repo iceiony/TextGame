@@ -5,24 +5,19 @@
 var Story={
     "initial":{
         content:"'What... where am I.. who am I ? I must focus, focus on remembering , my name... what is it ?'</br>" +
-                "Yes! I remember now I'm...",
+                "'Yes! I remember now I'm...'",
         transitions:{
-            "I am Adrian": "blame",
-            "My name is *": "blame",
-            "Adrian":"blame"
+            "blame" : ["I am *","My name is *","*"]
         }
     },
     "blame":{
         content:"And so I've reached the point of my demise. While the cold and darkness are slowly draining my life, shivers and despair drift through my chest. I cannot help but wonder what I have done so wrong. " +
                 "What is it that I cherish most, and the reason for this ill fate? Was it my thirst for knowledge, love, or was it God; has has forsaken me? What or who would I blame ?",
         transitions:{
-            "*knowledge*": "blame_knowledge",
-            "*love*":"blame_love",
-            "*God*":"blame_god",
-            "*god*":"blame_god",
-            "nothing":"blame_none",
-            "no one": "blame_none",
-            "*": "blame_none"
+            "blame_knowledge": "knowledge",
+            "blame_love":"love",
+            "blame_god":"god",
+            blame_none: ["blame_none","blame_none","*"]
         }
     },
     "blame_knowledge":{
