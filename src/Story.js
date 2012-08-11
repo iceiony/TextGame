@@ -17,7 +17,7 @@ var Story={
             "blame_knowledge": "knowledge",
             "blame_love":"love",
             "blame_god":"god",
-            blame_none: ["blame_none","blame_none","*"]
+            "blame_none": ["blame_none","blame_none","*"]
         }
     },
     "blame_knowledge":{
