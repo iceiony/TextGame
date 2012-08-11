@@ -8,6 +8,6 @@ var HashFunctions = TestCase("Transform functions on user text");
     };
 
     HashFunctions.prototype["test the ClearTransform function outputs the same value as the input"] = function(){
-        assertSame("some random input", Transform.clearHash("some random input"));
+        assertSame("some random input", Transform.lowerCase("Some Random Input"));
     };
 }());
