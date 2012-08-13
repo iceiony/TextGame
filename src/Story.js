@@ -3,7 +3,7 @@
  * Contains the game story as a JSON object
  */
 var Story = {
-    "initial": {
+    "initial": {//TODO make scene dark with white text and blink into dark read back ground as if heart beating
         content: "'What... where am I.. who am I ? I must focus, focus on remembering , my name... what is it ?'</br>" +
              "'Yes! I remember now I'm...'",
         transitions: {
@@ -47,7 +47,7 @@ var Story = {
             "flash_back": ""
         }
     },
-    "flash_back": {
+    "flash_back": {//TODO: make scene worm white as if remembering a childhood memory, and stop the beating like heart
         content: "Sitting by the window, I feel how the summer sun is slowly burning into the my skin. But I barely notice I am gazing into an open book."+
         "<br/>Its pages are bright, as if staring into a small sun. Yet even brighter is her face, sitting across from me , smiling back." +
         "As if I wake up from this memory, it feels pointless yet it carries the essence of what I hold dear. " +
@@ -58,7 +58,7 @@ var Story = {
             "exam_scene": ""
         }
     },
-    "exam_scene":{
+    "exam_scene":{//TODO: make scene white
         content: "As I'm working through the question of my admission exams, I'm desperately trying to keep my emotions under control."+
         "<br/>I know it's not a test in the true sense. Its only purpose is to find out how I'd fit in. But even so , I do not want to give a wrong impression of who I am."
     }
