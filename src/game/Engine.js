@@ -58,7 +58,12 @@ Game.namespace("Game.Engine");
     };
 
     Game.Engine.prototype.loadCustom = function(custom){
-      _customFunctions = custom;
+        var functionName;
+        for(functionName in custom){
+            if(typeof custom[functionName] == "function"){
+                _customFunctions[functionName] = custom[functionName];
+            }
+        }
     };
 
 }());
