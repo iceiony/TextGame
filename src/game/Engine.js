@@ -2,13 +2,14 @@
 Game.namespace("Game.Engine");
 (function(){
     //decleare private functions withing scope
-    var _prepareNewScene = function(state){
+    var _customFunctions ,
+        _prepareNewScene = function(state){
         var prerender = state.preRender || (this.defaults && this.defaults.preRender),
             length=0,
             i=0;
         if(prerender){
             for(i=0,length=prerender.length;i<length;i+=1){
-                state = this.custom[prerender[i]](state);
+                state = _customFunctions[prerender[i]](state);
             }
         }
         return state;
@@ -17,7 +18,7 @@ Game.namespace("Game.Engine");
     //constructor
     Game.Engine = function(params){
         this.state = new Game.StateManager();
-        this.custom = {};
+        _customFunctions = {};
 
         if(typeof params!=='undefined'){
             if(typeof params.preTransition !== 'undefined'){
@@ -48,12 +49,16 @@ Game.namespace("Game.Engine");
         //execute preTransition functions
         if(preTransitions){
             for(i=0,length=preTransitions.length;i <length;i+=1){
-                processedInput = this.custom[preTransitions[i]](processedInput);
+                processedInput = _customFunctions[preTransitions[i]](processedInput);
             };
         };
         this.state.transition(processedInput);
 
         _prepareNewScene.call(this,this.state.getCurrent());
+    };
+
+    Game.Engine.prototype.loadCustom = function(custom){
+      _customFunctions = custom;
     };
 
 }());
