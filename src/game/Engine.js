@@ -57,13 +57,28 @@ Game.namespace("Game.Engine");
         _prepareNewScene.call(this,this.state.getCurrent());
     };
 
+    Game.Engine.prototype.loadCustomByNamespace = function(custom){
+        var i,
+            length,
+            getObjectFromNamespace = Game.namespace;
+
+        for(i=0,length=custom.length;i<length;i+=1){
+            _customFunctions[custom[i]] = getObjectFromNamespace(custom[i]);
+        };
+    };
+
     Game.Engine.prototype.loadCustom = function(custom){
         var functionName;
+
+        if(Array.isArray(custom)) {
+            return this.loadCustomByNamespace(custom);
+        };
+
         for(functionName in custom){
             if(typeof custom[functionName] == "function"){
                 _customFunctions[functionName] = custom[functionName];
-            }
-        }
+            };
+        };
     };
 
 }());
