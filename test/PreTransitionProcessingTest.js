@@ -10,7 +10,7 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
     PreTransitionTest.prototype.setUp = function(){
 
         Subject = new Game.Engine();
-        Subject.custom = {
+        Subject.loadCustom({
             "custom1" : function(input){
                 wasTransitionFunctionUsed=true;
                 return input+"custom1 manipulation";
@@ -22,7 +22,7 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
                     return input.substr(0,substr_start);
                 };
             }
-        };
+        });
 
         var mockStory = {
             "initial":{

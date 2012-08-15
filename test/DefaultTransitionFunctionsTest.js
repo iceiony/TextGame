@@ -13,7 +13,7 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
             preRender:["preRender1","preRender2"]
         });
 
-        Subject.custom = {
+        Subject.loadCustom({
             "preTransition1" : function(input){
                 wasPreTransitionFunctionUsed=true;
                 return input+"custom1 manipulation";
@@ -34,7 +34,7 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
                 wasPreRenderFunctionChained = true;
                 return new_scene;
             }
-        };
+        });
 
         Subject.state.getCurrent = function(){
                 return {

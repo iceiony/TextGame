@@ -8,7 +8,7 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
     PreRenderTest.prototype.setUp = function(){
 
         Subject = new Game.Engine();
-        Subject.custom = {
+        Subject.loadCustom({
             "doSomePostRecording" : function(new_scene){
                 wasPostProcessingUsed=true;
                 return new_scene;
@@ -18,7 +18,7 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
                 wasPostProcessingChained =true;
                 return new_scene;
             }
-        };
+        });
 
         var mockStory = {
             "initial":{
@@ -32,9 +32,7 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
                 content:"Yes, that's it, that is my name. How could I forget"
             }
         };
-
         Subject.loadStory(mockStory);
-
     };
 
     PreRenderTest.prototype["test that engine uses the postTransition functions specified"] = function(){

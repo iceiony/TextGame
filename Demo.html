@@ -19,7 +19,7 @@
                 engine=new Game.Engine({preTransition:["toLowerCase"]});
 
             input_field.focus();
-            engine.custom = {"toLowerCase":Game.Transform.lowerCase};
+            engine.loadCustom({"toLowerCase":Game.Transform.lowerCase});
             engine.loadStory(Story);
             output_div.html(engine.state.getCurrent().content);
 
