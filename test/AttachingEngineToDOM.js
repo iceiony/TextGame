@@ -12,12 +12,12 @@ var AttachingEngineToDOM = new TestCase("When creating a new engine with the DOM
     };
 
     AttachingEngineToDOM.prototype["test that the engine attached to given DOM ID and creates input and output elements"]=function(){
-        /*:DOC += <div id="container"></div> */
+        /*:DOC += <div id="container">some text</div> */
         var Subject = new Game.Engine({
                 DOMParent:"container"
             });
 
-        assertTrue($().find("#input").length>0);
-        assertTrue($().find("#output").length>0);
+        assertTrue($("#input").length>0);
+        assertTrue($("#output").length>0);
     };
 }());

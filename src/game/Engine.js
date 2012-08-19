@@ -17,20 +17,40 @@ Game.namespace("Game.Engine");
 
     //constructor
     Game.Engine = function(params){
+        var jQuery = $,
+            parentElement;
+
         this.state = new Game.StateManager();
         _customFunctions = {};
 
-        if(typeof params!=='undefined'){
+        if(typeof params !== 'undefined'){
+            if(typeof params.DOMParent !=='undefined'){
+                if(typeof params.DOMParent ==='string'){
+                   // parentElement = jQuery("#"+ params.DOMParent);
+                    parentElement = document.getElementById(params.DOMParent);
+                    console.log(parentElement.innerHTML);
+                } else {
+                    parentElement = params.DOMParent;
+                };
+                jQuery("<div/>",{
+                    id:"output"
+                }).appendTo(parentElement);
+                jQuery("<input/>",{
+                    id:"input",
+                    type:"text"
+                }).appendTo(parentElement);
+            };
+
             if(typeof params.preTransition !== 'undefined'){
                 this.defaults = {};
                 this.defaults.preTransition = params.preTransition;
-            }
+            };
             if(typeof params.preRender !=='undefined'){
                 this.defaults = this.defaults||{};
                 this.defaults.preRender = params.preRender;
-            }
-        }
-    }
+            };
+        };
+    };
 
     //public members
     Game.Engine.prototype.loadStory = function(gameStory) {
