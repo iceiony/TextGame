@@ -1,7 +1,7 @@
 "use strict";
 var ManagingCustoms = new TestCase("When loading custom functions in multiple steps and with non duplicate names");
 (function(){
-    var Subject = new Game.Engine(),
+    var Subject ,
         wasFirstFunctionCalled = false,
         wasSecondFunctionCalled = false,
         wasOverwritingFunctionCalled = false;

@@ -1,7 +1,7 @@
 "use strict";
 var DefaultFunctionsTest = new TestCase("When no pre transition or render functions are defined");
 (function(){
-    var Subject = new Game.Engine(),
+    var Subject ,
         wasPreTransitionFunctionUsed=false,
         wasPreTransitionFunctionChained=false,
         wasPreRenderFunctionUsed=false,

@@ -1,7 +1,7 @@
 "use strict";
 var NamespaceCustom = new TestCase("When loading customs by namespace");
 (function(){
-    var Subject = new Game.Engine(),
+    var Subject ,
         wasFunctionCalled = false;
 
     NamespaceCustom.prototype.setUp = function(){

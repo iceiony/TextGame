@@ -1,7 +1,7 @@
 "use strict";
 var PreRenderTest = new TestCase("When the game engine processes the user's input with postTransition speciffied");
 (function(){
-    var Subject = new Game.Engine(),
+    var Subject ,
         wasPostProcessingUsed=false,
         wasPostProcessingChained= false;
 
