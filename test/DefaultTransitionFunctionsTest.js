@@ -72,6 +72,7 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
     };
 
     DefaultFunctionsTest.prototype["test that engine chains the call for default pre render"] = function(){
+        Subject.process("I am Adrian");
         assertTrue(wasPreRenderFunctionChained);
     };
 }());
