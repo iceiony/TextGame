@@ -2,12 +2,14 @@
 var PreRenderTest = new TestCase("When the game engine processes the user's input with postTransition speciffied");
 (function(){
     var Subject ,
-        wasPostProcessingUsed=false,
-        wasPostProcessingChained= false;
+        wasPostProcessingUsed,
+        wasPostProcessingChained;
 
     PreRenderTest.prototype.setUp = function(){
-
         Subject = new Game.Engine();
+        wasPostProcessingUsed=false;
+        wasPostProcessingChained= false;
+
         Subject.loadCustom({
             "doSomePostRecording" : function(new_scene){
                 wasPostProcessingUsed=true;

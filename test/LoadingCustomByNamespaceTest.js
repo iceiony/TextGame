@@ -2,10 +2,11 @@
 var NamespaceCustom = new TestCase("When loading customs by namespace");
 (function(){
     var Subject ,
-        wasFunctionCalled = false;
+        wasFunctionCalled;
 
     NamespaceCustom.prototype.setUp = function(){
         Subject = new Game.Engine();
+        wasFunctionCalled = false;
 
         Game.namespace("Game.FakeCustom");
         Game.FakeCustom.myCustomFunctionn = function(input){

@@ -2,13 +2,16 @@
 var ManagingCustoms = new TestCase("When loading custom functions in multiple steps and with non duplicate names");
 (function(){
     var Subject ,
-        wasFirstFunctionCalled = false,
-        wasSecondFunctionCalled = false,
-        wasOverwritingFunctionCalled = false;
+        wasFirstFunctionCalled,
+        wasSecondFunctionCalled,
+        wasOverwritingFunctionCalled;
 
     ManagingCustoms.prototype.setUp = function(){
-
         Subject = new Game.Engine();
+        wasFirstFunctionCalled = false;
+        wasSecondFunctionCalled = false;
+        wasOverwritingFunctionCalled = false;
+
         Subject.loadCustom({
             "firstFunction": function(input){
                 wasFirstFunctionCalled=true;

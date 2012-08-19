@@ -3,13 +3,16 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
 (function(){
     var Subject,
         defaultTransferFunction,
-        wasTransitionFunctionUsed=false,
-        wasTransitionCalled=false,
-        wasFunctionChained= false;
+        wasTransitionFunctionUsed,
+        wasTransitionCalled,
+        wasFunctionChained;
 
     PreTransitionTest.prototype.setUp = function(){
-
         Subject = new Game.Engine();
+        wasTransitionFunctionUsed=false;
+        wasTransitionCalled=false;
+        wasFunctionChained= false;
+
         Subject.loadCustom({
             "custom1" : function(input){
                 wasTransitionFunctionUsed=true;
