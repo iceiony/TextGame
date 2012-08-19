@@ -2,16 +2,21 @@
 var DefaultFunctionsTest = new TestCase("When no pre transition or render functions are defined");
 (function(){
     var Subject ,
-        wasPreTransitionFunctionUsed=false,
-        wasPreTransitionFunctionChained=false,
-        wasPreRenderFunctionUsed=false,
-        wasPreRenderFunctionChained=false;
+        wasPreTransitionFunctionUsed,
+        wasPreTransitionFunctionChained,
+        wasPreRenderFunctionUsed,
+        wasPreRenderFunctionChained;
 
     DefaultFunctionsTest.prototype.setUp = function(){
+
         Subject = new Game.Engine({
             preTransition:["preTransition1","preTransition2"],
             preRender:["preRender1","preRender2"]
         });
+        wasPreTransitionFunctionUsed=false;
+        wasPreTransitionFunctionChained=false;
+        wasPreRenderFunctionUsed=false;
+        wasPreRenderFunctionChained=false;
 
         Subject.loadCustom({
             "preTransition1" : function(input){
