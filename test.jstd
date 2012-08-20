@@ -3,6 +3,8 @@ load:
   - src/game/State.js
   - src/game/Engine.js
   - src/Input/Transform/*.js
+  - src/Render/Text/*.js
+  - test/render/*.js
   - test/input/*.js
   - test/*.js
   - lib/*.js
