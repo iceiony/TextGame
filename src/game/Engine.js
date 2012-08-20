@@ -3,13 +3,16 @@ Game.namespace("Game.Engine");
 (function(){
     //decleare private functions withing scope
     var _customFunctions ,
+        _parentElement,
+        _inputElement,
+        _outputElement,
         _prepareNewScene = function(state){
         var prerender = state.preRender || (this.defaults && this.defaults.preRender),
             length=0,
             i=0;
         if(prerender){
             for(i=0,length=prerender.length;i<length;i+=1){
-                state = _customFunctions[prerender[i]](state);
+                state = _customFunctions[prerender[i]].call(this,state);
             }
         }
         return state;
@@ -17,8 +20,8 @@ Game.namespace("Game.Engine");
 
     //constructor
     Game.Engine = function(params){
-        var jQuery = $,
-            parentElement;
+        var jQuery = $;
+
 
         this.state = new Game.StateManager();
         _customFunctions = {};
@@ -26,19 +29,16 @@ Game.namespace("Game.Engine");
         if(typeof params !== 'undefined'){
             if(typeof params.DOMParent !=='undefined'){
                 if(typeof params.DOMParent ==='string'){
-                   // parentElement = jQuery("#"+ params.DOMParent);
-                    parentElement = document.getElementById(params.DOMParent);
-                    console.log(parentElement.innerHTML);
+                    _parentElement = jQuery("#"+ params.DOMParent);
+                   // _parentElement = document.getElementById(params.DOMParent);
                 } else {
-                    parentElement = params.DOMParent;
+                    _parentElement = params.DOMParent;
                 };
-                jQuery("<div/>",{
-                    id:"output"
-                }).appendTo(parentElement);
-                jQuery("<input/>",{
-                    id:"input",
-                    type:"text"
-                }).appendTo(parentElement);
+                _outputElement = jQuery("<div/>",{ id:"output" });
+                _outputElement.appendTo(_parentElement);
+
+                _inputElement = jQuery("<input/>",{ id:"input", type:"text" });
+                _inputElement.appendTo(_parentElement);
             };
 
             if(typeof params.preTransition !== 'undefined'){
@@ -100,5 +100,17 @@ Game.namespace("Game.Engine");
             };
         };
     };
+
+    Game.Engine.prototype.getInputElement = function(){
+        return _inputElement;
+    };
+
+    Game.Engine.prototype.getOutputElement = function(){
+        return _outputElement;
+    };
+
+    Game.Engine.prototype.getParentElement = function(){
+        return _parentElement;
+    }
 
 }());
