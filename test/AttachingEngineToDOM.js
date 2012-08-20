@@ -19,4 +19,17 @@ var AttachingEngineToDOM = new TestCase("When creating a new engine with the DOM
         assertTrue($("#input").length>0);
         assertTrue($("#output").length>0);
     };
+    AttachingEngineToDOM.prototype["test that the engine exposes the parentElement,inputElement and outputElement"] = function(){
+        /*:DOC += <div id="container">some text</div> */
+        var Subject = new Game.Engine({
+            DOMParent:"container"
+        });
+
+        $("#input").text("some ipnut text");
+        $("#output").text("some output text");
+
+        assertSame($("#input").text(),$(Subject.getInputElement()).text());
+        assertSame($("#output").text(),$(Subject.getOutputElement()).text());
+        assertSame($("#container").text(),$(Subject.getParentElement()).text());
+    }
 }());

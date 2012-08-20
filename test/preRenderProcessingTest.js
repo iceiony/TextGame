@@ -3,16 +3,19 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
 (function(){
     var Subject ,
         wasPostProcessingUsed,
-        wasPostProcessingChained;
+        wasPostProcessingChained,
+        localThis;
 
     PreRenderTest.prototype.setUp = function(){
         Subject = new Game.Engine();
         wasPostProcessingUsed=false;
-        wasPostProcessingChained= false;
+        wasPostProcessingChained= false,
+        localThis = undefined;
 
         Subject.loadCustom({
             "doSomePostRecording" : function(new_scene){
                 wasPostProcessingUsed=true;
+                localThis = this;
                 return new_scene;
             },
             "doSomePostManipulation" : function(new_scene){
@@ -46,5 +49,10 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
         Subject.process("I am Adrian");
         assertTrue(Subject.state.getCurrent().content.search("Random manipulation at the end")>=0);
         assertTrue(wasPostProcessingChained);
+    };
+
+    PreRenderTest.prototype["test that the local 'this' points to the Subject ( Game.Engine instance )"] = function(){
+        Subject.process("I am Adrian");
+        assertSame(Subject,localThis);
     };
 }());
