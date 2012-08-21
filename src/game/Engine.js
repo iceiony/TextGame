@@ -2,48 +2,60 @@
 Game.namespace("Game.Engine");
 (function(){
     //decleare private functions withing scope
-    var _customFunctions ,
+    var
+        _customFunctions ,
         _parentElement,
         _inputElement,
         _outputElement,
         _prepareNewScene = function(state){
-        var prerender = state.preRender || (this.defaults && this.defaults.preRender),
-            length=0,
-            i=0;
-        if(prerender){
-            for(i=0,length=prerender.length;i<length;i+=1){
-                state = _customFunctions[prerender[i]].call(this,state);
+            var prerender = state.preRender || (this.defaults && this.defaults.preRender),
+                length=0,
+                i=0;
+            if(prerender){
+                for(i=0,length=prerender.length;i<length;i+=1){
+                    state = _customFunctions[prerender[i]].call(this,state);
+                }
             }
-        }
-        return state;
-    };
+            return state;
+        },
+        _prepareDOM = function(engineInstance,DOMParent){
+            var jQuery_local = $,
+                consoleForm;
+
+            if(typeof DOMParent ==='string'){
+                _parentElement = jQuery_local("#"+ DOMParent);
+                // _parentElement = document.getElementById(params.DOMParent);
+            } else {
+                _parentElement = DOMParent;
+            };
+            _outputElement = jQuery_local("<div/>",{ id:"output" });
+            _outputElement.appendTo(_parentElement);
+
+            consoleForm = jQuery_local("<form/>",{id:"consoleForm"});
+            consoleForm.appendTo(_parentElement);
+
+            _inputElement = jQuery_local("<input/>",{ id:"input", type:"text" });
+            _inputElement.appendTo(consoleForm);
+
+            consoleForm.submit(function(event){
+                event.preventDefault();
+                engineInstance.process(_inputElement.val());
+                _inputElement.val("");
+                _inputElement.focus();
+                return false;
+            });
+        };
 
     //constructor
     Game.Engine = function(params){
-        var jQuery = $,
-            consoleForm;
-
-
         this.state = new Game.StateManager();
         _customFunctions = {};
 
         if(typeof params !== 'undefined'){
+
             if(typeof params.DOMParent !=='undefined'){
-                if(typeof params.DOMParent ==='string'){
-                    _parentElement = jQuery("#"+ params.DOMParent);
-                   // _parentElement = document.getElementById(params.DOMParent);
-                } else {
-                    _parentElement = params.DOMParent;
-                };
-                _outputElement = jQuery("<div/>",{ id:"output" });
-                _outputElement.appendTo(_parentElement);
-
-                consoleForm = jQuery("<form/>",{id:"consoleForm"});
-                consoleForm.appendTo(_parentElement);
-
-                _inputElement = jQuery("<input/>",{ id:"input", type:"text" });
-                _inputElement.appendTo(consoleForm);
-            };
+                _prepareDOM(this,params.DOMParent);
+            }
 
             if(typeof params.preTransition !== 'undefined'){
                 this.defaults = {};

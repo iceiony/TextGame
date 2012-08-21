@@ -36,7 +36,38 @@ var AttachingEngineToDOM = new TestCase("When creating a new engine with the DOM
         /*:DOC += <div id="container">some text</div> */
         var Subject = new Game.Engine({
             DOMParent:"container"
-        });
-        assertSame("FORM",$("#input").parent().get(0).tagName);
+             }),
+            inputForm = $("form"),
+            wasSubmitNotPropagated = false,
+            fakeEvent ={
+                type:"submit",
+                preventDefault: function(){
+                    wasSubmitNotPropagated = true;
+                }
+            };
+
+        inputForm.data("events")["submit"][0].handler(fakeEvent);
+
+        assertSame("FORM",inputForm.get(0).tagName);
+        assertTrue(wasSubmitNotPropagated);
+    };
+    AttachingEngineToDOM.prototype["test form submit handler does calls the local engine instance process method"] = function(){
+        /*:DOC += <div id="container">some text</div> */
+        var Subject = new Game.Engine({
+            DOMParent:"container"
+        }),
+            inputForm = $("form"),
+            wasProcessCalled = false,
+            fakeEvent ={
+                type:"submit",
+                preventDefault: function(){}
+            };
+
+        Subject.process = function(input){
+            wasProcessCalled = true;
+        };
+        inputForm.data("events")["submit"][0].handler(fakeEvent);
+
+        assertTrue(wasProcessCalled);
     };
 }());
