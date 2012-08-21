@@ -20,7 +20,8 @@ Game.namespace("Game.Engine");
 
     //constructor
     Game.Engine = function(params){
-        var jQuery = $;
+        var jQuery = $,
+            consoleForm;
 
 
         this.state = new Game.StateManager();
@@ -37,8 +38,11 @@ Game.namespace("Game.Engine");
                 _outputElement = jQuery("<div/>",{ id:"output" });
                 _outputElement.appendTo(_parentElement);
 
+                consoleForm = jQuery("<form/>",{id:"consoleForm"});
+                consoleForm.appendTo(_parentElement);
+
                 _inputElement = jQuery("<input/>",{ id:"input", type:"text" });
-                _inputElement.appendTo(_parentElement);
+                _inputElement.appendTo(consoleForm);
             };
 
             if(typeof params.preTransition !== 'undefined'){

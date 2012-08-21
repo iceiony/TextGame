@@ -31,5 +31,12 @@ var AttachingEngineToDOM = new TestCase("When creating a new engine with the DOM
         assertSame($("#input").text(),$(Subject.getInputElement()).text());
         assertSame($("#output").text(),$(Subject.getOutputElement()).text());
         assertSame($("#container").text(),$(Subject.getParentElement()).text());
-    }
+    };
+    AttachingEngineToDOM.prototype["test that the engine creates the input inside a form that does not propagate events"] = function(){
+        /*:DOC += <div id="container">some text</div> */
+        var Subject = new Game.Engine({
+            DOMParent:"container"
+        });
+        assertSame("FORM",$("#input").parent().get(0).tagName);
+    };
 }());
