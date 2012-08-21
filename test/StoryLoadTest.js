@@ -1,11 +1,14 @@
 "use strict";
 var StoryLoadTest = new TestCase("When loading the game story");
 (function(){
-    var Subject;
+    var Subject,
+        _wasScenePrepared;
 
     StoryLoadTest.prototype.setUp = function(){
+        _wasScenePrepared=false;
         var mockStory = {
             "initial":{
+                preRender:["assertPrepare"],
                 content:"Where am I, but more importantly , WHO am I ?",
                 transitions:{
                     "remember": "I am Adrian"
@@ -16,10 +19,16 @@ var StoryLoadTest = new TestCase("When loading the game story");
             }
         };
 
+
         delete(localStorage.persistantState);
         delete(localStorage.currentStateKey);
 
         Subject = new Game.Engine();
+        Subject.loadCustom({
+            "assertPrepare":function(input){
+                _wasScenePrepared = true;
+            }
+        });
         Subject.loadStory(mockStory);
     };
 
@@ -30,5 +39,9 @@ var StoryLoadTest = new TestCase("When loading the game story");
     StoryLoadTest.prototype["test that the state is saved immediately in the local session"] = function(){
         assertSame("initial",localStorage.currentStateKey);
         assertNotUndefined(localStorage.persistantState);
+    };
+
+    StoryLoadTest.prototype["test that the engine has prepared the new scene"] = function(){
+        assertTrue(_wasScenePrepared);
     };
 }());

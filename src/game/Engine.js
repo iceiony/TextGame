@@ -73,6 +73,7 @@ Game.namespace("Game.Engine");
         localStorage.currentStateKey = "initial";
         localStorage.persistantState = JSON.stringify(gameStory);
         this.state = new Game.StateManager();
+        _prepareNewScene.call(this,this.state.getCurrent());
     };
 
     Game.Engine.prototype.process = function(input){
