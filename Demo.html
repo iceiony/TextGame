@@ -9,45 +9,48 @@
     <script type="text/javascript" src="./src/Game/Engine.js"></script>
     <script type="text/javascript" src="./src/Game/State.js" ></script>
     <script type="text/javascript" src="./src/Input/Transform/lowerCase.js" ></script>
+    <script type="text/javascript" src="./src/Render/Text/directDisplay.js" ></script>
     <script type="text/javascript" src="./src/Story.js" ></script>
 
     <script type="text/javascript">
         "use strict";
         $(document).ready(function(){
-            var input_field= $('#input'),
-                output_div= $('#output'),
-                engine=new Game.Engine({preTransition:["toLowerCase"]});
-
-            input_field.focus();
-            engine.loadCustom({"toLowerCase":Game.Input.Transform.lowerCase});
-            engine.loadStory(Story);
-            output_div.html(engine.state.getCurrent().content);
-
-            $("#consoleForm").submit( function(event){
-                event.preventDefault();
-
-                engine.process(input_field.val());
-                output_div.html(engine.state.getCurrent().content);
-
-                input_field.val("");
-                input_field.focus();
-
-                return false;
+            var engine=new Game.Engine({
+                DOMParent: $("body"),
+                preTransition:["toLowerCase"],
+                preRender:["directDisplay"]
             });
+            engine.loadCustom({
+                "toLowerCase":Game.Input.Transform.lowerCase,
+                "directDisplay": Game.Render.Text.directDisplay,
+                "initiateFirstScene": function(scene){
+                    engine.getInputElement().addClass("whiteInput")
+                    engine.getOutputElement().addClass("whiteOutput");
+
+                    engine.getInputElement().focus();
+                    return scene;
+                }
+            });
+            engine.loadStory(Story);
+
         });
-
-
     </script>
+    <style type="text/css">
+        div.whiteOutput {
+            background-color:white;
+            width:40em;
+            height:20em
+        }
+        input.whiteInput{
+            width:20em;
+            margin-top:1em;
+            border-width:0px;
+        }
+
+    </style>
     <title></title>
 </head>
 <body style="background-color:#f0f0f0;">
-
-<div id="output" style="background-color:white;width:40em;height:20em">
-    
-</div>
-<form id="consoleForm">
-<input id="input" name="input" type="text" style="width:20em;margin-top:1em;border-width:0px"/>
-</form>
 
 </body>
 </html>

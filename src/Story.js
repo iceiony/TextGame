@@ -4,6 +4,7 @@
  */
 var Story = {
     "initial": {//TODO make scene dark with white text and blink into dark read back ground as if heart beating
+        preRender:["initiateFirstScene","directDisplay"],
         content: "'What... where am I.. who am I ? I must focus, focus on remembering , my name... what is it ?'</br>" +
              "'Yes! I remember now I'm...'",
         transitions: {
