@@ -1,27 +1,27 @@
 "use strict";
 var ManagingCustoms = new TestCase("When loading custom functions in multiple steps and with non duplicate names");
-(function(){
-    var Subject ,
+(function () {
+    var Subject,
         wasFirstFunctionCalled,
         wasSecondFunctionCalled,
         wasOverwritingFunctionCalled;
 
-    ManagingCustoms.prototype.setUp = function(){
+    ManagingCustoms.prototype.setUp = function () {
         Subject = new Game.Engine();
         wasFirstFunctionCalled = false;
         wasSecondFunctionCalled = false;
         wasOverwritingFunctionCalled = false;
 
         Subject.loadCustom({
-            "firstFunction": function(input){
-                wasFirstFunctionCalled=true;
+            "firstFunction": function (input) {
+                wasFirstFunctionCalled = true;
                 return input;
             }
         });
 
         Subject.loadCustom({
-            "secondFunction": function(input){
-                wasSecondFunctionCalled =true;
+            "secondFunction": function (input) {
+                wasSecondFunctionCalled = true;
                 return input;
             }
         });
@@ -41,23 +41,23 @@ var ManagingCustoms = new TestCase("When loading custom functions in multiple st
         Subject.loadStory(mockStory);
     };
 
-    ManagingCustoms.prototype["test that the first function is executed"] = function(){
+    ManagingCustoms.prototype["test that the first function is executed"] = function () {
         Subject.process("I am Adrian");
         assertTrue(wasFirstFunctionCalled);
     };
 
-    ManagingCustoms.prototype["test that the second function is executed"] = function(){
+    ManagingCustoms.prototype["test that the second function is executed"] = function () {
         Subject.process("I am Adrian");
         assertTrue(wasSecondFunctionCalled);
     };
 
-    ManagingCustoms.prototype["test that loading the same function name will overwrite the previous one"] = function(){
+    ManagingCustoms.prototype["test that loading the same function name will overwrite the previous one"] = function () {
         wasFirstFunctionCalled = false;
         wasSecondFunctionCalled = false;
         wasOverwritingFunctionCalled = false;
 
         Subject.loadCustom({
-            "secondFunction": function(input){
+            "secondFunction": function (input) {
                 wasOverwritingFunctionCalled = true;
                 return input;
             }

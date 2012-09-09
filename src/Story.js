@@ -4,7 +4,7 @@
  */
 var Story = {
     "initial": {//TODO make scene dark with white text and blink into dark read back ground as if heart beating
-        preRender:["initiateFirstScene","directDisplay"],
+        preRender: ["initiateFirstScene", "directDisplay"],
         content: "'What... where am I.. who am I ? I must focus, focus on remembering , my name... what is it ?'</br>" +
              "'Yes! I remember now I'm...'",
         transitions: {
@@ -24,7 +24,7 @@ var Story = {
     "blame_knowledge": {
         content: "To learn, to know, to bring use to this short existence. What meaning have I found in life other than helping humanity and its future through discovery and invention. Knowledge, as I see, is the only way to achieve such greatness. ",
         transitions: {
-            "flash_back":""
+            "flash_back": ""
         }
     },
     "blame_love": {
@@ -44,23 +44,23 @@ var Story = {
         content: "I must think too highly of myself to believe that there is any importance to the world in my life and death. We are all just insignificant specs in this immense universe. " +
             "Insignificant and with a pointless existence, we must at least seek happiness while we live.<br/> <br/>" +
             "Some of us require a better reason for living than just to be.",
-        transitions:{
+        transitions: {
             "flash_back": ""
         }
     },
     "flash_back": {//TODO: make scene worm white as if remembering a childhood memory, and stop the beating like heart
-        content: "Sitting by the window, I feel how the summer sun is slowly burning into the my skin. But I barely notice I am gazing into an open book."+
-        "<br/>Its pages are bright, as if staring into a small sun. Yet even brighter is her face, sitting across from me , smiling back." +
-        "As if I wake up from this memory, it feels pointless yet it carries the essence of what I hold dear. " +
-        "<br/>A whisper slip from my lips:" +
-        "<br/>'Oh my friend, my only one, I was but a simple child without a care in the world. What would I know at the time...'"+
-        "<br/>If I could start again, I would chose differently, a new path, a right one. And I remember that precise moment, when without warning, destiny started to unfold ….",
+        content: "Sitting by the window, I feel how the summer sun is slowly burning into the my skin. But I barely notice I am gazing into an open book." +
+            "<br/>Its pages are bright, as if staring into a small sun. Yet even brighter is her face, sitting across from me , smiling back." +
+            "As if I wake up from this memory, it feels pointless yet it carries the essence of what I hold dear. " +
+            "<br/>A whisper slip from my lips:" +
+            "<br/>'Oh my friend, my only one, I was but a simple child without a care in the world. What would I know at the time...'" +
+            "<br/>If I could start again, I would chose differently, a new path, a right one. And I remember that precise moment, when without warning, destiny started to unfold ….",
         transitions:{
             "exam_scene": ""
         }
     },
-    "exam_scene":{//TODO: make scene white
+    "exam_scene": {//TODO: make scene white
         content: "As I'm working through the question of my admission exams, I'm desperately trying to keep my emotions under control."+
-        "<br/>I know it's not a test in the true sense. Its only purpose is to find out how I'd fit in. But even so , I do not want to give a wrong impression of who I am."
+            "<br/>I know it's not a test in the true sense. Its only purpose is to find out how I'd fit in. But even so , I do not want to give a wrong impression of who I am."
     }
 };

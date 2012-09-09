@@ -1,17 +1,17 @@
 "use strict";
 var NamespaceCustom = new TestCase("When loading customs by namespace");
-(function(){
-    var Subject ,
+(function () {
+    var Subject,
         wasFunctionCalled;
 
-    NamespaceCustom.prototype.setUp = function(){
+    NamespaceCustom.prototype.setUp = function () {
         Subject = new Game.Engine();
         wasFunctionCalled = false;
 
         Game.namespace("Game.FakeCustom");
-        Game.FakeCustom.myCustomFunctionn = function(input){
-                wasFunctionCalled=true;
-                return input;
+        Game.FakeCustom.myCustomFunctionn = function (input) {
+            wasFunctionCalled = true;
+            return input;
         };
 
         Subject.loadCustom(["Game.FakeCustom.myCustomFunctionn"]);
@@ -31,7 +31,7 @@ var NamespaceCustom = new TestCase("When loading customs by namespace");
         Subject.loadStory(mockStory);
     };
 
-    NamespaceCustom.prototype["test that the function is executed"] = function(){
+    NamespaceCustom.prototype["test that the function is executed"] = function () {
         Subject.process("I am Adrian");
         assertTrue(wasFunctionCalled);
     };
