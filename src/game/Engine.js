@@ -8,7 +8,7 @@ Game.namespace("Game.Engine");
         inputElement,
         outputElement,
         prepareNewScene = function (state) {
-            var prerender = state.preRender || (this.defaults && this.defaults.preRender),
+            var prerender = state.defaultRender || (this.defaults && this.defaults.defaultRender),
                 length = 0,
                 i = 0;
             if (prerender) {
@@ -19,22 +19,22 @@ Game.namespace("Game.Engine");
             return state;
         },
         prepareDOM = function (engineInstance, DOMParent) {
-            var jQuery_local = $,
+            var jQuery = $,
                 consoleForm;
 
             if (typeof DOMParent === 'string') {
-                parentElement = jQuery_local("#" + DOMParent);
+                parentElement = jQuery("#" + DOMParent);
                 // _parentElement = document.getElementById(params.DOMParent);
             } else {
                 parentElement = DOMParent;
             }
-            outputElement = jQuery_local("<div/>", { id: "output" });
+            outputElement = jQuery("<div/>", { id: "output" });
             outputElement.appendTo(parentElement);
 
-            consoleForm = jQuery_local("<form/>", { id: "consoleForm"});
+            consoleForm = jQuery("<form/>", { id: "consoleForm"});
             consoleForm.appendTo(parentElement);
 
-            inputElement = jQuery_local("<input/>", { id: "input", type: "text" });
+            inputElement = jQuery("<input/>", { id: "input", type: "text" });
             inputElement.appendTo(consoleForm);
 
             consoleForm.submit(function (event) {
@@ -57,13 +57,13 @@ Game.namespace("Game.Engine");
                 prepareDOM(this, params.DOMParent);
             }
 
-            if (typeof params.preTransition !== 'undefined') {
+            if (typeof params.defaultTransition !== 'undefined') {
                 this.defaults = {};
-                this.defaults.preTransition = params.preTransition;
+                this.defaults.defaultTransition = params.defaultTransition;
             }
-            if (typeof params.preRender !== 'undefined') {
+            if (typeof params.defaultRender !== 'undefined') {
                 this.defaults = this.defaults || {};
-                this.defaults.preRender = params.preRender;
+                this.defaults.defaultRender = params.defaultRender;
             }
         }
     };
@@ -81,7 +81,7 @@ Game.namespace("Game.Engine");
             i,
             length,
             currentState = this.state.getCurrent(),
-            preTransitions = currentState.preTransition || (this.defaults && this.defaults.preTransition);
+            preTransitions = currentState.defaultTransition || (this.defaults && this.defaults.defaultTransition);
 
         //execute preTransition functions
         if (preTransitions) {

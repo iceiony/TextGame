@@ -33,7 +33,7 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
                 }
             },
             "remember": {
-                preRender: ["doSomePostRecording", "doSomePostManipulation"],
+                defaultRender: ["doSomePostRecording", "doSomePostManipulation"],
                 content: "Yes, that's it, that is my name. How could I forget"
             }
         };

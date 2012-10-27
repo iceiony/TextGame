@@ -8,7 +8,7 @@ var StoryLoadTest = new TestCase("When loading the game story");
         wasScenePrepared = false;
         var mockStory = {
             "initial": {
-                preRender: ["assertPrepare"],
+                defaultRender: ["assertPrepare"],
                 content: "Where am I, but more importantly , WHO am I ?",
                 transitions: {
                     "remember": "I am Adrian"

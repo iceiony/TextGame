@@ -10,8 +10,8 @@ var DefaultFunctionsTest = new TestCase("When no pre transition or render functi
     DefaultFunctionsTest.prototype.setUp = function () {
 
         Subject = new Game.Engine({
-            preTransition: [ "preTransition1", "preTransition2"],
-            preRender: [ "preRender1", "preRender2"]
+            defaultTransition: [ "preTransition1", "preTransition2"],
+            defaultRender: [ "preRender1", "preRender2"]
         });
         wasPreTransitionFunctionUsed = false;
         wasPreTransitionFunctionChained = false;
