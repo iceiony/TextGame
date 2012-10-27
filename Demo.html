@@ -18,7 +18,7 @@
             var engine=new Game.Engine({
                 DOMParent: $("body"),
                 defaultTransition:["toLowerCase"],
-                defaultRender:["typeWriterDisplay"]
+                atRender:["typeWriterDisplay"]
             });
 
             engine.loadCustom({
@@ -34,15 +34,48 @@
                 "typeWriterDisplay": function(scene){
                     var jQuery = $,
                         outputElement = engine.getOutputElement(),
-                        currentContent = "",
-                        delay = 34;
+                        inputElement = engine.getInputElement(),
+                        sceneText = scene.content,
+                        partialContent = "",
+                        segment,
+                        delay = 34,
+                        contentSize = sceneText.length,
+                        index=0,
+                        t,
+                        enterHandler,
+                        isBound = true;
 
-                    jQuery.each(scene.content,function(i,letter){
-                         setTimeout(function(){
-                             currentContent += letter;
+                    t = setInterval(function(){
+                        if( index === contentSize) {
+                            clearInterval(t);
+                            isBound = false;
+                            return;
+                        }
 
-                             outputElement.html( currentContent );
-                         },delay * i) ;
+                        segment=""+sceneText[index];
+                        if(segment === "<"){
+                            segment = sceneText.substr(index,sceneText.indexOf('>',index)-index+1);
+                            index += segment.length;
+                        }
+                        else{
+                            index += 1;
+                        }
+                        partialContent += segment;
+                        outputElement.html(partialContent);
+                    },delay);
+
+                    inputElement.bind("keydown",enterHandler = function(event){
+                        if(event.keyCode === 13){
+                            if(isBound){
+                                 clearInterval(t);
+                                 isBound=false;
+                                 event.preventDefault();
+                                 outputElement.html(sceneText);
+                                 return false;
+                            }
+                            inputElement.unbind("keydown",enterHandler);
+                        }
+                        return true;
                     });
                 }
             });

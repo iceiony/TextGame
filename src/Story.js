@@ -24,7 +24,7 @@ var Story = {
         content: "Copilul se uita in pamant, si se leagana de pe un picior pe altul.      " +
             "<br/>Dupa cateva secude se uita spre tine si te intreaba : 'Dar tu...      Cine eshti ? "    ,
         transitions:{
-             "numele meu":"*"
+             "numele_meu":"*"
         }
     },
     "descrie": {
