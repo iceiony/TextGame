@@ -8,7 +8,7 @@ Game.namespace("Game.Engine");
         inputElement,
         outputElement,
         prepareNewScene = function (state) {
-            var prerender = state.defaultRender || (this.defaults && this.defaults.defaultRender),
+            var prerender = state.atRender || (this.defaults && this.defaults.atRender),
                 length = 0,
                 i = 0;
             if (prerender) {
@@ -57,13 +57,13 @@ Game.namespace("Game.Engine");
                 prepareDOM(this, params.DOMParent);
             }
 
-            if (typeof params.defaultTransition !== 'undefined') {
+            if (typeof params.atTransition !== 'undefined') {
                 this.defaults = {};
-                this.defaults.defaultTransition = params.defaultTransition;
+                this.defaults.atTransition = params.atTransition;
             }
-            if (typeof params.defaultRender !== 'undefined') {
+            if (typeof params.atRender !== 'undefined') {
                 this.defaults = this.defaults || {};
-                this.defaults.defaultRender = params.defaultRender;
+                this.defaults.atRender = params.atRender;
             }
         }
     };
@@ -81,7 +81,7 @@ Game.namespace("Game.Engine");
             i,
             length,
             currentState = this.state.getCurrent(),
-            preTransitions = currentState.defaultTransition || (this.defaults && this.defaults.defaultTransition);
+            preTransitions = currentState.atTransition || (this.defaults && this.defaults.atTransition);
 
         //execute preTransition functions
         if (preTransitions) {

@@ -4,18 +4,18 @@
  */
 var Story = {
     "initial": {
-        defaultRender: ["initiateFirstScene", "typeWriterDisplay"],
-        content: "Gazda a plecat in bucatarie, sa faca o ceasca de ceai.Ashteptand admiri decoratiunile in stil rustic .                " +
-                 "<br/>Mobilier de stejar, frumos sculptate, si e adevart, iti trece prin cap:         'Asta e casa unor aristocrati adevarati'",
+        atRender: ["initiateFirstScene", "typeWriterDisplay"],
+        content: "Gazda a plecat in bucatarie, sa faca o ceasca de ceai.        <br/>Ashteptand admiri decoratiunile in stil rustic .      " +
+                 "<br/>Mobilier de stejar, frumos sculptate, si e adevart, iti trece prin cap:       <p>'Asta e casa unor aristocrati adevarati'</p>",
         transitions: {
             "un_copil": ["","*"]
         }
     },
     "un_copil":{
         content:"Dintr-o data obervi un copil stand in capatul celalt al camerei. Ai fost prea absorbit de imprejurari ca sa il observi cand a ajuns acolo.                    " +
-                "<br/>Are cam 10 ani , si se uita timid la tine. Oare ce sa fac ?",
+                "<br/>Are cam 10 ani , si se uita timid la tine. Te intrebi in sine: 'Oare ce sa fac ?'",
         transitions: {
-             "spune_buna": "buna",
+             "spune_buna": ["buna","spunei buna", "spune buna"],
              "descrie": ["privestel","uitate la el","holbeazate la el"],
              "tace": ["","nu face nimic"]
         }

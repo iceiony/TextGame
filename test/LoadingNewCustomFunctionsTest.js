@@ -34,7 +34,7 @@ var ManagingCustoms = new TestCase("When loading custom functions in multiple st
                 }
             },
             "remember": {
-                defaultRender: ["firstFunction","secondFunction"],
+                atRender: ["firstFunction","secondFunction"],
                 content: "Yes, that's it, that is my name. How could I forget"
             }
         };

@@ -24,7 +24,7 @@ var NamespaceCustom = new TestCase("When loading customs by namespace");
                 }
             },
             "remember": {
-                defaultRender: ["Game.FakeCustom.myCustomFunctionn"],
+                atRender: ["Game.FakeCustom.myCustomFunctionn"],
                 content: "Yes, that's it, that is my name. How could I forget"
             }
         };

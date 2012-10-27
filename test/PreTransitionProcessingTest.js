@@ -30,7 +30,7 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
         var mockStory = {
             "initial": {
                 content: "Where am I, but more importantly , WHO am I ?",
-                defaultTransition: ["custom1", "custom2"],
+                atTransition: ["custom1", "custom2"],
                 transitions: {
                     "remember": "I am Adrian"
                 }
