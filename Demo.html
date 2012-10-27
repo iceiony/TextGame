@@ -10,6 +10,7 @@
     <script type="text/javascript" src="./src/Game/State.js" ></script>
     <script type="text/javascript" src="./src/Input/Transform/lowerCase.js" ></script>
     <script type="text/javascript" src="./src/Render/Text/directDisplay.js" ></script>
+    <script type="text/javascript" src="./src/Render/Text/typeWriterDisplay.js" ></script>
     <script type="text/javascript" src="./src/Story.js" ></script>
 
     <script type="text/javascript">
@@ -24,59 +25,13 @@
             engine.loadCustom({
                 "toLowerCase":Game.Input.Transform.lowerCase,
                 "directDisplay": Game.Render.Text.directDisplay,
+                "typeWriterDisplay": Game.Render.Text.typeWriterDisplay,
                 "initiateFirstScene": function(scene){
                     engine.getInputElement().addClass("whiteInput");
                     engine.getOutputElement().addClass("whiteOutput");
 
                     engine.getInputElement().focus();
                     return scene;
-                },
-                "typeWriterDisplay": function(scene){
-                    var jQuery = $,
-                        outputElement = engine.getOutputElement(),
-                        inputElement = engine.getInputElement(),
-                        sceneText = scene.content,
-                        partialContent = "",
-                        segment,
-                        delay = 34,
-                        contentSize = sceneText.length,
-                        index=0,
-                        t,
-                        enterHandler,
-                        isBound = true;
-
-                    t = setInterval(function(){
-                        if( index === contentSize) {
-                            clearInterval(t);
-                            isBound = false;
-                            return;
-                        }
-
-                        segment=""+sceneText[index];
-                        if(segment === "<"){
-                            segment = sceneText.substr(index,sceneText.indexOf('>',index)-index+1);
-                            index += segment.length;
-                        }
-                        else{
-                            index += 1;
-                        }
-                        partialContent += segment;
-                        outputElement.html(partialContent);
-                    },delay);
-
-                    inputElement.bind("keydown",enterHandler = function(event){
-                        if(event.keyCode === 13){
-                            if(isBound){
-                                 clearInterval(t);
-                                 isBound=false;
-                                 event.preventDefault();
-                                 outputElement.html(sceneText);
-                                 return false;
-                            }
-                            inputElement.unbind("keydown",enterHandler);
-                        }
-                        return true;
-                    });
                 }
             });
             engine.loadStory(Story);
