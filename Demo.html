@@ -13,6 +13,8 @@
     <script type="text/javascript" src="./src/Render/Text/typeWriterDisplay.js" ></script>
     <script type="text/javascript" src="./src/Story.js" ></script>
 
+    <script type="text/javascript" src="./debug/Develop.js" ></script>
+
     <script type="text/javascript">
         "use strict";
         $(document).ready(function(){
@@ -34,7 +36,9 @@
                     return scene;
                 }
             });
-            engine.loadStory(Story);
+
+            engine.loadStory(Game.Debug.expandForTest(Story));
+
 //1 1 2 3 8 5 13 21 34 55 89 144 233 377 610
         });
     </script>

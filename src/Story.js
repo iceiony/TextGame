@@ -3,6 +3,7 @@
  * Contains the game story as a JSON object
  */
 var Story = {
+    Title : "Aristocratii",
     "initial": {
         atRender: ["initiateFirstScene", "typeWriterDisplay"],
         content: "Gazda a plecat in bucatarie, sa faca o ceasca de ceai.        <br/>Ashteptand admiri decoratiunile in stil rustic .      " +
@@ -37,7 +38,6 @@ var Story = {
         content: "Imi raspunde 'OOOO Grozav nume'"
     }
 };
-
 
 //"use strict";
 ///**
