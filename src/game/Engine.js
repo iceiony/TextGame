@@ -89,9 +89,11 @@ Game.namespace("Game.Engine");
                 processedInput = customFunctions[preTransitions[i]](processedInput);
             }
         }
-        this.state.transition(processedInput);
 
-        prepareNewScene.call(this, this.state.getCurrent());
+        if(currentState !== this.state.transition(processedInput))
+        {
+            prepareNewScene.call(this, this.state.getCurrent());
+        }
     };
 
     Game.Engine.prototype.loadCustomByNamespace = function (custom) {

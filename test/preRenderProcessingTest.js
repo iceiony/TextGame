@@ -40,19 +40,28 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
         Subject.loadStory(mockStory);
     };
 
-    PreRenderTest.prototype["test that engine uses the postTransition functions specified"] = function () {
+    PreRenderTest.prototype["test the engine uses the postTransition functions specified"] = function () {
         Subject.process("I am Adrian");
        assertTrue(wasPostProcessingUsed);
     };
 
-    PreRenderTest.prototype["test that engine chains the call for functions in postTransition"] = function () {
+    PreRenderTest.prototype["test the engine chains the call for functions in postTransition"] = function () {
         Subject.process("I am Adrian");
         assertTrue(Subject.state.getCurrent().content.search("Random manipulation at the end") >= 0);
         assertTrue(wasPostProcessingChained);
     };
 
-    PreRenderTest.prototype["test that the local 'this' points to the Subject ( Game.Engine instance )"] = function () {
+    PreRenderTest.prototype["test the local 'this' points to the Subject ( Game.Engine instance )"] = function () {
         Subject.process("I am Adrian");
         assertSame(Subject, localThis);
+    };
+
+    PreRenderTest.prototype["test no render is made if state did not change"] = function () {
+        Subject.process("I am Adrian");
+        wasPostProcessingUsed = false;
+        wasPostProcessingChained = false;
+        Subject.process("asdf");
+        assertFalse(wasPostProcessingUsed);
+        assertFalse(wasPostProcessingChained);
     };
 }());
