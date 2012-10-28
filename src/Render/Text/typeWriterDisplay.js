@@ -11,7 +11,7 @@ Game.Render.Text.typeWriterDisplay = function (scene) {
         sceneText = scene.content,
         partialContent = "",
         segment,
-        delay = 34,
+        delay = 21,
         contentSize = sceneText.length,
         index=0,
         t,
