@@ -7,10 +7,13 @@ var PreRenderTest = new TestCase("When the game engine processes the user's inpu
         localThis;
 
     PreRenderTest.prototype.setUp = function () {
-        Subject = new Game.Engine();
         wasPostProcessingUsed = false;
         wasPostProcessingChained = false;
         localThis = undefined;
+
+        delete (localStorage.persistantState);
+        delete (localStorage.currentStateKey);
+        Subject = new Game.Engine();
 
         Subject.loadCustom({
             "doSomePostRecording" : function (new_scene) {

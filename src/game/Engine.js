@@ -70,9 +70,14 @@ Game.namespace("Game.Engine");
 
     //public members
     Game.Engine.prototype.loadStory = function (gameStory) {
-        localStorage.currentStateKey = "initial";
-        localStorage.persistantState = JSON.stringify(gameStory);
-        this.state = new Game.StateManager();
+        if(localStorage.currentStateKey === undefined ||
+          (localStorage.persistantState !== undefined && JSON.parse(localStorage.persistantState).Title !== gameStory.Title)) {
+
+            localStorage.currentStateKey = "initial";
+            localStorage.persistantState = JSON.stringify(gameStory);
+            this.state = new Game.StateManager();
+
+        }
         prepareNewScene.call(this, this.state.getCurrent());
     };
 

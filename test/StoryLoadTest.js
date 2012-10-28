@@ -2,11 +2,13 @@
 var StoryLoadTest = new TestCase("When loading the game story");
 (function () {
     var Subject,
-        wasScenePrepared;
+        wasScenePrepared,
+        mockStory;
 
     StoryLoadTest.prototype.setUp = function () {
         wasScenePrepared = false;
-        var mockStory = {
+        mockStory = {
+            "Title": "Test story",
             "initial": {
                 atRender: ["assertPrepare"],
                 content: "Where am I, but more importantly , WHO am I ?",
@@ -15,7 +17,13 @@ var StoryLoadTest = new TestCase("When loading the game story");
                 }
             },
             "remember": {
-                content: "Yes, that's it, that is my name. How could I forget"
+                content: "Yes, that's it, that is my name. How could I forget",
+                transitions: {
+                    "confirm": "I am still Adrian"
+                }
+            },
+            "confirm":{
+                content: "Yes I am"
             }
         };
 
@@ -43,5 +51,16 @@ var StoryLoadTest = new TestCase("When loading the game story");
 
     StoryLoadTest.prototype["test that the engine has prepared the new scene"] = function () {
         assertTrue(wasScenePrepared);
+    };
+
+
+    StoryLoadTest.prototype["test engine will continue old story if it was in local storage"] = function () {
+        var otherEngine;
+
+        Subject.process("I am Adrian");
+
+        otherEngine = new Game.Engine();
+        otherEngine.loadStory(mockStory);
+        assertSame("remember",otherEngine.state.getCurrent().name);
     };
 }());

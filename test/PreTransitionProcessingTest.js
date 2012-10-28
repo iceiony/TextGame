@@ -8,10 +8,13 @@ var PreTransitionTest = new TestCase("When the game engine processes the user's 
         wasFunctionChained;
 
     PreTransitionTest.prototype.setUp = function () {
-        Subject = new Game.Engine();
         wasTransitionFunctionUsed = false;
         wasTransitionCalled = false;
         wasFunctionChained = false;
+
+        delete (localStorage.persistantState);
+        delete (localStorage.currentStateKey);
+        Subject = new Game.Engine();
 
         Subject.loadCustom({
             "custom1" : function (input) {

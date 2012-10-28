@@ -7,10 +7,13 @@ var ManagingCustoms = new TestCase("When loading custom functions in multiple st
         wasOverwritingFunctionCalled;
 
     ManagingCustoms.prototype.setUp = function () {
-        Subject = new Game.Engine();
         wasFirstFunctionCalled = false;
         wasSecondFunctionCalled = false;
         wasOverwritingFunctionCalled = false;
+
+        delete (localStorage.persistantState);
+        delete (localStorage.currentStateKey);
+        Subject = new Game.Engine();
 
         Subject.loadCustom({
             "firstFunction": function (input) {
@@ -38,6 +41,7 @@ var ManagingCustoms = new TestCase("When loading custom functions in multiple st
                 content: "Yes, that's it, that is my name. How could I forget"
             }
         };
+
         Subject.loadStory(mockStory);
     };
 
