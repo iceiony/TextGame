@@ -12,6 +12,7 @@ var Story = {
         }
     },
     "un_copil":{
+        atRender: ["initiateFirstScene", "typeWriterDisplay"],
         content:"Dintr-o data obervi un copil stand in capatul celalt al camerei. Ai fost prea absorbit de imprejurari ca sa il observi cand a ajuns acolo.                    " +
                 "<br/>Are cam 10 ani , si se uita timid la tine. Te intrebi in sine: 'Oare ce sa fac ?'",
         transitions: {
