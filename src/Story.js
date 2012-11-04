@@ -5,7 +5,6 @@
 var Story = {
     Title : "Aristocratii",
     "initial": {
-        atRender: ["initiateFirstScene", "typeWriterDisplay"],
         content: "Gazda a plecat in bucatarie, sa faca o ceasca de ceai.        <br/>Ashteptand admiri decoratiunile in stil rustic .      " +
                  "<br/>Mobilier de stejar, frumos sculptate, si e adevart, iti trece prin cap:       <p>'Asta e casa unor aristocrati adevarati'</p>",
         transitions: {

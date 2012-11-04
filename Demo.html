@@ -21,10 +21,10 @@
             var engine=new Game.Engine({
                 DOMParent: $("body"),
                 atTransition:["toLowerCase"],
-                atRender:["typeWriterDisplay"]
+                atRender:["initiateFirstScene","typeWriterDisplay"]
             });
 
-            engine.loadCustom({
+                    engine.loadCustom({
                 "toLowerCase":Game.Input.Transform.lowerCase,
                 "directDisplay": Game.Render.Text.directDisplay,
                 "typeWriterDisplay": Game.Render.Text.typeWriterDisplay,
