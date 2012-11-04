@@ -11,6 +11,7 @@
     <script type="text/javascript" src="./src/Input/Transform/lowerCase.js" ></script>
     <script type="text/javascript" src="./src/Render/Text/directDisplay.js" ></script>
     <script type="text/javascript" src="./src/Render/Text/typeWriterDisplay.js" ></script>
+    <script type="text/javascript" src="./src/Render/Text/simpleFadeIn.js" ></script>
     <script type="text/javascript" src="./src/Story.js" ></script>
 
     <script type="text/javascript" src="./debug/Develop.js" ></script>
@@ -21,13 +22,14 @@
             var engine=new Game.Engine({
                 DOMParent: $("body"),
                 atTransition:["toLowerCase"],
-                atRender:["initiateFirstScene","typeWriterDisplay"]
+                atRender:["initiateFirstScene","simpleFadeIn"]
             });
 
                     engine.loadCustom({
                 "toLowerCase":Game.Input.Transform.lowerCase,
                 "directDisplay": Game.Render.Text.directDisplay,
                 "typeWriterDisplay": Game.Render.Text.typeWriterDisplay,
+                "simpleFadeIn": Game.Render.Text.simpleFadeIn,
                 "initiateFirstScene": function(scene){
                     engine.getInputElement().addClass("whiteInput");
                     engine.getOutputElement().addClass("whiteOutput");
@@ -39,7 +41,7 @@
 
             engine.loadStory(Game.Debug.expandForTest(Story));
 
-//1 1 2 3 8 5 13 21 34 55 89 144 233 377 610
+//1 1 2 3 8 5 13 21 34 55 89 144 233 377 610 987 1597
         });
     </script>
     <style type="text/css">
