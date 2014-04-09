@@ -38,6 +38,10 @@ Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the 
      Henry : "Such a shame" shaking his head in denial. 
      Chief : "This is what you get when smoking. Rest in peace Wildcard."
   """  
+  
+#-> Punch
+#-> google
+#-> phone
 
 #->"Coffee" 
     """
