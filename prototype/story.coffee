@@ -35,18 +35,58 @@ story = {
   Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the two officers behind him. 
          "We'll provide what ever you require. Just let us know what you need to solve this case."
   """,
-    general:  {
-      'Ciggar/Ciggaret/Smoke': ->
+    general: 
+      'Cigar/Fag/Smoke': ->
+        Paragraph::clearGeneral()
+        return node """ 
+        With a content look on his face, Willy starts to collect his thoughts. He reaches to the inside of his jacket and pulls out a cartridge of cigars and a lighter. 
+        He takes one puff and looks satisfied. As he seems to about to say something he starts coughing violently and falls to the ground.
+        Paramedics at the scene of the crime rush to save him. They conclude it's cancer and fail to save the detective. He dies within a few minutes. 
+        Henry : "Such a shame" shaking his head in denial. 
+        Chief : "This is what you get when smoking. Rest in peace Wildcard."
+        (Type respawn to start from begining)
+        """,
+          actions: 
+            'respawn/restart': -> story.intro
+            'default': -> story.death
+      '': ->
         node """
-     With a content look on his face, Willy starts to collect his thoughts. He reaches to the inside of his jacket and pulls out a cartridge of cigars and a lighter. 
-     He takes one puff and looks satisfied. As he seems to about to say something he starts coughing violently and falls to the ground.
-     Paramedics at the scene of the crime rush to save him. They conclude it's cancer and fail to save the detective. He dies within a few minutes. 
-     Henry : "Such a shame" shaking his head in denial. 
-     Chief : "This is what you get when smoking. Rest in peace Wildcard."
-  """
-    }
+        Wildcard seems like he's about to say something. He raises his hand in a gesture which seems that he's about to make a point. 
+        But tilts his head in a matter of confusion.
+        The chief looks at him patiently. 
+        """, 
+          general:
+            '': ->
+              node """
+              Wildcard sits in silence. He doesn't look like he's about to say or do anything. 
+              Chief gains a crious look in his eyes : "Willy ?"
+              """,
+                general: 
+                  '': ->
+                    node """
+                    5 minutes pass. Everyone is frozen still waiting for Wildcard to take action.
+                    Chief : Com on detective, say something! What's the matter?
+                    Chief gazez over to the paramedics with a thought to call them over. They notice his gaze and set up as if ready to answer the urgent call. 
+                    """, 
+                      general: 
+                        '': ->
+                          Paragraph::clearGeneral()
+                          return node """
+                          From behind the Chief, Stevey pulls a gun. In a blink of an eye, he shoves the Chief aside points the gun at Wildcard and pulls the trigger.
+                          Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
+                          The paramedics nearby rush to save him. But he's dead, shot through the hart.
+                          """, 
+                            actions:
+                              'default': -> story.death
+  death : node """
+  The chief stares at the detective's body in dred
+  Chief : "Wildcard's dead ..."
+  (Type respawn to start from begining)
+  """,
+    actions:
+      'restart/respawn': -> story.intro
+      'default': -> story.death  
 }
- 
 
 module.exports = story
 

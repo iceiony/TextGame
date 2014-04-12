@@ -11,7 +11,7 @@ eventEmitter.on("userInput", (userInput)->
 )
 
 promptForCurrentNode = ->
-  nodeText = "\n" + currentNode + "\n"
+  nodeText = currentNode + "\n"
   prompt(nodeText, (userInput)->
     eventEmitter.emit("userInput", userInput)
   )
