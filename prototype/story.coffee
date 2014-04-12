@@ -1,19 +1,10 @@
-"use strict";
+Paragraph = require './paragraph'
 
-class Paragraph 
-  constructor: (text,links) ->
-    console.log(text)
-    for linkOptions, functionToRun of links?.general
-      for alternative in linkOptions.split('/')
-        Paragraph::[alternative] = functionToRun
-    for linkOptions, functionToRun of links?.actions
-      for alternative in linkOptions.split('/')
-        @[alternative] = functionToRun
+node = (text, links)->
+  new Paragraph(text, links)
 
-node = (text,links)->
-  new Paragraph(text,links)
-          
-p = node """
+story = {
+  intro: node """
   Crime scene investigation
   Location : Middle of an empty field . Early hours of Monday morning. 
   
@@ -43,18 +34,21 @@ p = node """
   (Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" ) 
   Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the two officers behind him. 
          "We'll provide what ever you require. Just let us know what you need to solve this case."
-  """ , general:{
-  'Ciggar/Ciggaret': ->
-    node """
+  """,
+    general:  {
+      'Ciggar/Ciggaret/Smoke': ->
+        node """
      With a content look on his face, Willy starts to collect his thoughts. He reaches to the inside of his jacket and pulls out a cartridge of cigars and a lighter. 
      He takes one puff and looks satisfied. As he seems to about to say something he starts coughing violently and falls to the ground.
      Paramedics at the scene of the crime rush to save him. They conclude it's cancer and fail to save the detective. He dies within a few minutes. 
      Henry : "Such a shame" shaking his head in denial. 
      Chief : "This is what you get when smoking. Rest in peace Wildcard."
   """
+    }
 }
+ 
 
-p = p["Ciggar"]()
+module.exports = story
 
 #
 ##->"Ciggar"/"Ciggaret"

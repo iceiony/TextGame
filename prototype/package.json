@@ -4,4 +4,7 @@
   "private": true,
   "description": "",
   "main": "story.coffee",
+  "dependencies": {
+    "prompt-input": "0.0.1"
+  }
 }
