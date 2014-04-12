@@ -1,17 +1,29 @@
+Context = require './context'
 story = require './story'
+events = require 'events'
 prompt = require('prompt-input')()
-events = require('events')
 
-currentNode = story.intro
+decorator = story.intro
+context = new Context()
 
 eventEmitter = new events.EventEmitter()
 eventEmitter.on("userInput", (userInput)->
-  currentNode = currentNode.transition(userInput)
+  lowerCase = userInput.toLowerCase()
+  
+  decorator = context.__actions[lowerCase] ||
+    context.__general[lowerCase] ||
+    context.__actions["default"] ||
+    context.__general["default"];
+  
   promptForCurrentNode()
 )
 
 promptForCurrentNode = ->
-  nodeText = currentNode + "\n"
+  delete context.__actions;
+  context.__actions = {};
+  
+  decorator.call(context)
+  nodeText = context.toString()+"\n"
   prompt(nodeText, (userInput)->
     eventEmitter.emit("userInput", userInput)
   )

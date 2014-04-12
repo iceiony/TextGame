@@ -1,92 +1,89 @@
-Paragraph = require './paragraph'
-
-node = (text, links)->
-  new Paragraph(text, links)
-
 story = {
-  intro: node """
-  Crime scene investigation
-  Location : Middle of an empty field . Early hours of Monday morning. 
-  
-  Officer in charge : "this is an odd one Henry, think we need to call you know you."
-  Henry :             "You mean, THAT guy."
-  Stevey:             "Oh ! Surely not that oddball. What are you getting him for ?!"
-  Chief :             "Well he's odd alright. But still oddly better than the lot of us put together."
-  Henry :             "I'll give him a call chief." 
-  (Steveey's expression changes to disapproval)
-  
-  --1 hour later--
-  Far in the distance you can see a car stop, old mustang, a muscle car. Driver steps out , head slowly towards the group of policeman . 
-  Behind the chief are the 2 assisting officers, sitting next to each other
-   Chief: "Detective Wildcard, glad to see you son"
-  (Stevey with some disbelief leans towards Henry.
-  (Stevey " Is this the guy ?")
-  (Henry  "Yep.")
-  (Stevey "he doesn't seem all that" )
-  (Henry  "Yep")
-  (Stevey "So he's name IS Wildcard" )
-  (Henry  "Yep")
-  (Stevey "That's a bit odd isn't it")
-  (Henry  "Yep")
-  
-  Cheif: "Thanks for doing us the favour and coming down. This is an odd one and we kind of hit a wall here. Can't figure it out , that's why we need your help Willy." 
-  (Stevey: "Hrhrhrhaharrr!" , swalowing his laughter ) 
-  (Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" ) 
-  Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the two officers behind him. 
-         "We'll provide what ever you require. Just let us know what you need to solve this case."
-  """,
-    general: 
-      'Cigar/Fag/Smoke': ->
-        Paragraph::clearGeneral()
-        return node """ 
+  intro: ->
+    @text """
+    Crime scene investigation
+    Location : Middle of an empty field . Early hours of Monday morning. 
+    
+    Officer in charge : "this is an odd one Henry, think we need to call you know you."
+    Henry :             "You mean, THAT guy."
+    Stevey:             "Oh ! Surely not that oddball. What are you getting him for ?!"
+    Chief :             "Well he's odd alright. But still oddly better than the lot of us put together."
+    Henry :             "I'll give him a call chief." 
+    (Steveey's expression changes to disapproval)
+    
+    --1 hour later--
+    Far in the distance you can see a car stop, old mustang, a muscle car. Driver steps out , head slowly towards the group of policeman . 
+    Behind the chief are the 2 assisting officers, sitting next to each other
+     Chief: "Detective Wildcard, glad to see you son"
+    (Stevey with some disbelief leans towards Henry.
+    (Stevey " Is this the guy ?")
+    (Henry  "Yep.")
+    (Stevey "he doesn't seem all that" )
+    (Henry  "Yep")
+    (Stevey "So he's name IS Wildcard" )
+    (Henry  "Yep")
+    (Stevey "That's a bit odd isn't it")
+    (Henry  "Yep")
+    
+    Cheif: "Thanks for doing us the favour and coming down. This is an odd one and we kind of hit a wall here. Can't figure it out , that's why we need your help Willy." 
+    (Stevey: "Hrhrhrhaharrr!" , swalowing his laughter ) 
+    (Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" ) 
+    Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the two officers behind him. 
+           "We'll provide what ever you require. Just let us know what you need to solve this case."
+    """
+    @general ->
+      'Cigar/Fag/Smoke':->
+        @clearGeneral()
+        @text """ 
         With a content look on his face, Willy starts to collect his thoughts. He reaches to the inside of his jacket and pulls out a cartridge of cigars and a lighter. 
         He takes one puff and looks satisfied. As he seems to about to say something he starts coughing violently and falls to the ground.
         Paramedics at the scene of the crime rush to save him. They conclude it's cancer and fail to save the detective. He dies within a few minutes. 
         Henry : "Such a shame" shaking his head in denial. 
         Chief : "This is what you get when smoking. Rest in peace Wildcard."
         (Type respawn to start from begining)
-        """,
-          actions: 
-            'respawn/restart': -> story.intro
-            'default': -> story.death
+        """
+        @actions ->  
+          'respawn/restart':story.intro
+          'default'        :story.death
       '': ->
-        node """
+        @text """
         Wildcard seems like he's about to say something. He raises his hand in a gesture which seems that he's about to make a point. 
         But tilts his head in a matter of confusion.
         The chief looks at him patiently. 
-        """, 
-          general:
+        """ 
+        @general ->
             '': ->
-              node """
+              @text """
               Wildcard sits in silence. He doesn't look like he's about to say or do anything. 
               Chief gains a crious look in his eyes : "Willy ?"
-              """,
-                general: 
-                  '': ->
-                    node """
-                    5 minutes pass. Everyone is frozen still waiting for Wildcard to take action.
-                    Chief : Com on detective, say something! What's the matter?
-                    Chief gazez over to the paramedics with a thought to call them over. They notice his gaze and set up as if ready to answer the urgent call. 
-                    """, 
-                      general: 
-                        '': ->
-                          Paragraph::clearGeneral()
-                          return node """
-                          From behind the Chief, Stevey pulls a gun. In a blink of an eye, he shoves the Chief aside points the gun at Wildcard and pulls the trigger.
-                          Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
-                          The paramedics nearby rush to save him. But he's dead, shot through the hart.
-                          """, 
-                            actions:
-                              'default': -> story.death
-  death : node """
-  The chief stares at the detective's body in dred
-  Chief : "Wildcard's dead ..."
-  (Type respawn to start from begining)
-  """,
-    actions:
-      'restart/respawn': -> story.intro
-      'default': -> story.death  
-}
+              """
+              @general -> 
+                '': ->
+                  @text """
+                  5 minutes pass. Everyone is frozen still waiting for Wildcard to take action.
+                  Chief : Com on detective, say something! What's the matter?
+                  Chief gazez over to the paramedics with a thought to call them over. They notice his gaze and set up as if ready to answer the urgent call. 
+                  """
+                  @general -> 
+                      '': ->
+                        @clearGeneral()
+                        @text """
+                        From behind the Chief, Stevey pulls a gun. In a blink of an eye, he shoves the Chief aside points the gun at Wildcard and pulls the trigger.
+                        Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
+                        The paramedics nearby rush to save him. But he's dead, shot through the hart.
+                        """ 
+                        @actions ->
+                          'default': story.death
+  death : ->
+    @text """
+    The chief stares at the detective's body in dred
+    Chief : "Wildcard's dead ..."
+    (Type respawn to start from begining)
+    """
+    @actions ->
+        'restart/respawn': story.intro
+        'default'        : story.death
+  }
 
 module.exports = story
 
