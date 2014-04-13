@@ -14,7 +14,7 @@ story = {
     --1 hour later--
     Far in the distance you can see a car stop, old mustang, a muscle car. Driver steps out , head slowly towards the group of policeman . 
     Behind the chief are the 2 assisting officers, sitting next to each other
-     Chief: "Detective Wildcard, glad to see you son"
+    Chief: "Detective Wildcard, glad to see you son"
     (Stevey with some disbelief leans towards Henry.
     (Stevey " Is this the guy ?")
     (Henry  "Yep.")
