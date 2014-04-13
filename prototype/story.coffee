@@ -87,7 +87,7 @@ story = {
             @text """Chief : "Stevey on the way to get you one Willy. Can we please focus on the crime scene for now ." """
             @general -> 
               'coffee': -> 
-                @text """ Cheif: Look I know it's quite an early Sunday morning, but we all want to finish this and go home. """
+                @text """Cheif: Look I know it's quite an early Sunday morning, but we all want to finish this and go home. """
                 @general ->
                   'coffee': ->
                     @text """
@@ -100,19 +100,21 @@ story = {
                         @general ->
                           'coffee': ->
                             @text """
-                               Willy leans to his bag next, reaches in and pulls out a coffee cup. He extends his hand to give it to the chief.
-                               He looks straight back into the Chief's eyes and repeats.
-                               Willy: "Coffee"
-                               The chief hesitantly takes the coffee, his concerned eyes shifting between the cup end Wildcard's serious stare.
-                               Chief: " Thanks... " he says with some hesitance in the voice
-  
-                               Willy proceeds to give pull out more cups for the people around . 
-                               He hands one to Henry, another two to the paramedics and one last one to the farmer sitting next to his parked tractor.""" 
+                            Willy leans to his bag next, reaches in and pulls out a coffee cup. He extends his hand to give it to the chief.
+                            He looks straight back into the Chief's eyes and repeats.
+                            Willy: "Coffee"
+                            The chief hesitantly takes the coffee, his concerned eyes shifting between the cup end Wildcard's serious stare.
+                            Chief: " Thanks... " he says with some hesitance in the voice
+
+                            Willy proceeds to give pull out more cups for the people around . 
+                            He hands one to Henry, another two to the paramedics and one last one to the farmer sitting next to his parked tractor.""" 
                             @general ->
-                              'coffee' : ->
-                                @text """
-                                     Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
-                                     As he raises his coffee cup in appreciation  he looks around as the surrounding party approves."""
+                                'coffee' : ->
+                                  @text """
+                                       Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
+                                       As he raises his coffee cup in appreciation  he looks around as the surrounding party approves."""
+      'default': ->
+        @text """ Wildcard mutters something indistinguishable """
   death: ->
     @text """
     The chief stares at the detective's body in dred
