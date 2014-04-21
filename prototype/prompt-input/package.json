@@ -1,0 +1,38 @@
+{
+  "name": "prompt-input",
+  "version": "0.0.1",
+  "description": "Prompt user inputs with styling",
+  "main": "index.js",
+  "dependencies": {
+    "style-format": "*",
+    "iter": "0.0.9",
+    "read": "~1.0.5",
+    "keypress": "~0.2.1"
+  },
+  "keywords": [
+    "prompt",
+    "cli",
+    "input",
+    "question"
+  ],
+  "repository": {
+    "url": "git@github.com:azer/prompt-input.git",
+    "type": "git"
+  },
+  "author": {
+    "name": "azer"
+  },
+  "license": "BSD",
+  "readme": "## prompt-input\n\nPrompt user inputs with styling\n\n## Install\n\n```bash\n$ npm install prompt-input\n```\n\n## Usage\n\n```js\nprompt = require('prompt-input')(/* options */)\n\nprompt('What is your name?', function (answer) {\n  answer\n  // => Whatever user gives\n})\n```\n\nOptions:\n\n* stdin *(default process.stdin)*\n* stdout *(default process.stdout)*\n\n### Styling\n\nYou can apply [colors and other styles](http://github.com/azer/style-format) on your questions and/or answers:\n\n```js\nprompt = require('prompt-input')\n\nprompt('{bold}{yellow}Are you {red}sure?{reset}')\n```\n\n\n### Multiple questions:\n\n```js\nprompt({ name: 'Your name:', age: 'Your age:' }, function (answers) {\n\n  answers.name\n  // => john\n\n  answers.age\n  // => 20\n\n})\n```\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/azer/prompt-input/issues"
+  },
+  "homepage": "https://github.com/azer/prompt-input",
+  "_id": "prompt-input@0.0.1",
+  "dist": {
+    "shasum": "55f5373f69ca047a2bd152647299af5454500b9c"
+  },
+  "_from": "prompt-input@",
+  "_resolved": "https://registry.npmjs.org/prompt-input/-/prompt-input-0.0.1.tgz"
+}

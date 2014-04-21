@@ -1,7 +1,7 @@
 Context = require './context'
 story = require './story'
 events = require 'events'
-prompt = require('prompt-input')()
+prompt = require('./prompt-input')()
 
 decorator = story.intro
 context = new Context()
