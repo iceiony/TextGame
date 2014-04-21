@@ -1,5 +1,5 @@
 Context = require './context'
-story = require './story'
+story = require './story/story'
 events = require 'events'
 prompt = require('./prompt-input')()
 
