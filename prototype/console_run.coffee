@@ -8,8 +8,8 @@ context = new Context()
 
 eventEmitter = new events.EventEmitter()
 eventEmitter.on("userInput", (userInput)->
-  lowerCase = userInput.toLowerCase()
-  
+  lowerCase = userInput.toLowerCase().trim();
+ 
   decorator = context.__actions[lowerCase] ||
     context.__general[lowerCase] ||
     context.__actions["default"] ||
@@ -23,7 +23,7 @@ promptForCurrentNode = ->
   context.__actions = {};
   
   decorator.call(context)
-  nodeText = context.toString()+"\n"
+  nodeText = context.toString()+"\n-> "
   prompt(nodeText, (userInput)->
     eventEmitter.emit("userInput", userInput)
   )
