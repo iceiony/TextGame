@@ -46,7 +46,7 @@ function ask (question, callback) {
       return stdin.pause();
     }
 
-    if (key && key.name == 'enter' || key.sequence == '\r\n' ) {
+    if (key && ( key.name == 'enter' || key.sequence == '\r\n' )) {
       stdin.removeAllListeners('keypress');
       stdin.pause();
       return callback(answer);
