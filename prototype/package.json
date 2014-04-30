@@ -1,13 +1,15 @@
 {
-    "name": "Prototype",
-    "version": "0.1.0",
-    "private": true,
-    "description": "",
-    "main": "story.coffee",
-    "dependencies": {
-        "style-format": "*",
-        "iter": "0.0.9",
-        "read": "~1.0.5",
-        "keypress": "~0.2.1"
-    }
+  "name": "Prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "story.coffee",
+  "dependencies": {
+    "style-format": "*",
+    "iter": "0.0.9",
+    "read": "~1.0.5",
+    "keypress": "~0.2.1",
+    "natural": "~0.1.27",
+    "WNdb": "~3.1.1"
+  }
 }

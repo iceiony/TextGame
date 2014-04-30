@@ -9,8 +9,8 @@ context = new Context()
 eventEmitter = new events.EventEmitter()
 eventEmitter.on("userInput", (userInput)->
   lowerCase = userInput.toLowerCase().trim();
- 
   decorator = context.__actions[lowerCase] ||
+
     context.__general[lowerCase] ||
     context.__actions["default"] ||
     context.__general["default"];
