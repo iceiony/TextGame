@@ -1,21 +1,22 @@
 assert = require 'assert'
 Transition = require '../nlp/transition'
 
+transitionSting = 'Look around/Examine surroundings';
+otherTransitionStrings = [ "look at the tractor/ the tractor ", 
+                           "paramedics/go to paramedics" ,
+                           "body / look at the body / go to body",
+                           "what have we got/details / situation"];
 
-describe("Matching transitions from the story", ->
-  transitionSting = 'Look around/Examine surroundings'
-  otherTransitionStrings = [ "look at the tractor/ the tractor ", "paramedics/go to paramedics" ,
-                             "body / look at the body / go to body", "what have we got/details / situation"];
+transition = new Transition(transitionSting,otherTransitionStrings);
 
-  transition = new Transition(transitionSting,otherTransitionStrings);
+describe("Matching transitions for '#{transitionSting}'", ->
 
-
-  it("should match all inputs similar to the property", ->
+  it("should match all inputs that are exactly the same", ->
     assert(transition.match('look around'));
     assert(transition.match('Examine surroundings'));
   )
 
-  it("should match all inputs that contain the property", ->
+  it("should match all inputs that contain the strings", ->
     assert(transition.match('look around the field'));
     assert(transition.match('explore surrounding field'));
   )
@@ -32,7 +33,7 @@ describe("Matching transitions from the story", ->
     assert(!transition.match(""));
   )
 
-  it("should match inputs that are semantically related to the property", ->
+  it("should match inputs that are semantically related", ->
     assert(transition.match("analyse surroundings"));
     assert(transition.match("analyse area"));
     assert(transition.match("investigate area"));

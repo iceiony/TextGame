@@ -1,10 +1,6 @@
 natural = require 'natural'
 wordnet = new natural.WordNet();
 
-natural.PorterStemmer.attach();
-natural.Metaphone.attach();
-
-
 class Transition
   constructor: (transitionString,nonValidTransitions) ->
     classifier = new natural.LogisticRegressionClassifier();
@@ -12,13 +8,7 @@ class Transition
     @transitionStrings = transitionString.split('/').map((element)->
       return element.trim().toLowerCase();
     )
-    
-    @transitionStrings = @transitionStrings.forEach((element)->
-      element.tokenizeAndStem().forEach((token)->
-        wordnet
-      )
-    )
-    
+   
     @transitionStrings.forEach((element)->
       classifier.addDocument(element,true);        
     )
