@@ -1,7 +1,5 @@
-Q = require 'Q'
+q = require 'Q'
 natural = require 'natural'
-wordnet = new natural.WordNet()
-
 
 class Transition
   constructor: (transitionString, nonValidTransitions) ->
@@ -28,11 +26,12 @@ class Transition
     @classifier = classifier
 
   matchAsync: (input)->
-    deferred = Q.defer();
+    deferred = q.defer();
 
     setImmediate(=>
-      match = @classifier.getClassifications(input).filter((element)-> element.value > 0.8 )
-#      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
+      match = @classifier.getClassifications(input).filter((element)->
+        element.value > 0.8)
+      #      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
       deferred.resolve({
         input: input,
         match: match.length > 0 && match[0].label

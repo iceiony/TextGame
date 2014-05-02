@@ -9,16 +9,15 @@ otherTransitionStrings = [ "look at the tractor/ the tractor ",
                            "what have we got/details / situation"];
 transition = new Transition(transitionSting, otherTransitionStrings);
 
-describe("Matching transitions for '#{transitionSting}'", ->
+describe("Transition - Matching transitions for '#{transitionSting}'", ->
   
   it("should match all inputs that are exactly the same", (done)->
     Q.all([
       transition.matchAsync('look around'),
       transition.matchAsync('Examine surroundings') ])
     .done((result, exception)->
-      result.forEach((element)->
+      for element in result
         assert(element.match, "Failed : #{element.input}");
-      )
       done(exception);
     )
   )
@@ -28,9 +27,8 @@ describe("Matching transitions for '#{transitionSting}'", ->
       transition.matchAsync('look around the field'),
       transition.matchAsync('explore surrounding field')    ])
     .done((result, exception)->
-      result.forEach((element)->
+      for element in result
         assert(element.match, "Failed on: #{element.input}");
-      )
       done(exception);
     )
   )
@@ -64,11 +62,12 @@ describe("Matching transitions for '#{transitionSting}'", ->
       transition.matchAsync("analyse surroundings"),
       transition.matchAsync("analyse area"),
       transition.matchAsync("investigate area"),
-      transition.matchAsync("checkout surroundings")    ])
+      transition.matchAsync("checkout surroundings"),
+      transition.matchAsync("checkout area")
+    ])
     .done((result, exception)->
-      result.forEach((element)->
+      for element in result
         assert(element.match, "Failed on: #{element.input}");
-      )
       done(exception);
     )
   )
