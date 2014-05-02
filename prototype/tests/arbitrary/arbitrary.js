@@ -1,5 +1,4 @@
 var natural = require('natural'),
-    thesaurus = require('thesaurus'),
     wordnet = new natural.WordNet();
 
 wordnet.lookup("look at", function(results) {
@@ -14,7 +13,6 @@ wordnet.lookup("look at", function(results) {
     });
 });
 
-console.log("------------Thesaurus result-----------\n"+ thesaurus.find("look at"));
 
 
 var natural = require('natural'),
