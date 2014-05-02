@@ -1,1 +1,1 @@
-mocha ./ --compilers coffee:coffee-script/register --recursive 
+mocha ./ --compilers coffee:coffee-script/register --recursive --timeout 1000
