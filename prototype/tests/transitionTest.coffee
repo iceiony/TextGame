@@ -10,13 +10,14 @@ otherTransitionStrings = [ "look at the tractor/ the tractor ",
 transition = new Transition(transitionSting, otherTransitionStrings);
 
 describe("Matching transitions for '#{transitionSting}'", ->
+  
   it("should match all inputs that are exactly the same", (done)->
     Q.all([
       transition.matchAsync('look around'),
       transition.matchAsync('Examine surroundings') ])
     .done((result, exception)->
       result.forEach((element)->
-        assert(element);
+        assert(element.match, "Failed : #{element.input}");
       )
       done(exception);
     )
@@ -28,7 +29,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
       transition.matchAsync('explore surrounding field')    ])
     .done((result, exception)->
       result.forEach((element)->
-        assert(element);
+        assert(element.match, "Failed on: #{element.input}");
       )
       done(exception);
     )
@@ -37,7 +38,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
   it("should not match inputs that are arbitrary", (done)->
     transition.matchAsync("asdf")
     .done((result, exception)->
-      assert(!result);
+      assert(!result.match, "Failed on: #{result.input}");
       done(exception);
     )
   )
@@ -45,7 +46,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
   it("should not match inputs that are strings for other transitions", (done)->
     transition.matchAsync("look at the tractor")
     .done((result, exception)->
-      assert(!result);
+      assert(!result.match, "Failed on: #{result.input}");
       done(exception);
     )
   )
@@ -53,7 +54,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
   it("should not match inputs that are empty", (done)->
     transition.matchAsync("")
     .done((result, exception)->
-      assert(!result);
+      assert(!result.match, "Failed on: #{result.input}");
       done(exception);
     )
   )
@@ -66,7 +67,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
       transition.matchAsync("checkout surroundings")    ])
     .done((result, exception)->
       result.forEach((element)->
-        assert(element);
+        assert(element.match, "Failed on: #{element.input}");
       )
       done(exception);
     )
@@ -75,7 +76,7 @@ describe("Matching transitions for '#{transitionSting}'", ->
   it("should not match inputs that are syntax related but not semantically", (done)->
     transition.matchAsync("look at me")
     .done((result, exception)->
-      assert(!result);
+      assert(!result.match, "Failed on: #{result.input}");
       done(exception);
     )
   )
