@@ -39,4 +39,8 @@ describe("Matching transitions for '#{transitionSting}'", ->
     assert(transition.match("investigate area"));
     assert(transition.match("checkout surroundings"));
   )
+  
+  it("should not match inputs that are syntax related but not semantically", ->
+    assert(!transition.match("look at me"));
+  )
 )
