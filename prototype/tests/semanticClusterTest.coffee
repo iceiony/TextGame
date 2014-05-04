@@ -8,8 +8,9 @@ describe("SemanticCluster - Generating sentences for #{input}", ->
     .done((result, error)->
       assert(result.length > 2);
       
-      for sentence in result 
-        assert(typeof sentence == 'string', "not a string #{JSON.stringify(sentence)}")
+      for sentence in result
+        asString = JSON.stringify(sentence)
+        assert(typeof sentence == 'string', "not a string #{asString}")
       
       done(error)
     );
