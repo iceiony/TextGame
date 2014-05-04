@@ -62,8 +62,8 @@ describe("Transition - Matching transitions for '#{transitionSting}'", ->
       transition.matchAsync("analyse surroundings"),
       transition.matchAsync("analyse area"),
       transition.matchAsync("investigate area"),
-      transition.matchAsync("checkout surroundings"),
-      transition.matchAsync("checkout area")
+      transition.matchAsync("check out surroundings"),
+      transition.matchAsync("check out area")
     ])
     .done((result, exception)->
       for element in result
