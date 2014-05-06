@@ -15,11 +15,10 @@ eventEmitter.on("userInput", (userInput)->
   userInput = userInput.toLowerCase().trim();
 
   transition.matchAsync(userInput).then((result)->
-    matchedTransition = result.match || "default"
+    console.log("[#{result.match}]");
     
-    console.log("[#{matchedTransition}]");
-    
-    decorator = context.__general[matchedTransition];
+    decorator = context.__general[result.match] || 
+      context.__general["default"];
 
     promptForCurrentNode()
   )
