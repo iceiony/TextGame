@@ -1,5 +1,5 @@
 module.exports = (story) -> {
-'Cigar/Fag/Smoke': ->
+'Cigar/Fag/Smoke/have a smoke': ->
   @clearGeneral()
   @text """ 
           With a content look on his face, Willy starts to collect his thoughts. He reaches to the inside of his jacket and pulls out a cartridge of cigars and a lighter. 
@@ -46,7 +46,7 @@ module.exports = (story) -> {
                 
 #####################################################                
                 
-'coffee': ->
+'coffee/give me coffee': ->
   @text """
           Chief : "Coffee ?" A bit of a confused look could be noticed on the chief's face. 
           Chief : Stevey , you heard the man, get him a coffee . 
@@ -55,22 +55,22 @@ module.exports = (story) -> {
           Stevey: Yes sir , chief. On my way!  As he starts rushing to the cars in the distance. 
           Cheif turns back to the detective: "Well that will probably take him a while . Shall we continue meanwhile ?" """
   @general ->
-    'coffee': ->
+    'coffee/give me coffee': ->
       @text """Chief : "Stevey on the way to get you one Willy. Can we please focus on the crime scene for now ." """
       @general ->
-        'coffee': ->
+        'coffee/give me coffee': ->
           @text """Cheif: Look I know it's quite an early Sunday morning, but we all want to finish this and go home. """
           @general ->
-            'coffee': ->
+            'coffee/give me coffee': ->
               @text """
                     Chief looks a bit irritated now.
                     Chief:"Look Willy, I know you have your issues. But we quite need your head on this case. Now please focus for a moment."
                           "We're in the middle of nowhere early Sunday morning, we want to finish this fast" """
               @general ->
-                'coffee': ->
+                'coffee/give me coffee': ->
                   @text """Chief acts as if he doesn't even hears the the word. Stares Willy dead cold in the eyes """
                   @general ->
-                    'coffee': ->
+                    'coffee/give me coffee': ->
                       @text """
                             Willy leans to his bag next, reaches in and pulls out a coffee cup. He extends his hand to give it to the chief.
                             He looks straight back into the Chief's eyes and repeats.
@@ -81,7 +81,7 @@ module.exports = (story) -> {
                             Willy proceeds to give pull out more cups for the people around . 
                             He hands one to Henry, another two to the paramedics and one last one to the farmer sitting next to his parked tractor."""
                       @general ->
-                        'coffee' : ->
+                        'coffee/give me coffee' : ->
                           @text """
                                        Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
                                        As he raises his coffee cup in appreciation  he looks around as the surrounding party approves."""

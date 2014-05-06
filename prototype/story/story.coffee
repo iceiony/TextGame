@@ -38,7 +38,13 @@ story = {
         There are 5-6 other people present: the three officers, 2 paramedics and a farmer. His tractor is parked a about 20 meters away towards the road.
         Behind the policeman, about 10 meters away you notice the body of the victim. 
         """
-      "What's the situation? / What am I seeing / Details /Situation / what is going on / what have we got / where is the body / so / what happened ": ->
+      "Greetings/Hello":
+        @text """
+        Chief: "Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son." 
+               "I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy"
+        """
+      
+      "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened ": ->
         @text """
         The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
         Chief : "We got the call at 5AM this morning for a body found in the middle of the field."
@@ -46,21 +52,21 @@ story = {
             "Given the remote location, we arrived at the scene 1 hours later. [Body is faced up, a middle aged white male, maybe 45, half naked.] "
             "We weren't able to identify him yet and no reports of missing people from nearby towns."
         """
-      'look at the tractor / the tractor': ->
+      'tractor/inspect tractor/examine tractor': ->
         @text """
         The detective walks to the the front of the tractor. The back of it seems seems geared up with a plow to prepared the earth for seeding. They seem to be in use. 
         You touch the tractor's motor to see if it has been in use recently. But it feels cold to the touch.
         """
-      'Paramedics/ go to paramedics': ->
+      'Paramedics/go to paramedics/talk to paramedics': ->
         @text """
         Willy walks to the 2 paramedics resting next to their equipment. 1 Male and one female. 
         They don't look particularly enthusiastic and don't actually notice the detective approaching.
         """
-      'farmer / go to farmer' : ->
+      'farmer/go to farmer/talk to farmer' : ->
         @text """
         Willy walks to the farmer. Middle aged man, looks hard working. He was sitting on the ground but stands up as the detective approaches .
         """
-      'Body / Look at body / Go to body': ->
+      'Body / Look at body / Go to body/ inspect body': ->
         @text """
         Willy walks past the officers and approaches the body. The 2-3 follow his lead. 
         Chief : "That's how we found him. The medical personnel haven't turned him over yet."
@@ -70,24 +76,36 @@ story = {
         His right fist seems to be closed in a tight grip.
         """
         @action ->
-          'Open fist / Look at fist / fist': ->
+          'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
             @text """
             Wildcard : Can I touch him ? 
             Chief    : Go ahead Willy. We"ve already collected the evidence needed so far.
             Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding half a match, unused. Wildcard picks up the match staring at it curiously.
-            The detective next to him : "What do you think that means willy ?"
+            The detective next to him : "What do you think that means Willy ?"
             """
-          'That he was a smoker / smoking / smoke': ->
-            @text """
-            Henry: But why only half a match ? And why was it not used.
-            """
-          "Don't know / silence / white space": ->
-            @text """
-            The 3-4 sit in silence for a few moments. 
-            Stevey:      "What if he was a smoker" 
-            Henry :      "But why only half a match ? And why was it not used."
-            """
-      'witness / witnesses ': ->
+            @action ->
+              'Take match/put in pocket': ->
+                @text """
+                Chief: "Sorry Wildcard you can't have that. We have to use it for evidence, what ever it is"
+                """
+              'That he was a smoker / smoking / smoke': ->
+                @text """
+                Henry: But why only half a match ? And why was it not used.
+                """
+              "Don't know / nothing /shut up": ->
+                @text """
+                The 3-4 sit in silence for a few moments. 
+                Stevey:      "What if he was a smoker" 
+                Henry :      "But why only half a match ? And why was it not used."
+                """
+              "" :->
+                @text """
+                The 3-4 sit in silence for a few moments. 
+                Stevey:      "What if he was a smoker" 
+                Henry :      "But why only half a match ? And why was it not used."
+                """
+            
+      'witness/anyone around': ->
         @text """
         Chief looks towards a nearby tractor. The tractor driver resting against it. 
         Chief: "Mike Rachid over there found the body. We don't have any weaknesses."
@@ -95,6 +113,7 @@ story = {
       'Where did it come from / how did it get here': ->
         @text """
         Henry: "We don't know . We're far in the middle of nowhere here. The body could have come from anywhere."
+        Chief: "That's why we called you detective"
         """
       'default': ->
         @text """ Wildcard mutters something indistinguishable """
