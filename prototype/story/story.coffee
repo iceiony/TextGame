@@ -33,7 +33,7 @@ story = {
     """
     @general -> require('./gags')(story) 
     @general ->
-      'Look around/Examine surroundings': ->
+      'look around/examine surroundings/analyse area': ->
         @text """
         There are 5-6 other people present: the three officers, 2 paramedics and a farmer. His tractor is parked a about 20 meters away towards the road.
         Behind the policeman, about 10 meters away you notice the body of the victim. 
