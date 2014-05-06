@@ -75,34 +75,34 @@ story = {
         As they get next to the body willy knees next to it and examines in detail. Body is faced up, a middle aged white male, maybe 45, half naked. 
         His right fist seems to be closed in a tight grip.
         """
-        @action ->
+        @general ->
           'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
             @text """
             Wildcard : Can I touch him ? 
             Chief    : Go ahead Willy. We"ve already collected the evidence needed so far.
-            Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding half a match, unused. Wildcard picks up the match staring at it curiously.
+            Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding half a mach, unused. Wildcard picks up the mach staring at it curiously.
             The detective next to him : "What do you think that means Willy ?"
             """
-            @action ->
-              'Take match/put in pocket': ->
+            @general ->
+              'Take mach/put in pocket': ->
                 @text """
                 Chief: "Sorry Wildcard you can't have that. We have to use it for evidence, what ever it is"
                 """
               'That he was a smoker / smoking / smoke': ->
                 @text """
-                Henry: But why only half a match ? And why was it not used.
+                Henry: But why only half a mach ? And why was it not used.
                 """
               "Don't know / nothing /shut up": ->
                 @text """
                 The 3-4 sit in silence for a few moments. 
                 Stevey:      "What if he was a smoker" 
-                Henry :      "But why only half a match ? And why was it not used."
+                Henry :      "But why only half a mach ? And why was it not used."
                 """
               "" :->
                 @text """
                 The 3-4 sit in silence for a few moments. 
                 Stevey:      "What if he was a smoker" 
-                Henry :      "But why only half a match ? And why was it not used."
+                Henry :      "But why only half a mach ? And why was it not used."
                 """
             
       'witness/anyone around': ->
@@ -123,7 +123,7 @@ story = {
     Chief : "Wildcard's dead ..."
     (Type respawn to start from begining)
     """
-    @actions ->
+    @general ->
       'restart/respawn/start/new': story.intro
       'default': story.death
 }

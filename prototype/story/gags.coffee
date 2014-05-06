@@ -9,7 +9,7 @@ module.exports = (story) -> {
           Chief : "This is what you get when smoking. Rest in peace Wildcard."
           (Type respawn to start from begining)
           """
-  @actions ->
+  @general ->
     'respawn/restart': story.intro
     'default': story.death
 ###################################################    
@@ -41,7 +41,7 @@ module.exports = (story) -> {
                     Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
                     The paramedics nearby rush to save Wildcrad. But he's dead, shot through the hart.
                     """
-              @actions ->
+              @general ->
                 'default': story.death
                 
 #####################################################                

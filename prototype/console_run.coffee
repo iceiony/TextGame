@@ -19,16 +19,13 @@ eventEmitter.on("userInput", (userInput)->
     
     console.log("[#{matchedTransition}]");
     
-    decorator = context.__action[matchedTransition] ||
-      context.__general[matchedTransition];
+    decorator = context.__general[matchedTransition];
 
     promptForCurrentNode()
   )
 )
 
 promptForCurrentNode = ->
-  delete context.__action;
-  context.__action = {};
   decorator.call(context)
   nodeText = context.toString()+"\n-> "
   prompt(nodeText, (userInput)->
