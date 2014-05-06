@@ -1,4 +1,5 @@
 q = require 'Q'
+_ = require 'lodash'
 natural = require 'natural'
 
 class Transition
@@ -12,7 +13,7 @@ class Transition
       transitionStrings.forEach((element)->
         classifier.addDocument(element, singleTransition);
       )
-    
+
     classifier.train();
     @classifier = classifier
 
@@ -20,13 +21,15 @@ class Transition
     deferred = q.defer();
 
     setImmediate(=>
-      match = @classifier.getClassifications(input).filter((element)->
-        element.value > 0.8)
-#      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
+      matches = @classifier.getClassifications(input).filter((element)-> element.value > 0.8)
+      topMatch = _(matches).sortBy((element)-> element.value).first();
+
       deferred.resolve({
         input: input,
-        match: match.length > 0 && match[0].label
+        match: topMatch?.label,
+        ratio: topMatch?.value
       });
+      #      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
     )
 
     return deferred.promise;

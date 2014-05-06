@@ -1,31 +1,38 @@
 Context = require './context'
+Transition = require './nlp/transition'
+
+
 story = require './story/story'
 events = require 'events'
 prompt = require('./prompt-input')()
 
 decorator = story.intro
 context = new Context()
+transition = null;
 
 eventEmitter = new events.EventEmitter()
 eventEmitter.on("userInput", (userInput)->
-  lowerCase = userInput.toLowerCase().trim();
-  decorator = context.__actions[lowerCase] ||
+  userInput = userInput.toLowerCase().trim();
 
-    context.__general[lowerCase] ||
-    context.__actions["default"] ||
-    context.__general["default"];
-  
-  promptForCurrentNode()
+  transition.matchAsync(userInput).then((result)->
+    matchedTransition = result.match || "default"
+    
+    decorator = context.__actions[matchedTransition] ||
+      context.__general[matchedTransition];
+
+    promptForCurrentNode()
+  )
 )
 
 promptForCurrentNode = ->
   delete context.__actions;
   context.__actions = {};
-  
   decorator.call(context)
   nodeText = context.toString()+"\n-> "
   prompt(nodeText, (userInput)->
     eventEmitter.emit("userInput", userInput)
   )
+  
+  transition = new Transition(context.getAllTransitions())
 
 promptForCurrentNode()

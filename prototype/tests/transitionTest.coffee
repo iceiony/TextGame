@@ -19,6 +19,7 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
     .done((result, exception)->
       for element in result
         assert.strictEqual(element.match,expectedTransition, "Failed : #{element.input}");
+        assert(element.ratio,"Match ratio not present for: #{element.input}");
       done(exception);
     )
   )
