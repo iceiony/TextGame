@@ -2,26 +2,17 @@ q = require 'Q'
 natural = require 'natural'
 
 class Transition
-  constructor: (transitionString, nonValidTransitions) ->
+  constructor: (allTransitionStrings) ->
     classifier = new natural.LogisticRegressionClassifier();
 
-    @transitionStrings = transitionString.split('/').map((element)->
-      return element.trim().toLowerCase();
-    )
-
-    @transitionStrings.forEach((element)->
-      classifier.addDocument(element, true);
-    )
-
-    nonValidTransitions.forEach((nonTransition)->
-      nonTransitionStrings = nonTransition.split('/').map((element)->
+    for singleTransition in allTransitionStrings
+      transitionStrings = singleTransition.split('/').map((element)->
         return element.trim().toLowerCase();
       )
-      nonTransitionStrings.forEach((element)->
-        classifier.addDocument(element, false);
+      transitionStrings.forEach((element)->
+        classifier.addDocument(element, singleTransition);
       )
-    )
-
+    
     classifier.train();
     @classifier = classifier
 
@@ -31,7 +22,7 @@ class Transition
     setImmediate(=>
       match = @classifier.getClassifications(input).filter((element)->
         element.value > 0.8)
-      #      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
+#      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
       deferred.resolve({
         input: input,
         match: match.length > 0 && match[0].label
