@@ -38,7 +38,7 @@ story = {
         There are 5-6 other people present: the three officers, 2 paramedics and a farmer. His tractor is parked a about 20 meters away towards the road.
         Behind the policeman, about 10 meters away you notice the body of the victim. 
         """
-      "Greetings/Hello":
+      "Greetings/Hello":->
         @text """
         Chief: "Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son." 
                "I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy"
