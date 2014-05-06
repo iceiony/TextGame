@@ -2,16 +2,22 @@ q = require 'Q'
 _ = require 'lodash'
 natural = require 'natural'
 
+EMPTY_STRING_TRANSITION = "empty string transition"
+
 class Transition
   constructor: (allTransitionStrings) ->
     classifier = new natural.LogisticRegressionClassifier();
 
     for singleTransition in allTransitionStrings
-      transitionStrings = singleTransition.split('/').map((element)->
-        return element.trim().toLowerCase();
+      if(singleTransition.trim().length == 0 )
+        singleTransition = EMPTY_STRING_TRANSITION
+        
+      transitionStrings = singleTransition.split('/').map((transitionString)->
+        return transitionString.trim().toLowerCase();
       )
-      transitionStrings.forEach((element)->
-        classifier.addDocument(element, singleTransition);
+      
+      transitionStrings.forEach((transitionString)->
+        classifier.addDocument(transitionString, singleTransition);
       )
 
     classifier.train();
@@ -19,10 +25,16 @@ class Transition
 
   matchAsync: (input)->
     deferred = q.defer();
+    
+    if (input.trim().length == 0 ) 
+      input = EMPTY_STRING_TRANSITION
 
     setImmediate(=>
       matches = @classifier.getClassifications(input).filter((element)-> element.value > 0.8)
       topMatch = _(matches).sortBy((element)-> element.value).first();
+      
+      if(topMatch?.label == EMPTY_STRING_TRANSITION)
+        topMatch.label = ""
 
       deferred.resolve({
         input: input,
