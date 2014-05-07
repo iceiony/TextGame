@@ -15,7 +15,7 @@ module.exports.record = (data)->
       )
     )
     req.on('error',(err)->
-      console.log("something went wrong:"+ err.message);
+      #meh something went wrong, server may not be up 
     )
     req.write(data)
     req.end()
