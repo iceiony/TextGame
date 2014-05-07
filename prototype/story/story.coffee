@@ -43,7 +43,6 @@ story = {
         Chief: "Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son." 
                "I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy"
         """
-      
       "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened ": ->
         @text """
         The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
