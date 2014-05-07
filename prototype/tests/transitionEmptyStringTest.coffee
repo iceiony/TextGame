@@ -21,13 +21,14 @@ describe("Transition - Matching transitions for an empty string", ->
     )
   )
   
-  it("should not match other transitions", (done)->
+  it("should match other transitions to their key string", (done)->
     Q.all([
       transition.matchAsync('look around'),
       transition.matchAsync('Examine surroundings') ])
     .done((result, exception)->
       for element in result
         assert.notStrictEqual(element.match,expectedTransition, "Failed : #{element.input}");
+        assert(element.match, "Failed : #{element.input}");
       done(exception);
     )
   )

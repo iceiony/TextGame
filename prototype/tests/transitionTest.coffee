@@ -38,15 +38,16 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
   it("should not match inputs that are arbitrary", (done)->
     transition.matchAsync("asdf")
     .done((result, exception)->
-      assert.notStrictEqual(result.match,expectedTransition, "Failed : #{result.input}");
+      assert(!result.match, "Failed : #{result.input}");
       done(exception);
     )
   )
 
-  it("should not match inputs that are strings for other transitions", (done)->
+  it("should match inputs that are strings for other transitions to those transitions", (done)->
     transition.matchAsync("look at the tractor")
     .done((result, exception)->
       assert.notStrictEqual(result.match,expectedTransition, "Failed : #{result.input}");
+      assert(result.match, "Failed : #{result.input}");
       done(exception);
     )
   )
@@ -54,7 +55,7 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
   it("should not match inputs that are empty", (done)->
     transition.matchAsync("")
     .done((result, exception)->
-      assert.notStrictEqual(result.match,expectedTransition, "Failed : #{result.input}");
+      assert(!result.match, "Failed : #{result.input}");
       done(exception);
     )
   )
@@ -77,7 +78,7 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
   it("should not match inputs that are syntax related but not semantically", (done)->
     transition.matchAsync("look at me")
     .done((result, exception)->
-      assert.notStrictEqual(result.match,expectedTransition, "Failed : #{result.input}");
+      assert(!result.match, "Failed : #{result.input}");
       done(exception);
     )
   )
