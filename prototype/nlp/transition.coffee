@@ -4,35 +4,57 @@ natural = require 'natural'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
 
+__processString = (transitionString)->
+  if(transitionString.trim().length == 0 )
+    return EMPTY_STRING_TRANSITION
+
+  transitionString = transitionString.replace(/'s/g, ' is');
+  stringParts = transitionString.trim().toLowerCase().split(' ')
+
+  newString = ""
+  for word in stringParts
+    if word.length < 3
+      word = word + word
+    newString = newString + " " + word
+  newString = newString.trim()
+
+#  console.log "old: #{transitionString}\nnew: #{newString}\n"
+  return newString
+
 class Transition
   constructor: (allTransitionStrings) ->
-    classifier = new natural.LogisticRegressionClassifier();
+    logisticClassifier = new natural.LogisticRegressionClassifier();
 
     for singleTransition in allTransitionStrings
       if(singleTransition.trim().length == 0 )
         singleTransition = EMPTY_STRING_TRANSITION
-        
+
       transitionStrings = singleTransition.split('/').map((transitionString)->
-        return transitionString.trim().toLowerCase();
+        return __processString(transitionString);
       )
       
       transitionStrings.forEach((transitionString)->
-        classifier.addDocument(transitionString, singleTransition);
+        logisticClassifier.addDocument(transitionString, singleTransition);
       )
 
-    classifier.train();
-    @classifier = classifier
+    logisticClassifier.train()
+
+    @logisticClassifier = logisticClassifier
 
   matchAsync: (input)->
     deferred = q.defer();
-    
-    if (input.trim().length == 0 ) 
-      input = EMPTY_STRING_TRANSITION
+
+    input = __processString(input)
 
     setImmediate(=>
-      matches = @classifier.getClassifications(input).filter((element)-> element.value > 0.8)
-      topMatch = _(matches).sortBy((element)-> element.value).first();
-      
+      matches = @logisticClassifier.getClassifications(input).filter((element)->
+        element.value > 0.8)
+      console.log "\nlogistic: "+ input
+      console.log @logisticClassifier.getClassifications(input)
+
+      topMatch = _(matches).sortBy((element)->
+        element.value).first();
+
       if(topMatch?.label == EMPTY_STRING_TRANSITION)
         topMatch.label = ""
 
@@ -41,7 +63,6 @@ class Transition
         match: topMatch?.label,
         ratio: topMatch?.value
       });
-      #      console.log "\n" + input + " : " + JSON.stringify(@classifier.getClassifications(input)) + " match " + JSON.stringify(match)
     )
 
     return deferred.promise;

@@ -2,15 +2,18 @@ assert = require 'assert'
 Q = require 'Q'
 Transition = require '../nlp/transition'
 
-expectedTransition = "Look around/Examine surroundings";
-transitionsStrings = [ "look at the tractor/ the tractor ",
-                       "paramedics/go to paramedics" ,
-                       "body / look at the body / go to body",
-                       "what have we got/details / situation"];
+expectedTransition = "Look around/Examine surroundings"
+transitionsStrings = [ "look at the tractor/ the tractor "
+                       "paramedics/go to paramedics" 
+                       "body / look at the body / go to body"
+                       "what have we got/details / situation"
+                       #"What's the case/What is up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened"
+                      ];
+
 transitionsStrings.push(expectedTransition);
 transition = new Transition(transitionsStrings);
 
-describe("Transition - Matching transitions for '#{expectedTransition}'", ->
+describe("Transition - matching transitions for '#{expectedTransition}'", ->
   
   it("should match all inputs that are exactly the same", (done)->
     Q.all([
@@ -19,7 +22,7 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
     .done((result, exception)->
       for element in result
         assert.strictEqual(element.match,expectedTransition, "Failed : #{element.input}");
-        assert(element.ratio,"Match ratio not present for: #{element.input}");
+        assert(element.ratio,"match ratio not present for: #{element.input}");
       done(exception);
     )
   )
@@ -78,7 +81,7 @@ describe("Transition - Matching transitions for '#{expectedTransition}'", ->
   it("should not match inputs that are syntax related but not semantically", (done)->
     transition.matchAsync("look at me")
     .done((result, exception)->
-      assert(!result.match, "Failed : #{result.input}");
+      assert(!result.match, "Failed : #{result.input} with match #{result.match} ratio #{result.ratio}");
       done(exception);
     )
   )
