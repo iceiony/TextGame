@@ -7,7 +7,7 @@ transitionsStrings = [ "look at the tractor/ the tractor "
                        "paramedics/go to paramedics" 
                        "body / look at the body / go to body"
                        "what have we got/details / situation"
-                       #"What's the case/What is up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened"
+                       "What's the case/What is up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened"
                       ];
 
 transitionsStrings.push(expectedTransition);
