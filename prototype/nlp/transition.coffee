@@ -49,8 +49,8 @@ class Transition
     setImmediate(=>
       matches = @logisticClassifier.getClassifications(input).filter((element)->
         element.value > 0.8)
-      console.log "\nlogistic: "+ input
-      console.log @logisticClassifier.getClassifications(input)
+#      console.log "\nlogistic: "+ input
+#      console.log @logisticClassifier.getClassifications(input)
 
       topMatch = _(matches).sortBy((element)->
         element.value).first();
