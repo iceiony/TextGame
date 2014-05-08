@@ -1,7 +1,7 @@
 http = require 'http'
 
 connectionOptions = {
-  host:"188.226.142.52"
+  host:"188.226.234.126"
 #  host:"127.0.0.1"
   port: 9032
   method: "POST"
@@ -15,6 +15,7 @@ module.exports.record = (data)->
       )
     )
     req.on('error',(err)->
+#      console.log(err)
       #meh something went wrong, server may not be up 
     )
     req.write(data)
