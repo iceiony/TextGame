@@ -1,8 +1,8 @@
 http = require 'http'
 
 connectionOptions = {
-#  host:"188.226.234.126"
-  host:"127.0.0.1"
+  host:"188.226.234.126"
+#  host:"127.0.0.1"
   port: 9032
   method: "POST"
   path: "/"
