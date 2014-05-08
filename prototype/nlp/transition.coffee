@@ -62,6 +62,7 @@ class Transition
         input: input,
         match: topMatch?.label,
         ratio: topMatch?.value
+        score: topMatch?.value
       });
     )
 
