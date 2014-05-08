@@ -39,7 +39,7 @@ module.exports = (story) -> {
               @text """
                     From behind the chief, Stevey pulls a gun. In a blink of an eye, he shoves the Chief aside points the gun at Wildcard and pulls the trigger.
                     Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
-                    The paramedics nearby rush to save Wildcrad. But he's dead, shot through the hart.
+                    The paramedics nearby rush to save Wildcrad. But he's dead, shot through the heart.
                     """
               @general ->
                 'default': story.death
