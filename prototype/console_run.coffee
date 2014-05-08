@@ -1,6 +1,6 @@
 Context = require './context'
 Transition = require './nlp/transition'
-server_logging = require './server_logging'
+server_logging = require './server_logging/logging_client'
 
 story = require './story/story'
 events = require 'events'
