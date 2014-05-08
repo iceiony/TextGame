@@ -43,11 +43,4 @@ describe("Transition - Matching transitions for #{expectedTransition}", ->
     )
   )
   
-  it("should not match related but semantically related questions like What is your name", (done)->
-    transition.matchAsync("what is your name")
-    .done((result, exception)->
-      assert(!result.match, "Should not match : #{result.input} - with ratio #{result.ratio}");
-      done(exception);
-    )
-  )
 )
