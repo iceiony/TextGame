@@ -90,6 +90,15 @@ story = {
         His right fist seems to be closed in a tight grip.
         """
         @location 'next to body', ->
+          'touch': ->
+            @text """
+            Wildcard touches the body. He doesn't seem to be looking for anything particular though.
+            It feels cold to the touch.
+            """
+          'poke': ->
+            @text """
+            Wildcard pokes the body. It doesn't move. The guy is clearly not going to move. What was Wildcard thinking ?   
+            """
           'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
             @text """
             Wildcard : Can I touch him ? 
