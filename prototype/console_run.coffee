@@ -18,8 +18,11 @@ eventEmitter.on("userInput", (userInput)->
   transition.matchAsync(userInput).then((result)->
     console.log("[#{result.match}]")
     server_logging.record("[#{result.match}]\n")
-
-    decorator = context.__general[result.match] ||
+    
+    currentLocation = context.__curentLocation;
+    
+    decorator = context.__locations[currentLocation]?[result.match] || 
+      context.__general[result.match] ||
       context.__general["default"]
 
     promptForCurrentNode()
@@ -34,7 +37,7 @@ promptForCurrentNode = ->
     prompt(nodeText, (userInput)->
       eventEmitter.emit("userInput", userInput)
     )
-    transition = new Transition(context.getAllTransitions())
+    transition = new Transition(context.getCurrentTransitions())
   )
   
 

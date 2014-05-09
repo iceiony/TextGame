@@ -9,10 +9,10 @@ module.exports = (story) -> {
           Chief : "This is what you get when smoking. Rest in peace Wildcard."
           (Type respawn to start from begining)
           """
-  @general ->
+  @everywhere ->
     'respawn/restart': story.intro
     'default': story.death
-###################################################    
+#####################################################                
     
 '': ->
   @text """
@@ -20,20 +20,20 @@ module.exports = (story) -> {
         But tilts his head in a matter of confusion.
         The chief looks at him patiently. 
         """
-  @general ->
+  @everywhere ->
     '': ->
       @text """
               Wildcard sits in silence. He doesn't look like he's about to say or do anything. 
               Chief gains a crious look in his eyes : "Willy ?"
               """
-      @general ->
+      @everywhere ->
         '': ->
           @text """
                 5 minutes pass. Everyone is frozen still waiting for Wildcard to take action.
                 Chief : Com on detective, say something! What's the matter?
                 Chief gazez over to the paramedics with a thought to call them over. They notice his gaze and set up as if ready to answer the urgent call. 
                 """
-          @general ->
+          @everywhere ->
             '': ->
               @clearGeneral()
               @text """
@@ -41,7 +41,7 @@ module.exports = (story) -> {
                     Wildcard falls to the ground . Henry and the Chief jump on Stevey to dissarm him. 
                     The paramedics nearby rush to save Wildcrad. But he's dead, shot through the heart.
                     """
-              @general ->
+              @everywhere ->
                 'default': story.death
                 
 #####################################################                
@@ -54,22 +54,22 @@ module.exports = (story) -> {
                   Chief turns around with an angry look in his eyes. Stevey suddenly realises his mischief. 
           Stevey: Yes sir , chief. On my way!  As he starts rushing to the cars in the distance. 
           Cheif turns back to the detective: "Well that will probably take him a while . Shall we continue meanwhile ?" """
-  @general ->
+  @everywhere ->
     'coffee/give me coffee': ->
       @text """Chief : "Stevey on the way to get you one Willy. Can we please focus on the crime scene for now ." """
-      @general ->
+      @everywhere ->
         'coffee/give me coffee': ->
           @text """Cheif: Look I know it's quite an early Sunday morning, but we all want to finish this and go home. """
-          @general ->
+          @everywhere ->
             'coffee/give me coffee': ->
               @text """
                     Chief looks a bit irritated now.
                     Chief:"Look Willy, I know you have your issues. But we quite need your head on this case. Now please focus for a moment."
                           "We're in the middle of nowhere early Sunday morning, we want to finish this fast" """
-              @general ->
+              @everywhere ->
                 'coffee/give me coffee': ->
                   @text """Chief acts as if he doesn't even hears the the word. Stares Willy dead cold in the eyes """
-                  @general ->
+                  @everywhere ->
                     'coffee/give me coffee': ->
                       @text """
                             Willy leans to his bag next, reaches in and pulls out a coffee cup. He extends his hand to give it to the chief.
@@ -80,7 +80,7 @@ module.exports = (story) -> {
 
                             Willy proceeds to give pull out more cups for the people around . 
                             He hands one to Henry, another two to the paramedics and one last one to the farmer sitting next to his parked tractor."""
-                      @general ->
+                      @everywhere ->
                         'coffee/give me coffee' : ->
                           @text """
                                        Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
