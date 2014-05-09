@@ -4,7 +4,6 @@ next_to_tractor = "next to tractor"
 next_to_paramedics = "next to paramedics"
 next_to_body = "next to body"
 
-
 story = {
   intro: ->
     @location start
@@ -39,7 +38,6 @@ story = {
     Chief: "So Detective!" the chief says in a lewder voice while corner eyeing the two officers behind him. 
            "We'll provide what ever you require. Just let us know what you need to solve this case."
     """
-    @everywhere -> require('./gags')(story) 
     @location start, ->
       'look around/examine surroundings/analyse area': ->
         @text """
@@ -51,6 +49,9 @@ story = {
         Chief: "Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son." 
                "I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy"
         """
+        @location start, ->
+          "your name/chief's name/what is your name chief": story.chief_name
+            
       "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened ": ->
         @text """
         The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
@@ -59,12 +60,15 @@ story = {
             "Given the remote location, we arrived at the scene 1 hours later. [Body is faced up, a middle aged white male, maybe 45, half naked.] "
             "We weren't able to identify him yet and no reports of missing people from nearby towns."
         """
-        'witness/anyone around': ->
+      'witness/anyone around': ->
         @text """
         Chief looks towards a nearby tractor. The tractor driver resting against it. 
         Chief: "Mike Rachid over there found the body. We don't have any other weakness besides him."
         """
+        
+    @everywhere -> require('./gags')(story)
     @everywhere ->
+      "chief's name/what is your name chief": story.chief_name
       'tractor/inspect tractor/examine tractor/go to tractor': ->
         @location next_to_tractor
         @text """
@@ -138,11 +142,38 @@ story = {
                 """
       'default': ->
         @text """ Wildcard mutters something indistinguishable """
+        
+  chief_name: ->
+    @text """
+            Wildcard : "What's your name chief?"
+            The officers gain a bit of a shoked expressions on their faces.
+            The chief slowly leans towards Wildcard and asks : 
+            Cheif: Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
+            """
+    @everywhere -> require('./medication')(story)
+    @everywhere ->
+      "yes" : ->
+        @text """
+                Chief: Good ! Don't scare me like that.... Let's solve this case then !
+                """
+      "no" : ->
+        @text """
+                Chief looks even more shoked. 
+                Chief: I know you since you were kid. How can you not know my name ? 
+                       I think you should take your medication now. It's not good if you skip it. 
+                Wildcard usually takes it with his morning coffee. But on this ocassion he had to skip breakfast to respond 
+                to the urgent crime call.
+                """
+        @everywhere ->
+          "chief's name/what is your name chief": ->
+            @text """
+                    Chief : Willy, take your medication please .
+                    """
   death: ->
     @text """
     The chief stares at the detective's body in dread
     Chief : "Wildcard's dead ..."
-    (Type respawn to start from begining)
+    {Type respawn to start from begining}
     """
     @everywhere ->
       'restart/respawn/start/new': story.intro
