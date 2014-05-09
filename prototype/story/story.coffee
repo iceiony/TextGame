@@ -1,5 +1,13 @@
+#locations 
+start = "start"
+next_to_tractor = "next to tractor"
+next_to_paramedics = "next to paramedics"
+next_to_body = "next to body"
+
+
 story = {
   intro: ->
+    @location start
     @text """
     Crime scene investigation
     Location : Middle of an empty field . Early hours of Monday morning. 
@@ -32,7 +40,7 @@ story = {
            "We'll provide what ever you require. Just let us know what you need to solve this case."
     """
     @everywhere -> require('./gags')(story) 
-    @everywhere ->
+    @location start, ->
       'look around/examine surroundings/analyse area': ->
         @text """
         There are 5-6 other people present: the three officers, 2 paramedics and a farmer. His tractor is parked a about 20 meters away towards the road.
@@ -51,36 +59,32 @@ story = {
             "Given the remote location, we arrived at the scene 1 hours later. [Body is faced up, a middle aged white male, maybe 45, half naked.] "
             "We weren't able to identify him yet and no reports of missing people from nearby towns."
         """
+        'witness/anyone around': ->
+        @text """
+        Chief looks towards a nearby tractor. The tractor driver resting against it. 
+        Chief: "Mike Rachid over there found the body. We don't have any other weakness besides him."
+        """
+    @everywhere ->
       'tractor/inspect tractor/examine tractor/go to tractor': ->
-        @location "next to tractor"
+        @location next_to_tractor
         @text """
         The detective walks to the the front of the tractor. 
         He leans to the side and observes the back of it is geared up with a plow to prepared the earth for seeding.  
         You touch the tractor's motor to see if it has been in use recently. But it feels cold to the touch.
         """
       'Paramedics/go to paramedics/talk to paramedics': ->
-        @location "next to paramedics"
+        @location next_to_paramedics
         @text """
         Willy walks to the 2 paramedics resting next to their equipment. 1 Male and one female. 
         They don't look particularly enthusiastic and don't actually notice the detective approaching.
         """
       'farmer/go to farmer/talk to farmer' : ->
-        @location "next to farmer"
+        @location next_to_tractor
         @text """
         Willy walks to the farmer. Middle aged man, looks hard working. He was sitting on the ground but stands up as the detective approaches .
         """
-      'witness/anyone around': ->
-        @text """
-        Chief looks towards a nearby tractor. The tractor driver resting against it. 
-        Chief: "Mike Rachid over there found the body. We don't have any weaknesses."
-        """
-      'Where did it come from / how did it get here': ->
-        @text """
-        Henry: "We don't know . We're far in the middle of nowhere here. The body could have come from anywhere."
-        Chief: "That's why we called you detective"
-        """
       'Body / Look at body / Go to body/ inspect body': ->
-        @location "next to body"
+        @location next_to_body
         @text """
         Willy walks past the officers and approaches the body. The 2-3 follow his lead. 
         Chief : "That's how we found him. The medical personnel haven't turned him over yet."
@@ -89,7 +93,7 @@ story = {
         As they get next to the body Willy kneels next to it and examines in detail. Body is faced up, a middle aged white male, maybe 45, half naked. 
         His right fist seems to be closed in a tight grip.
         """
-        @location 'next to body', ->
+        @location next_to_body, ->
           'touch': ->
             @text """
             Wildcard touches the body. He doesn't seem to be looking for anything particular though.
@@ -99,6 +103,11 @@ story = {
             @text """
             Wildcard pokes the body. It doesn't move. The guy is clearly not going to move. What was Wildcard thinking ?   
             """
+          'Where did it come from / how did it get here': ->
+            @text """
+            Henry: "We don't know . We're far in the middle of nowhere here. The body could have come from anywhere."
+            Chief: "That's why we called you detective"
+            """
           'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
             @text """
             Wildcard : Can I touch him ? 
@@ -106,7 +115,7 @@ story = {
             Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding half a match, unused. Wildcard picks up the match staring at it curiously.
             The detective next to him : "What do you think that means Willy ?"
             """
-            @location 'next to body', ->
+            @location next_to_body, ->
               'Take match/put in pocket': ->
                 @text """
                 Chief: "Sorry Wildcard you can't have that. We have to use it for evidence, what ever it is"
