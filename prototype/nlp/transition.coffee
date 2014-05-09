@@ -3,7 +3,7 @@ _ = require 'lodash'
 natural = require 'natural'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
-commonWordsToStrip = ["a", "what", "is"];
+commonWordsToStrip = ["a", "what", "is"]; #TODO see if instead of stripping it would be best to generate noise with common words
 
 __processString = (transitionString)->
   if(transitionString.trim().length == 0 )
