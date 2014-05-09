@@ -3,6 +3,7 @@ _ = require 'lodash'
 natural = require 'natural'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
+commonWordsToStrip = ["a", "what", "is"];
 
 __processString = (transitionString)->
   if(transitionString.trim().length == 0 )
@@ -13,12 +14,14 @@ __processString = (transitionString)->
 
   newString = ""
   for word in stringParts
-    if word.length < 3
-      word = word + word
-    newString = newString + " " + word
+    if(commonWordsToStrip.indexOf(word) < 0)
+      if word.length < 3
+        word = word + word
+      newString = newString + " " + word
+
   newString = newString.trim()
 
-#  console.log "old: #{transitionString}\nnew: #{newString}\n"
+  #  console.log "old: #{transitionString}\nnew: #{newString}\n"
   return newString
 
 class Transition
@@ -32,7 +35,7 @@ class Transition
       transitionStrings = singleTransition.split('/').map((transitionString)->
         return __processString(transitionString);
       )
-      
+
       transitionStrings.forEach((transitionString)->
         logisticClassifier.addDocument(transitionString, singleTransition);
       )
@@ -47,10 +50,11 @@ class Transition
     input = __processString(input)
 
     setImmediate(=>
-      matches = @logisticClassifier.getClassifications(input).filter((element)->
-        element.value > 0.8)
-#      console.log "\nlogistic: "+ input
-#      console.log @logisticClassifier.getClassifications(input)
+      matches = @logisticClassifier.getClassifications(input).filter(
+        (element)->
+          element.value > 0.81)
+      #      console.log "\nlogistic: "+ input
+      #      console.log @logisticClassifier.getClassifications(input)
 
       topMatch = _(matches).sortBy((element)->
         element.value).first();

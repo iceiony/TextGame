@@ -15,7 +15,7 @@ describe("Transition - Should not mach any of the transitions", ->
   it("should not match related but semantically related questions like What is your name", (done)->
     transition.matchAsync("what is your name")
     .done((result, exception)->
-      assert(!result.match, "Should not match : #{result.input} - with ratio #{result.ratio}");
+      assert(!result.match, "#{result.input} should not match : #{result.match} - with ratio #{result.ratio}");
       done(exception);
     )
   )
@@ -23,7 +23,7 @@ describe("Transition - Should not mach any of the transitions", ->
   it("should not the transition containing only the letter a", (done)->
     transition.matchAsync("a")
     .done((result, exception)->
-      assert(!result.match, "Should not match : #{result.input} - with ratio #{result.ratio}");
+      assert(!result.match, "#{result.input} should not match : #{result.match} - with ratio #{result.ratio}");
       done(exception);
     )
   )
