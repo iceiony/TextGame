@@ -17,7 +17,6 @@ _sendNextToServer = ->
     req = http.request(connectionOptions, (res)->
       res.on("data", (data)->
         dataQueue.shift();
-        console.log("Queue:"+dataQueue.length)
         if(dataQueue.length >= 1)
           _sendNextToServer()
       )
