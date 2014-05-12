@@ -2,7 +2,6 @@
 start = "start"
 next_to_tractor = "next to tractor"
 next_to_paramedics = "next to paramedics"
-next_to_body = "next to body"
 
 story = {
   intro: ->
@@ -75,6 +74,7 @@ story = {
     @everywhere -> require('./gags')(story)
     @everywhere ->
       "chief's name/what is your name chief": story.chief_name
+      'Body / Look at body / Go to body/ inspect body': require('./body')(story)
       'tractor/inspect tractor/examine tractor/go to tractor': ->
         @location next_to_tractor
         @text """
@@ -93,59 +93,6 @@ story = {
         @text """
         Willy walks to the farmer. Middle aged man, looks hard working. He was sitting on the ground but stands up as the detective approaches .
         """
-      'Body / Look at body / Go to body/ inspect body': ->
-        @location next_to_body
-        @text """
-        Willy walks past the officers and approaches the body. The 2-3 follow his lead. 
-        Chief : "That's how we found him. The medical personnel haven't turned him over yet."
-                "But they could tell that most of his bones are broken and he's bruised completely on the back where he contacts the earth."
-        Henry : "It seems like he literately smashed into the ground." 
-        As they get next to the body Willy kneels next to it and examines in detail. Body is faced up, a middle aged white male, maybe 45, half naked. 
-        His right fist seems to be closed in a tight grip.
-        """
-        @location next_to_body, ->
-          'touch': ->
-            @text """
-            Wildcard touches the body. He doesn't seem to be looking for anything particular though.
-            It feels cold to the touch.
-            """
-          'poke': ->
-            @text """
-            Wildcard pokes the body. It doesn't move. The guy is clearly not going to move. What was Wildcard thinking ?   
-            """
-          'Where did it come from / how did it get here': ->
-            @text """
-            Henry: "We don't know . We're far in the middle of nowhere here. The body could have come from anywhere."
-            Chief: "That's why we called you detective"
-            """
-          'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
-            @text """
-            Wildcard : Can I touch him ? 
-            Chief    : Go ahead Willy. We"ve already collected the evidence needed so far.
-            Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding half a match, unused. Wildcard picks up the match staring at it curiously.
-            The detective next to him : "What do you think that means Willy ?"
-            """
-            @location next_to_body, ->
-              'Take match/put in pocket': ->
-                @text """
-                Chief: "Sorry Wildcard you can't have that. We have to use it for evidence, what ever it is"
-                """
-              'That he was a smoker / smoking / smoke': ->
-                @text """
-                Henry: But why only half a match ? And why was it not used.
-                """
-              "Don't know / nothing /shut up": ->
-                @text """
-                The 3-4 sit in silence for a few moments. 
-                Stevey:      "What if he was a smoker" 
-                Henry :      "But why only half a match ? And why was it not used."
-                """
-              "" :->
-                @text """
-                The 3-4 sit in silence for a few moments. 
-                Stevey:      "What if he was a smoker" 
-                Henry :      "But why only half a match ? And why was it not used."
-                """
       'default': ->
         @text """ Wildcard mutters something indistinguishable """
         

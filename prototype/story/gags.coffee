@@ -52,6 +52,7 @@ module.exports = (story) -> {
                   Chief turns around with an angry look in his eyes. Stevey suddenly realises his mischief. 
           Stevey: Yes sir , chief. On my way!  As he starts rushing to the cars in the distance. 
           Cheif turns back to the detective: "Well that will probably take him a while . Shall we continue meanwhile ?" """
+  @steveyLeft = true
   @everywhere ->
     'coffee/give me coffee': ->
       @text """Chief : "Stevey on the way to get you one Willy. Can we please focus on the crime scene for now ." """
