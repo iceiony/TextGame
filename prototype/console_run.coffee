@@ -19,11 +19,11 @@ eventEmitter.on("userInput", (userInput)->
     console.log("[#{result.match}]")
     server_logging.record("[#{result.match}]\n")
     
-    currentLocation = context.__curentLocation;
+    currentLocation = context._curentLocation;
     
-    decorator = context.__locations[currentLocation]?[result.match] || 
-      context.__general[result.match] ||
-      context.__general["default"]
+    decorator = context._locations[currentLocation]?[result.match] || 
+      context._general[result.match] ||
+      context._general["default"]
 
     promptForCurrentNode()
   )

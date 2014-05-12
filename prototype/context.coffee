@@ -1,7 +1,7 @@
 class Context
   constructor: ->
-    @__general = {}
-    @__locations = {}
+    @_general = {}
+    @_locations = {}
   
   text: (textSection) ->
     @currentText = textSection
@@ -11,34 +11,34 @@ class Context
     generalLinks = transitions()
     for transitions, functionToRun of generalLinks
       transitions = transitions.replace(/\s+/g, " ")
-      @__general[transitions] = functionToRun
+      @_general[transitions] = functionToRun
       
       
   location: (locationName , transitions)->
     if transitions == undefined
-      @__curentLocation = locationName
+      @_curentLocation = locationName
       return
     
-    @__locations[locationName] = @__locations[locationName] || {}
+    @_locations[locationName] = @_locations[locationName] || {}
     locationLinks = transitions()
     for transitions, functionToRun of locationLinks
       transitions = transitions.replace(/\s+/g, " ")
-      @__locations[locationName][transitions] = functionToRun    
+      @_locations[locationName][transitions] = functionToRun    
 
       
   getCurrentTransitions: ->
-    allTransitions = [].concat.apply([], Object.keys(@__general))
-    currentLocationTransitions = @__locations[@__curentLocation]
+    allTransitions = [].concat.apply([], Object.keys(@_general))
+    currentLocationTransitions = @_locations[@_curentLocation]
     if (currentLocationTransitions)
       allTransitions = [].concat.apply(allTransitions, Object.keys(currentLocationTransitions))
     return allTransitions
 
     
   clearGeneral: ->
-    delete @__general;
-    delete @__locations;
-    @__general = {}
-    @__locations = {}
+    delete @_general;
+    delete @_locations;
+    @_general = {}
+    @_locations = {}
 
     
   toString: ->
