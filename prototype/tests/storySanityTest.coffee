@@ -33,7 +33,20 @@ describe('Executing all transitions in story to make sure it does not error any 
   visitedDecoratorStrings = []
   eventEmitter = new events.EventEmitter()
   context = new Context()
+  startTime =null
 
+  before(->
+    startTime = new Date();
+  )
+  
+  after(->
+    executionTime = (new Date() - startTime) / 1000 ;
+    console.log """
+    Story consistency test summary 
+    Total number of nodes : #{visitedDecoratorStrings.length} 
+    Total execution time : #{executionTime} ms"""
+  )
+  
   it("should make transitions correctly", ->
     
     executeTransition = (localContext,decorator,transitionName)->
