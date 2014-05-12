@@ -145,30 +145,30 @@ story = {
         
   chief_name: ->
     @text """
-            Wildcard : "What's your name chief?"
-            The officers gain a bit of a shoked expressions on their faces.
-            The chief slowly leans towards Wildcard and asks : 
-            Cheif: Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
-            """
+    Wildcard : "What's your name chief?"
+    The officers gain a bit of a shoked expressions on their faces.
+    The chief slowly leans towards Wildcard and asks : 
+    Cheif: Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
+    """
     @everywhere -> require('./medication')(story)
     @everywhere ->
       "yes" : ->
         @text """
-                Chief: Good ! Don't scare me like that.... Let's solve this case then !
-                """
+        Chief: Good ! Don't scare me like that.... Let's solve this case then !
+        """
       "no" : ->
         @text """
-                Chief looks even more shoked. 
-                Chief: I know you since you were kid. How can you not know my name ? 
-                       I think you should take your medication now. It's not good if you skip it. 
-                Wildcard usually takes it with his morning coffee. But on this ocassion he had to skip breakfast to respond 
-                to the urgent crime call.
-                """
+        Chief looks even more shoked. 
+        Chief: I know you since you were kid. How can you not know my name ? 
+               I think you should take your medication now. It's not good if you skip it. 
+        Wildcard usually takes it with his morning coffee. But on this ocassion he had to skip breakfast to respond 
+        to the urgent crime call.
+        """
         @everywhere ->
           "chief's name/what is your name chief": ->
             @text """
-                    Chief : Willy, take your medication please .
-                    """
+            Chief : Willy, take your medication please .
+            """
   death: ->
     @text """
     The chief stares at the detective's body in dread

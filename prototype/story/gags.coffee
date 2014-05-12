@@ -7,10 +7,8 @@ module.exports = (story) -> {
           Paramedics at the scene of the crime rush to save him. They conclude it's cancer and fail to save the detective. He dies within a few minutes. 
           Henry : "Such a shame" shaking his head in denial. 
           Chief : "This is what you get when smoking. Rest in peace Wildcard."
-          (Type respawn to start from begining)
           """
   @everywhere ->
-    'respawn/restart': story.intro
     'default': story.death
 #####################################################                
     
