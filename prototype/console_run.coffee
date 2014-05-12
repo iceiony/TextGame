@@ -32,7 +32,7 @@ eventEmitter.on("userInput", (userInput)->
 promptForCurrentNode = ->
   setImmediate(->
     decorator.call(context)
-    nodeText = context.toString() + "\n-> "
+    nodeText = context.toString() + "-> "
     server_logging.record((nodeText))
     prompt(nodeText, (userInput)->
       eventEmitter.emit("userInput", userInput)

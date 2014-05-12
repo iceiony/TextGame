@@ -18,7 +18,8 @@ story = {
     Henry :             "I'll give him a call chief." 
     (Steveey's expression changes to disapproval)
     
-    --1 hour later--
+    [.........1 hour later.........]
+
     Far in the distance you can see a car stop, old mustang, a muscle car. Driver steps out , head slowly towards the group of policeman . 
     Behind the chief are the 2 assisting officers, sitting next to each other
     Chief: "Detective Wildcard, glad to see you son"
@@ -41,9 +42,10 @@ story = {
     @location start, ->
       'look around/examine surroundings/analyse area': ->
         @text """
-        There are 5-6 other people present: the three officers, 2 paramedics and a farmer. His tractor is parked a about 20 meters away towards the road.
-        Behind the policeman, about 10 meters away you notice the body of the victim. 
+        There are 5-6 other people present: the three officers, 2 paramedics and a farmer. He's sitting by his tractor, parked a about 20 meters away towards the road.
+        Behind the policeman, about 10 meters away you notice the body of a victim. 
         """
+        @knowsAboutBody = true 
       "Greetings/Hello":->
         @text """
         Chief: "Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son." 
@@ -53,8 +55,12 @@ story = {
           "your name/chief's name/what is your name chief": story.chief_name
             
       "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened ": ->
+        if @knowsAboutBody 
+          @text "The chief turns around and starts walking towards the body."
+        else
+          @text "The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. "
+          
         @text """
-        The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
         Chief : "We got the call at 5AM this morning for a body found in the middle of the field."
             "The call was made by Mike Rachid over there, who was plowing in the vicinity." The chief points towards a farmer sitting next to his tractor."
             "Given the remote location, we arrived at the scene 1 hours later. [Body is faced up, a middle aged white male, maybe 45, half naked.] "

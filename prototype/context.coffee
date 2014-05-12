@@ -2,9 +2,10 @@ class Context
   constructor: ->
     @_general = {}
     @_locations = {}
-  
+    @_currentText = ""
+
   text: (textSection) ->
-    @currentText = textSection
+    @_currentText += textSection + "\n"
 
     
   everywhere: (transitions) ->
@@ -42,7 +43,10 @@ class Context
 
     
   toString: ->
-    return @currentText;
+    setImmediate(=>
+      @_currentText = "";
+    )
+    return @_currentText;
 
 
 module.exports = Context
