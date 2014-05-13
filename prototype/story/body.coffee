@@ -1,9 +1,8 @@
-next_to_body = "next to body"
-open_bag = "open bag"
+loc = require './locations'
 
 module.exports = (story) ->
   ->
-    @location next_to_body
+    @location loc.next_to_body
     @text """
     Willy walks past the officers and approaches the body. They follow his lead. 
     Chief : That's how we found him. The medical personnel inspected him briefly
@@ -18,7 +17,7 @@ module.exports = (story) ->
     His right fist seems to be closed in a tight grip. He could also feel a faint smell of alcohol from that distance. 
     """
     
-    @location next_to_body, ->
+    @location loc.next_to_body, ->
       'open mouth/check nails' : ->
         @text """The detective opens the victim's motth. There is nothing special except for a more obvious smell of alcohol and death """
       'check nails/look at nails' : ->
@@ -66,16 +65,16 @@ module.exports = (story) ->
 
         Henry    : What do you think that means Willy ?
         """
-        @location next_to_body, ->
+        @location loc.next_to_body, ->
           'Take match/put in pocket': ->
-            @location open_bag
+            @location loc.open_bag
             @text """
             Chief: "Sorry Willy you can't have that. We have to use it for evidence, what ever it is."
             The chief pulls out a small plastic bag from his poket. He opens it and performs a gesture requesting Wildcard to place in, the match.
             """
-            @location open_bag, ->
+            @location loc.open_bag, ->
               'light match/use match': ->
-                @location next_to_body
+                @location loc.next_to_body
                 @text """
                 Ignoring the Chief's request, Wildcard calmly checks his own pockets in search for something. 
                 The let one, the right one on his coat, both are empty. Ahh the inner pocket, he pulls out a cigar.
@@ -88,14 +87,14 @@ module.exports = (story) ->
                 @chiefIsAngry = true
                 
               'give match/yes/put in bag': ->
-                @location next_to_body
+                @location loc.next_to_body
                 @text """
                 Willy puts the match into the bag. 
                 The chief thanks him, seals the bag and hands it to Henry.  
                 """
                 
               'no/keep match/take match/put in pocket': ->
-                @location next_to_body
+                @location loc.next_to_body
                 @text """
                 Ignorign the chief's request Wildcard puts the match in his pocket. 
                 Chief : What are you doing ? [ with a slight frustration in his voice ]
@@ -111,11 +110,11 @@ module.exports = (story) ->
                 @hasMatch = true
                 
               '': ->
-                @location open_bag
+                @location loc.open_bag
                 @text """Chief : Come on Willy put it in."""
                 
               'ignore': ->
-                @location open_bag
+                @location loc.open_bag
                 @text """Chief : Come on Willy put it in."""
                 
           'That he was a smoker / smoking / smoke': ->
@@ -131,7 +130,7 @@ module.exports = (story) ->
             if(not @steveyLeft)
               @text """Stevey : But why only half a match ? And why was it not used. """
             
-            @location next_to_body, ->
+            @location loc.next_to_body, ->
                "Don't know / nothing /shut up/": -> 
                  @text """
                  Willy is within his own thoughts... He does not say a thing.
