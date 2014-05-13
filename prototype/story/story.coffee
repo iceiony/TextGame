@@ -53,7 +53,7 @@ story = {
         @location start, ->
           "your name/chief's name/what is your name chief": story.chief_name
             
-      "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened ": ->
+      "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened/ask about the case": ->
         if @knowsAboutBody 
           @text "The chief turns around and starts walking towards the body."
         else
@@ -79,8 +79,8 @@ story = {
         @location next_to_tractor
         @text """
         The detective walks to the the front of the tractor. 
-        He leans to the side and observes the back of it is geared up with a plow to prepared the earth for seeding.  
-        You touch the tractor's motor to see if it has been in use recently. But it feels cold to the touch.
+        He leans to the side and observes the back of it is geared up with a plow to prepare the earth for seeding.  
+        You touch the tractor's front motor to see if it has been in use recently. But it feels cold to the touch.
         """
       'Paramedics/go to paramedics/talk to paramedics': ->
         @location next_to_paramedics
