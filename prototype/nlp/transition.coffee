@@ -54,8 +54,8 @@ class Transition
       matches = @logisticClassifier.getClassifications(input).filter(
         (element)->
           element.value > 0.81)
-      console.log "\nlogistic: "+ input
-      console.log @logisticClassifier.getClassifications(input)
+#      console.log "\nlogistic: "+ input
+#      console.log @logisticClassifier.getClassifications(input)
 
       topMatch = matches[0];
 
