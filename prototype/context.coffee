@@ -1,3 +1,6 @@
+_santise = (transitions)->
+  return transitions.replace(/\s+/g, " ").replace(/\s*\/\s*/,"/")
+
 class Context
   constructor: ->
     @_general = {}
@@ -11,7 +14,7 @@ class Context
   everywhere: (transitions) ->
     generalLinks = transitions()
     for transitions, functionToRun of generalLinks
-      transitions = transitions.replace(/\s+/g, " ")
+      transitions = _santise(transitions)
       @_general[transitions] = functionToRun
       
       
@@ -23,7 +26,7 @@ class Context
     @_locations[locationName] = @_locations[locationName] || {}
     locationLinks = transitions()
     for transitions, functionToRun of locationLinks
-      transitions = transitions.replace(/\s+/g, " ")
+      transitions = _santise(transitions)
       @_locations[locationName][transitions] = functionToRun    
 
       

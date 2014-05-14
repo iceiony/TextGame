@@ -5,11 +5,12 @@ natural = require 'natural'
 EMPTY_STRING_TRANSITION = "empty string transition"
 commonWordsToStrip = ["a", "what", "is"]; #TODO see if instead of stripping it would be best to generate noise with common words
 
-__processString = (transitionString)->
+_sanitiseTransition = (transitionString)->
   if(transitionString.trim().length == 0 )
     return EMPTY_STRING_TRANSITION
 
   transitionString = transitionString.replace(/'s/g, ' is');
+  transitionString = transitionString.replace(/'t/g, ' not');
   stringParts = transitionString.trim().toLowerCase().split(' ')
 
   newString = ""
@@ -33,7 +34,7 @@ class Transition
         singleTransition = EMPTY_STRING_TRANSITION
 
       transitionStrings = singleTransition.split('/').map((transitionString)->
-        return __processString(transitionString);
+        return _sanitiseTransition(transitionString);
       )
 
       transitionStrings.forEach((transitionString)->
@@ -47,14 +48,14 @@ class Transition
   matchAsync: (input)->
     deferred = q.defer();
 
-    input = __processString(input)
+    input = _sanitiseTransition(input)
 
     setImmediate(=>
       matches = @logisticClassifier.getClassifications(input).filter(
         (element)->
           element.value > 0.81)
-#      console.log "\nlogistic: "+ input
-#      console.log @logisticClassifier.getClassifications(input)
+      console.log "\nlogistic: "+ input
+      console.log @logisticClassifier.getClassifications(input)
 
       topMatch = matches[0];
 
