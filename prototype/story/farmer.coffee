@@ -137,6 +137,8 @@ module.exports = (story)->
                          So I thought, you know , what is the harm?  
                 Chief : Now how do I know you didn't drive here drunk and hit this fellow on the way here ?
                 Farmer : "No ! I didn't, I swear !" ; Mark desperately pleads
+                        I still have the bottle in my tractor over here. 
+                He takes out his key and opens the tractor's cabin. He then pulls from below the seat a bottle of wisky. 
                 """
               'no'  : ->
                 @text """

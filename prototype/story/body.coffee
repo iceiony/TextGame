@@ -18,8 +18,22 @@ module.exports = (story) ->
     Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
     His right fist seems to be closed in a tight grip. He could also feel a faint smell of alcohol from that distance. 
     """
+    @everywhere ->
+      "he fell from the sky/he fell from large height / he fell from height/he fell from balloon / he fell from plane" : story.ending
     
     @location loc.next_to_body, ->
+      'tracks/footprint/look around the body/look around' :->
+        @text """
+        Willy looks around . No blood , no tracks indicating the body may have been dragged all the way there. 
+        There is only one set of footprints that are not clearly indicated as being the polices.  
+        """
+        @location loc.next_to_body, ->
+          "ask about footprints/ check footprints/who do those footprints belong to/look at footprints/check footprints" :->
+            @text """
+            Willy : What are those footprints ? 
+            Chief : We've identified those as belonging to Mike, the farmer who found the body. 
+            Willy looks at the tracks, they seem no different from those made by the officers. Nothing significant about them . 
+            """
       'open mouth/check nails' : ->
         @text """The detective opens the victim's motth. There is nothing special except for a more obvious smell of alcohol and death """
       'check nails/look at nails' : ->
@@ -56,6 +70,7 @@ module.exports = (story) ->
         
         There is nothing else special about the back of the body.
         """
+            
       'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
         @text """
         Wildcard : Can I touch him ? 
