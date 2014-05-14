@@ -53,11 +53,10 @@ class Transition
       matches = @logisticClassifier.getClassifications(input).filter(
         (element)->
           element.value > 0.81)
-      #      console.log "\nlogistic: "+ input
-      #      console.log @logisticClassifier.getClassifications(input)
+#      console.log "\nlogistic: "+ input
+#      console.log @logisticClassifier.getClassifications(input)
 
-      topMatch = _(matches).sortBy((element)->
-        element.value).first();
+      topMatch = matches[0];
 
       if(topMatch?.label == EMPTY_STRING_TRANSITION)
         topMatch.label = ""

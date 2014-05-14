@@ -78,7 +78,7 @@ story = {
       require('./gags')(story)
     @everywhere ->
       "chief's name/what is your name chief": story.chief_name
-      'Body / Look at body / Go to body/ inspect body': require('./body')(story)
+      'Look at body / Go to body/ inspect body': require('./body')(story)
       'Paramedics/go to paramedics/talk to paramedics': require('./paramedics')(story)
 
       'tractor/inspect tractor/examine tractor/go to tractor': ->

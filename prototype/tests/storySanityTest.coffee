@@ -67,6 +67,8 @@ describe('Executing all transitions in story to make sure it does not error any 
         decorator = localContext._locations[currentLocation]?[transitionName] ||
                     localContext._general[transitionName];
         if(visitedDecoratorStrings.indexOf(decorator.toString()) < 0 )
+#          if (transitionName == 'you found the body/how did you find the body/how did you find it/ask about body')
+#            console.log currentTransitions
           executeTransition(clone(localContext),decorator,transitionName)   
     )
 
