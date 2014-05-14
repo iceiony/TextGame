@@ -197,7 +197,12 @@ module.exports = (story)->
             Willy : I don't get it
             Farmer : I bet you never do .
             """
-        
+  'did you know him/have you ever seen him before': ->
+    @text """
+    Willy : Did you happen to know the victim ? 
+    Farmer : Well realising he's dead got me so frightent that I didn't get a good luck at him.
+             But he didn't look familiar... And I don't get to meet a lot of people so I don't know him.
+    """
   'you found the body/how did you find the body/how did you find it/ask about body' :->
     @text """
     Willy  : Tell me how you found the body .
