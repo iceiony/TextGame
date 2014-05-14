@@ -13,8 +13,8 @@ module.exports = (story) ->
       @text "Stevey : You know what's weird, there is just no blood around. Like at all."
 
     @text """
-    As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the large storm last night.
-   
+    As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the storm last night.
+    
     Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
     His right fist seems to be closed in a tight grip. He could also feel a faint smell of alcohol from that distance. 
     """
@@ -25,7 +25,7 @@ module.exports = (story) ->
       'tracks/footprint/look around the body/look around' :->
         @text """
         Willy looks around . No blood , no tracks indicating the body may have been dragged all the way there. 
-        There is only one set of footprints that are not clearly indicated as being the polices.  
+        There is only one set of footprints that are clearly indicated as belonging to the police.  
         """
         @location loc.next_to_body, ->
           "ask about footprints/ check footprints/who do those footprints belong to/look at footprints/check footprints" :->

@@ -30,15 +30,26 @@ module.exports = (story)->
     Willy  : Greetings !
     Farmer : Good morning sir.
     """
-    'hello/greetings' :-> 
-      @text """
-      Willy : Good morning !
-      Farmer : Yes good morning !
-      """
-
+    @location loc.next_to_tractor, ->
+      'hello/greetings' :-> 
+        @text """
+        Willy : Good morning !
+        Farmer : Yes good morning !
+        """
+      'how do you do' :->
+        @text """
+        Willy : How do you do ?
+        Farmer: I'm ok now. I was a bit shooken up about the findings.
+        """
+  'where are you from' :->
+    @text """
+    Detective : Where are you from ?
+    Farmer : Oh I live a few miles a way. Near a small town. I'm not exactly in town.
+             I keep to myself . 
+    """
   'what do you do/working on what/what are you working on':->
     @text """
-    Willy : What is it that you do Mark ? 
+    Willy : What is it that you do ? 
     Mark  : "I drive this here tractor to plow the land for seeding", he says as he pridefully rests against the tractor.
 
     For some reason , Mark seems a bit tipsy and the detective notices. 
@@ -70,7 +81,7 @@ module.exports = (story)->
     Marks is not smiling anymore . He now seems a bit scared of the detective's unrequired display.
     """
     
-  'on a Sunday/why Sunday/you work on Sunday/working sunday/what are you doing here sunday':->
+  'why Sunday/you work Sunday/working sunday':->
     @text """
     Willy : Why you working on a Sunday ?
     Mark's face changes to a serios one. His voice starts trembling . 
@@ -187,13 +198,13 @@ module.exports = (story)->
             Farmer : I bet you never do .
             """
         
-  'you found the body/how did you find the body/when did you find the body' :->
+  'you found the body/how did you find the body/how did you find it/ask about body' :->
     @text """
     Willy  : Tell me how you found the body .
-    Farmer : I got here about 5AM this mornign. Because of the storm last night , the earth is soft so easier to work with the tractor.
+    Farmer : I got here about 5AM this mornign. Because of the storm last night , the earth is soft so it's easier to work it with the tractor.
              So I was about 100 meters in from the road when I notice something in the distance. I couldn't tell what it was. 
-             But I stopped the tractor to check it out. When I got close I saw it was a person lying there. Not moving.
-             So I thought to myself , this guy is dead. So then I rushed to my tractor , drove to the nearest phone and called the police.
+             But I stopped the tractor to check it. When I got close I saw the person lying there, not moving.
+             So I thought to myself , this guy is dead. And then I rushed to my tractor , drove to the nearest phone and called the police.
     """
 ################tractor###############
   'drive tractor/drive it/drive':->

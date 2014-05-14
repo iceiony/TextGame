@@ -16,8 +16,8 @@ eventEmitter.on("userInput", (userInput)->
   server_logging.record(userInput + "\n")
 
   transition.matchAsync(userInput).then((result)->
-    console.log("[#{result.match}]")
-    server_logging.record("[#{result.match}]\n")
+    console.log("[#{result.match}]\n")
+    server_logging.record("[#{result.match}]\n\n")
     
     currentLocation = context._curentLocation;
     
