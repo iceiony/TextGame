@@ -22,16 +22,22 @@ _sendNextToServer = ->
       )
     )
     req.on('error', (err)->
+      setTimeout(_sendNextToServer,1000)
       #meh something went wrong, server may not be up 
     )
     req.write(data)
     req.end()
-  catch
-  #meh , something went wrong , server is not up may be 
+  catch err 
+    setTimeout(_sendNextToServer,1000)
+    #meh , something went wrong , server is not up may be 
+  finally
 
 module.exports.record = (data)->
-  data = sessionId + "\n" + data
-  dataQueue.push(data);
-  if(dataQueue.length == 1)
-    _sendNextToServer()
+  setImmediate(->
+    data = sessionId + "\n" + data
+    dataQueue.push(data);
+    if(dataQueue.length == 1)
+      _sendNextToServer()
+  )
+ 
   
