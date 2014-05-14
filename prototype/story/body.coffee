@@ -34,6 +34,14 @@ module.exports = (story) ->
             Chief : We've identified those as belonging to Mike, the farmer who found the body. 
             Willy looks at the tracks, they seem no different from those made by the officers. Nothing significant about them . 
             """
+      'search him/search body' : ->
+        @text """
+        The detective attempts to search the victim. 
+        There is not much to search through, given the victim is not wearing a shirt. 
+        He puts his hands through the trousers pockets but can't find anything. 
+        
+        Henry : We've searched him as well. We couldn't find anything. 
+        """
       'open mouth/check nails' : ->
         @text """The detective opens the victim's motth. There is nothing special except for a more obvious smell of alcohol and death """
       'check nails/look at nails' : ->
