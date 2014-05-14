@@ -33,7 +33,7 @@ story = {
     Cheif : Thanks for doing us the favour and coming down. This is an odd one and we kind of hit a wall here. 
             Can't figure it out , that's why we need your help Willy. 
     
-    (Stevey: "Hrhrhrhaharrr!" , swalowing his laughter ) 
+    (Stevey: "Hrhrhrhaharrr!" , swallowing his laughter ) 
     (Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" ) 
     
     Chief : "So Detective!", the chief says in a lewder voice while corner eyeing the two officers behind him. 
@@ -66,7 +66,7 @@ story = {
                 "The call was made by Mike Ranch over there, who was working in the vicinity.", the chief points towards a farmer sitting next to his tractor.
                 Given the remote location, we arrived at the scene 1 hours later.
                 We weren't able to identify him yet and no reports of missing people from nearby towns.
-                Given it is early Sunday, none of us want to realy be here. So I was hoping you may be able to solve this fast. 
+                Given it is early Sunday, none of us want to really be here. So I was hoping you may be able to solve this fast. 
         """
       'witness/anyone around': ->
         @text """
@@ -138,14 +138,14 @@ story = {
   ending : ->
     @text """
             Willy : He fell from the sky . 
-            The officers seem puzzeled .
-            Chief : What gaves you that crazy ideea ? 
+            The officers seem puzeled .
+            Chief : What gives you that crazy idea ? 
             Willy : The deep imprint on the ground. The broken bones. The fact that there are no signs of the body being dragged here.
             Henry : What about if he was carried here ?
             Willy : Given the earth is this soft after the rain last night.I would expect to see some deep foot print around .
                     But there is nothing.
-            Stevey : Actually , I know there was this large festival yestearday a few towns away. 
-                     They had ballon flights too. Maybe there was some trouble form the storm last night. 
+            Stevey : Actually , I know there was this large festival yesterday a few towns away. 
+                     They had balloon flights too. Maybe there was some trouble form the storm last night. 
             Chief : Alright Willy , I think we know what we have to do now . Henry , get in contact with that festival .
                     Thanks for your help detective. Think you've cracked this .
 

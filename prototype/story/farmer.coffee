@@ -201,7 +201,7 @@ module.exports = (story)->
   'you found the body/how did you find the body/how did you find it/ask about body' :->
     @text """
     Willy  : Tell me how you found the body .
-    Farmer : I got here about 5AM this mornign. Because of the storm last night , the earth is soft so it's easier to work it with the tractor.
+    Farmer : I got here about 5AM this morning. Because of the storm last night , the earth is soft so it's easier to work it with the tractor.
              So I was about 100 meters in from the road when I notice something in the distance. I couldn't tell what it was. 
              But I stopped the tractor to check it. When I got close I saw the person lying there, not moving.
              So I thought to myself , this guy is dead. And then I rushed to my tractor , drove to the nearest phone and called the police.

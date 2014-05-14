@@ -7,7 +7,7 @@ module.exports = (story) ->
     Willy walks past the officers and approaches the body. They follow his lead. 
     Chief : That's how we found him. The medical personnel inspected him briefly
     Henry : They said some of his bones are broken and he has a skull fracture. 
-            He is not bruised, and just has a few leasions.
+            He is not bruised, and just has a few lesions.
     """
     if(not @steveyLeft )
       @text "Stevey : You know what's weird, there is just no blood around. Like at all."
@@ -71,10 +71,10 @@ module.exports = (story) ->
         There is nothing else special about the back of the body.
         """
             
-      'Open fist / Look at fist / fist/ examine fist/insepct fist': ->
+      'Open fist / Look at fist / fist/ examine fist/inspect fist': ->
         @text """
         Wildcard : Can I touch him ? 
-        Chief    : Go ahead Willy. We"ve already collected the evidence need so far.
+        Chief    : Go ahead Willy. We've already collected the evidence need so far.
 
         Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding a short match, unused.
         The detective picks up the match staring at it curiously.
