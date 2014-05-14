@@ -13,7 +13,9 @@ module.exports = (story) ->
       @text "Stevey : You know what's weird, there is just no blood around. Like at all."
 
     @text """
-    As they get next to the body Willy kneels next to it to examine. Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
+    As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the large storm last night.
+   
+    Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
     His right fist seems to be closed in a tight grip. He could also feel a faint smell of alcohol from that distance. 
     """
     
