@@ -47,7 +47,7 @@ story = {
         Behind the policeman, about 10 meters away you notice the body of a victim. 
         """
         @knowsAboutBody = true
-      "Greetings/Hello": ->
+      "Greetings/Hello/hey": ->
         @text """
         Chief : Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son. 
                 I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy
