@@ -211,6 +211,12 @@ module.exports = (story)->
              But I stopped the tractor to check it. When I got close I saw the person lying there, not moving.
              So I thought to myself , this guy is dead. And then I rushed to my tractor , drove to the nearest phone and called the police.
     """
+    @location loc.next_to_tractor,->
+      'tell me more/ask for more/question more/anything else' ->
+        @text """
+        Willy : Anything else you can share ?
+        Farmer : That's all I know detective. 
+        """
 ################tractor###############
   'drive tractor/drive it/drive':->
     @text "You don't have a key you silly duck!"
