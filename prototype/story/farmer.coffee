@@ -25,13 +25,13 @@ module.exports = (story)->
     """
     _askName.call(@)
     
-  'hello/greetings/hey' :->
+  'hello/greetings/hey/hi' :->
     @text """
     Willy  : Greetings !
     Farmer : Good morning sir.
     """
     @location loc.next_to_tractor, ->
-      'hello/greetings/hey' :-> 
+      'hello/greetings/hey/hi' :-> 
         @text """
         Willy : Good morning !
         Farmer : Yes good morning !

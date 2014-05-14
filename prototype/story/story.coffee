@@ -17,9 +17,9 @@ story = {
     
     [.........1 hour later.........]
 
-    Far in the distance you can see a car stop, old mustang, a muscle car. Driver steps out , head slowly towards the group of policeman . 
+    Far in the distance you can see a car stopping, and old mustang, a muscle car. Driver steps out and heads slowly towards the group of policeman . 
     Behind the chief are the 2 assisting officers, sitting next to each other
-    Chief: "Detective Wildcard, glad to see you son"
+    Chief: "Detective Wildcard, glad to see you son."
     (Stevey with some disbelief leans towards Henry.
     (Stevey : Is this the guy ? )
     (Henry  : Yep. )
@@ -47,7 +47,7 @@ story = {
         Behind the policeman, about 10 meters away you notice the body of a victim. 
         """
         @knowsAboutBody = true
-      "Greetings/Hello/hey": ->
+      "Greetings/Hello/hey/hi": ->
         @text """
         Chief : Oh where are my manners? Greetings Wildcard, excuse me for skiping the introductions son. 
                 I have with me Henry and Stevey. You've met Henry before, and Stevey is straight from the academy

@@ -16,7 +16,7 @@ module.exports = (story) ->
     As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the storm last night.
     
     Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
-    His right fist seems to be closed in a tight grip. He could also feel a faint smell of alcohol from that distance. 
+    His right fist seems to be closed in a tight grip. Willy could feel a faint smell of alcohol from that distance. 
     """
     @everywhere ->
       "he fell from the sky/he fell from large height / he fell from height/he fell from balloon / he fell from plane" : story.ending
