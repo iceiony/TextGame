@@ -3,7 +3,7 @@ events = require('events')
 Context = require('../context')
 story = require('../story/story')
 
-
+story.exit = -> {} #mock exit to prevent an actual exit
 
 clone = (obj) ->
   if not obj? or typeof obj isnt 'object'
@@ -66,7 +66,8 @@ describe('Executing all transitions in story to make sure it does not error any 
       for transitionName in currentTransitions
         decorator = localContext._locations[currentLocation]?[transitionName] ||
                     localContext._general[transitionName];
-        if(visitedDecoratorStrings.indexOf(decorator.toString()) < 0 )
+        
+        if(decorator != undefined && visitedDecoratorStrings.indexOf(decorator.toString()) < 0 )
 #          if (transitionName == 'you found the body/how did you find the body/how did you find it/ask about body')
 #            console.log currentTransitions
           executeTransition(clone(localContext),decorator,transitionName)   

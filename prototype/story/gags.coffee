@@ -84,5 +84,61 @@ module.exports = (story) -> {
                           @text """
                                        Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
                                        As he raises his coffee cup in appreciation  he looks around as the surrounding party approves."""
+'go north/walk north' :->
+  @text """
+  Wildcard attempts to take a step forward. But he can't . The chief is in the way .
+  """
+'go west/walk west' :->
+  @text """
+  Withouth a word , wildcard turns to his left and heads west. 
+  He passes right between two paramedics and a farmer and his tractor. But he keeps going.  
+  """
+  @everywhere ->
+    'go east/walk east' :-> 
+      @text """
+      Wildcard returns in front of the police offiers. 
+      Stevey leans towards henry and asks in a whisper .
+      Stevey : What is happening ?
+      Henry : Oh, I don't know. That's how he is. Just unusual.
+      Stevey : Oh...
+      """
+'go south/walk south' :->
+  @text """
+  Wildcard turns around and walks all the way back to the car. He then gets in and drives back home.
+  [The End]
+  """
+  @clearGeneral()
+  @everywhere ->
+    "default" :->
+      @text """
+      Wildcard has left the game.... You can not continue withouth him.
+      Type "restart" to start from begining .
+      """
+'go east/walk east' :->
+  @text """
+  Wildcard turns right and walks straight. He walks that direction for a while. Should he continue ?
+  """
+  @everywhere ->
+    'continue east/go east/walk east/continue/yes' :->
+      @clearGeneral()
+      @text """
+      Walks keeps walking, and walking and walking. He is far in the distance now from where he started. 
+      But he keeps walking.
+      After a few minutes Wildcard is in the middle of nowhere, or anywhere. What ever you'd like to call it.
+      But he keeps walking.
+      After a few hours Wildcard reaches the edge of the map.
+      But he keeps... walkign .
+      Wildcard falls off the map and dies. 
+      [Type, 'I am wildcard' , to start from begining]
+      """
+      @everywhere ->
+        'restart/respawn/start/new': story.intro
+        'I am wildcard' : ->
+          @text """
+          You sure are... Get Out !
+  
+          [ you have been kicked out of the game ]
+          """
+          story.exit()
 }
   

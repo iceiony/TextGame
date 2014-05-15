@@ -93,9 +93,9 @@ module.exports = (story)->
     As he says that, the detective notices the alcohol filled breath of the farmer. He's been drinking. 
     """
     
-  "you have been drinking/drunk/drunk driving/drunk at work": ->
+  "you have been drinking/drunk/drunk driving/drunk at work/drinking": ->
     @text """
-    Willy : You've been drinking. I can arrest you for drinking Mark.
+    Willy : You've been drinking. I can arrest you for drinking Mark .
             What are you doing here on a Sunday morning drunk and driving a tractor ?
     Mark seems scared now, he pleads to Willy and the officers : 
     Mark  : Look I came here to work! Sure I had a bit to drink, but I didn't hurt no body? 
@@ -195,7 +195,7 @@ module.exports = (story)->
           "i don't get it/what do you mean ?" :->
             @text """
             Willy : I don't get it
-            Farmer : I bet you never do .
+            Farmer : You never do, I bet ! ; he laughts in a sly manner.
             """
   'did you know him/have you ever seen him before': ->
     @text """
@@ -223,3 +223,74 @@ module.exports = (story)->
     @location loc.next_to_tractor, ->
       'drive tractor/drive it/drive': ->
         @text "Quack quack..."
+      'get key/ask farmer for key/ask for key/look for key':->
+        @text """
+        Wildcard : Can I get the key to the tractor ? 
+        Farmer : Uhm , sure sir. But what you whana search in there for ? 
+        Wildcard : I have my reasons .
+        The farmer reaches into his shirt pocket and pulls out a key which he hands to the detective. 
+        [ ....Wildcard has aquired the tractor key.... ] 
+        """
+        @location loc.next_to_tractor , ->
+          'open tractor/use key' : ->
+            @text """
+            Wildcard uses the tractor key to open the cabin. As soon as he does he notices the a bottle ledged under the seat. 
+            Catching his attention he pulls it out and sees it is a half empty bottle of wisky. 
+            """
+          'what is this doing here/who does this belong to/what is with the bottle': ->
+            @text """
+            Wildcard looks at the bottle , he asks "What's with the bottle" as he his gaze changes towards the farmer. 
+            Farmer gets a bit red, he seems slightly afraid . 
+            Farmer : Oh well you know,...I augh, don't actually drink that. That's for home , ya see ? 
+            """
+            @location loc.next_to_tractor , ->
+              'why is it half empty/why is it under your seat' : ->
+                @text """
+                Wildcard : Why is it under your seat, half empty !
+                Farmer looks now distressed, his eyes wide open . After a moment he calms a bit . 
+                Farmer : Ok, OK ! I might have had a bit on the job. You know how it is it's boring out here. 
+                """
+                
+          'drink bottle/drink it' :->
+            @clearGeneral()
+            @text """
+            Wildcard opens the bottle and and starts gulping it down. 
+            Chief with a cocerned voice "Wildcard I don't think that's a good ..." but as he sais so, Wildcard raises his finger
+            in a gesture of "wait". 
+            Wildcard finishes the bottle. He looks around everything seems distortioned.
+            He looses balance and falls against the tractor . He then crumbles to the ground next to it.
+            He's no longer able to finish the case.
+            """
+            @everywhere -> 
+              'default' : ->
+                @text """
+                The chief stares at the detective in dread.
+                Chief : "Wildcard's hammered..."
+                {Type respawn to start from begining}
+                """
+                @everywhere ->
+                  'restart/respawn/start/new': story.intro
+            
+          'drive tractor/drive it/drive' :->
+            @clearGeneral()
+            @text """
+            Wildcard uses the tractor key to open the cabin. As soon as he does he notices a bottle ledged under the seat. 
+            Catching his attention he pulls it out and sees it is a half empty bottle of wisky. 
+            He opens it, takes a large sip, throws the bottle to the chief and steps up into the tractor's cabin.
+            The chief looks mesmerised and enigmatic at the detective's actions. 
+            As he opens his mouth to speak, Wildcard shuts the door of the cabin and locks it . 
+            He proceeds to turn on the engine and to press the acceleration peddal. 
+            As he does so, the people around take astep back.
+            The tractor speeds out of cotroll in a straight line towards the paramedics who jump out of it's way. 
+            The tractor keeps heading straight, barely passing the body with its weels. 
+            Unfortuantely the plowing gear which is wider , hits the body and shreads it to bits. 
+            
+            In the gruesome course of events, Stevey recovers composure and starts runnign after the tractor. 
+            He catches up, jumps against the cabin and shouts as hard as his lungs would take him. 
+            Stevey : Wildcard you better stop! Stop this tractor right now ! 
+            Wildcard simply ignores his cries, as if he did not even notice Stevey there.
+            Stevey pulls out his gun and shoots Wildcard through the window.
+            Wildcard is dead.
+            """
+            @everywhere ->
+              'default': story.death

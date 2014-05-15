@@ -55,7 +55,7 @@ story = {
         @location loc.start, ->
           "your name/chief's name/what is your name chief": story.chief_name
 
-      "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened/ask about the case": ->
+      "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened/ask about the case/talk to chief": ->
         if @knowsAboutBody
           @text "The chief turns around and starts walking towards the body."
         else
@@ -73,7 +73,15 @@ story = {
         Chief looks towards a nearby tractor. The tractor driver resting against it. 
         Chief: "Mike Ranch over there found the body. We don't have any other weakness besides him."
         """
-
+      'a gun/give me a gun/ i want a gun' : ->
+        @text """
+        Wildcard : I want a a gun .
+        Chief squints one of his eyes and asks. 
+        Cheif : What do you need a gun for exactly ? 
+        Wildcard : Because I'm a detective, I need a gun .
+        Chief : Look son, I don't know if you're being serious or not but we just want you to solve this case not shoot people.
+                I'm not giving you a gun. And I hope you've been taking your medication.
+        """
     @everywhere ->
       require('./gags')(story)
     @everywhere ->
@@ -103,7 +111,6 @@ story = {
 
         @location loc.next_to_tractor, ->
           require('./farmer')(story)
-
 
       'default': ->
         @text """ Wildcard mutters something indistinguishable """
@@ -151,6 +158,8 @@ story = {
 
             [The End]
             """
+  exit : ->
+    process.exit()
   
   death: ->
     @text """
