@@ -275,21 +275,21 @@ module.exports = (story)->
           'drive tractor/drive it/drive' :->
             @clearGeneral()
             @text """
-            Wildcard uses the tractor key to open the cabin. As soon as he does he notices a bottle ledged under the seat. 
-            Catching his attention he pulls it out and sees it is a half empty bottle of wisky. 
+            Wildcard uses the tractor key to open the cabin. As soon as he does, he notices a bottle ledged under the seat. 
+            Catching his attention he pulls it out and realises, it is a half empty bottle of wisky. 
             He opens it, takes a large sip, throws the bottle to the chief and steps up into the tractor's cabin.
             The chief looks mesmerised and enigmatic at the detective's actions. 
-            As he opens his mouth to speak, Wildcard shuts the door of the cabin and locks it . 
+            As he opens his mouth to speak, Wildcard shuts the door to the cabin, and locks it . 
             He proceeds to turn on the engine and to press the acceleration peddal. 
             As he does so, the people around take astep back.
-            The tractor speeds out of cotroll in a straight line towards the paramedics who jump out of it's way. 
-            The tractor keeps heading straight, barely passing the body with its weels. 
-            Unfortuantely the plowing gear which is wider , hits the body and shreads it to bits. 
+            The tractor speeds in a straight line towards the paramedics who jump out of it's way. 
+            The tractor keeps heading straight, as if out of controll, barely passing the body with its weels. 
+            Unfortuantely the plowing gear which are wider , hits the body and shreads it to bits. 
             
             In the gruesome course of events, Stevey recovers composure and starts runnign after the tractor. 
-            He catches up, jumps against the cabin and shouts as hard as his lungs would take him. 
+            He catches up, jumps against the cabin and shouts as hard as his lungs could take him. 
             Stevey : Wildcard you better stop! Stop this tractor right now ! 
-            Wildcard simply ignores his cries, as if he did not even notice Stevey there.
+            Wildcard simply ignores his cries, as if he did not even notice Stevey was there.
             Stevey pulls out his gun and shoots Wildcard through the window.
             Wildcard is dead.
             """

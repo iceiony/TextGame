@@ -24,7 +24,7 @@ module.exports = (story) ->
     @location loc.next_to_body, ->
       'tracks/footprint/look around the body/look around' :->
         @text """
-        Willy looks around . No blood , no tracks indicating the body may have been dragged all the way there. 
+        Willy looks around . No blood and no tracks to indicate that the body may have been dragged all the way there. 
         There is only one set of footprints that are clearly indicated as belonging to the police.  
         """
         @location loc.next_to_body, ->
@@ -43,16 +43,16 @@ module.exports = (story) ->
         Henry : We've searched him as well. We couldn't find anything. 
         """
       'open mouth/check nails' : ->
-        @text """The detective opens the victim's motth. There is nothing special except for a more obvious smell of alcohol and death """
+        @text """The detective opens the victim's mouth. There is nothing special except for a more obvious smell of alcohol and death """
       'check nails/look at nails' : ->
         @text """The detective looks at the nails. They are clean and well cut. """ 
       'check pulse/verify pulse/take pulse': ->
         @text """The detective checks the victim's pulse. He's deffinitely dead. """
         if not @steveyLeft 
-          @text """Stevey wispers to Henry, "Why is this wierdo checking his pulse". """ 
+          @text """Stevey wispers to Henry, "Why is this wierdo checking the pulse". """ 
       'touch': ->
         @text """
-        Wildcard touches the body. He doesn't seem to be looking for anything particular though.
+        Wildcard touches the body. He doesn't seem to be looking for anything in particular though.
         It feels cold to the touch.
         """
       'poke': ->
