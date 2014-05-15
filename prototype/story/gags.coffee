@@ -1,3 +1,13 @@
+_unconciousBeating = (story)->
+  @clearGeneral()
+  @everywhere ->
+    'restart/respawn/start/new': story.intro
+    'default':->
+      @text """
+          Wildcard is unconcious. He can not continue the investigation.
+          [Type respawn to start from begining]
+          """
+
 module.exports = (story) -> {
 'Cigar/Fag/Smoke/have a smoke': ->
   @clearGeneral()
@@ -86,6 +96,7 @@ module.exports = (story) -> {
                           @text """
                                        Chief: "Yes, thanks for the coffee Willy, it was an...unexpected treat "
                                        As he raises his coffee cup in appreciation  he looks around as the surrounding party approves."""
+#####################################################   
 'go north/walk north' :->
   @text """
   Wildcard attempts to take a step forward. But he can't . The chief is in the way .
@@ -142,5 +153,89 @@ module.exports = (story) -> {
           [ you have been kicked out of the game ]
           """
           story.exit()
+#####################################################   
+'punch' :->
+  @text """
+Wildcard arms his fist. But he has no target. So he airpunches as if in celebration. 
+People around him smile not knowing the evil motives behind his actions .
+"""
+'punch chief' :->
+  @text """
+  Wildcard arms his fist . He takes a swing at the chief, whom with his keen sense dodges by making one step back. 
+  Chief : Ohooohooo , I'm not that old yet boy . I see you're still testing me like every time . 
+  He smiles, taking Wildcard's actions as an ill joke. 
+  """
+'punch henry' :->
+  @text """
+  Wildcard arms his fist. His sight gets fixed on Henry, he squints his eyes and steps towards him.
+  But Henry steps behind the chief. He's not leaving a clear line between himself and Wildcard.
+  They go around and around the chief for a while untill eventually, Willy gets bored and gives up . 
+  """
+  
+'punch farmer' :->
+  @text """
+  Wildcard arms his fist. He looks at the farmer, but disarms it. 
+  The farmer reminds him of his dead. Willy's dad is not around anymore. Actually he's all alone in the world now...
+  """
+  @everywhere ->
+    'punch farmer' :->
+      @text """
+      Willy thinks ["What the heck. I can't live in my past for ever."] 
+      He arms his fist and in a swift move hits the farmer in the stomach. 
+      Farmer Mark, falls coiled to the ground . He is on his knees. 
+      The chief abrublty grabs Willy by the soulder turns him around and shouts:
+          
+          God darn it, what was that for ? What are you thinking boy ! Have you lost your mind completely ?!
+      
+      While Willy was being lectured. The farmer strugles to get back up holding his arm against the abdomen.
+      He reaches into the tractor's cabin and pulls out a bottle of wisky.
+      Withouth hesitance he smashes it against Wildcar's head.  
+      
+      [Wildcar falls unconcious]
+      """
+      _unconciousBeating.call(@,story)
+          
+'punch female paramedic/punch ann':->
+  @text """
+  Wildcard arms his fist. Little does he know that Ann , the female paramedic is a high ranking free style fighter. 
+  She peeks up on Wildcard movement and goes into a deffensive position. 
+    Ann : You'll get me that easily big boy. 
+  Discouraged by her swift reaction . Wildcard halts his attempts to attack. 
+  """
+'punch male paramedic/punch david':->
+  @text """
+  With a lightning move, Wildcard punches David in the face. 
+  David falls on his backside holding his nose, expressing sounds of pain. 
+  From Wildcard's right, a hand reaches to the detective's shirt, gripping it tightly. 
+  As the detective shifts his sight, he is confrunted with a straight fist in the face.
+  
+  Things get a bit blury... time becomes dilated.. . 
+  As Willy is barely able to make out the perpetrator's identity , a second straight hits the detective face. 
+  
+  Willy : Ann ....
+  
+  [Wildcard is now unconcious]
+  """
+  _unconciousBeating.call(@,story)
+  
+'punch stevey' :-> 
+  @text """
+  Wildcard arms his fist. He goes straight for Stevey.
+  But upon getting close, he feels a the killing instict of the man, as he does not move a muscle. 
+  Stevey's serious stare crubles Wildcard's attempt. 
+  Wildcard realises he doesn't  want to puch Stevey. He radiates a dangerous aura for a kid his age. 
+  """
+  @everywhere ->
+    'punch steve':->
+      @clearGeneral()
+      @text """
+      Wildcard makes courage. He arms his fist... and foot. He's dangerously serious now. 
+      He dragon kiks Stevey who, how ever overwelming he seemed, falls to the ground. 
+      Wildcard smirks in satisfaction. 
+      Stevey pulls out his gun and shoots Wildcard. You could feel the hateful glare in his eyes.
+      [Wildcard is dead]
+      """
+      @everywhere ->
+        'default': story.death
 }
   

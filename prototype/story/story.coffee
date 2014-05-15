@@ -165,7 +165,7 @@ story = {
     @text """
     The chief stares at the detective's body in dread
     Chief : "Wildcard's dead ..."
-    {Type respawn to start from begining}
+    [Type respawn to start from begining]
     """
     @everywhere ->
       'restart/respawn/start/new': story.intro
