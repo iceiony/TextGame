@@ -28,7 +28,9 @@ module.exports = (story) -> {
         '': ->
           @text """
                 5 minutes pass. Everyone is frozen still waiting for Wildcard to take action.
-                Chief : Com on detective, say something! What's the matter?
+                Chief : Com on detective, say something, doo something , look around! 
+                        I can't tell you how to do your job...
+                        What's the matter?
                 Chief gazez over to the paramedics with a thought to call them over. They notice his gaze and set up as if ready to answer the urgent call. 
                 """
           @everywhere ->
