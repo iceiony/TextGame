@@ -3,14 +3,20 @@
 1.You need nodejs installed locally
 
 2.After installing nodejs run : 
+```bash
     npm install -g coffee-script
+```
     
 3.Navigate to the "Prototype" folder and run :
+```bash
     npm install
+````
 
 That's it for installation. 
 To run the just type :
+```bash
     coffee console_run.coffee
+```
     
 ## Further info
 The game sends everything you see and type to a remote server for recording . It is not obvious as a player so I had to mention this somewhere.
