@@ -36,7 +36,7 @@ story = {
     (Stevey: "Hrhrhrhaharrr!" , swallowing his laughter ) 
     (Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" ) 
     
-    Chief : "So Detective!", the chief says in a lewder voice while corner eyeing the two officers behind him. 
+    Chief : "So Detective!", the chief says in a louder voice while corner eyeing the two officers behind him. 
             We'll provide what ever you require. Just let us know what you need to solve this case.
     """
     @location loc.start, ->

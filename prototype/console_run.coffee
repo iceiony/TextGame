@@ -9,6 +9,7 @@ prompt = require('./prompt-input')()
 decorator = story.intro
 context = new Context()
 transition = null
+startTime = new Date()
 
 eventEmitter = new events.EventEmitter()
 eventEmitter.on("userInput", (userInput)->
@@ -17,7 +18,9 @@ eventEmitter.on("userInput", (userInput)->
 
   transition.matchAsync(userInput).then((result)->
     console.log("[#{result.match}]\n")
-    server_logging.record("[#{result.match}]\n\n")
+    
+    totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 ) ; 
+    server_logging.record("[#{result.match}] - #{totalTimeInGame} \n\n")
     
     currentLocation = context._curentLocation;
     
