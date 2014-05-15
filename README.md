@@ -13,7 +13,7 @@
 ````
 
 That's it for installation. 
-To run the just type :
+To run game the just type :
 ```bash
     coffee console_run.coffee
 ```
