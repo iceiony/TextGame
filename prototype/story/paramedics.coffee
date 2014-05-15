@@ -11,7 +11,7 @@ module.exports = (story) ->
     Female : Oh that sounds fun . Wish I went.
     Male : Yeah , too bad the storm brought an early end....
     
-    Chief clearing his throught attact's the two's attention.
+    Chief clearing his throat attact's the two's attention.
     Female : Oh chief, sorry , we didn't notice you aproaching . Got a bit bored . 
     She says smiling.
     Chief : Well the detective here has been generous to help us with the case. 
@@ -31,8 +31,7 @@ module.exports = (story) ->
         """ 
         @female = "Anne"
         @male = "David"
-      'cause of death/death cause' :->
-      'tell me about the body/your examination/what happened/what can you tell me':->
+      'tell me about the body/your examination/what happened/what can you tell me/cause of death/death cause':->
         @text """
         Willy : So what can you tell me .
         The female paramedic starts gesticulating as if counting .
