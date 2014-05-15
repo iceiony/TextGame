@@ -12,8 +12,8 @@
     npm install
 ````
 
-That's it for installation. 
-To run game the just type :
+That's it for the installation. 
+To run the game just type :
 ```bash
     coffee console_run.coffee
 ```
