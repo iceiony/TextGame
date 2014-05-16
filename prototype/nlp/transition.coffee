@@ -53,7 +53,7 @@ class Transition
     setImmediate(=>
       matches = @logisticClassifier.getClassifications(input).filter(
         (element)->
-          element.value > 0.81)
+          element.value > 0.87)
 #      console.log "\nlogistic: "+ input
 #      console.log @logisticClassifier.getClassifications(input)
 
