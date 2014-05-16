@@ -178,6 +178,10 @@ module.exports = (story)->
         Chief : Ok Henry cuff him . You're under arest Mark.
         
         Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
+        Chief : We'll let the curt decide that.
+                Ok detective, I think we can handle it from here. Thanks for your help 
+        
+        [The End]
         """
   'who is edd' : ->
     @text """
