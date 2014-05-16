@@ -7,7 +7,7 @@ module.exports = (story) ->
     Willy walks to the 2 paramedics resting on the ground next to their equipment. One male and one female. 
     They don't sem to notice the detective approaching, and continue their conversation
     
-    Male : You know that they had a balloon race yesterady at the fest.
+    Male : You know that they had a balloon race yesterday at the fest.
     Female : Oh that sounds fun . Wish I went.
     Male : Yeah , too bad the storm brought an early end....
     
@@ -37,7 +37,7 @@ module.exports = (story) ->
         The female paramedic starts gesticulating as if counting .
         #{@female} : Well, the victim is male about 90 kilograms, and about 45years old.
                      Cause of death... besides the numerous bone fractures we could notice, he had a skull fracture.
-                     What ever it was, he died instantly . At least he didn't to suffer.
+                     What ever it was, he died instantly . At least he didn't suffer.
                      He died sometime in the middle of last night. Maybe around 2AM . Rigor mortis hasn't settled in yet. 
         """
         @location loc.next_to_paramedics ,->
