@@ -37,7 +37,7 @@ module.exports = (story) ->
         The female paramedic starts gesticulating as if counting .
         #{@female} : Well, the victim is male about 90 kilograms, and about 45years old.
                      Cause of death... besides the numerous bone fractures we could notice, he had a skull fracture.
-                     What ever it was, he died instantly . At least he didn't to suffer.
+                     What ever it was, he died instantly . At least he didn't suffer.
                      He died sometime in the middle of last night. Maybe around 2AM . Rigor mortis hasn't settled in yet. 
         """
         @location loc.next_to_paramedics ,->

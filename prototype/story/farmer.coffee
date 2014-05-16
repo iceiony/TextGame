@@ -98,7 +98,7 @@ module.exports = (story)->
     Willy : You've been drinking. I can arrest you for drinking Mark .
             What are you doing here on a Sunday morning, drunk and driving a tractor ?
     Mark seems scared now, he pleads to Willy and the officers : 
-    Mark  : Look I came here to work! Sure I had a bit to drink, but I didn't hurt no body? 
+    Mark  : Look I came here to work! Sure I had a bit to drink, but I didn't hurt no body! 
     Willy : What about the body ? How did it get here ? 
     Mark  : "I don't know how it got here !" he says in a loud tone gesticulating with his right hand towards the detective. 
             Why did I call you fellas in the first place ? 
