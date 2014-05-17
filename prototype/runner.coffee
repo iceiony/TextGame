@@ -35,11 +35,12 @@ module.exports.processAsync = (userInput) ->
       context._general["default"]
 
     decorator.call(context);
-    transition = new Transition(context.getCurrentTransitions())
-
-    current_text = "[#{result.match}]\n\n" +
-      context.toString() + "->"
-
-    deferred.resolve())
+    current_text = "[#{result.match}]\n\n" + context.toString() + "->"
+    deferred.resolve()
+    
+    deferred.promise.done(()->
+      transition = new Transition(context.getCurrentTransitions())
+      )
+  )
 
   return deferred.promise;

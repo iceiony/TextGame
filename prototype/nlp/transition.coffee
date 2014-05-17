@@ -4,6 +4,7 @@ natural = require 'natural'
 EMPTY_STRING_TRANSITION = "empty string transition"
 commonWordsToStrip = ["a", "what", "is"]; #TODO see if instead of stripping it would be best to generate noise with common words
 
+
 _sanitiseForTransition = (transitionString)->
   if(transitionString.trim().length == 0 )
     return EMPTY_STRING_TRANSITION
@@ -20,39 +21,44 @@ _sanitiseForTransition = (transitionString)->
       newString = newString + " " + word
 
   newString = newString.trim()
-
-  #  console.log "old: #{transitionString}\nnew: #{newString}\n"
+#  console.log "old: #{transitionString}\nnew: #{newString}\n"
   return newString
 
+  
+  
 class Transition
   constructor: (allTransitionStrings) ->
-    logisticClassifier = new natural.LogisticRegressionClassifier();
+    deferred = q.defer()
+    
+    setImmediate(->
+      logisticClassifier = new natural.LogisticRegressionClassifier();
+      for singleTransition in allTransitionStrings
+        if(singleTransition.trim().length == 0 )
+          singleTransition = EMPTY_STRING_TRANSITION
 
-    for singleTransition in allTransitionStrings
-      if(singleTransition.trim().length == 0 )
-        singleTransition = EMPTY_STRING_TRANSITION
+        transitionStrings = singleTransition.split('/').map((transitionString)->
+          return _sanitiseForTransition(transitionString);
+        )
 
-      transitionStrings = singleTransition.split('/').map((transitionString)->
-        return _sanitiseForTransition(transitionString);
-      )
+        transitionStrings.forEach((transitionString)->
+          logisticClassifier.addDocument(transitionString, singleTransition);
+        )
 
-      transitionStrings.forEach((transitionString)->
-        logisticClassifier.addDocument(transitionString, singleTransition);
-      )
-
-    logisticClassifier.train()
-
-    @logisticClassifier = logisticClassifier
+      logisticClassifier.train()
+      deferred.resolve(logisticClassifier);
+    )
+    
+    @clasdifierPromise = deferred.promise;
 
   matchAsync: (input)->
     deferred = q.defer();
 
-    input = _sanitiseForTransition(input)
+    @clasdifierPromise.done((classifier,error)->
+      input = _sanitiseForTransition(input)
 
-    setImmediate(=>
-      matches = @logisticClassifier.getClassifications(input)
+      matches = classifier.getClassifications(input)
         .filter((element)-> element.value > 0.87)
-      
+
 #      console.log "\nlogistic: "+ input
 #      console.log @logisticClassifier.getClassifications(input)
 
