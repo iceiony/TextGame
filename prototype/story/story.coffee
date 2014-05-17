@@ -17,7 +17,8 @@ story = {
     
     [.........1 hour later.........]
 
-    Far in the distance you can see a car stopping, an old mustang, a muscle car. Driver steps out and heads slowly towards the group of policeman . 
+    Far in the distance you can see a car stopping, an old mustang, a muscle car. 
+    Driver steps out and heads slowly towards the group of policeman . 
     Behind the chief are the 2 assisting officers, sitting next to each other
     Chief: Detective Wildcard! Glad to see you son.
     
@@ -35,7 +36,8 @@ story = {
             Can't figure it out , that's why we need your help Willy, to solve this case.  
     Stevey: "Hrhrhrhaharrr!" , swallowing his laughter 
 
-    Chief turns around with a criticising look. He then leans towards Willy and says : "Don't mind the rookie. He's a good kid" 
+    Chief turns around with a criticising look. 
+    He then leans towards Willy and says, "Don't mind the rookie. He's a good kid" 
     
     Chief : "So Detective!", the chief says in a louder voice while corner eyeing the two officers behind him. 
             We'll provide what ever you require. Just let us know what you need to solve this case.
@@ -66,10 +68,12 @@ story = {
 
         @text """
         Chief : We got the call at 5AM this morning for a body found in the middle of this field.
-                "The call was made by Mike Ranch over there, who was working in the vicinity."; The chief points towards a farmer sitting next to his tractor.
-                Given the remote location, we arrived at the scene 1 hours later.
+                "The call was made by Mike Ranch over there, who was working in the vicinity."; 
+        The chief points towards a farmer sitting next to his tractor.
+        Chief : Given the remote location, we arrived at the scene 1 hours later.
                 We weren't able to identify him yet and no reports of a missing person, from nearby towns.
-                Given it is early Sunday, none of us want to really be here. So I was hoping you may be able to solve this fast. 
+                Given it is early Sunday, none of us want to really be here. 
+                So I was hoping you may be able to solve this fast. 
         """
       'witness/anyone around': ->
         @text """

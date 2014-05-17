@@ -35,7 +35,9 @@ module.exports.processAsync = (userInput) ->
       context._general["default"]
 
     decorator.call(context);
-    current_text = "[#{result.match}]\n\n" + context.toString() + "->"
+    
+    matchHint = if (result.match.length <= 80) then result.match else  result.match.substr(0,77) + "..."
+    current_text = "[#{matchHint}]\n\n #{context.toString()}->"
     deferred.resolve()
     
     deferred.promise.done(()->
