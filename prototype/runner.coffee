@@ -11,8 +11,9 @@ startTime = new Date()
 
 
 decorator.call(context);
-transition = new Transition(context.getCurrentTransitions())
 current_text = context.toString() + "-> "
+transition = new Transition(context.getCurrentTransitions())
+
 
 
 module.exports.getCurrentText = ()->
@@ -36,7 +37,7 @@ module.exports.processAsync = (userInput) ->
     decorator.call(context);
     transition = new Transition(context.getCurrentTransitions())
 
-    current_text = "[#{result.match}]\n" +
+    current_text = "[#{result.match}]\n\n" +
       context.toString() + "->"
 
     deferred.resolve())

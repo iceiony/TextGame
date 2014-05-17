@@ -1,5 +1,4 @@
 q = require 'Q'
-_ = require 'lodash'
 natural = require 'natural'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
@@ -51,9 +50,9 @@ class Transition
     input = _sanitiseForTransition(input)
 
     setImmediate(=>
-      matches = @logisticClassifier.getClassifications(input).filter(
-        (element)->
-          element.value > 0.87)
+      matches = @logisticClassifier.getClassifications(input)
+        .filter((element)-> element.value > 0.87)
+      
 #      console.log "\nlogistic: "+ input
 #      console.log @logisticClassifier.getClassifications(input)
 
