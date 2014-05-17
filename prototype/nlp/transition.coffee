@@ -5,7 +5,7 @@ natural = require 'natural'
 EMPTY_STRING_TRANSITION = "empty string transition"
 commonWordsToStrip = ["a", "what", "is"]; #TODO see if instead of stripping it would be best to generate noise with common words
 
-_sanitiseTransition = (transitionString)->
+_sanitiseForTransition = (transitionString)->
   if(transitionString.trim().length == 0 )
     return EMPTY_STRING_TRANSITION
 
@@ -34,7 +34,7 @@ class Transition
         singleTransition = EMPTY_STRING_TRANSITION
 
       transitionStrings = singleTransition.split('/').map((transitionString)->
-        return _sanitiseTransition(transitionString);
+        return _sanitiseForTransition(transitionString);
       )
 
       transitionStrings.forEach((transitionString)->
@@ -48,7 +48,7 @@ class Transition
   matchAsync: (input)->
     deferred = q.defer();
 
-    input = _sanitiseTransition(input)
+    input = _sanitiseForTransition(input)
 
     setImmediate(=>
       matches = @logisticClassifier.getClassifications(input).filter(

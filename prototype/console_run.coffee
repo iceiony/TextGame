@@ -1,48 +1,14 @@
-Context = require './context'
-Transition = require './nlp/transition'
-server_logging = require './server_logging/logging_client'
-
-story = require './story/story'
-events = require 'events'
 prompt = require('./prompt-input')()
+runner = require('./runner')
 
-decorator = story.intro
-context = new Context()
-transition = null
-startTime = new Date()
-
-eventEmitter = new events.EventEmitter()
-eventEmitter.on("userInput", (userInput)->
-  userInput = userInput.toLowerCase().trim()
-  server_logging.record(userInput + "\n")
-
-  transition.matchAsync(userInput).then((result)->
-    console.log("[#{result.match}]\n")
-    
-    totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 ) ; 
-    server_logging.record("[#{result.match}] - #{totalTimeInGame} \n\n")
-    
-    currentLocation = context._curentLocation;
-    
-    decorator = context._locations[currentLocation]?[result.match] || 
-      context._general[result.match] ||
-      context._general["default"]
-
-    promptForCurrentNode()
+console_loop = ->
+  nodeText = runner.getCurrentText()
+  prompt(nodeText, (userInput)->
+    runner.processAsync(userInput)
+    .done((result,error)->
+      if error then throw error;
+      setImmediate(console_loop);
+    );
   )
-)
 
-promptForCurrentNode = ->
-  setImmediate(->
-    decorator.call(context)
-    nodeText = context.toString() + "-> "
-    server_logging.record((nodeText))
-    prompt(nodeText, (userInput)->
-      eventEmitter.emit("userInput", userInput)
-    )
-    transition = new Transition(context.getCurrentTransitions())
-  )
-  
-
-promptForCurrentNode()
-
+console_loop()
