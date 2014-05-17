@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+</head>
+<style>
+    .html {
+        height: 100%;
+        width: 100%;
+    }
+
+    .terminal {
+        float: left;
+        border: #000 solid 5px;
+        font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+        font-size: 13px;
+        color: #f0f0f0;
+        background: #000;
+    }
+
+    .terminal-cursor {
+        color: #000;
+        background: #00ff00;
+    }
+
+</style>
+<body>
+
+<script type="text/javascript">
+    if (typeof setImmediate !== 'function')
+        setImmediate = function (func) {
+            setTimeout(func, 100);
+        }
+</script>
+
+<script src="term.js"></script>
+
+<script type="text/javascript">
+
+    (function () {
+        var _reFormatText = function (text) {
+            return text.replace(/\n/g, '\n\r');//.replace(/ +/g,' '); 
+        }
+        
+        window.onload = function () {
+            var userInput = "";
+            var term = new Terminal({
+                cols: 146,
+                rows: 38,
+                screenKeys: true
+            });
+
+            term.open(document.body);
+            term.write('loading...');
+
+            var startTime = new Date();
+            var gameTag = document.createElement('script');
+            gameTag.src = "bundle.min.js";
+            document.getElementsByTagName("body")[0].appendChild(gameTag);
+
+            setImmediate(function () {
+                console.log("Total load time: " + (new Date() - startTime ) + "ms");
+                var runner = require('./runner');
+
+                term.write('\n\r');
+                term.write(_reFormatText(runner.getCurrentText()));
+                term.on('data', function (data) {
+                    console.log(data.charCodeAt(0))
+                    console.log(userInput)
+
+                    switch (data.charCodeAt(0)) {
+                        case 27 :
+                            break;
+                        case 13 :
+                            runner.processAsync(userInput)
+                                    .done(function (result, error) {
+                                        term.write("\n\r");
+                                        term.write(_reFormatText(runner.getCurrentText()));
+                                        userInput = "";
+                                    });
+                            break;
+                        case 127 :
+                            if (userInput.length > 0) {
+                                term.write('\b \b');
+                                userInput = userInput.substr(0, userInput.length - 1);
+                            }
+                            break;
+                        default:
+                            if (data.charCodeAt() > 27) {
+                                userInput += data;
+                                term.write(data);
+                            }
+                    }
+                });
+
+            });
+
+        };
+    }).call(this);
+</script>
+
+
+</body>

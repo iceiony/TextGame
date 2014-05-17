@@ -10,7 +10,7 @@ module.exports = (story)->
         Out of nowhere Henry pops out with a bottle of water. He hands it over to the detective. 
         Wildcard swallows the pill and takes one gulp of water. It went down easily .
         """
-      "take medication/drink water": ->
+      "take medication": ->
         @text """
         Wildcard swallos the pill. 
         """
