@@ -36,7 +36,10 @@ module.exports.processAsync = (userInput) ->
 
     decorator.call(context);
     
-    matchHint = if (result.match.length <= 80) then result.match else  result.match.substr(0,77) + "..."
+    matchHint = result.match || "no match";
+    if (matchHint && result.match.length > 80) 
+      matchHint = matchHint.substr(0,77) + "..."
+      
     current_text = "[#{matchHint}]\n\n #{context.toString()}->"
     deferred.resolve()
     
