@@ -56,11 +56,12 @@
             term.write('loading...');
 
             var startTime = new Date();
-            var gameTag = document.createElement('script');
-            gameTag.src = "./bundle.min.js";
-            document.getElementsByTagName("body")[0].appendChild(gameTag);
+            var script = document.createElement('script');
+            
+            script.src = "./bundle.min.js";
+            document.getElementsByTagName("body")[0].appendChild(script);
 
-            setImmediate(function () {
+            script.onload = function () {
                 console.log("Total load time: " + (new Date() - startTime ) + "ms");
                 var server_logger = require('./server_logging/logging_client');
                 server_logger.setTestSource('A');
@@ -97,7 +98,7 @@
                     }
                 });
 
-            });
+            };
 
         };
     }).call(this);
