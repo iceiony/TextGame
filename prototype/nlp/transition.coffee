@@ -1,8 +1,20 @@
 q = require 'Q'
 natural = require 'natural'
 
+transitionObjectCache = {};
 EMPTY_STRING_TRANSITION = "empty string transition"
-commonWordsToStrip = ["a", "what", "is"]; #TODO see if instead of stripping it would be best to generate noise with common words
+
+#TODO see if instead of stripping it would be best to generate noise with common words
+commonWordsToStrip = ["a", "what", "is"];
+
+
+_getTransitionFromCache = (allTransitionStrings)->
+  cacheKey = allTransitionStrings.join('')
+  return transitionObjectCache[cacheKey]
+
+_putTransitionInCache = (allTransitionStrings, transition) ->
+  cacheKey = allTransitionStrings.join('')
+  transitionObjectCache[cacheKey] = transition
 
 
 _sanitiseForTransition = (transitionString)->
@@ -21,46 +33,46 @@ _sanitiseForTransition = (transitionString)->
       newString = newString + " " + word
 
   newString = newString.trim()
-#  console.log "old: #{transitionString}\nnew: #{newString}\n"
   return newString
 
-  
-  
+
 class Transition
   constructor: (allTransitionStrings) ->
-    deferred = q.defer()
-    
-    setImmediate(->
-      logisticClassifier = new natural.LogisticRegressionClassifier();
-      for singleTransition in allTransitionStrings
-        if(singleTransition.trim().length == 0 )
-          singleTransition = EMPTY_STRING_TRANSITION
+    transitionInCache = _getTransitionFromCache(allTransitionStrings);
+    if transitionInCache != undefined
+      return transitionInCache
+    else
+      _putTransitionInCache(allTransitionStrings, @);
+      deferred = q.defer()
+      setImmediate(->
+        logisticClassifier = new natural.LogisticRegressionClassifier();
+        for singleTransition in allTransitionStrings
+          if(singleTransition.trim().length == 0 )
+            singleTransition = EMPTY_STRING_TRANSITION
 
-        transitionStrings = singleTransition.split('/').map((transitionString)->
-          return _sanitiseForTransition(transitionString);
-        )
+          transitionStrings = singleTransition.split('/').map((transitionString)->
+            return _sanitiseForTransition(transitionString))
 
-        transitionStrings.forEach((transitionString)->
-          logisticClassifier.addDocument(transitionString, singleTransition);
-        )
+          transitionStrings.forEach((transitionString)->
+            logisticClassifier.addDocument(transitionString, singleTransition))
 
-      logisticClassifier.train()
-      deferred.resolve(logisticClassifier);
-    )
-    
-    @clasdifierPromise = deferred.promise;
+        logisticClassifier.train()
+        deferred.resolve(logisticClassifier))
+      @clasdifierPromise = deferred.promise;
+
 
   matchAsync: (input)->
     deferred = q.defer();
 
-    @clasdifierPromise.done((classifier,error)->
+    @clasdifierPromise.done((classifier, error)->
       input = _sanitiseForTransition(input)
 
       matches = classifier.getClassifications(input)
-        .filter((element)-> element.value > 0.87)
+      .filter((element)->
+        element.value > 0.87)
 
-#      console.log "\nlogistic: "+ input
-#      console.log @logisticClassifier.getClassifications(input)
+      #      console.log "\nlogistic: "+ input
+      #      console.log @logisticClassifier.getClassifications(input)
 
       topMatch = matches[0];
 

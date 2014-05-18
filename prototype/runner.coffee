@@ -14,10 +14,7 @@ decorator.call(context);
 current_text = context.toString() + "-> "
 
 
-currentTransitionStrings = context.getCurrentTransitions()
-transition = new Transition(currentTransitionStrings)
-transitionCache = {}
-transitionCache[currentTransitionStrings.join('')] = transition;
+transition = new Transition(context.getCurrentTransitions())
 
 module.exports.getCurrentText = ()->
   return current_text;
@@ -47,13 +44,7 @@ module.exports.processAsync = (userInput) ->
     deferred.resolve()
 
     deferred.promise.done(()->
-      currentTransitionStrings = context.getCurrentTransitions()
-      cacheKey = currentTransitionStrings.join('');
-      if ( transitionCache[cacheKey] == undefined )
-        transition = new Transition(currentTransitionStrings)
-        transitionCache[cacheKey] = transition
-      else
-        transition = transitionCache[cacheKey];
+        transition = new Transition(context.getCurrentTransitions())
     )
   )
 
