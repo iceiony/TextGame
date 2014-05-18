@@ -15,8 +15,13 @@
         font-size: 18px;
         width: 890px;
         height: 800px;
+        font-family: 'calibri';
     }
 
+    div.terminal span.terminal_text span {
+        font-weight: bold;
+    }
+    
     span.terminal_text {
     }
 
@@ -54,7 +59,13 @@
     'use strict';
     (function () {
         var _reFormatText = function (text) {
-            return text.replace(/\n/g, '</br>').replace('->', '</br>>');
+            //highlight names
+            text = text.replace(/\n(.+?):/g,"\n<span>$1</span> :");
+            //highlight dialogue
+            //perserve line breaks
+            text = text.replace(/\n/g, '</br>').replace('->', '</br>>');
+            
+            return text;
         }
         var terminal = document.getElementsByClassName("terminal")[0];
         var cursor = terminal.getElementsByClassName("cursor")[0];
@@ -110,39 +121,6 @@
                     user_input = user_input.replace(/ +/g,' ');
                     terminal_input.innerHTML = user_input;
                 });
-
-
-//                term.write('\n\r');
-//                term.write(_reFormatText(runner.getCurrentText()));
-//                term.on('data', function (data) {
-//                    console.log(data.charCodeAt(0))
-//                    console.log(userInput)
-//
-//                    switch (data.charCodeAt(0)) {
-//                        case 27 :
-//                            break;
-//                        case 13 :
-//                            runner.processAsync(userInput)
-//                                    .done(function (result, error) {
-//                                        term.write("\n\r");
-//                                        term.write(_reFormatText(runner.getCurrentText()));
-//                                        userInput = "";
-//                                    });
-//                            break;
-//                        case 127 :
-//                            if (userInput.length > 0) {
-//                                term.write('\b \b');
-//                                userInput = userInput.substr(0, userInput.length - 1);
-//                            }
-//                            break;
-//                        default:
-//                            if (data.charCodeAt() > 27) {
-//                                userInput += data;
-//                                term.write(data);
-//                            }
-//                    }
-//                });
-
             });
 
         };
