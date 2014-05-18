@@ -12,9 +12,12 @@ startTime = new Date()
 
 decorator.call(context);
 current_text = context.toString() + "-> "
-transition = new Transition(context.getCurrentTransitions())
 
 
+currentTransitionStrings = context.getCurrentTransitions()
+transition = new Transition(currentTransitionStrings)
+transitionCache = {}
+transitionCache[currentTransitionStrings.join('')] = transition;
 
 module.exports.getCurrentText = ()->
   return current_text;
@@ -35,17 +38,23 @@ module.exports.processAsync = (userInput) ->
       context._general["default"]
 
     decorator.call(context);
-    
+
     matchHint = result.match || "no match";
-    if (matchHint && result.match.length > 80) 
-      matchHint = matchHint.substr(0,77) + "..."
-      
+    if (matchHint.length > 80)
+      matchHint = matchHint.substr(0, 77) + "..."
+
     current_text = "[#{matchHint}]\n\n #{context.toString()}->"
     deferred.resolve()
-    
+
     deferred.promise.done(()->
-      transition = new Transition(context.getCurrentTransitions())
-      )
+      currentTransitionStrings = context.getCurrentTransitions()
+      cacheKey = currentTransitionStrings.join('');
+      if ( transitionCache[cacheKey] == undefined )
+        transition = new Transition(currentTransitionStrings)
+        transitionCache[cacheKey] = transition
+      else
+        transition = transitionCache[cacheKey];
+    )
   )
 
   return deferred.promise;
