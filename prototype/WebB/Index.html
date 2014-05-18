@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+</head>
+
+<style>
+    body {
+        /*background-color: #FFFFCC*/
+    }
+
+    div.terminal {
+        margin-top: 13px;
+        margin-left: 13px;
+        color: black;
+        font-size: 18px;
+        width: 890px;
+        height: 800px;
+    }
+
+    span.terminal_text {
+    }
+
+    span.terminal_input {
+        margin-right: 0px;
+    }
+
+    span.cursor {
+        position: relative;
+        left: -5px;
+        margin-left: 0px;
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+    }
+</style>
+
+<body>
+
+<div class="terminal">
+    <span class="terminal_text"></span>
+    <span class="terminal_input"></span>
+    <span class="cursor">_</span>
+</div>
+
+
+<script type="text/javascript">
+    if (typeof setImmediate !== 'function')
+        setImmediate = function (func) {
+            setTimeout(func, 100);
+        }
+</script>
+
+<script type="text/javascript">
+    'use strict';
+    (function () {
+        var _reFormatText = function (text) {
+            return text.replace(/\n/g, '</br>').replace('->', '</br>>');
+        }
+        var terminal = document.getElementsByClassName("terminal")[0];
+        var cursor = terminal.getElementsByClassName("cursor")[0];
+        var terminal_input = terminal.getElementsByClassName("terminal_input")[0];
+        var terminal_text = terminal.getElementsByClassName("terminal_text")[0];
+        var cursor_visible = true;
+
+        setInterval(function () {
+            cursor_visible = !cursor_visible;
+            if (cursor_visible) {
+                terminal.appendChild(cursor);
+            }
+            else {
+                terminal.removeChild(cursor);
+            }
+        }, 890);
+
+        window.onload = function () {
+            var startTime = new Date();
+            var script = document.createElement('script');
+
+            script.src = "bundle.min.js";
+            document.getElementsByTagName("body")[0].appendChild(script);
+
+            setImmediate(function () {
+                console.log("Total load time: " + (new Date() - startTime ) + "ms");
+
+                var runner = require('./runner');
+                var user_input = "";
+
+                terminal_text.innerHTML = _reFormatText(runner.getCurrentText());
+
+                window.addEventListener("keypress", function (event) {
+                    switch (event.key) {
+                        case 'Backspace':
+                            if (user_input.length > 0) {
+                                user_input = user_input.substr(0, user_input.length - 1);
+                            }
+                            break;
+                        case 'Enter' :
+                            runner.processAsync(user_input)
+                                    .done(function(result,error){
+                                        terminal_text.innerHTML = _reFormatText(runner.getCurrentText());
+                                    });
+                            user_input = "";
+                            break;
+                        default :
+                            if (event.key.length == 1) {
+                                user_input += event.key;
+                            }
+                            break;
+                    }
+                    user_input = user_input.replace(/ +/g,' ');
+                    terminal_input.innerHTML = user_input;
+                });
+
+
+//                term.write('\n\r');
+//                term.write(_reFormatText(runner.getCurrentText()));
+//                term.on('data', function (data) {
+//                    console.log(data.charCodeAt(0))
+//                    console.log(userInput)
+//
+//                    switch (data.charCodeAt(0)) {
+//                        case 27 :
+//                            break;
+//                        case 13 :
+//                            runner.processAsync(userInput)
+//                                    .done(function (result, error) {
+//                                        term.write("\n\r");
+//                                        term.write(_reFormatText(runner.getCurrentText()));
+//                                        userInput = "";
+//                                    });
+//                            break;
+//                        case 127 :
+//                            if (userInput.length > 0) {
+//                                term.write('\b \b');
+//                                userInput = userInput.substr(0, userInput.length - 1);
+//                            }
+//                            break;
+//                        default:
+//                            if (data.charCodeAt() > 27) {
+//                                userInput += data;
+//                                term.write(data);
+//                            }
+//                    }
+//                });
+
+            });
+
+        };
+    }).call(this);
+</script>
+
+
+</body>

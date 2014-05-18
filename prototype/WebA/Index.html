@@ -13,8 +13,8 @@
         border: #000 solid 5px;
         font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
         font-size: 18px;
-        color: #f0f0f0;
-        background: #000;
+        /*color: #C8C6A4;*/
+        /*background: #000;*/
     }
 
     .terminal-cursor {
@@ -43,7 +43,10 @@
         
         window.onload = function () {
             var userInput = "";
+            var colors = Terminal.colors;
+            colors[257] = "#C8C6A4";
             var term = new Terminal({
+                colors:colors,
                 cols: 120,
                 rows: 38,
                 screenKeys: true
