@@ -93,7 +93,9 @@
 
             setImmediate(function () {
                 console.log("Total load time: " + (new Date() - startTime ) + "ms");
-
+                var server_logger = require('./server_logging/logging_client');
+                server_logger.setTestSource('B');
+                
                 var runner = require('./runner');
                 var user_input = "";
 

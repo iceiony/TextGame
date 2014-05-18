@@ -62,13 +62,15 @@
 
             setImmediate(function () {
                 console.log("Total load time: " + (new Date() - startTime ) + "ms");
+                var server_logger = require('./server_logging/logging_client');
+                server_logger.setTestSource('A');
+                
                 var runner = require('./runner');
-
                 term.write('\n\r');
                 term.write(_reFormatText(runner.getCurrentText()));
                 term.on('data', function (data) {
-                    console.log(data.charCodeAt(0))
-                    console.log(userInput)
+//                    console.log(data.charCodeAt(0))
+//                    console.log(userInput)
 
                     switch (data.charCodeAt(0)) {
                         case 27 :

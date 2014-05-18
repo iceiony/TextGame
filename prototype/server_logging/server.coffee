@@ -7,10 +7,11 @@ http.createServer((req, res)->
     postData += data.toString()
   )
   req.on('end', ()->
-    sessionId = postData.substr(0, postData.indexOf('\n'))
-    postData = postData.replace(sessionId + '\n', '')
+    sessionId = postData.substr(0, postData.indexOf('\n'))[1..4]
+    testName = postData.substr(0, postData.indexOf('\n'))[0]
+    postData = postData.replace(/.*\n/, '')
 
-    fileName = req.connection.remoteAddress + "." + sessionId
+    fileName = testName + req.connection.remoteAddress + "." + sessionId
     fs.appendFile(fileName, postData, (err)->
       if(err)
         console.log(err)
