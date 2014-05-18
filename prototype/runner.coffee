@@ -18,7 +18,7 @@ transition = new Transition(context.getCurrentTransitions())
 
 module.exports.getCurrentText = ()->
   totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
-  server_logging.record("[#{totalTimeInGame}]\n#{current_text}")
+  server_logging.record("\n[#{totalTimeInGame}]\n#{current_text}")
   return current_text
 
 
