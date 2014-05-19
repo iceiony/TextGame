@@ -1,5 +1,10 @@
 ## How to run the prototype 
 
+#####Easy Way
+Just access : http://188.226.234.126
+
+#####Hard Way
+
 1.You need nodejs installed locally
 
 2.After installing nodejs run : 
