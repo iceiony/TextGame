@@ -18,11 +18,11 @@
         font-family: 'calibri';
     }
 
-    div.terminal span.terminal_text span {
-        font-weight: bold;
-    }
+
     
     span.terminal_text {
+        /*font-weight: bold;*/
+        color:dimgray;
     }
 
     span.terminal_input {
@@ -38,6 +38,22 @@
         font-weight: bold;
         font-size: 18px;
     }
+
+    span.character{ 
+        font-weight: bold;
+        font-family: "Times New Roman";
+        font-size: 17px;
+        color:gray;
+    }
+    
+    span.black {color:black}
+    span.red { color:indianred; }
+    span.blue { color:mediumvioletred}
+    span.magenta {color: red; }
+    span.green {color:cadetblue; }
+    span.yellow{color:steelblue;}
+    span.cyan { color:darkslateblue;}
+    
 </style>
 
 <body>
@@ -61,13 +77,18 @@
     (function () {
         var _reFormatText = function (text) {
             //highlight names
-            text = text.replace(/\n(.+?):/g,"\n<span>$1</span> :");
-            //highlight dialogue
-            //perserve line breaks
+            text = text.replace(/\n(.+?):/g,"\n<span class='character'>$1</span> :");
+           
+            //preserve line breaks
             text = text.replace(/\n/g, '</br>').replace('->', '</br>>');
             
+            //highlight dialogue with colours
+            text = text.replace(/{reset}/g,"</span>");
+            text = text.replace(/{(.+?)}/g,"<span class='$1'>");
+            
             return text;
-        }
+        };
+        
         var terminal = document.getElementsByClassName("terminal")[0];
         var cursor = terminal.getElementsByClassName("cursor")[0];
         var terminal_input = terminal.getElementsByClassName("terminal_input")[0];
