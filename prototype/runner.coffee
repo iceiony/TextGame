@@ -38,7 +38,7 @@ module.exports.processAsync = (userInput) ->
     if (matchHint.length > 80)
       matchHint = matchHint.substr(0, 77) + "..."
 
-    current_text = "[#{matchHint}]\n\n #{context.toString()}->"
+    current_text = "[#{matchHint}]\n\n#{context.toString()}->"
 
     deferred.resolve()
     deferred.promise.done(()->

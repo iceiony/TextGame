@@ -1,5 +1,6 @@
 #locations 
 loc = require ('./locations')
+col = require('./characters').colourFormat
 
 story = {
   intro: ->
@@ -8,11 +9,11 @@ story = {
     Crime scene investigation
     Location : Middle of an empty field in the early hours of Sunday morning. 
     
-    Officer in charge : "This is an odd one Henry, think we need to call... you know whom."
-    Henry :             "You mean, THAT guy."
-    Stevey:             "Oh ! Surely not that oddball. What are we getting him for ?!"
-    Chief :             "Well he's odd alright. But still, oddly better than the lot of us put together."
-    Henry :             "I'll give him a call chief." 
+    Officer in charge :This is an odd one Henry, think we need to call... you know whom.
+    Henry : You mean, THAT guy.
+    Stevey: Oh ! Surely not that oddball. What are we getting him for ?!
+    Chief : Well he's odd alright. But still, oddly better than the lot of us put together.
+    Henry : I'll give him a call chief. 
     (Steveey's expression changes to disapproval while he shakes his head)
     
     [.........1 hour later.........]
@@ -23,23 +24,23 @@ story = {
     Chief: Detective Wildcard! Glad to see you son.
     
     With some disbelief Stevey leans towards Henry and wispers.
-    Stevey : Is this the guy ? 
+    Stevey : Is this the guy ?
+    Henry  : Yep...
+    Stevey : He doesn't seem all that.
     Henry  : Yep... 
-    Stevey : He doesn't seem all that. 
+    Stevey : So his name IS Wildcard!
     Henry  : Yep... 
-    Stevey : So his name IS Wildcard! 
-    Henry  : Yep... 
-    Stevey : That's a bit odd isn't it. 
+    Stevey : That's a bit odd isn't it.
     Henry  : Yep... 
     
-    Cheif : Thanks for doing us the favour and coming down. This is an odd one and we kind of hit a wall here. 
-            Can't figure it out , that's why we need your help Willy, to solve this case.  
-    Stevey: "Hrhrhrhaharrr!" , swallowing his laughter 
+    Chief : Thanks for doing us the favour and coming down. This is an odd one and we kind of hit a wall here. 
+            Can't figure it out , that's why we need your help Willy, to solve this case.
+    Stevey: Hrhrhrhaharrr! ; swallowing his laughter 
 
     Chief turns around with a criticising look. 
-    He then leans towards Willy and says, "Don't mind the rookie. He's a good kid" 
+    He then leans towards Willy and says, #{col.Chief "Don't mind the rookie. He's a good kid" }
     
-    Chief : "So Detective!", the chief says in a louder voice while corner eyeing the two officers behind him. 
+    Chief : So Detective! ; the chief says in a louder voice while corner eyeing the two officers behind him. 
             We'll provide what ever you require. Just let us know what you need to solve this case.
     """
     @location loc.start, ->
@@ -68,7 +69,7 @@ story = {
 
         @text """
         Chief : We got the call at 5AM this morning for a body found in the middle of this field.
-                "The call was made by Mike Ranch over there, who was working in the vicinity."; 
+                The call was made by Mike Ranch over there, who was working in the vicinity. 
         The chief points towards a farmer sitting next to his tractor.
         Chief : Given the remote location, we arrived at the scene 1 hours later.
                 We weren't able to identify him yet and no reports of a missing person, from nearby towns.
@@ -124,7 +125,7 @@ story = {
 
   chief_name: ->
     @text """
-    Wildcard : "What's your name chief?"
+    Wildcard : What's your name chief?
     The officers gain a bit of a shoked expressions on their faces.
     The chief slowly leans towards Wildcard and asks : 
     Cheif: Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
