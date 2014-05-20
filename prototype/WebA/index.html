@@ -35,23 +35,46 @@
 <script src="./term.js"></script>
 
 <script type="text/javascript">
-
+  
     (function () {
+        var ansy_colours  = {
+            white            : "\033[37m",
+            black            : "\033[30m",
+            grey             : "\x1B[90m",
+            red              : "\033[31m",
+            green            : "\033[32m",
+            blue             : "\033[34m",
+            yellow           : "\033[33m",
+            magenta          : "\033[35m",
+            cyan             : "\033[36m"
+        }        
+        
         var _reFormatText = function (text) {
-            return text.replace(/\n/g, '\n\r');//.replace(/ +/g,' '); 
+            text = text.replace(/\n/g, '\n\r');
+            text = text.replace(/{reset}/g,"\033[0m");
+            
+            var colours = Object.keys(ansy_colours);
+            colours.forEach(function(colour){
+                var regexp = new RegExp("{"+colour+"}","g");
+                if(regexp.test(text)){
+                    text = text.replace(regexp,ansy_colours[colour])
+                }
+            });
+            
+            return text;
         }
         
         window.onload = function () {
             var userInput = "";
             var colors = Terminal.colors;
-            colors[257] = "#C8C6A4";
+                colors[257] = "#C8C6A4";//overwrite default white to make it more pretty ^_^
+            
             var term = new Terminal({
                 colors:colors,
                 cols: 120,
                 rows: 38,
                 screenKeys: true
             });
-
             term.open(document.body);
             term.write('loading...');
 
