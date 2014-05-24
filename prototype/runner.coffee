@@ -3,47 +3,53 @@ Context = require './context'
 Transition = require './nlp/transition'
 server_logging = require './server_logging/logging_client'
 story = require './story/story'
-
+colouriseDialog = require('./story/characters').colouriseDialog
 
 decorator = story.intro
 context = new Context()
+dialogueTransitions = {}
 startTime = new Date()
+
+prepareTransitions = ->
+    setImmediate(->
+        allCharacterDialogue = context.getAllCharacterDialogue()
+        for characterName , dialogue of allCharacterDialogue
+            keys = Object.keys(dialogue)
+            dialogueTransitions[characterName] = new Transition(keys)
+    )
 
 
 decorator.call(context);
-current_text = context.toString() + "-> "
-
-
-transition = new Transition(context.getCurrentTransitions())
+current_text = colouriseDialog(context.getText()) + "-> "
+prepareTransitions()
 
 module.exports.getCurrentText = ()->
-  totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
-  server_logging.record("\n[#{totalTimeInGame}]\n#{current_text}")
-  return current_text
+    totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
+    server_logging.record("\n[#{totalTimeInGame}]\n#{current_text}")
+    return current_text
 
 
 module.exports.processAsync = (userInput) ->
-  server_logging.record(userInput)
-  deferred = q.defer()
-  
-  transition.matchAsync(userInput)
-  .then((result)->
-    currentLocation = context._curentLocation;
-    decorator = context._locations[currentLocation]?[result.match] ||
-      context._general[result.match] ||
-      context._general["default"]
-    decorator.call(context);
+    server_logging.record(userInput)
+    deferred = q.defer()
 
-    matchHint = result.match || "no match";
-    if (matchHint.length > 80)
-      matchHint = matchHint.substr(0, 77) + "..."
+    character = context.getCurrentFocus()
+    dialogueTransitions[character].matchAsync(userInput)
+    .done((result)->
+        allDialogue = context.getAllCharacterDialogue()
+        characterDialogue = allDialogue[character]
+        decorator = characterDialogue[result.match]
 
-    current_text = "[#{matchHint}]\n\n#{context.toString()}->"
+        decorator.call(context);
+        current_text = colouriseDialog(context.getText()) + "-> "
 
-    deferred.resolve()
-    deferred.promise.done(()->
-        transition = new Transition(context.getCurrentTransitions())
+        current_text = colouriseDialog(context.getText())
+        deferred.resolve()
+
+        deferred.promise.done(->
+            prepareTransitions()
+        )
     )
-  )
 
-  return deferred.promise;
+
+    return deferred.promise;

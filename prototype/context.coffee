@@ -1,57 +1,66 @@
-colouriseDialog = require('./story/characters').colouriseDialog
-
-_santise = (transitions)->
-  return transitions.replace(/\s+/g, " ").replace(/\s*\/\s*/, "/")  
-
-class Context
-  constructor: ->
-    @_general = {}
-    @_locations = {}
-    @_currentText = ""
-
-  text: (textSection) ->
-    @_currentText += textSection + "\n"
-
-
-  everywhere: (transitions) ->
-    generalLinks = transitions()
-    for transitions, functionToRun of generalLinks
-      transitions = _santise(transitions)
-      @_general[transitions] = functionToRun
+turnToDelegate = (argument)->
+    switch typeof argument
+        when 'function'
+            return argument
+        when 'string'
+            return ->
+                @text argument
+        when 'object'
+            if Array.isArray(argument)
+                count = 0;
+                return ->
+                    @text argument[count];
+                    if argument.length > count
+                        count++
+    return undefined;
 
 
-  location: (locationName, transitions)->
-    if transitions == undefined
-      @_curentLocation = locationName
-      return
+class  Context
+    constructor: ->
+        @textRetrieved = false
+        @characterDialog = {}
+        @locationActions = {}
+        @currentText = ''
 
-    @_locations[locationName] = @_locations[locationName] || {}
-    locationLinks = transitions()
-    for transitions, functionToRun of locationLinks
-      transitions = _santise(transitions)
-      @_locations[locationName][transitions] = functionToRun
+    location: (location)->
+        @curentLocation = location
 
+    characters: (characters...)->
+        @charactersNearby = characters
 
-  getCurrentTransitions: ->
-    allTransitions = [].concat.apply([], Object.keys(@_general))
-    currentLocationTransitions = @_locations[@_curentLocation]
-    if (currentLocationTransitions)
-      allTransitions = [].concat.apply(allTransitions, Object.keys(currentLocationTransitions))
-    return allTransitions
+    lookingAt: (character)->
+        @currentFocus = character
 
+    say: (say)->
+        @characterDialog[@currentFocus] = @characterDialog[@currentFocus] || {}
+        character = @characterDialog[@currentFocus]
+        for key,result of say
+            character[key] = turnToDelegate(result)
 
-  clearGeneral: ->
-    delete @_general;
-    delete @_locations;
-    @_general = {}
-    @_locations = {}
+    actions: (actions)->
+        @locationActions[@curentLocation] = @locationActions[@curentLocation] || {}
+        location = @locationActions[@curentLocation]
+        for key,result of actions
+            location[key] = turnToDelegate(result)
 
+    walk: (destinations)->
+        ##do nothing yet
+        
+    getCurrentFocus :->
+        return @currentFocus
+    getAllCharacterDialogue: ->
+        return @characterDialog
+    getActions: ->
+        return @locationActions[@curentLocation]
 
-  toString: ->
-    setImmediate(=>
-      @_currentText = "";
-    )
-    return colouriseDialog(@_currentText);
+    text: (text)->
+        if(@textRetrieved == true)
+            @currentText = ''
+            @textRetrieved = false
+        @currentText += text + "\n"
 
+    getText: ->
+        @textRetrieved = true
+        return @currentText
 
 module.exports = Context

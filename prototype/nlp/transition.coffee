@@ -9,84 +9,84 @@ commonWordsToStrip = ["a", "what", "is"];
 
 
 _getTransitionFromCache = (allTransitionStrings)->
-  cacheKey = allTransitionStrings.join('')
-  return transitionObjectCache[cacheKey]
+    cacheKey = allTransitionStrings.join('')
+    return transitionObjectCache[cacheKey]
 
 _putTransitionInCache = (allTransitionStrings, transition) ->
-  cacheKey = allTransitionStrings.join('')
-  transitionObjectCache[cacheKey] = transition
+    cacheKey = allTransitionStrings.join('')
+    transitionObjectCache[cacheKey] = transition
 
 
 _sanitiseForTransition = (transitionString)->
-  if(transitionString.trim().length == 0 )
-    return EMPTY_STRING_TRANSITION
+    if(transitionString.trim().length == 0 )
+        return EMPTY_STRING_TRANSITION
 
-  transitionString = transitionString.replace(/'s/g, ' is');
-  transitionString = transitionString.replace(/'t/g, ' not');
-  stringParts = transitionString.trim().toLowerCase().split(' ')
+    transitionString = transitionString.replace(/'s/g, ' is');
+    transitionString = transitionString.replace(/'t/g, ' not');
+    stringParts = transitionString.trim().toLowerCase().split(' ')
 
-  newString = ""
-  for word in stringParts
-    if(commonWordsToStrip.indexOf(word) < 0)
-      if word.length < 3
-        word = word + word
-      newString = newString + " " + word
+    newString = ""
+    for word in stringParts
+        if(commonWordsToStrip.indexOf(word) < 0)
+            if word.length < 3
+                word = word + word
+            newString = newString + " " + word
 
-  newString = newString.trim()
-  return newString
+    newString = newString.trim()
+    return newString
 
 
 class Transition
-  constructor: (allTransitionStrings) ->
-    transitionInCache = _getTransitionFromCache(allTransitionStrings);
-    if transitionInCache != undefined
-      return transitionInCache
-    else
-      _putTransitionInCache(allTransitionStrings, @);
-      deferred = q.defer()
-      setImmediate(->
-        logisticClassifier = new natural.LogisticRegressionClassifier();
-        for singleTransition in allTransitionStrings
-          if(singleTransition.trim().length == 0 )
-            singleTransition = EMPTY_STRING_TRANSITION
+    constructor: (allTransitionStrings) ->
+        transitionInCache = _getTransitionFromCache(allTransitionStrings);
+        if transitionInCache != undefined
+            return transitionInCache
+        else
+            _putTransitionInCache(allTransitionStrings, @);
+            deferred = q.defer()
+            setImmediate(->
+                logisticClassifier = new natural.LogisticRegressionClassifier();
+                for singleTransition in allTransitionStrings
+                    if(singleTransition.trim().length == 0 )
+                        singleTransition = EMPTY_STRING_TRANSITION
 
-          transitionStrings = singleTransition.split('/').map((transitionString)->
-            return _sanitiseForTransition(transitionString))
+                    transitionStrings = singleTransition.split('/').map((transitionString)->
+                        return _sanitiseForTransition(transitionString))
 
-          transitionStrings.forEach((transitionString)->
-            logisticClassifier.addDocument(transitionString, singleTransition))
+                    transitionStrings.forEach((transitionString)->
+                        logisticClassifier.addDocument(transitionString, singleTransition))
 
-        logisticClassifier.train()
-        deferred.resolve(logisticClassifier))
-      @clasdifierPromise = deferred.promise;
+                logisticClassifier.train()
+                deferred.resolve(logisticClassifier))
+            @clasdifierPromise = deferred.promise;
 
 
-  matchAsync: (input)->
-    deferred = q.defer();
+    matchAsync: (input)->
+        deferred = q.defer();
 
-    @clasdifierPromise.done((classifier, error)->
-      input = _sanitiseForTransition(input)
+        @clasdifierPromise.done((classifier)->
+            input = _sanitiseForTransition(input)
 
-      matches = classifier.getClassifications(input)
-      .filter((element)->
-        element.value > 0.87)
+            matches = classifier.getClassifications(input)
+            .filter((element)->
+                element.value > 0.87)
 
-      #      console.log "\nlogistic: "+ input
-      #      console.log @logisticClassifier.getClassifications(input)
+            #      console.log "\nlogistic: "+ input
+            #      console.log @logisticClassifier.getClassifications(input)
 
-      topMatch = matches[0];
+            topMatch = matches[0];
 
-      if(topMatch?.label == EMPTY_STRING_TRANSITION)
-        topMatch.label = ""
+            if(topMatch?.label == EMPTY_STRING_TRANSITION)
+                topMatch.label = ""
 
-      deferred.resolve({
-        input: input,
-        match: topMatch?.label,
-        ratio: topMatch?.value
-        score: topMatch?.value
-      });
-    )
+            deferred.resolve({
+                input: input,
+                match: topMatch?.label,
+                ratio: topMatch?.value
+                score: topMatch?.value
+            });
+        );
 
-    return deferred.promise;
+        return deferred.promise;
 
 module.exports = Transition
