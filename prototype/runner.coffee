@@ -1,6 +1,6 @@
 q = require 'Q'
 Context = require './context'
-Transition = require './nlp/transition'
+TransitionFactory = require('./nlp/transition_factory').TransitionFactory
 server_logging = require './server_logging/logging_client'
 story = require './story/story'
 colouriseDialog = require('./story/characters').colouriseDialog
@@ -15,15 +15,14 @@ prepareTransitions = ->
         allCharacterDialogue = context.getAllCharacterDialogue()
         for characterName , dialogue of allCharacterDialogue
             keys = Object.keys(dialogue)
-            dialogueTransitions[characterName] = new Transition(keys)
+            dialogueTransitions[characterName] = TransitionFactory.sayTransition(keys)
     )
 
-
 decorator.call(context);
-current_text = colouriseDialog(context.getText()) + "-> "
 prepareTransitions()
 
 module.exports.getCurrentText = ()->
+    current_text = colouriseDialog(context.getText()) + "-> "
     totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
     server_logging.record("\n[#{totalTimeInGame}]\n#{current_text}")
     return current_text
@@ -41,11 +40,8 @@ module.exports.processAsync = (userInput) ->
         decorator = characterDialogue[result.match]
 
         decorator.call(context);
-        current_text = colouriseDialog(context.getText()) + "-> "
 
-        current_text = colouriseDialog(context.getText())
         deferred.resolve()
-
         deferred.promise.done(->
             prepareTransitions()
         )

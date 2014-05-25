@@ -1,21 +1,10 @@
 q = require 'Q'
 natural = require 'natural'
+semantic = require './thesaurus'
 
-transitionObjectCache = {};
 EMPTY_STRING_TRANSITION = "empty string transition"
-
 #TODO see if instead of stripping it would be best to generate noise with common words
 commonWordsToStrip = ["a", "what", "is"];
-
-
-_getTransitionFromCache = (allTransitionStrings)->
-    cacheKey = allTransitionStrings.join('')
-    return transitionObjectCache[cacheKey]
-
-_putTransitionInCache = (allTransitionStrings, transition) ->
-    cacheKey = allTransitionStrings.join('')
-    transitionObjectCache[cacheKey] = transition
-
 
 _sanitiseForTransition = (transitionString)->
     if(transitionString.trim().length == 0 )
@@ -38,27 +27,31 @@ _sanitiseForTransition = (transitionString)->
 
 class Transition
     constructor: (allTransitionStrings) ->
-        transitionInCache = _getTransitionFromCache(allTransitionStrings);
-        if transitionInCache != undefined
-            return transitionInCache
-        else
-            _putTransitionInCache(allTransitionStrings, @);
-            deferred = q.defer()
-            setImmediate(->
-                logisticClassifier = new natural.LogisticRegressionClassifier();
-                for singleTransition in allTransitionStrings
-                    if(singleTransition.trim().length == 0 )
-                        singleTransition = EMPTY_STRING_TRANSITION
+        deferred = q.defer()
+        @clasdifierPromise = deferred.promise;
 
-                    transitionStrings = singleTransition.split('/').map((transitionString)->
-                        return _sanitiseForTransition(transitionString))
+        setImmediate(->
+            logisticClassifier = new natural.LogisticRegressionClassifier();
+            for singleTransition in allTransitionStrings
+                if(singleTransition.trim().length == 0 )
+                    singleTransition = EMPTY_STRING_TRANSITION
 
-                    transitionStrings.forEach((transitionString)->
-                        logisticClassifier.addDocument(transitionString, singleTransition))
+                transitionStrings = singleTransition.split('/')
+                transitionStrings = transitionStrings.map((string)->
+                    semanticRelated = semantic[string]?.split('/')
+                    semanticRelated = semanticRelated || []
+                    semanticRelated.push(string)
+                    return semanticRelated
+                )
+                transitionStrings = [].concat.apply([], transitionStrings) # flatten 
+                transitionStrings = transitionStrings.map((transitionString)->
+                    _sanitiseForTransition(transitionString))
 
-                logisticClassifier.train()
-                deferred.resolve(logisticClassifier))
-            @clasdifierPromise = deferred.promise;
+                transitionStrings.forEach((transitionString)->
+                    logisticClassifier.addDocument(transitionString, singleTransition))
+
+            logisticClassifier.train()
+            deferred.resolve(logisticClassifier))
 
 
     matchAsync: (input)->
@@ -90,3 +83,5 @@ class Transition
         return deferred.promise;
 
 module.exports = Transition
+
+    
