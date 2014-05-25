@@ -69,7 +69,7 @@ story = {
             'witnesses':
                 """
                 Chief looks towards a nearby tractor. The tractor driver resting against it. 
-                Chief: Mike Ranch over there found the body. We don't have any other weakness besides him.
+                Chief : Mike Ranch over there found the body. We don't have any other weakness besides him.
                 """
             'give me a gun':
                 """
@@ -85,7 +85,7 @@ story = {
                 Wildcard : What's your name chief?
                 The officers gain a bit of a shoked expressions on their faces.
                 The chief slowly leans towards Wildcard and asks : 
-                Cheif: Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
+                Chief : Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
                 """
         @actions
             'look around': 
