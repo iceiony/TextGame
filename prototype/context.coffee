@@ -5,8 +5,10 @@ class  Context
     constructor: ->
         @textRetrieved = false
         @characterDialog = {}
-        @locationActions = {}
+        @allPossibleActions = {}
         @currentText = ''
+        @charactersNearby = []
+        @objectsNearby = []
 
     location: (location)->
         @curentLocation = location
@@ -24,10 +26,8 @@ class  Context
             character[key] = util.toDecorator(result)
 
     actions: (actions)->
-        @locationActions[@curentLocation] = @locationActions[@curentLocation] || {}
-        location = @locationActions[@curentLocation]
         for key,result of actions
-            location[key] = util.toDecorator(result)
+            @allPossibleActions[key] = util.toDecorator(result)
 
     walk: (destinations)->
         ##do nothing yet
@@ -37,7 +37,11 @@ class  Context
     getAllCharacterDialogue: ->
         return @characterDialog
     getActions: ->
-        return @locationActions[@curentLocation]
+        return @allPossibleActions
+    getCharactersNearby :->
+        return @charactersNearby
+    getObjectsNearby :->
+        return @objectsNearby
 
     text: (text)->
         if(@textRetrieved == true)

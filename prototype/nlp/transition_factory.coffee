@@ -11,7 +11,17 @@ putTransitionInCache = (allTransitionStrings, transition) ->
 
 
 class TransitionFactory
+    
     sayTransition: (transitionStrings) ->
+        transitionInCache = getTransitionFromCache(transitionStrings)
+        if transitionInCache != undefined
+            return transitionInCache
+        else
+            transition = new Transition(transitionStrings)
+            putTransitionInCache(transitionStrings, transition)
+            
+            
+    actionTransition: (transitionStrings) ->
         transitionInCache = getTransitionFromCache(transitionStrings)
         if transitionInCache != undefined
             return transitionInCache
