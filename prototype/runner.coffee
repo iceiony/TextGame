@@ -1,11 +1,14 @@
 q = require 'Q'
 Context = require './context'
+util = require './util'
 TransitionFactory = require('./nlp/transition_factory').TransitionFactory
 server_logging = require './server_logging/logging_client'
 story = require './story/story'
 colouriseDialog = require('./story/characters').colouriseDialog
+characterModels = require('./story/characters').characters
 
-decorator = story.intro
+##initialize for first read
+introDecorator = story.intro
 context = new Context()
 dialogueTransitions = {}
 startTime = new Date()
@@ -18,8 +21,9 @@ prepareTransitions = ->
             dialogueTransitions[characterName] = TransitionFactory.sayTransition(keys)
     )
 
-decorator.call(context);
+introDecorator.call(context);
 prepareTransitions()
+
 
 module.exports.getCurrentText = ()->
     current_text = colouriseDialog(context.getText()) + "-> "
@@ -30,22 +34,31 @@ module.exports.getCurrentText = ()->
 
 module.exports.processAsync = (userInput) ->
     server_logging.record(userInput)
-    deferred = q.defer()
+    processDefer = q.defer()
 
+    decoratorDefer = q.defer()
     character = context.getCurrentFocus()
     dialogueTransitions[character].matchAsync(userInput)
     .done((result)->
         allDialogue = context.getAllCharacterDialogue()
-        characterDialogue = allDialogue[character]
-        decorator = characterDialogue[result.match]
+        dialogueDecorator = allDialogue[character][result.match]
 
-        decorator.call(context);
+        if result.match && dialogueDecorator && not dialogueDecorator.wasUsed 
+            decoratorDefer.resolve(dialogueDecorator)
+            return
 
-        deferred.resolve()
-        deferred.promise.done(->
-            prepareTransitions()
-        )
+        characterModels[character].tellAsync(userInput)
+        .done((dialogue)->
+            decorator = util.toDecorator(dialogue)
+            decoratorDefer.resolve(decorator))
+        
     )
 
+    decoratorDefer.promise.done((decorator)->
+        decorator.call(context)
+        processDefer.resolve()
 
-    return deferred.promise;
+        prepareTransitions()
+    )
+
+    return processDefer.promise;

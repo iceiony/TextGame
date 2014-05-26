@@ -1,18 +1,4 @@
-turnToDelegate = (argument)->
-    switch typeof argument
-        when 'function'
-            return argument
-        when 'string'
-            return ->
-                @text argument
-        when 'object'
-            if Array.isArray(argument)
-                count = 0;
-                return ->
-                    @text argument[count];
-                    if argument.length > count
-                        count++
-    return undefined;
+util = require './util' 
 
 
 class  Context
@@ -35,13 +21,13 @@ class  Context
         @characterDialog[@currentFocus] = @characterDialog[@currentFocus] || {}
         character = @characterDialog[@currentFocus]
         for key,result of say
-            character[key] = turnToDelegate(result)
+            character[key] = util.toDecorator(result)
 
     actions: (actions)->
         @locationActions[@curentLocation] = @locationActions[@curentLocation] || {}
         location = @locationActions[@curentLocation]
         for key,result of actions
-            location[key] = turnToDelegate(result)
+            location[key] = util.toDecorator(result)
 
     walk: (destinations)->
         ##do nothing yet
