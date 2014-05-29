@@ -1,7 +1,7 @@
 q = require 'Q'
 
 isQuestion = /\?|what|where|why|how|ask/
-isExclamation = /(hi|hello|howdy|greetings)( .*|$)/
+isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 
 module.exports.interpretAsync = (input)->
     deferred = q.defer()
