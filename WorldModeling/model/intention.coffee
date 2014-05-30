@@ -7,29 +7,26 @@ isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 entitiesRegexString = "(#{entities.join('|')})$".toLowerCase()
 containsEntity = new RegExp(entitiesRegexString);
 
-isCardinalDirection = /(north|south|east|west|left|right|up|down)$/
-isMovementVerb = /^(go|walk|move|jump|sprint|step)/
+isDirection = /(north|south|east|west|left|right|up|down|around)$/
+isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
 
-isObservationVerb = /^(inspect|examine|check|analyse|observe)/
-classifyByVerb = (input) ->
-        if(isObservationVerb.test(input))
-            return "observation"
-        return 'movement'
+isObservationVerb = /^(inspect|examine|check|analyse|observe|look)/
+
             
 module.exports.interpretAsync = (input)->
     deferred = q.defer()
     input = input.toLowerCase()
 
     setImmediate(->
-        type = 'observation'
+        type = 'action'
        
-        if(isCardinalDirection.test(input) && isMovementVerb.test(input))
+        if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
         
-        if(containsEntity.test(input))
-            type = classifyByVerb(input)
+        if isObservationVerb.test(input) && ( containsEntity.test(input) || isDirection.test(input) )
+            type = 'observation'
         
-        if (isQuestion.test(input) || isExclamation.test(input))
+        if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
             
         deferred.resolve({
