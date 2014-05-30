@@ -1,3 +1,5 @@
+characters = require('./story/characters').characters
+
 module.exports.toDecorator = (argument)->
     switch typeof argument
         when 'function'
@@ -25,3 +27,10 @@ module.exports.toDecorator = (argument)->
 
     return undefined;
     
+nameMatchRegex = /^(.*):/
+module.exports.extractRespondingCharacter = (text) ->
+    for line in text.split('\n')
+        match = nameMatchRegex.exec(line)
+        if match != null && match[0].match(/Willy|Wildcard|Detecive/) == null
+            name = match[1]
+            return name.trim().toLowerCase()

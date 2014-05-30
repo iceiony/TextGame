@@ -14,16 +14,13 @@ class  Context
         @curentLocation = location
 
     characters: (characters...)->
-        @charactersNearby = characters
-
-    lookingAt: (character)->
-        @currentFocus = character
+        @charactersNearby = characters.map((name)-> name.trim().toLowerCase())
 
     say: (say)->
-        @characterDialog[@currentFocus] = @characterDialog[@currentFocus] || {}
-        character = @characterDialog[@currentFocus]
         for key,result of say
-            character[key] = util.toDecorator(result)
+            characterName = util.extractRespondingCharacter(result)
+            @characterDialog[characterName] = @characterDialog[characterName] || {}
+            @characterDialog[characterName][key] = util.toDecorator(result)
 
     actions: (actions)->
         for key,result of actions
@@ -32,8 +29,9 @@ class  Context
     walk: (destinations)->
         ##do nothing yet
         
-    getCurrentFocus :->
-        return @currentFocus
+    getDefaultCharacter :->
+        return @charactersNearby[0]
+        
     getAllCharacterDialogue: ->
         return @characterDialog
     getActions: ->

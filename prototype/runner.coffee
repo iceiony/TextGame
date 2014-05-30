@@ -65,21 +65,23 @@ module.exports.processAsync = (userInput) ->
     processDefer = q.defer()
 
     decoratorDefer = q.defer()
-    character = context.getCurrentFocus()
+    character = context.getDefaultCharacter()
     q.all([
         dialogueTransitions[character].matchAsync(userInput)
         actionTransition.matchAsync(userInput)
     ])
     .done((results)->
         allDialogue = context.getAllCharacterDialogue()
-        dialogueDecorator = allDialogue[character][results[0].match]
-        if results[0].match && dialogueDecorator && not dialogueDecorator.wasUsed
+        dialogMatch = results[0].match;
+        dialogueDecorator = allDialogue[character][dialogMatch]
+        if dialogMatch && dialogueDecorator && not dialogueDecorator.wasUsed
             decoratorDefer.resolve(dialogueDecorator)
             return
         
         allActions = context.getActions()
-        actionDecorator = allActions[results[1].match]
-        if results[1].match && actionDecorator
+        actionMatch = results[1].match
+        actionDecorator = allActions[actionMatch]
+        if actionMatch && actionDecorator
             decoratorDefer.resolve(actionDecorator)
             return
 

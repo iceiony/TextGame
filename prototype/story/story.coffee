@@ -46,7 +46,6 @@ story = {
                 We'll provide what ever you require. Just let us know what you need to solve this case.
         """
 
-        @lookingAt 'Chief'
         @say 
             'hello':
                 """
