@@ -7,16 +7,12 @@ describe('Classifying movement intentions correctly', ->
             "go to tractor"
             "walk to farmer"
         ]
-        objects = [
-            "farmer"
-            "tractor"
-        ]
 
         movement.forEach((input)->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'movement', "For input : #{input}")
+                    assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
                     done()
                 )
             ))
@@ -32,7 +28,7 @@ describe('Classifying movement intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'movement', "For input : #{input}")
+                    assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
                     done()
                 )
             ))

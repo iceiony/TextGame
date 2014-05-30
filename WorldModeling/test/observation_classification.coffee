@@ -14,7 +14,7 @@ describe('Classifying observation intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'observation', "For input : #{input}")
+                    assert.strictEqual(res.type, 'observation', "For input : #{res.input}")
                     done()
                 )
             ))

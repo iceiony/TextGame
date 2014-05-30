@@ -14,7 +14,7 @@ describe('Classifying dialog intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'action', "For input #{input}")
+                    assert.strictEqual(res.type, 'action', "For input #{res.input}")
                     done()
                 )
             ))

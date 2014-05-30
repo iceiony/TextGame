@@ -12,25 +12,26 @@ isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
 
 isObservationVerb = /^(inspect|examine|check|analyse|observe|look)/
 
-            
+
 module.exports.interpretAsync = (input)->
     deferred = q.defer()
     input = input.toLowerCase()
 
     setImmediate(->
         type = 'action'
-       
+
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
-        
+
         if isObservationVerb.test(input) && ( containsEntity.test(input) || isDirection.test(input) )
             type = 'observation'
-        
+
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
-            
+
         deferred.resolve({
             type: type
+            input: input
         });
     )
     return deferred.promise;

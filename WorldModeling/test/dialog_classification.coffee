@@ -20,7 +20,7 @@ describe('Classifying dialog intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'dialog', "For input #{input}")
+                    assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
                     done()
                 )
             ))
@@ -39,7 +39,7 @@ describe('Classifying dialog intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'dialog', "For input #{input}")
+                    assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
                     done()
                 )
             ))
