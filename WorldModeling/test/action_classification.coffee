@@ -1,7 +1,7 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('Classifying dialog intentions correctly', ->
+describe('Classifying plain action intentions correctly', ->
     describe('by input structure that is a question', ->
         actions = [
             "turn over body"

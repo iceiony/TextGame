@@ -1,22 +1,27 @@
-module.exports ={
-    getAllKnownEntities : ->
-        [
-            "Farmer"
-            "Mark"
-            "Edd"
+knownCharacters = [
+    "Farmer"
+    "Mark"
+    "Edd"
 
-            "Chief"
-            "Stevey"
-            "Henry"
+    "Chief"
+    "Stevey"
+    "Henry"
 
-            "Anne"
-            "David"
-            "Paramedics"
-            
-            
-            "Tractor"
-            "Body"
-            
-            "Environment"
-        ]
-}
+    "Anne"
+    "David"
+    "Paramedics"
+]
+
+knownEntities = [
+    "Tractor"
+    "Body"
+
+    "Environment"
+]
+
+
+module.exports.getAllKnownEntities = ->
+    knownEntities.concat(knownCharacters)
+
+module.exports.getAllKnownCharacters = ->
+    knownCharacters

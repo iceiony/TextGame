@@ -12,6 +12,7 @@ describe('Classifying dialog intentions correctly', ->
             "how come ?"
             "where is the body?"
             "ask about the body"
+            "can you help"
             "body ?"
             "huh ?"
         ]
