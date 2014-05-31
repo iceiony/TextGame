@@ -24,7 +24,8 @@ module.exports.interpretAsync = (input)->
     setImmediate(->
         target = undefined
         direction = undefined 
-        object = undefined 
+        object = undefined
+        verb = undefined
         type = 'action'
 
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
@@ -34,14 +35,18 @@ module.exports.interpretAsync = (input)->
             type = 'observation'
             directionMatch = isDirection.exec(input)
             objectMatch = containsEntity.exec(input)
-            if directionMatch then direction = directionMatch[0]
             if objectMatch then object = objectMatch[0]
+            if directionMatch then direction = directionMatch[0]
 
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
             target = 'implicit'
             match = containsCharacter.exec(input)
             if match then target = match[0]
+            
+        if type == 'action' 
+            verb = input.substr(0,input.lastIndexOf(' ')).trim()
+            object = input.substr(input.lastIndexOf(' ')).trim()
             
 
         deferred.resolve({
@@ -50,6 +55,7 @@ module.exports.interpretAsync = (input)->
             target : target
             direction : direction
             object : object
+            verb : verb
         });
     )
     return deferred.promise;
