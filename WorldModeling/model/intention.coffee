@@ -3,7 +3,7 @@ entities = require('./entities').getAllKnownEntities()
 characters = require('./entities').getAllKnownCharacters()
 
 isQuestion = /\?|what|where|why|how|ask|can you/
-isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
+isExclamation = /(hi|hello|howdy|greetings|tell|!)( .*|$)/
 
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
 containsEntity = new RegExp(entitiesRegexString);
@@ -11,8 +11,9 @@ containsEntity = new RegExp(entitiesRegexString);
 charactersRegexString = "(#{characters.join('|')})".toLowerCase()
 containsCharacter = new RegExp(charactersRegexString);
 
-isDirection = /(north|south|east|west|left|right|up|down|around)$/
+isDirection = /(north|south|east|west|left|right|up|down|around)/
 isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
+distnaceAndMetric = /(\d+ ?[a-zA-Z]*|\d+ ?[a-zA-Z]*)( |$)/
 
 isObservationVerb = /^(inspect|examine|check|analyse|observe|look)/
 
@@ -25,11 +26,19 @@ module.exports.interpretAsync = (input)->
         target = undefined
         direction = undefined 
         object = undefined
+        distance = undefined
+        unit = undefined
         verb = undefined
         type = 'action'
 
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
+            distance = 'implicit'
+            if distnaceAndMetric.test(input)
+                distanceString = distnaceAndMetric.exec(input)[0].trim()
+                unit = /[a-zA-Z]+/.exec(distanceString)[0]
+                distance = parseInt(/\d+/.exec(distanceString)[0])
+            
 
         if isObservationVerb.test(input) && ( containsEntity.test(input) || isDirection.test(input) )
             type = 'observation'
@@ -54,6 +63,8 @@ module.exports.interpretAsync = (input)->
             input: input
             target : target
             direction : direction
+            distance : distance
+            unit : unit
             object : object
             verb : verb
         });
