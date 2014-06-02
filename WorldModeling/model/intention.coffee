@@ -34,6 +34,10 @@ module.exports.interpretAsync = (input)->
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
             distance = 'implicit'
+            if containsEntity.test(input)
+                objectMatch = containsEntity.exec(input)
+                object = objectMatch[0]
+            
             if distnaceAndMetric.test(input)
                 distanceString = distnaceAndMetric.exec(input)[0].trim()
                 unit = /[a-zA-Z]+/.exec(distanceString)[0]
@@ -59,8 +63,8 @@ module.exports.interpretAsync = (input)->
             
 
         deferred.resolve({
-            type: type
             input: input
+            type: type
             target : target
             direction : direction
             distance : distance
