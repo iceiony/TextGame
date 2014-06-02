@@ -1,23 +1,11 @@
 q = require 'Q'
-environment = require './../entities/environment'
+Character = require '../character'
 
-class Wildcard
+class Wildcard extends Character
     constructor: ->
-        @name = "wildcard"
-        @currentLocation = { x: 20, y: 10 }
-    referredAs: ->
-        "Wildcard"
-    getLocation: ->
-        @currentLocation
-
-    move :(entityName, deferred)->
-        entity = environment.getObjectByName(entityName)
-        destination = entity.getLocation()
-        if destination.x != @currentLocation.x && destination.y != @currentLocation.y
-            @currentLocation = destination
-            deferred.resolve("Wildcard walks to #{entity.referredAs()}.")
-        else
-            deferred.resolve("Wildcard is already next to #{entity.referredAs()}.")    
+        super 
+            name : "wildcard"
+            location  : { x: 20, y: 10 }
         
     executeAsync:(intention)->
         deferred = q.defer()

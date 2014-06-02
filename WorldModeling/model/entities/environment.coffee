@@ -16,5 +16,4 @@ module.exports.reactAsync = (intention)->
     wildcard.executeAsync(intention)
     .then(deferred.resolve)
     
-    
     deferred.promise;
