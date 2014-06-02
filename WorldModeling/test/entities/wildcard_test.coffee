@@ -9,15 +9,14 @@ describe('Wildcard executing a move instruction for a given direction', ->
             object: 'body'
 
         wildcard.executeAsync(intention)
-        .done((result)->
+        .then((result)->
             newLocation = wildcard.getLocation()
             assert.notDeepEqual(initialLocation, newLocation)
             assert.equal("Wildcard walks to the body.", result)
+            wildcard.executeAsync(intention)
+        ).then((result)->
+            assert.strictEqual("Wildcard is already next to the body.", result)
             done()
-#            wildcard.executeAsync(intention)
-#        ).then((result)->
-#            assert.strictEqual("Wildcard is already next to the body.", result)
-#            done()
         )
     )
 )
