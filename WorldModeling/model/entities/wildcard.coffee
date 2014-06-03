@@ -7,12 +7,9 @@ class Wildcard extends Character
             name : "wildcard"
             location  : { x: 20, y: 10 }
         
-    executeAsync:(intention)->
-        deferred = q.defer()
-        
+    execute:(intention)->
         switch  intention.type
-            when 'movement' then @move(intention.object, deferred)
-    
-        deferred.promise
+            when 'movement'
+                return @move(intention.object)
 
 module.exports.new = -> new Wildcard()
