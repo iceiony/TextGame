@@ -1,6 +1,6 @@
 q = require 'Q'
-entities = require('./entities').getAllKnownEntities()
-characters = require('./entities').getAllKnownCharacters()
+entities = require('./entities/environment').getAllEntityNames()
+characters = require('./entities/environment').getAllCharacterNames()
 
 isQuestion = /\?|what|where|why|how|ask|can you/
 isExclamation = /(hi|hello|howdy|greetings|tell|!)( .*|$)/

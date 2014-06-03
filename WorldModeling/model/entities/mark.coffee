@@ -5,8 +5,9 @@ class Mark extends Character
     constructor: ->
         super 
             name : "mark"
+            aliases : ["farmer","edd"]
             location  : { x: 3, y: 8 }
-    
+            
     referredAs: ->
         "the farmer"
 

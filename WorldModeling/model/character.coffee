@@ -2,13 +2,15 @@ Entity = require './entity'
 environment = require './entities/environment'
 
 class Character extends Entity
+    isCharacter : true
+    
     constructor:(options)->
         super options
 
-    referredAs :-> 
+    referredAs :->
         capitalName = @name[0].toUpperCase() + @name[1..]
         return capitalName
-
+        
     move :(entityName, deferred)->
         entity = environment.getObjectByName(entityName)
         destination = entity.getLocation()
