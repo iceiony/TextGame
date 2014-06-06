@@ -21,16 +21,12 @@ extractAllNamesAndAliases = (entities, filter = -> true) ->
             result.push(entity.name)
     result
 
-getChain = (stimuli, entities = composingEntities) ->
+getChain = (stimuli) ->
     chain_reactions = []
-    if(entities.length > 0)
-        for entity in entities
-            if stimuli.subject != entity.name
-                entity_reaction = entity.react(stimuli)
-                if entity_reaction
-                    chain_reactions.push(entity_reaction)
-                component_reactions = getChain(stimuli,entity.composing)
-                chain_reactions = [].concat.apply(chain_reactions,component_reactions)
+    for entity in composingEntities
+        if stimuli.subject != entity.name
+            entity_reactions = entity.react(stimuli)
+            chain_reactions = [].concat.apply(chain_reactions,entity_reactions)
     chain_reactions 
 
 module.exports.getAllEntityNames = ->

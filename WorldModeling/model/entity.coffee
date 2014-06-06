@@ -12,6 +12,11 @@ class Entity
         @location
 
     react : (stimuli)->
+        componentReactions = []
+        for component in @composing
+            reaction = component.react(stimuli)
+            if reaction then componentReactions.push(reaction)
+        return componentReactions
         
         
 module.exports = Entity
