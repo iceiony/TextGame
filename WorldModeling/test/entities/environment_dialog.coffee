@@ -2,16 +2,16 @@ assert = require 'assert'
 intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
-describe('Interpreting movement in environment',->
-    
-    it('moving to the body',(done)->
-        input = 'go to body'
+describe('Interpreting dialog in environment',->
+
+    it('Greeting the chief should give a response',(done)->
+        input = 'Hello chief'
         intention.interpretAsync(input)
         .then((interpretation)->
             environment.reactAsync(interpretation))
         .done((result)->
-            assert.strictEqual("Wildcard walks to the body.",result.text)
-            assert.strictEqual("The officers follow him.",result.chain[0].text)
+            assert.strictEqual("Wildcard: Hello Chief.",result.text)
+            assert.strictEqual("Chief: Hello Wildcard.",result.chain[0].text)
             done())
     )
 )

@@ -10,6 +10,10 @@ class Entity
             
     getLocation: ->
         @location
+        
+    isNear: (entity)->
+        entityLocation = entity.getLocation()
+        return @location.x == entityLocation.x && @location.y = entityLocation.y;
 
     react : (stimulus)->
         componentReactions = []

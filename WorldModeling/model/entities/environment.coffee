@@ -31,18 +31,19 @@ getChain = (stimuli) ->
             chain_reactions = [].concat.apply(chain_reactions, entity_reactions)
     chain_reactions
 
+retrieveEntityByName = (name, entityTree = composingEntities)->
+    for entity in entityTree
+        if entity.name == name then return entity
+        result = retrieveEntityByName(name, entity.composing)
+        if result then return result
+
 module.exports.getAllEntityNames = ->
     extractAllNamesAndAliases(composingEntities).concat('environment')
 
 module.exports.getAllCharacterNames = ->
-    extractAllNamesAndAliases(composingEntities, (entity)->
-        entity.isCharacter)
+    extractAllNamesAndAliases(composingEntities, (entity)-> entity.isCharacter)
 
-module.exports.getObjectByName = (name)->
-    for entity in composingEntities
-        if entity.name == name
-            return entity
-
+module.exports.getObjectByName = retrieveEntityByName
 module.exports.composing = composingEntities
 
 module.exports.reactAsync = (intention)->

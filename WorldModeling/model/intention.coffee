@@ -23,7 +23,6 @@ module.exports.interpretAsync = (input)->
     input = input.toLowerCase()
 
     setImmediate(->
-        target = undefined
         direction = undefined 
         object = undefined
         distance = undefined
@@ -53,9 +52,9 @@ module.exports.interpretAsync = (input)->
 
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
-            target = 'implicit'
+            object = 'implicit'
             match = containsCharacter.exec(input)
-            if match then target = match[0]
+            if match then object = match[0]
             
         if type == 'action' 
             verb = input.substr(0,input.lastIndexOf(' ')).trim()
@@ -65,7 +64,6 @@ module.exports.interpretAsync = (input)->
         deferred.resolve({
             input: input
             type: type
-            target : target
             direction : direction
             distance : distance
             unit : unit

@@ -11,12 +11,23 @@ class Character extends Entity
         capitalName = @name[0].toUpperCase() + @name[1..]
         return capitalName
         
+    greet: (entityName)->
+        entity = environment.getObjectByName(entityName)
+        if @isNear(entity)
+            return {
+                subject: @name
+                object: entity.name
+                type:"dialog"
+                reason:"greet"
+                text: "#{@referredAs()}: Hello #{entity.referredAs()}."
+            }
+        
+
     move: (entityName)->
         entity = environment.getObjectByName(entityName)
-        destination = entity.getLocation()
 
-        if destination.x != @location.x && destination.y != @location.y
-            @location = destination
+        if not @isNear(entity)
+            @location = entity.getLocation()
             return {
             subject: @name
             object: entity.name
