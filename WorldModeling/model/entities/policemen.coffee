@@ -12,6 +12,9 @@ class Policemen extends Entity
                 @stevey = require('./stevey').new()
             ]
             
+    getLocation: ()->
+        return @chief.getLocation()
+            
     react: (stimulus)->
         componentReactions = super(stimulus)
         followCount = componentReactions.filter((officer)->
