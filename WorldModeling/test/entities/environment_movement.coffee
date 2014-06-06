@@ -11,14 +11,7 @@ describe('Interpreting movement in environment',->
             environment.reactAsync(interpretation))
         .done((result)->
             assert.strictEqual("Wildcard walks to the body.",result.text);
-            
-            assert.strictEqual("Chief walks to the body.",result.chain[0].text);
-            assert.strictEqual("follow",result.chain[0].reason);
-
-            assert.strictEqual("Henry walks to the body.",result.chain[1].text);
-            assert.strictEqual("Stevey walks to the body.",result.chain[2].text);
-            
-            assert.strictEqual(result.chain.length , 3 , 'Only the policeman should follow wildcard.');
+            assert.strictEqual("The officers follow him.",result.chain[0].text);
             done())
     )
 )

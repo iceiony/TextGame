@@ -11,10 +11,10 @@ class Entity
     getLocation: ->
         @location
 
-    react : (stimuli)->
+    react : (stimulus)->
         componentReactions = []
         for component in @composing
-            reaction = component.react(stimuli)
+            reaction = component.react(stimulus)
             if reaction then componentReactions.push(reaction)
         return componentReactions
         

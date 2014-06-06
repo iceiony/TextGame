@@ -7,9 +7,9 @@ class Stevey extends Character
             name : "stevey"
             location  : { x: 20, y: 10 }
 
-    react : (stimuli)->
-        if stimuli.subject == 'wildcard' && stimuli.type == 'movement'
-            reaction = @move(stimuli.object)
+    react : (stimulus)->
+        if stimulus.subject == 'wildcard' && stimulus.type == 'movement'
+            reaction = @move(stimulus.object)
             reaction.reason = 'follow'
             return reaction
             

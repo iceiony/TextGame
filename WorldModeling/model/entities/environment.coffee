@@ -6,7 +6,7 @@ composingEntities = [
     mark = require('./mark').new()
     tractor = require('./tractor').new()
     paramedics = require('./paramedics').new()
-    policeman = require('./policeman').new()
+    Policemen = require('./policemen').new()
 ]
 
 extractAllNamesAndAliases = (entities, filter = -> true) ->
@@ -26,8 +26,10 @@ getChain = (stimuli) ->
     for entity in composingEntities
         if stimuli.subject != entity.name
             entity_reactions = entity.react(stimuli)
-            chain_reactions = [].concat.apply(chain_reactions,entity_reactions)
-    chain_reactions 
+            if(!Array.isArray(entity_reactions))
+                entity_reactions = [entity_reactions]
+            chain_reactions = [].concat.apply(chain_reactions, entity_reactions)
+    chain_reactions
 
 module.exports.getAllEntityNames = ->
     extractAllNamesAndAliases(composingEntities).concat('environment')
