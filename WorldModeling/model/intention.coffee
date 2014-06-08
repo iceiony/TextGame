@@ -3,15 +3,14 @@ entities = require('./entities/environment').getAllEntityNames()
 characters = require('./entities/environment').getAllCharacterNames()
 knowledgeKeys = require('./entities/environment').getAllCharacterKnowledge()
 
-isQuestion = /\?|what |where |why |how |ask |can you/
-isExclamation = /(hi|hello|howdy|greetings|tell|!)( .*|$)/
+isQuestion = /\?|what |where |why |how |ask |can you |tell /
+isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
 containsEntity = new RegExp(entitiesRegexString)
 
 knowledgeRegexString = "(#{knowledgeKeys.join('|')})".toLowerCase()
 knowledgeItem = new RegExp(knowledgeRegexString)
-console.log knowledgeRegexString
 
 charactersRegexString = "(#{characters.join('|')})".toLowerCase()
 containsCharacter = new RegExp(charactersRegexString)

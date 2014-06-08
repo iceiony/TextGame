@@ -11,17 +11,29 @@ class Character extends Entity
         capitalName = @name[0].toUpperCase() + @name[1..]
         return capitalName
         
-    greet: (entityName)->
-        entity = environment.getObjectByName(entityName)
+    greet: (characterName)->
+        entity = environment.getObjectByName(characterName)
         if @isNear(entity)
             return {
                 subject: @name
                 object: entity.name
                 type:"dialog"
                 reason:"greet"
-                text: "#{@referredAs()}: Hello #{entity.referredAs()}."
+                text: "#{@referredAs()} : Hello #{entity.referredAs()}."
             }
-
+            
+    askAbout: (concept,characterName)->
+        characterEntity = environment.getObjectByName(characterName)
+        if @isNear(characterEntity)
+            return {
+                subject:@name
+                object:characterEntity.name
+                type:"dialog"
+                reason: "ask"
+                concept: concept
+                text: "#{@referredAs()} : Tell me about the #{concept} #{characterEntity.referredAs()}."
+            }
+            
     getKnowledgeKeys: ()->
         return ['name','body','case']
 
