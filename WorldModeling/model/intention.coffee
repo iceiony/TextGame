@@ -1,15 +1,20 @@
 q = require 'Q'
 entities = require('./entities/environment').getAllEntityNames()
 characters = require('./entities/environment').getAllCharacterNames()
+knowledgeKeys = require('./entities/environment').getAllCharacterKnowledge()
 
-isQuestion = /\?|what|where|why|how|ask|can you/
+isQuestion = /\?|what |where |why |how |ask |can you/
 isExclamation = /(hi|hello|howdy|greetings|tell|!)( .*|$)/
 
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
-containsEntity = new RegExp(entitiesRegexString);
+containsEntity = new RegExp(entitiesRegexString)
+
+knowledgeRegexString = "(#{knowledgeKeys.join('|')})".toLowerCase()
+knowledgeItem = new RegExp(knowledgeRegexString)
+console.log knowledgeRegexString
 
 charactersRegexString = "(#{characters.join('|')})".toLowerCase()
-containsCharacter = new RegExp(charactersRegexString);
+containsCharacter = new RegExp(charactersRegexString)
 
 isDirection = /(north|south|east|west|left|right|up|down|around)/
 isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
@@ -26,6 +31,7 @@ module.exports.interpretAsync = (input)->
         direction = undefined 
         object = undefined
         distance = undefined
+        subject = undefined 
         unit = undefined
         verb = undefined
         type = 'action'
@@ -55,6 +61,8 @@ module.exports.interpretAsync = (input)->
             object = 'implicit'
             match = containsCharacter.exec(input)
             if match then object = match[0]
+            match = knowledgeItem.exec(input)
+            if match then subject = match[0]
             
         if type == 'action' 
             verb = input.substr(0,input.lastIndexOf(' ')).trim()
@@ -64,6 +72,9 @@ module.exports.interpretAsync = (input)->
         deferred.resolve({
             input: input
             type: type
+            isQuestion : isQuestion.test(input)
+            isExclamation : isExclamation.test(input)
+            subject : subject
             direction : direction
             distance : distance
             unit : unit

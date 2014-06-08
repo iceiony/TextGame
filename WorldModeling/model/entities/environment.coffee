@@ -1,4 +1,5 @@
 q = require 'Q'
+_ = require 'lodash'
 
 composingEntities = [
     wildcard = require('./wildcard').new()
@@ -21,6 +22,15 @@ extractAllNamesAndAliases = (entities, filter = -> true) ->
             result.push(entity.name)
     result
 
+getCharacterKnowledge = (entities)->
+    result = []
+    if(entities.length > 0)
+        for entity in entities
+            if entity.isCharacter
+                result = [].concat.apply(result , entity.getKnowledgeKeys())
+                result = [].concat.apply(result , getCharacterKnowledge(entity.composing))
+    result
+    
 getChain = (stimuli) ->
     chain_reactions = []
     for entity in composingEntities
@@ -30,7 +40,7 @@ getChain = (stimuli) ->
                 entity_reactions = [entity_reactions]
             chain_reactions = [].concat.apply(chain_reactions, entity_reactions)
     chain_reactions
-
+    
 retrieveEntityByName = (name, entityTree = composingEntities)->
     for entity in entityTree
         if entity.name == name then return entity
@@ -39,10 +49,16 @@ retrieveEntityByName = (name, entityTree = composingEntities)->
 
 module.exports.getAllEntityNames = ->
     extractAllNamesAndAliases(composingEntities).concat('environment')
-
+        
+module.exports.getAllNonCharacterNames = ->
+    extractAllNamesAndAliases(composingEntities, (entity)-> not entity.isCharacter)
+    
 module.exports.getAllCharacterNames = ->
     extractAllNamesAndAliases(composingEntities, (entity)-> entity.isCharacter)
 
+module.exports.getAllCharacterKnowledge = ->
+    _.uniq(getCharacterKnowledge(composingEntities))
+    
 module.exports.getObjectByName = retrieveEntityByName
 module.exports.composing = composingEntities
 

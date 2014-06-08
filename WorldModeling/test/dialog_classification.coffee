@@ -4,24 +4,27 @@ intention = require '../model/intention'
 describe('Classifying dialog intentions correctly', ->
     describe('by input structure that is a question', ->
         questions = [
-            "what is your name"
-            "are you ok ?"
-            "how are you?"
-            "how do you do"
-            "what is the case"
-            "how come ?"
-            "where is the body?"
-            "ask about the body"
-            "can you help"
-            "body ?"
-            "huh ?"
+            {input:"what is your name",subject:"name"}
+            {input:"are you ok ?"}
+            {input:"how are you?"}
+            {input:"how do you do"}
+            {input:"what is the case",subject:"case"}
+            {input:"how come ?"}
+            {input:"where is the body?",subject:"body"}
+            {input:"ask about the body",subject:"body"}
+            {input:"can you help"}
+            {input:"body ?", subject : "body"}
+            {input:"huh ?"}
         ]
 
-        questions.forEach((input)->
-            it(input, (done)->
-                intention.interpretAsync(input).done((res, err)->
+        questions.forEach((question)->
+            it(question.input, (done)->
+                intention.interpretAsync(question.input).done((res, err)->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
+                    assert.strictEqual(res.subject, question.subject, "For input #{res.input}")  
+                    assert.strictEqual(res.isQuestion, true , "Not classified as question #{res.input}")
+                    assert.strictEqual(res.isExclamation, false )
                     done()
                 )
             ))
@@ -41,6 +44,8 @@ describe('Classifying dialog intentions correctly', ->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
+                    assert.strictEqual(res.isExclamation, true , "Not classified as exclamation #{res.input}")
+                    assert.strictEqual(res.isQuestion, false )
                     done()
                 )
             ))

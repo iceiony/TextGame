@@ -21,7 +21,9 @@ class Character extends Entity
                 reason:"greet"
                 text: "#{@referredAs()}: Hello #{entity.referredAs()}."
             }
-        
+
+    getKnowledgeKeys: ()->
+        return ['name','body','case']
 
     move: (entityName)->
         entity = environment.getObjectByName(entityName)
