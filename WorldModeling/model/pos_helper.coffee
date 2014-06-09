@@ -36,7 +36,8 @@ module.exports.getNouns = (input)->
     
 module.exports.tag = (input)->
     input = input.replace(' ok',' OK')
-    return tag.tag(lex.lex(input))
+    result =  ( { word:part[0] , tag:part[1] } for part in tag.tag(lex.lex(input))) 
+    return result ; 
     
 module.exports.isNoun = (tag)->
     return (tag in nounTags)

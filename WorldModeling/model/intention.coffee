@@ -38,10 +38,7 @@ module.exports.interpretAsync = (input)->
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
             distance = 'implicit'
-            if containsEntity.test(input)
-                objectMatch = containsEntity.exec(input)
-                object = objectMatch[0]
-            
+            object = containsEntity.exec(input)?[0]
             if distanceAndMetric.test(input)
                 distanceString = distanceAndMetric.exec(input)[0].trim()
                 unit = /[a-zA-Z]+/.exec(distanceString)[0]
@@ -50,18 +47,16 @@ module.exports.interpretAsync = (input)->
 
         if isObservationVerb.test(input) && ( containsEntity.test(input) || isDirection.test(input) )
             type = 'observation'
-            directionMatch = isDirection.exec(input)
-            objectMatch = containsEntity.exec(input)
-            if objectMatch then object = objectMatch[0]
-            if directionMatch then direction = directionMatch[0]
+            direction = isDirection.exec(input)?[0]
+            object = containsEntity.exec(input)?[0]
 
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
-            match = containsCharacter.exec(input)
-            object = match?[0] || 'implicit'
+            character = containsCharacter.exec(input)?[0]
+            object = character || 'implicit'
             tags = helper.tag(input)
-            pair = _(tags).filter((pair)-> helper.isNoun(pair[1])).last()
-            subject = pair?[0]
+            lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag)).last()
+            subject = lastNoun?.word
             
         if type == 'action' 
             verbs = helper.getVerbs(input)
@@ -69,8 +64,8 @@ module.exports.interpretAsync = (input)->
             verb = _(verbs).first()
             object = _(nouns).filter((noun)-> noun != verb).last()
             if(not object)
-                objectMatch = containsEntity.exec(input)
-                object = objectMatch?[0] || 'implicit'
+                entity = containsEntity.exec(input)?[0]
+                object = entity || 'implicit'
             
         deferred.resolve({
             input: input
