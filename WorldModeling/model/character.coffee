@@ -33,9 +33,6 @@ class Character extends Entity
                 concept: concept
                 text: "#{@referredAs()} : Tell me about the #{concept} #{characterEntity.referredAs()}."
             }
-            
-    getKnowledgeKeys: ()->
-        return ['name','body','case']
 
     move: (entityName)->
         entity = environment.getObjectByName(entityName)
