@@ -4,7 +4,7 @@ intention = require '../model/intention'
 describe('Extracting the verb and object from action',->
     actions = [
         {input:"punch Henry",verb:"punch",object:"henry"}
-        {input:"turn around body",verb:"turn around",object:"body"}
+        {input:"turn around body",verb:"turn",object:"body"}
         {input:"open fist",verb:"open",object:"fist"}
         {input:"check fist",verb:"check",object:"fist"}
     ]

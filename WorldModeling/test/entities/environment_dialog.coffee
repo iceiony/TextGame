@@ -5,8 +5,7 @@ environment = require '../../model/entities/environment'
 describe('Interpreting dialog in environment',->
 
     it('Greeting the chief should give a response',(done)->
-        input = 'Hello chief'
-        intention.interpretAsync(input)
+        intention.interpretAsync('Hello chief')
         .then((interpretation)->
             environment.reactAsync(interpretation))
         .done((result)->
@@ -17,9 +16,7 @@ describe('Interpreting dialog in environment',->
     
     
     it('Asking the chief about the case should give a response',(done)->
-        input = 'tell me about the case chief'
-        
-        intention.interpretAsync(input)
+        intention.interpretAsync('tell me about the case chief')
         .then((interpretation)->
             environment.reactAsync(interpretation))
         .done((result)->
@@ -30,15 +27,43 @@ describe('Interpreting dialog in environment',->
     
     
     it('Asking the chief about the body should give a response',(done)->
-        input = 'tell me about the body chief'
-        
-        intention.interpretAsync(input)
+        intention.interpretAsync('tell me about the body chief')
         .then((interpretation)->
-            console.log interpretation
             environment.reactAsync(interpretation))
         .done((result)->
             assert.strictEqual(result.text,"Wildcard : Tell me about the body Chief." );
             assert.strictEqual(result.chain[0].text ,"Chief : There isn't anything more I can tell you about it.");
             done())
+    )
+    
+    it('Asking the chief about an unrelated entity repeatedly',(done)->
+        intention.interpretAsync('tell me about the stars chief')
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
+        )
+        .then((result)->
+            assert.strictEqual(result.text,'Wildcard : Tell me about the stars Chief.');
+            assert.strictEqual(result.chain[0].text,"Chief : What does that have to do with anything ? ");
+            
+            intention.interpretAsync('tell me about the stars chief')
+        )
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
+        )
+        .then((result)->
+            assert.strictEqual(result.text,'Wildcard : Tell me about the stars Chief.');
+            assert.strictEqual(result.chain[0].text,"Chief : What is it with you and the stars ?  ");
+
+            intention.interpretAsync('tell me about the stars chief')
+        )
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
+        )
+        .done((result)->
+            assert.strictEqual(result.text,'Wildcard : Tell me about the stars Chief.');
+            assert.strictEqual(result.chain[0].text,"Chief : No !  ");
+            
+            done()
+        )
     )
 )

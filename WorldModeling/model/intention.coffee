@@ -1,7 +1,10 @@
+_ = require 'lodash'
 q = require 'Q'
+helper = require './pos_helper'
+
+
 entities = require('./entities/environment').getAllEntityNames()
 characters = require('./entities/environment').getAllCharacterNames()
-knowledgeKeys = require('./entities/environment').getAllCharacterKnowledge()
 
 isQuestion = /\?|what |where |why |how |ask |can you |tell /
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
@@ -9,20 +12,17 @@ isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
 containsEntity = new RegExp(entitiesRegexString)
 
-knowledgeRegexString = "(#{knowledgeKeys.join('|')})".toLowerCase()
-knowledgeItem = new RegExp(knowledgeRegexString)
-
 charactersRegexString = "(#{characters.join('|')})".toLowerCase()
 containsCharacter = new RegExp(charactersRegexString)
 
 isDirection = /(north|south|east|west|left|right|up|down|around)/
 isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
-distnaceAndMetric = /(\d+ ?[a-zA-Z]*|\d+ ?[a-zA-Z]*)( |$)/
+distanceAndMetric = /(\d+ ?[a-zA-Z]*|\d+ ?[a-zA-Z]*)( |$)/
 
 isObservationVerb = /^(inspect|examine|check|analyse|observe|look)/
 
 
-module.exports.interpretAsync = (input)->
+module.exports.interpretAsync = (input)-> 
     deferred = q.defer()
     input = input.toLowerCase()
 
@@ -42,8 +42,8 @@ module.exports.interpretAsync = (input)->
                 objectMatch = containsEntity.exec(input)
                 object = objectMatch[0]
             
-            if distnaceAndMetric.test(input)
-                distanceString = distnaceAndMetric.exec(input)[0].trim()
+            if distanceAndMetric.test(input)
+                distanceString = distanceAndMetric.exec(input)[0].trim()
                 unit = /[a-zA-Z]+/.exec(distanceString)[0]
                 distance = parseInt(/\d+/.exec(distanceString)[0])
             
@@ -57,17 +57,21 @@ module.exports.interpretAsync = (input)->
 
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
-            object = 'implicit'
             match = containsCharacter.exec(input)
-            if match then object = match[0]
-            match = knowledgeItem.exec(input)
-            if match then subject = match[0]
+            object = match?[0] || 'implicit'
+            tags = helper.tag(input)
+            pair = _(tags).filter((pair)-> helper.isNoun(pair[1])).last()
+            subject = pair?[0]
             
         if type == 'action' 
-            verb = input.substr(0,input.lastIndexOf(' ')).trim()
-            object = input.substr(input.lastIndexOf(' ')).trim()
+            verbs = helper.getVerbs(input)
+            nouns = helper.getNouns(input)
+            verb = _(verbs).first()
+            object = _(nouns).filter((noun)-> noun != verb).last()
+            if(not object)
+                objectMatch = containsEntity.exec(input)
+                object = objectMatch?[0] || 'implicit'
             
-
         deferred.resolve({
             input: input
             type: type

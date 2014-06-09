@@ -2,8 +2,9 @@
   "name": "world-modeling",
   "version": "0.0.1",
   "dependencies": {
+    "lodash": "~2.4.1",
     "mocha": "~1.20.0",
-    "q": "~1.0.1",
-    "lodash": "~2.4.1"
+    "pos": "^0.1.5",
+    "q": "~1.0.1"
   }
 }
