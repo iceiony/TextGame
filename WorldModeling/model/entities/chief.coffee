@@ -1,6 +1,26 @@
 q = require 'Q'
 Character = require '../character'
 
+
+upperCaseStart = (sentence) ->
+    sentence[0].toUpperCase() + sentence[1..]
+    
+combineParts= (known,questions)->
+    sentences = []
+    if(known.length + questions.length <= 3 && known.length > 0 && questions.length > 0)
+        singleSentence = known.join(' , ')
+        singleSentence += " and need to find out " + questions.join(' and ')
+        singleSentence += '.'
+        sentences.push(singleSentence)
+    else
+        if known.length > 0
+            binder = if known.length > 2 then ' , ' else ' and '
+            sentences.push("#{known.join(binder)}.")
+        if questions.length > 0
+            binder = if questions.length > 2 then ' , ' else ' or '
+            sentences.push("We don't know #{questions.join(binder)}.")
+    return sentences.map((sentence)-> upperCaseStart(sentence))
+
 class Chief extends Character
     constructor: ->
         super
@@ -8,38 +28,34 @@ class Chief extends Character
             location: { x: 20, y: 10 }
             
         @knowledge = 
-            'case' : {concrete:["we have a body"] , question:["what happened"]}
-            'body' : {concrete:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
+            'case' : {known:["we have a body"] , question:["what happened"]}
+            'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
             'unmatched' : {}
-
+            
     answer: (intention)->
         result = {
             subject: @name
             type: "dialog"
             reason: "answer"
-            text : ""
         }
         item = @knowledge[intention.concept];
 
         knowIndex = item.knowIndex || 0
-        knownParts = item.concrete.slice(knowIndex,knowIndex+3)
-        if knownParts.length > 0
-            item.knowIndex = knowIndex + knownParts.length
-            binder = if knownParts.length > 2 then ' , ' else ' and '
-            known = knownParts.join(binder)
-            known = known[0].toUpperCase() + known[1..]
-            result.text = "#{@referredAs()} : #{known}."
-
+        knownParts = item.known.slice(knowIndex,knowIndex+3)
+        item.knowIndex = knowIndex + knownParts.length
+        
         questionIndex = item.questionIndex || 0
         questionParts = item.question.slice(questionIndex,questionIndex+3)
-        if questionParts.length > 0 
-            item.questionIndex = questionIndex + questionParts.length 
+        item.questionIndex = questionIndex + questionParts.length
+
+        sentences = combineParts(knownParts,questionParts)
+
+        if (sentences.length > 0 )
+            result.text = @referredAs()+ " : " + sentences[0]
             indentation = (new Array(@referredAs().length + 4 )).join(' ')
-            binder = if questionParts.length > 2 then ' , ' else ' and ' 
-            question = questionParts.join(binder)
-            result.text += "\n#{indentation}We don't know #{question}."
-        
-        if result.text.length == 0 
+            for nextSentence in sentences[1..]
+                result.text += "\n" + indentation + nextSentence
+        else
             result.text = "#{@referredAs()} : There isn't anything more I can tell you about it."
 
         return result

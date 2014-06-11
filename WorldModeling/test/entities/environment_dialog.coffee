@@ -22,7 +22,7 @@ describe('Interpreting dialog in environment',->
         .then((result)-> # 0 - hidden output swallowed by story  
             assert.strictEqual(result.text,"Wildcard : Tell me about the body Chief." )
             assert.notEqual(result.chain[0].text.indexOf("Chief : Middle aged man , found in the middle of nowhere , half naked.\n"), -1 , result.chain[0].text)
-            assert.notEqual(result.chain[0].text.indexOf("        We don't know how the body got here and the cause of death."), -1 , result.chain[0].text)
+            assert.notEqual(result.chain[0].text.indexOf("        We don't know how the body got here or the cause of death."), -1 , result.chain[0].text)
 
             intention.interpretAsync('tell me more')
         )
