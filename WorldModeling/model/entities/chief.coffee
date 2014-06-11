@@ -38,25 +38,56 @@ class Chief extends Character
             type: "dialog"
             reason: "answer"
         }
-        item = @knowledge[intention.concept];
+        item = @knowledge[intention.concept]
+        item.exhaustCount = item.exhaustCount || 0
 
-        knowIndex = item.knowIndex || 0
-        knownParts = item.known.slice(knowIndex,knowIndex+3)
-        item.knowIndex = knowIndex + knownParts.length
+        if item.exhaustReset then  clearTimeout(item.exhaustReset)
+        item.exhaustReset = setTimeout(->
+            console.log 'triggered'
+            item.exhaustCount = 0
+            item.reminder = true;
+            item.knowIndex = 0
+            item.questionIndex = 0
+        , 5 * 60 * 1000)
         
-        questionIndex = item.questionIndex || 0
-        questionParts = item.question.slice(questionIndex,questionIndex+3)
-        item.questionIndex = questionIndex + questionParts.length
+        if(item.exhaustCount == 0 )
+            sentences = []
+            knowIndex = item.knowIndex || 0
+            knownParts = item.known.slice(knowIndex,knowIndex+3)
+            item.knowIndex = knowIndex + knownParts.length
+            
+            questionIndex = item.questionIndex || 0
+            questionParts = item.question.slice(questionIndex,questionIndex+3)
+            item.questionIndex = questionIndex + questionParts.length
 
-        sentences = combineParts(knownParts,questionParts)
+            if item.reminder
+                sentences.push("Like I said.")
+                item.reminder = false
 
-        if (sentences.length > 0 )
+            sentences = sentences.concat( combineParts(knownParts, questionParts) )
+            
+            if (knownParts.length + questionParts.length == 0 )
+                item.exhaustCount++
+                sentences.push("There isn't anything more I can tell you about it.")
+          
             result.text = @referredAs()+ " : " + sentences[0]
             indentation = (new Array(@referredAs().length + 4 )).join(' ')
             for nextSentence in sentences[1..]
                 result.text += "\n" + indentation + nextSentence
+                
         else
-            result.text = "#{@referredAs()} : There isn't anything more I can tell you about it."
+            switch item.exhaustCount
+                when 1
+                    result.text = "#{@referredAs()} : Listen, I don't know more about the #{intention.concept} than what I told you already"
+                when 2
+                    result.text = "#{@referredAs()} : Stop it with the darn #{intention.concept} already !"
+                when 3
+                    result.text = "#{@referredAs()} : If you ask me about the #{intention.concept} one more time I'll dismiss you !"
+                when 4
+                    result.text = "#{@referredAs()} ignores the request."
+                else
+                    result.text = "Chief: That's it Wildcard , you're off the case. Go home and take your medication and have a good rest."
+            item.exhaustCount++
 
         return result
 

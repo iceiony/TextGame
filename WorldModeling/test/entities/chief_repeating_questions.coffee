@@ -20,11 +20,12 @@ describe('Asking re-occurring questions about objects and entities', ->
             environment.reactAsync(intent)
         )
         .then((result)-># 1st reaction
-            assert.strictEqual(result.chain[0].text, "Chief : Like I said, we have a body and we don't know where it came from.")
+#            assert.strictEqual(result.chain[0].text, "Chief : Like I said, we have a body and we don't know where it came from.")
+            assert.strictEqual(result.chain[0].text, "Chief : There isn't anything more I can tell you about it.")
             environment.reactAsync(intent)
         )
         .then((result)->#2nd reaction -concerned
-            assert.strictEqual(result.chain[0].text, "Chief : Listen I don't know more about the case than what I told you already")
+            assert.strictEqual(result.chain[0].text, "Chief : Listen, I don't know more about the case than what I told you already")
             environment.reactAsync(intent)
         )
         .then((result)->#3rd reaction -annoyed 
@@ -40,8 +41,43 @@ describe('Asking re-occurring questions about objects and entities', ->
             environment.reactAsync(intent)
         )
         .done((result)-> #6 reaction - dismissed from the case 
-            assert.strictEqual(result.chain[0].text, "Chief: That's it Wildcard , you're off the case. Go home and take your medication. Have a good rest.")
+            assert.strictEqual(result.chain[0].text, "Chief: That's it Wildcard , you're off the case. Go home and take your medication and have a good rest.")
             done()
+        )
+    )
+
+    it('Asking the chief about a known entity but after at least 5 minutes', (done)->
+        clock = sinon.useFakeTimers(0, "setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date")
+        environment.reset()
+        intent = undefined
+
+        intention.interpretAsync('tell me about the case chief')
+        .then((interpretation)->
+            intent = interpretation
+            environment.reactAsync(intent)
+        )
+        .then((result)->#0 - knowledge share here
+            environment.reactAsync(intent)
+        )
+        .done((result)->#1 - no more knowledge here
+            assert.strictEqual(result.chain[0].text, "Chief : There isn't anything more I can tell you about it.")
+            clock.tick(5 * 60 * 1000)
+
+            setTimeout(->
+                console.log 'assert set to happen'
+                environment.reactAsync(intent)
+                .then((result)-> #2 - reminder here 
+                    try
+                        assert.notEqual(result.chain[0].text.indexOf("Chief : Like I said."), -1, result.chain[0].text)
+                        assert.notEqual(result.chain[0].text.indexOf("We have a body and need to find out what happened."),-1, result.chain[0].text)
+                    catch error
+                        err = error
+                    finally
+                        clock.restore()
+                        done(err)
+                )
+            , 1000)
+            clock.tick(1000)
         )
     )
 
@@ -67,31 +103,4 @@ describe('Asking re-occurring questions about objects and entities', ->
         )
     )
 
-    it('Asking the chief about a known entity but after at least 5 minutes', (done)->
-        timeoutDuration = 5 * 60 * 100
-        intent = undefined
-
-        intention.interpretAsync('tell me about the case chief')
-        .then((interpretation)->
-            intent = interpretation
-            environment.reactAsync(intent)
-        )
-        .done((result)->
-            assert.strictEqual(result.chain[0].text, "Chief : Like I said, we have a body and we don't know where it came from.")
-            clock = sinon.useFakeTimers(0, "setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date")
-            setTimeout(->
-                environment.reactAsync(intent).then((result)->
-                    try
-                        assert.strictEqual(result.chain[0].text, "Chief : I already told you about this not long ago.\nLike I said, we have a body and we don't know where it came from.")
-                    catch error
-                        err = error
-                    finally
-                        clock.restore()
-                        done(err)
-                )
-            , timeoutDuration)
-
-            clock.tick(timeoutDuration)
-        )
-    )
 )

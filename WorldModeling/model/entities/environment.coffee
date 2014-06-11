@@ -50,6 +50,15 @@ module.exports.getAllCharacterNames = ->
 module.exports.getObjectByName = retrieveEntityByName
 module.exports.composing = composingEntities
 
+module.exports.reset = ->
+    composingEntities = [
+        wildcard = require('./wildcard').new()
+        body = require('./body').new()
+        mark = require('./mark').new()
+        tractor = require('./tractor').new()
+        paramedics = require('./paramedics').new()
+        Policemen = require('./policemen').new()
+    ]
 
 previousIntention = undefined
 module.exports.reactAsync = (intention)->

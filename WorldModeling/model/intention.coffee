@@ -59,6 +59,7 @@ module.exports.interpretAsync = (input)->
                               .filter((pair)-> pair.word not in characters ).last()
             subject = lastNoun?.word || 'implicit'
             
+            
         if type == 'action' 
             verbs = helper.getVerbs(input)
             nouns = helper.getNouns(input)
