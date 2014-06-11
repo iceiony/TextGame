@@ -50,9 +50,17 @@ module.exports.getAllCharacterNames = ->
 module.exports.getObjectByName = retrieveEntityByName
 module.exports.composing = composingEntities
 
+
+previousIntention = undefined
 module.exports.reactAsync = (intention)->
     deferred = q.defer()
-
+    
+    previousIntention = previousIntention || intention
+    for key,value of intention 
+        if value == 'implicit'
+            intention[key] = previousIntention[key]
+    previousIntention = intention
+    
     reaction = wildcard.execute(intention)
     reaction.chain = getChain(reaction)
 

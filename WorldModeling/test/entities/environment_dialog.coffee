@@ -14,24 +14,25 @@ describe('Interpreting dialog in environment',->
             done())
     )
 
-    it('Asking the chief about the body (entity) should give a response',(done)->
+    it('Asking the chief about the case (entity) should give a response',(done)->
         intention.interpretAsync('tell me about the body chief')
         .then((interpretation)->
             environment.reactAsync(interpretation)
         )
         .then((result)-> # 0 - hidden output swallowed by story  
-            assert.strictEqual(result.text,"Wildcard : Tell me about the body Chief." );
-            assert.strictEqual(result.chain[0].text ,"Chief : Middle aged man , found in the middle of nowhere , half naked.\n We don't know how the body got here and the cause of death.");
-            
+            assert.strictEqual(result.text,"Wildcard : Tell me about the body Chief." )
+            assert.notEqual(result.chain[0].text.indexOf("Chief : Middle aged man , found in the middle of nowhere , half naked.\n"), -1 , result.chain[0].text)
+            assert.notEqual(result.chain[0].text.indexOf("        We don't know how the body got here and the cause of death."), -1 , result.chain[0].text)
+
             intention.interpretAsync('tell me more')
         )
         .then((interpretation)->
             environment.reactAsync(interpretation)
         )
         .then((result)->
-            assert.strictEqual(result.chain[0].text ,"Chief : Ooh, he died last night.");
-            
-            intention.interpretAsync('tell me more')
+            assert.notEqual(result.chain[0].text.indexOf("Chief : He probably died last night."),-1, result.chain[0].text);
+
+            intention.interpretAsync('anything else?')
         )
         .then((interpretation)->
             environment.reactAsync(interpretation)

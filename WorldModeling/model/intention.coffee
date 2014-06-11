@@ -55,8 +55,9 @@ module.exports.interpretAsync = (input)->
             character = containsCharacter.exec(input)?[0]
             object = character || 'implicit'
             tags = helper.tag(input)
-            lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag)).last()
-            subject = lastNoun?.word
+            lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
+                              .filter((pair)-> pair.word not in characters ).last()
+            subject = lastNoun?.word || 'implicit'
             
         if type == 'action' 
             verbs = helper.getVerbs(input)

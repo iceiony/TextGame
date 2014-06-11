@@ -22,9 +22,13 @@ describe('Classifying dialog intentions correctly', ->
                 intention.interpretAsync(question.input).done((res, err)->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
-                    assert.strictEqual(res.subject, question.subject, "For input #{res.input}")  
+                 
                     assert.strictEqual(res.isQuestion, true , "Not classified as question #{res.input}")
                     assert.strictEqual(res.isExclamation, false )
+
+                    if question.subject
+                        assert.strictEqual(res.subject, question.subject, "For input #{res.input}")
+                        
                     done()
                 )
             ))
