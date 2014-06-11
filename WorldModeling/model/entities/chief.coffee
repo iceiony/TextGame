@@ -32,18 +32,43 @@ class Chief extends Character
             'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
             'unmatched' : {}
             
-    answer: (intention)->
-        result = {
+    answer : (intention)->
+        if @knowledge[intention.concept] != undefined
+            return @answerKnown(intention)
+        else 
+            return @answerUnknown(intention)
+            
+    answerUnknown : (intention)->
+        result = 
             subject: @name
             type: "dialog"
             reason: "answer"
-        }
+        
+        item = @knowledge['unmatched'][intention.concept] || { exhaust : 0 }
+        @knowledge['unmatched'][intention.concept] = item
+        
+        switch item.exhaust
+            when 0 
+                result.text = "#{@referredAs()} : What does that have to do with anything ?"
+            when 1
+                result.text = "#{@referredAs()} : What is it with you and the #{intention.concept} ?"
+            else
+                result.text = "#{@referredAs()} : No !"
+
+        item.exhaust++ 
+        return result 
+            
+    answerKnown: (intention)->
+        result =
+            subject: @name
+            type: "dialog"
+            reason: "answer"
+        
         item = @knowledge[intention.concept]
         item.exhaustCount = item.exhaustCount || 0
 
         if item.exhaustReset then  clearTimeout(item.exhaustReset)
         item.exhaustReset = setTimeout(->
-            console.log 'triggered'
             item.exhaustCount = 0
             item.reminder = true;
             item.knowIndex = 0

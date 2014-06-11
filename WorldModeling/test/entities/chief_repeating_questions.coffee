@@ -64,7 +64,6 @@ describe('Asking re-occurring questions about objects and entities', ->
             clock.tick(5 * 60 * 1000)
 
             setTimeout(->
-                console.log 'assert set to happen'
                 environment.reactAsync(intent)
                 .then((result)-> #2 - reminder here 
                     try
@@ -90,15 +89,15 @@ describe('Asking re-occurring questions about objects and entities', ->
         )
         .then((result)->
             assert.strictEqual(result.text, 'Wildcard : Tell me about the stars Chief.')
-            assert.strictEqual(result.chain[0].text, "Chief : What does that have to do with anything ? ")
+            assert.strictEqual(result.chain[0].text, "Chief : What does that have to do with anything ?")
             environment.reactAsync(intent)
         )
         .then((result)->
-            assert.strictEqual(result.chain[0].text, "Chief : What is it with you and the stars ?  ")
+            assert.strictEqual(result.chain[0].text, "Chief : What is it with you and the stars ?")
             environment.reactAsync(intent)
         )
         .done((result)->
-            assert.strictEqual(result.chain[0].text, "Chief : No !  ")
+            assert.strictEqual(result.chain[0].text, "Chief : No !")
             done()
         )
     )
