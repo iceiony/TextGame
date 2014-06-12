@@ -33,15 +33,15 @@ describe('Asking re-occurring questions about objects and entities', ->
             environment.reactAsync(intent)
         )
         .then((result)->#4th reaction - threaten
-            assert.strictEqual(result.chain[0].text, "Chief : If you ask me about the case one more time I'll dismiss you !")
+            assert.strictEqual(result.chain[0].text, "Chief : If you ask me about the case one more time you'll be dismissed !")
             environment.reactAsync(intent)
         )
         .then((result)->#5th reaction  -silent treatment
-            assert.strictEqual(result.chain[0].text, "Chief ignores the request.")
+            assert.strictEqual(result.chain[0].text, "Chief : ignores the request.")
             environment.reactAsync(intent)
         )
         .done((result)-> #6 reaction - dismissed from the case 
-            assert.strictEqual(result.chain[0].text, "Chief: That's it Wildcard , you're off the case. Go home and take your medication and have a good rest.")
+            assert.strictEqual(result.chain[0].text, "Chief : That's it Wildcard , you're off the case. Go home and take your medication and have a good rest.")
             done()
         )
     )
