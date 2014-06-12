@@ -7,6 +7,7 @@ class Character extends Entity
 
     constructor: (options)->
         @knowledge = {} 
+        @answerRules = answerRules 
         super options
 
     referredAs: ->
@@ -15,7 +16,7 @@ class Character extends Entity
 
     answer : (intention)->
         lines = []
-        for rule in answerRules
+        for rule in @answerRules
             lines.push.apply(lines,rule(intention,@knowledge))
 
         text = @referredAs()+ " : " + lines[0]
