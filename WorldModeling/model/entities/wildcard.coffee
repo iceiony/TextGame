@@ -10,11 +10,11 @@ class Wildcard extends Character
     execute:(intention)->
         switch  intention.type
             when 'movement'
-                return @move(intention.object)
+                return @move(intention.entity)
             when 'dialog'
                 if intention.isExclamation
-                    return @greet(intention.object)
+                    return @greet(intention.entity)
                 if intention.isQuestion
-                    return @askAbout(intention.subject,intention.object)
+                    return @askAbout(intention.subject, intention.entity)
 
 module.exports.new = -> new Wildcard()

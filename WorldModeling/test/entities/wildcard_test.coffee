@@ -6,7 +6,7 @@ describe('Wildcard executing a move instruction for a given direction', ->
         initialLocation = wildcard.getLocation()
         intention =
             type: 'movement'
-            object: 'body'
+            entity: 'body'
 
         result = wildcard.execute(intention)
         newLocation = wildcard.getLocation()

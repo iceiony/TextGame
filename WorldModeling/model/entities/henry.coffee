@@ -8,8 +8,8 @@ class Henry extends Character
             location  : { x: 20, y: 10 }
 
     react : (stimulus)->
-        if stimulus.subject == 'wildcard' && stimulus.type == 'movement'
-            reaction = @move(stimulus.object)
+        if stimulus.character == 'wildcard' && stimulus.type == 'movement'
+            reaction = @move(stimulus.entity)
             reaction.reason = 'follow'
             return reaction
 

@@ -25,7 +25,7 @@ extractAllNamesAndAliases = (entities, filter = -> true) ->
 getChain = (stimuli) ->
     chain_reactions = []
     for entity in composingEntities
-        if stimuli.subject != entity.name
+        if stimuli.character != entity.name
             entity_reactions = entity.react(stimuli)
             if(!Array.isArray(entity_reactions))
                 entity_reactions = [entity_reactions]

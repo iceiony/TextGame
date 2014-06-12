@@ -12,11 +12,11 @@ class Chief extends Character
             'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
 
     react: (stimulus)->
-        if stimulus.subject != 'wildcard'
+        if stimulus.character != 'wildcard'
             return
         switch stimulus.type
             when 'movement'
-                reaction = @move(stimulus.object)
+                reaction = @move(stimulus.entity)
                 reaction.reason = 'follow'
                 return reaction
             when 'dialog'
@@ -24,7 +24,7 @@ class Chief extends Character
                     when 'ask'
                         return @answer(stimulus)
                     when 'greet'
-                        reaction = @greet(stimulus.subject)
+                        reaction = @greet(stimulus.character)
                         reaction.reason = 'greet'
                         return reaction
 

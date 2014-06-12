@@ -1,12 +1,12 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('Extracting the verb and object from action',->
+describe('Extracting the verb and entity from action',->
     actions = [
-        {input:"punch Henry",verb:"punch",object:"henry"}
-        {input:"turn around body",verb:"turn",object:"body"}
-        {input:"open fist",verb:"open",object:"fist"}
-        {input:"check fist",verb:"check",object:"fist"}
+        {input:"punch Henry",verb:"punch",entity:"henry"}
+        {input:"turn around body",verb:"turn",entity:"body"}
+        {input:"open fist",verb:"open",entity:"fist"}
+        {input:"check fist",verb:"check",entity:"fist"}
     ]
     
     actions.forEach((action)->
@@ -14,7 +14,7 @@ describe('Extracting the verb and object from action',->
             intention.interpretAsync(action.input)
             .done((result)->
                 assert.strictEqual(result.type,'action',"For input: #{result.input}")
-                assert.strictEqual(result.object, action.object)
+                assert.strictEqual(result.entity, action.entity)
                 assert.strictEqual(result.verb, action.verb)
                 done()
             )

@@ -28,7 +28,7 @@ module.exports.interpretAsync = (input)->
 
     setImmediate(->
         direction = undefined 
-        object = undefined
+        entity = undefined
         distance = undefined
         subject = undefined 
         unit = undefined
@@ -38,7 +38,7 @@ module.exports.interpretAsync = (input)->
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
             distance = 'implicit'
-            object = containsEntity.exec(input)?[0]
+            entity = containsEntity.exec(input)?[0]
             if distanceAndMetric.test(input)
                 distanceString = distanceAndMetric.exec(input)[0].trim()
                 unit = /[a-zA-Z]+/.exec(distanceString)[0]
@@ -48,12 +48,12 @@ module.exports.interpretAsync = (input)->
         if isObservationVerb.test(input) && ( containsEntity.test(input) || isDirection.test(input) )
             type = 'observation'
             direction = isDirection.exec(input)?[0]
-            object = containsEntity.exec(input)?[0]
+            entity = containsEntity.exec(input)?[0]
 
         if isQuestion.test(input) || isExclamation.test(input)
             type = 'dialog'
             character = containsCharacter.exec(input)?[0]
-            object = character || 'implicit'
+            entity = character || 'implicit'
             tags = helper.tag(input)
             lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
                               .filter((pair)-> pair.word not in characters ).last()
@@ -64,10 +64,10 @@ module.exports.interpretAsync = (input)->
             verbs = helper.getVerbs(input)
             nouns = helper.getNouns(input)
             verb = _(verbs).first()
-            object = _(nouns).filter((noun)-> noun != verb).last()
-            if(not object)
+            entity = _(nouns).filter((noun)-> noun != verb).last()
+            if(not entity)
                 entity = containsEntity.exec(input)?[0]
-                object = entity || 'implicit'
+                entity = entity || 'implicit'
             
         deferred.resolve({
             input: input
@@ -78,7 +78,7 @@ module.exports.interpretAsync = (input)->
             direction : direction
             distance : distance
             unit : unit
-            object : object
+            entity : entity
             verb : verb
         });
     )

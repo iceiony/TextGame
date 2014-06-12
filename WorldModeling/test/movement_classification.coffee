@@ -2,11 +2,11 @@ assert = require 'assert'
 intention = require '../model/intention'
 
 describe('Classifying movement intentions correctly', ->
-    describe('by actions and objects that are known', ->
+    describe('by actions and entitys that are known', ->
         movements = [
-            {input :"go to tractor", object : "tractor"}
-            {input :"walk to farmer", object : "farmer"}
-            {input :"go to body" , object : "body"}
+            {input :"go to tractor", entity : "tractor"}
+            {input :"walk to farmer", entity : "farmer"}
+            {input :"go to body" , entity : "body"}
         ]
 
         movements.forEach((movement)->
@@ -14,7 +14,7 @@ describe('Classifying movement intentions correctly', ->
                 intention.interpretAsync(movement.input).done((res, err)->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
-                    assert.strictEqual(res.object , movement.object, "For input : #{res.input}")
+                    assert.strictEqual(res.entity , movement.entity, "For input : #{res.input}")
                     done()
                 )
             ))

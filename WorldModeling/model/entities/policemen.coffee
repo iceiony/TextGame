@@ -22,7 +22,7 @@ class Policemen extends Entity
         )
         if(followCount.length == 3 )
             result = componentReactions[0]
-            result.subject = @name
+            result.character = @name
             result.text = "The officers follow him."
             return result
         else

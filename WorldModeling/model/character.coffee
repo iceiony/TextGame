@@ -25,7 +25,7 @@ class Character extends Entity
             text += "\n" + indentation + nextSentence
 
         return {
-            subject: @name
+            character: @name
             type: "dialog"
             reason: "answer"
             text : text
@@ -35,8 +35,8 @@ class Character extends Entity
         entity = environment.getObjectByName(characterName)
         if @isNear(entity)
             return {
-                subject: @name
-                object: entity.name
+                character: @name
+                entity: entity.name
                 type:"dialog"
                 reason:"greet"
                 text: "#{@referredAs()} : Hello #{entity.referredAs()}."
@@ -46,8 +46,8 @@ class Character extends Entity
         characterEntity = environment.getObjectByName(characterName)
         if @isNear(characterEntity)
             return {
-                subject:@name
-                object:characterEntity.name
+                character:@name
+                entity:characterEntity.name
                 type:"dialog"
                 reason: "ask"
                 concept: concept
@@ -60,15 +60,15 @@ class Character extends Entity
         if not @isNear(entity)
             @location = entity.getLocation()
             return {
-            subject: @name
-            object: entity.name
+            character: @name
+            entity: entity.name
             type: "movement"
             reason: "move"
             text: "#{@referredAs()} walks to #{entity.referredAs()}."
             }
         else
             return {
-            subject: @name
+            character: @name
             type: "nothing"
             text: "#{@referredAs()} is already next to #{entity.referredAs()}."
             }

@@ -1,11 +1,11 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('Extracting object or direction of interest from observation', ->
+describe('Extracting entity or direction of interest from observation', ->
     observations = [
         { input: "look around", direction: "around"}
-        { input: "look at the body", object: "body" }
-        { input: "examine environment", object: "environment" }
+        { input: "look at the body", entity: "body" }
+        { input: "examine environment", entity: "environment" }
     ]
 
     observations.forEach((observation)->
@@ -14,7 +14,7 @@ describe('Extracting object or direction of interest from observation', ->
             .done((result)->
                 assert.strictEqual(result.type,'observation',"For input : #{result.input}")
                 assert.strictEqual(result.direction,observation.direction)
-                assert.strictEqual(result.object,observation.object)
+                assert.strictEqual(result.entity,observation.entity)
                 done()
             )
         )
