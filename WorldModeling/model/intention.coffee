@@ -63,7 +63,8 @@ module.exports.interpretAsync = (input)->
             if (lastYouIndex > verbIndex)
                 subject = 'you'
                 lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag)).last()
-                attribute = lastNoun?.word
+                lastVerb = _(tags).filter((pair)-> helper.isVerb(pair.tag)).last()
+                attribute = lastNoun?.word || lastVerb?.word
             else 
                 lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
                                   .filter((pair)-> pair.word not in characters ).last()
