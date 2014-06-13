@@ -8,6 +8,7 @@ characters = require('./entities/environment').getAllCharacterNames()
 
 isQuestion = /\?|what |where |why |how |ask |can you |tell /
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
+isYou = /(you|your)/
 
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
 containsEntity = new RegExp(entitiesRegexString)
@@ -30,7 +31,8 @@ module.exports.interpretAsync = (input)->
         direction = undefined 
         entity = undefined
         distance = undefined
-        subject = undefined 
+        subject = undefined
+        attribute = undefined 
         unit = undefined
         verb = undefined
         type = 'action'
@@ -55,9 +57,22 @@ module.exports.interpretAsync = (input)->
             character = containsCharacter.exec(input)?[0]
             entity = character || 'implicit'
             tags = helper.tag(input)
-            lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
-                              .filter((pair)-> pair.word not in characters ).last()
-            subject = lastNoun?.word || 'implicit'
+            lastYouIndex = _(tags).findLastIndex((pair)-> isYou.test(pair.word))
+            lastNounIndex = _(tags).findLastIndex((pair)-> helper.isNoun(pair.tag) && pair.word not in characters )
+            verbIndex = _(tags).findIndex((pair)-> helper.isVerb(pair.tag))
+            if (lastYouIndex > verbIndex)
+                subject = 'you'
+                lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag)).last()
+                attribute = lastNoun?.word
+            else 
+                lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
+                                  .filter((pair)-> pair.word not in characters ).last()
+                subject = lastNoun?.word || 'implicit'
+                
+            if(tags[0].tag == 'MD' && (lastNounIndex < 0 || lastNounIndex < verbIndex  ))
+                subject = 'you'
+                lastVerb = _(tags).filter((pair)-> helper.isVerb(pair.tag)).last()
+                attribute = lastVerb?.word
             
             
         if type == 'action' 
@@ -72,9 +87,12 @@ module.exports.interpretAsync = (input)->
         deferred.resolve({
             input: input
             type: type
+            
             isQuestion : isQuestion.test(input)
             isExclamation : isExclamation.test(input)
             subject : subject
+            attribute : attribute
+            
             direction : direction
             distance : distance
             unit : unit
