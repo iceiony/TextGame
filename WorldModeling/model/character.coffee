@@ -1,6 +1,7 @@
 Entity = require './entity'
 environment = require './entities/environment'
 answerRules = require './answer_rules'
+helper = require './pos_helper'
 
 class Character extends Entity
     isCharacter: true
@@ -42,17 +43,25 @@ class Character extends Entity
                 text: "#{@referredAs()} : Hello #{entity.referredAs()}."
             }
             
-    askAbout: (concept,characterName)->
+    askAbout: (characterName,subject,attribute)->
         characterEntity = environment.getObjectByName(characterName)
-        if @isNear(characterEntity)
-            return {
-                character:@name
-                entity:characterEntity.name
-                type:"dialog"
-                reason: "ask"
-                concept: concept
-                text: "#{@referredAs()} : Tell me about the #{concept} #{characterEntity.referredAs()}."
-            }
+        if not @isNear(characterEntity) then return
+
+        if attribute == undefined 
+            text = "#{@referredAs()} : Tell me about the #{subject} #{characterEntity.referredAs()}."
+        if attribute != undefined && helper.isVerb(attribute)
+            text = "#{@referredAs()} : What do you #{attribute} #{characterEntity.referredAs()} ?"
+        if attribute != undefined && helper.isNoun(attribute)
+            text = "#{@referredAs()} : What is your #{attribute} #{characterEntity.referredAs()} ?"
+            
+        return {
+            character:@name
+            entity:characterEntity.name
+            type:"dialog"
+            reason: "ask"
+            subject: subject
+            text: text
+        }
 
     move: (entityName)->
         entity = environment.getObjectByName(entityName)

@@ -39,8 +39,16 @@ module.exports.tag = (input)->
     result =  ( { word:part[0] , tag:part[1] } for part in tag.tag(lex.lex(input))) 
     return result ; 
     
-module.exports.isNoun = (tag) ->
-    return (tag in nounTags)
+module.exports.isNoun = (wordOrTag) ->
+    isWord = tag.lexicon[wordOrTag]
+    if(isWord)
+        return (isWord[0] in nounTags)    
+    else
+        return (wordOrTag in nounTags)
 
-module.exports.isVerb = (tag) ->
-    return (tag in verbTags)
+module.exports.isVerb = (wordOrTag) ->
+    isWord = tag.lexicon[wordOrTag]
+    if(isWord)
+        return (isWord[0] in verbTags)
+    else 
+        return (wordOrTag in verbTags)

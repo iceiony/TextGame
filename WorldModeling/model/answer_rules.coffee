@@ -19,13 +19,13 @@ helper =
         return lines.map((sentence)->
             helper.upperCaseStart(sentence))
 
-    retrieve: (concept, knowledge)->
-        if knowledge[concept] == undefined
+    retrieve: (subject, knowledge)->
+        if knowledge[subject] == undefined
             knowledge['unmatched'] = knowledge['unmatched'] || {}
-            item = knowledge['unmatched'][concept] || {}
-            knowledge['unmatched'][concept] = item
+            item = knowledge['unmatched'][subject] || {}
+            knowledge['unmatched'][subject] = item
         else
-            item = knowledge[concept]
+            item = knowledge[subject]
             item.knowIndex = item.knowIndex || 0
             item.questionIndex = item.questionIndex || 0
         item.exhaustCount = item.exhaustCount || 0
@@ -42,31 +42,31 @@ helper =
 
 
 answerUnknown = (intention, knowledge)->
-    if knowledge[intention.concept] != undefined  then return
+    if knowledge[intention.subject] != undefined  then return
 
-    item = helper.retrieve(intention.concept, knowledge)
+    item = helper.retrieve(intention.subject, knowledge)
     item.exhaustCount++
     switch item.exhaustCount
         when 1
             return ["What does that have to do with anything ?"]
         when 2
-            return ["What is it with you and the #{intention.concept} ?"]
+            return ["What is it with you and the #{intention.subject} ?"]
         else
             return ["No !"]
 
 answerAnnoyed = (intention, knowledge)->
-    if knowledge[intention.concept] == undefined then return
-    item = helper.retrieve(intention.concept, knowledge)
+    if knowledge[intention.subject] == undefined then return
+    item = helper.retrieve(intention.subject, knowledge)
     if item.exhaustCount == 0 then return
 
     item.exhaustCount++
     switch item.exhaustCount
         when 2
-            return ["Listen, I don't know more about the #{intention.concept} than what I told you already"]
+            return ["Listen, I don't know more about the #{intention.subject} than what I told you already"]
         when 3
-            return ["Stop it with the darn #{intention.concept} already !"]
+            return ["Stop it with the darn #{intention.subject} already !"]
         when 4
-            return ["If you ask me about the #{intention.concept} one more time you'll be dismissed !"]
+            return ["If you ask me about the #{intention.subject} one more time you'll be dismissed !"]
         when 5
             return ["ignores the request."]
         else
@@ -74,8 +74,8 @@ answerAnnoyed = (intention, knowledge)->
 
 
 answerKnown = (intention, knowledge)->
-    if knowledge[intention.concept] == undefined then return
-    item = helper.retrieve(intention.concept, knowledge)
+    if knowledge[intention.subject] == undefined then return
+    item = helper.retrieve(intention.subject, knowledge)
     if item.exhaustCount > 0 then return
 
     lines = []

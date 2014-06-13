@@ -101,5 +101,32 @@ describe('Asking re-occurring questions about objects and entities', ->
             done()
         )
     )
+    
+    it('Asking the chief things about himself - verb attribute',(done)->
+        intent = undefined 
+        intention.interpretAsync('tell me what do you think chief')
+        .then((interpretation)->
+            intent = interpretation
+            environment.reactAsync(intent)
+        )
+        .done((result)->
+            assert.strictEqual(result.text,"Wildcard : What do you think Chief ?")
+            done();
+        )
+    )
+    
+    it('Asking the chief things about himself - noun attribute',(done)->
+        intent = undefined 
+        intention.interpretAsync('What is your age chief ?')
+        .then((interpretation)->
+            intent = interpretation
+            environment.reactAsync(intent)
+        )
+        .done((result)->
+            assert.strictEqual(result.text,"Wildcard : What is your age Chief ?")
+            done();
+        )
+    )
+   
 
 )

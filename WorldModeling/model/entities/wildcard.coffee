@@ -15,6 +15,6 @@ class Wildcard extends Character
                 if intention.isExclamation
                     return @greet(intention.entity)
                 if intention.isQuestion
-                    return @askAbout(intention.subject, intention.entity)
+                    return @askAbout(intention.entity, intention.subject , intention.attribute )
 
 module.exports.new = -> new Wildcard()
