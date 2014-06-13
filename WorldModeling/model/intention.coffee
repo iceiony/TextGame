@@ -6,7 +6,7 @@ helper = require './pos_helper'
 entities = require('./entities/environment').getAllEntityNames()
 characters = require('./entities/environment').getAllCharacterNames()
 
-isQuestion = /\?|what |where |why |how |ask |can you |tell /
+isQuestion = /\?|what |where |why |how |ask |can you |tell |did /
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 isYou = /(you|your)/
 
@@ -68,8 +68,8 @@ module.exports.interpretAsync = (input)->
                 lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
                                   .filter((pair)-> pair.word not in characters ).last()
                 subject = lastNoun?.word || 'implicit'
-                
-            if(tags[0].tag == 'MD' && (lastNounIndex < 0 || lastNounIndex < verbIndex  ))
+
+            if( tags[0].tag == 'MD' || tags[0].word == 'did' ) && (lastNounIndex < 0 || lastNounIndex < verbIndex  )
                 subject = 'you'
                 lastVerb = _(tags).filter((pair)-> helper.isVerb(pair.tag)).last()
                 attribute = lastVerb?.word

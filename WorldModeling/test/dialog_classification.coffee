@@ -12,6 +12,7 @@ describe('Classifying dialog intentions correctly', ->
             {input:"how come ?"}
             {input:"where is the body?",subject:"body"}
             {input:"ask about the body",subject:"body"}
+            {input:"did you kill him",subject:"you",attribute:"kill"}
             {input:"can you help", subject:"you", attribute: "help"}
             {input:"body ?", subject : "body"}
             {input:"huh ?"}
