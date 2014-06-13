@@ -12,6 +12,8 @@ describe("Extracting character of interest from dialog", ->
         { input:"can you tell me about the body Henry ?", entity: "henry" , subject :"body" }
         { input:"can you tell me about the body Henry", entity: "henry" , subject :"body" }
         { input:"tell me about the case chief", entity : "chief", subject :"case" }
+        { input:"what do you think chief", entity : "chief", subject :"you", attribute:"think" }
+        
     ]
 
     dialog.forEach((testCase)->
