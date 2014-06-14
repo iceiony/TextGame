@@ -1,4 +1,5 @@
 q = require 'Q'
+environment = require './environment'
 Character = require '../character'
 
 class Wildcard extends Character
@@ -8,13 +9,15 @@ class Wildcard extends Character
             location  : { x: 20, y: 10 }
         
     execute:(intention)->
-        switch  intention.type
+         entity = environment.getObjectByName(intention.entity)
+         switch  intention.type
             when 'movement'
-                return @move(intention.entity)
+                return @move(entity)
             when 'dialog'
+                if not @isNear(entity) then return 
                 if intention.isExclamation
-                    return @greet(intention.entity)
+                    return @greet(entity)
                 if intention.isQuestion
-                    return @askAbout(intention.entity, intention.subject , intention.attribute )
+                    return @askAbout(entity, intention.subject , intention.attribute )
 
 module.exports.new = -> new Wildcard()

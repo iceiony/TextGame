@@ -32,9 +32,7 @@ class Character extends Entity
             text : text
         }
             
-    greet: (characterName)->
-        entity = environment.getObjectByName(characterName)
-        if @isNear(entity)
+    greet: (entity)->
             return {
                 character: @name
                 entity: entity.name
@@ -43,10 +41,7 @@ class Character extends Entity
                 text: "#{@referredAs()} : Hello #{entity.referredAs()}."
             }
             
-    askAbout: (characterName,subject,attribute)->
-        characterEntity = environment.getObjectByName(characterName)
-        if not @isNear(characterEntity) then return
-
+    askAbout: (characterEntity,subject,attribute)->
         if attribute == undefined 
             text = "#{@referredAs()} : Tell me about the #{subject} #{characterEntity.referredAs()}."
         if attribute != undefined && helper.isVerb(attribute)
@@ -64,9 +59,7 @@ class Character extends Entity
             text: text
         }
 
-    move: (entityName)->
-        entity = environment.getObjectByName(entityName)
-
+    move: (entity)->
         if not @isNear(entity)
             @location = entity.getLocation()
             return {

@@ -1,5 +1,7 @@
 q = require 'Q'
+environment = require './environment'
 Character = require '../character'
+
 
 class Stevey extends Character
     constructor: ->
@@ -8,8 +10,9 @@ class Stevey extends Character
             location  : { x: 20, y: 10 }
 
     react : (stimulus)->
+        entity = environment.getObjectByName(stimulus.entity)
         if stimulus.character == 'wildcard' && stimulus.type == 'movement'
-            reaction = @move(stimulus.entity)
+            reaction = @move(entity)
             reaction.reason = 'follow'
             return reaction
             

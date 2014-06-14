@@ -1,5 +1,7 @@
 q = require 'Q'
+environment = require './environment'
 Character = require '../character'
+
 
 class Chief extends Character
     constructor: ->
@@ -17,9 +19,11 @@ class Chief extends Character
     react: (stimulus)->
         if stimulus.character != 'wildcard'
             return
+        entity = environment.getObjectByName(stimulus.character)
+
         switch stimulus.type
             when 'movement'
-                reaction = @move(stimulus.entity)
+                reaction = @move(entity)
                 reaction.reason = 'follow'
                 return reaction
             when 'dialog'
@@ -27,7 +31,7 @@ class Chief extends Character
                     when 'ask'
                         return @answer(stimulus)
                     when 'greet'
-                        reaction = @greet(stimulus.character)
+                        reaction = @greet(entity)
                         reaction.reason = 'greet'
                         return reaction
 

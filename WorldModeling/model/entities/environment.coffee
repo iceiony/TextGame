@@ -34,7 +34,7 @@ getChain = (stimuli) ->
     
 retrieveEntityByName = (name, entityTree = composingEntities)->
     for entity in entityTree
-        if entity.name == name then return entity
+        if entity.name == name or name in entity.aliases then return entity
         result = retrieveEntityByName(name, entity.composing)
         if result then return result
 
@@ -63,7 +63,7 @@ module.exports.reset = ->
 previousIntention = undefined
 module.exports.reactAsync = (intention)->
     deferred = q.defer()
-    
+
     previousIntention = previousIntention || intention
     for key,value of intention 
         if value == 'implicit'
