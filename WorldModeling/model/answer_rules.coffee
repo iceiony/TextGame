@@ -1,3 +1,4 @@
+posHelper = require './pos_helper'
 helper =
     upperCaseStart: (sentence) ->
         sentence[0].toUpperCase() + sentence[1..]
@@ -73,8 +74,12 @@ answerAnnoyed = (intention, knowledge)->
             return ["That's it Wildcard , you're off the case. Go home and take your medication and have a good rest."]
 
 
-answerKnown = (intention, knowledge)->
-    if knowledge[intention.subject] == undefined then return
+answerKnown = (intention, knowledge) ->
+    if  intention.subject == 'you' ||
+        intention.attribute != undefined ||
+        knowledge[intention.subject] == undefined
+        then return
+    
     item = helper.retrieve(intention.subject, knowledge)
     if item.exhaustCount > 0 then return
 
@@ -97,8 +102,27 @@ answerKnown = (intention, knowledge)->
 
     return lines
 
+answerAboutSelf = (intention,knowledge)->
+    if intention.subject != 'you' && intention.attribute == undefined
+        return
+
+    item = knowledge[intention.subject]?[intention.attribute]
+    
+    if item == undefined 
+        return ["I can't tell you that. It's personal."]
+        
+    description = item.shift()
+    item.push(description)
+    
+    if posHelper.isVerb(intention.attribute)
+        return ["I #{intention.attribute} #{description}."]
+    else 
+        return ["My #{intention.attribute} is #{description}."]
+        
+    
 module.exports = [
     answerUnknown
     answerAnnoyed
     answerKnown
+    answerAboutSelf
 ]

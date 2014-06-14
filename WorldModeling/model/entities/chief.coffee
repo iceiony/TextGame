@@ -10,6 +10,9 @@ class Chief extends Character
         @knowledge = 
             'case' : {known:["we have a body"] , question:["what happened"]}
             'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
+            'you' : 
+                'think' : ['you should look at the body']
+                'age' : ['57, boy']
 
     react: (stimulus)->
         if stimulus.character != 'wildcard'

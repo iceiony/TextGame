@@ -60,6 +60,7 @@ class Character extends Entity
             type:"dialog"
             reason: "ask"
             subject: subject
+            attribute : attribute
             text: text
         }
 

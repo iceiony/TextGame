@@ -7,6 +7,7 @@ sinon = require 'sinon'
 describe('Asking re-occurring questions about objects and entities', ->
 
     it('Asking the chief about the case (concept) should give a response', (done)->
+        environment.reset()
         intent = undefined
         
         intention.interpretAsync('tell me about the case chief')
@@ -81,6 +82,7 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
 
     it('Asking the chief about an unrelated thing repeatedly', (done)->
+        environment.reset()
         intent = undefined 
         intention.interpretAsync('tell me about the stars chief')
         .then((interpretation)->
@@ -103,28 +105,38 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
     
     it('Asking the chief things about himself - verb attribute',(done)->
+        environment.reset()
         intent = undefined 
-        intention.interpretAsync('tell me what do you think chief')
+        
+        intention.interpretAsync('tell me what you think chief')
         .then((interpretation)->
             intent = interpretation
             environment.reactAsync(intent)
         )
-        .done((result)->
+        .then((result)->
             assert.strictEqual(result.text,"Wildcard : What do you think Chief ?")
-            done();
+            assert.strictEqual(result.chain[0].text, 'Chief : I think you should look at the body.')
+        )
+        .done(->
+            done()
         )
     )
     
     it('Asking the chief things about himself - noun attribute',(done)->
-        intent = undefined 
+        environment.reset()
+        intent = undefined
+        
         intention.interpretAsync('What is your age chief ?')
         .then((interpretation)->
             intent = interpretation
             environment.reactAsync(intent)
         )
-        .done((result)->
+        .then((result)->
             assert.strictEqual(result.text,"Wildcard : What is your age Chief ?")
-            done();
+            assert.strictEqual(result.chain[0].text, "Chief : My age is 57, boy.")
+        )
+        .done(->
+            done()
         )
     )
    
