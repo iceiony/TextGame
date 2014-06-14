@@ -6,7 +6,7 @@ helper = require './pos_helper'
 entities = require('./entities/environment').getAllEntityNames()
 characters = require('./entities/environment').getAllCharacterNames()
 
-isQuestion = /\?|what |where |why |how |ask |can you |tell |did /
+isQuestion = /\?|what |where |why |how |ask |can you |tell |did |are you/
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 isYou = /(you|your)/
 
