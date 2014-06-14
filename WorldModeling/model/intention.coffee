@@ -56,15 +56,16 @@ module.exports.interpretAsync = (input)->
             type = 'dialog'
             character = containsCharacter.exec(input)?[0]
             entity = character || 'implicit'
-            tags = helper.tag(input)
+            adjustedInput = input.replace(/[ ]he /g," you ")
+                                 .replace(/[ ]is$/g," are")
+            tags = helper.tag(adjustedInput)
             lastYouIndex = _(tags).findLastIndex((pair)-> isYou.test(pair.word))
             lastNounIndex = _(tags).findLastIndex((pair)-> helper.isNoun(pair.tag) && pair.word not in characters )
             verbIndex = _(tags).findIndex((pair)-> helper.isVerb(pair.tag))
             if (lastYouIndex > verbIndex)
                 subject = 'you'
-                lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag)).last()
-                lastVerb = _(tags).filter((pair)-> helper.isVerb(pair.tag)).last()
-                attribute = lastNoun?.word || lastVerb?.word
+                lastNounOrVerb = _(tags).filter((pair)-> helper.isNoun(pair.tag) || helper.isVerb(pair.tag) ).last()
+                attribute = lastNounOrVerb?.word
             else 
                 lastNoun = _(tags).filter((pair)-> helper.isNoun(pair.tag))
                                   .filter((pair)-> pair.word not in characters ).last()
