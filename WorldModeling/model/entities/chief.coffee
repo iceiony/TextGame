@@ -17,22 +17,13 @@ class Chief extends Character
                 'age' : ['57, boy']
 
     react: (stimulus)->
-        if stimulus.character != 'wildcard'
-            return
-        entity = environment.getObjectByName(stimulus.character)
-
-        switch stimulus.type
-            when 'movement'
+        if stimulus.type == 'movement'
+                if stimulus.character != 'wildcard' then return
+                entity = environment.getObjectByName(stimulus.character)
                 reaction = @move(entity)
                 reaction.reason = 'follow'
                 return reaction
-            when 'dialog'
-                switch stimulus.reason
-                    when 'ask'
-                        return @answer(stimulus)
-                    when 'greet'
-                        reaction = @greet(entity)
-                        reaction.reason = 'greet'
-                        return reaction
+            
+        return super(stimulus)
 
 module.exports.new = -> new Chief()

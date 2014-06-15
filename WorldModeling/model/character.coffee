@@ -20,7 +20,8 @@ class Character extends Entity
         for rule in @answerRules
             lines.push.apply(lines,rule(intention,@knowledge))
 
-        text = @referredAs()+ " : " + lines[0]
+        name = @referredAs()[0].toUpperCase() + @referredAs()[1..]
+        text = name + " : " + lines[0]
         indentation = (new Array(@referredAs().length + 4 )).join(' ')
         for nextSentence in lines[1..]
             text += "\n" + indentation + nextSentence
@@ -48,6 +49,8 @@ class Character extends Entity
             text = "#{@referredAs()} : What do you #{attribute} #{characterEntity.referredAs()} ?"
         if attribute != undefined && helper.isNoun(attribute)
             text = "#{@referredAs()} : What is your #{attribute} #{characterEntity.referredAs()} ?"
+        if subject == 'you' && attribute == 'are' 
+            text = "#{@referredAs()} : How are you ?"
             
         return {
             character:@name
@@ -75,5 +78,19 @@ class Character extends Entity
             type: "nothing"
             text: "#{@referredAs()} is already next to #{entity.referredAs()}."
             }
+   
+    react: (stimulus)->
+        if stimulus.type == 'dialog' &&
+         ( stimulus.entity == @name || stimulus.entity in @aliases )
+            
+            entity = environment.getObjectByName(stimulus.character)
+            switch stimulus.reason
+                when 'ask'
+                    return @answer(stimulus)
+                when 'greet'
+                    reaction = @greet(entity)
+                    reaction.reason = 'greet'
+                    return reaction
 
+        
 module.exports = Character

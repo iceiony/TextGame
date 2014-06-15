@@ -8,7 +8,8 @@ describe('Interpreting dialog in environment',->
         intention.interpretAsync('Hello chief')
         .then((interpretation)->
             environment.reactAsync(interpretation))
-        .done((result)->
+        .done((results)->
+            result = results.shift()
             assert.strictEqual("Wildcard : Hello Chief.",result.text)
             assert.strictEqual("Chief : Hello Wildcard.",result.chain[0].text)
             done())
@@ -19,7 +20,8 @@ describe('Interpreting dialog in environment',->
         .then((interpretation)->
             environment.reactAsync(interpretation)
         )
-        .then((result)-> # 0 - hidden output swallowed by story  
+        .then((results)-> # 0 - hidden output swallowed by story  
+            result = results.shift()
             assert.strictEqual(result.text,"Wildcard : Tell me about the body Chief." )
             assert.notEqual(result.chain[0].text.indexOf("Chief : Middle aged man , found in the middle of nowhere , half naked.\n"), -1 , result.chain[0].text)
             assert.notEqual(result.chain[0].text.indexOf("        We don't know how the body got here or the cause of death."), -1 , result.chain[0].text)
@@ -29,7 +31,8 @@ describe('Interpreting dialog in environment',->
         .then((interpretation)->
             environment.reactAsync(interpretation)
         )
-        .then((result)->
+        .then((results)->
+            result = results.shift()
             assert.notEqual(result.chain[0].text.indexOf("Chief : He probably died last night."),-1, result.chain[0].text);
 
             intention.interpretAsync('anything else?')
@@ -37,7 +40,8 @@ describe('Interpreting dialog in environment',->
         .then((interpretation)->
             environment.reactAsync(interpretation)
         )
-        .done((result)->
+        .done((results)->
+            result = results.shift()
             assert.strictEqual(result.chain[0].text ,"Chief : There isn't anything more I can tell you about it.");
             done())
     )

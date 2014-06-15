@@ -43,7 +43,9 @@ helper =
 
 
 answerUnknown = (intention, knowledge)->
-    if knowledge[intention.subject] != undefined  then return
+    if knowledge[intention.subject] != undefined ||
+        intention.subject == 'you' 
+    then return
 
     item = helper.retrieve(intention.subject, knowledge)
     item.exhaustCount++
@@ -113,6 +115,9 @@ answerAboutSelf = (intention,knowledge)->
         
     description = item.shift()
     item.push(description)
+
+    if ( intention.attribute == 'are') 
+        return ["I am #{description}."]
     
     if posHelper.isVerb(intention.attribute)
         return ["I #{intention.attribute} #{description}."]

@@ -9,7 +9,8 @@ describe('Interpreting movement in environment',->
         intention.interpretAsync(input)
         .then((interpretation)->
             environment.reactAsync(interpretation))
-        .done((result)->
+        .done((results)->
+            result = results.shift()
             assert.strictEqual("Wildcard walks to the body.",result.text)
             assert.strictEqual("The officers follow him.",result.chain[0].text)
             done())

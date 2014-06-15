@@ -27,6 +27,7 @@ getChain = (stimuli) ->
     for entity in composingEntities
         if stimuli.character != entity.name
             entity_reactions = entity.react(stimuli)
+            if !entity_reactions then continue
             if(!Array.isArray(entity_reactions))
                 entity_reactions = [entity_reactions]
             chain_reactions = [].concat.apply(chain_reactions, entity_reactions)
@@ -70,9 +71,16 @@ module.exports.reactAsync = (intention)->
             intention[key] = previousIntention[key]
     previousIntention = intention
     
-    reaction = wildcard.execute(intention)
-    reaction.chain = getChain(reaction)
-
-    deferred.resolve(reaction)
-
+    reactions = []
+    react = wildcard.execute(intention)
+    if react.requires
+        reactions.push(wildcard.execute(react.requires))
+        react = wildcard.execute(intention)
+    reactions.push(react)
+    
+    for react in reactions 
+        react.chain = getChain(react)
+        
+    deferred.resolve(reactions)
+    
     deferred.promise;
