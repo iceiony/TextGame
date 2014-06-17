@@ -8,6 +8,7 @@ characters = require('./entities/environment').getAllCharacterNames()
 
 isQuestion = /\?|what |where |why |how |ask |can you |tell |did |are you/
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
+isPronounDetected = /(you|your|my|me|i) /
 isYou = /(you|your)/
 
 entitiesRegexString = "(#{entities.join('|')})".toLowerCase()
@@ -52,7 +53,7 @@ module.exports.interpretAsync = (input)->
             direction = isDirection.exec(input)?[0]
             entity = containsEntity.exec(input)?[0]
 
-        if isQuestion.test(input) || isExclamation.test(input)
+        if isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input)
             type = 'dialog'
             character = containsCharacter.exec(input)?[0]
             entity = character || 'implicit'
