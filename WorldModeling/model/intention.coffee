@@ -94,11 +94,11 @@ module.exports.interpretAsync = (input)->
             isExclamation : isExclamation.test(input)
             subject : subject
             attribute : attribute
-            
+
+            entity : entity
             direction : direction
             distance : distance
             unit : unit
-            entity : entity
             verb : verb
         });
     )

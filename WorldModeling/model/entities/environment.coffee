@@ -40,6 +40,13 @@ retrieveEntityByName = (name, entityTree = composingEntities)->
         result = retrieveEntityByName(name, entity.composing)
         if result then return result
 
+getDialogDefaultByPriority = ()->
+    namesByPriority = ['anne', 'mark', 'chief'] 
+    for name in namesByPriority 
+        entity = retrieveEntityByName(name)
+        if wildcard.isNear(entity) then return name
+    
+
 module.exports.getAllEntityNames = ->
     extractAllNamesAndAliases(composingEntities).concat('environment')
         
@@ -63,16 +70,15 @@ module.exports.reset = ->
         Policemen = require('./policemen').new()
     ]
 
-
 module.exports.reactAsync = (intention)->
     deferred = q.defer()
 
-    for key,value of intention  when value == 'implicit'
-        if previousIntention?.type == 'dialog'
-            intention[key] = previousIntention[key]
-        else
-            intention.entity = 'chief'
-
+    if intention.type == 'dialog'
+        for key,value of intention  when value == 'implicit'
+            if previousIntention?.type == 'dialog'
+                intention[key] = previousIntention[key]
+            else
+                intention.entity = getDialogDefaultByPriority()
     previousIntention = intention
     
     reactions = []

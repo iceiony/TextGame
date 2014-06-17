@@ -3,6 +3,9 @@ intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
 describe('Interpreting movement in environment',->
+    beforeEach(->
+        environment.reset()
+    )
     
     it('moving to the body',(done)->
         input = 'go to body'
