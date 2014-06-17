@@ -29,7 +29,8 @@ describe('Classifying dialog intentions correctly', ->
                  
                     assert.strictEqual(res.isQuestion, true , "Not classified as question #{res.input}")
                     assert.strictEqual(res.isExclamation, false )
-
+                    assert.strictEqual(res.entity,'implicit')
+                    
                     if question.subject
                         assert.strictEqual(res.subject, question.subject, "For input #{res.input}")
                     if question.attribute

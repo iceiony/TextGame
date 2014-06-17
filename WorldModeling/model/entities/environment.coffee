@@ -1,6 +1,7 @@
 q = require 'Q'
 _ = require 'lodash'
 
+previousIntention = undefined
 composingEntities = [
     wildcard = require('./wildcard').new()
     body = require('./body').new()
@@ -52,6 +53,7 @@ module.exports.getObjectByName = retrieveEntityByName
 module.exports.composing = composingEntities
 
 module.exports.reset = ->
+    previousIntention = undefined
     composingEntities = [
         wildcard = require('./wildcard').new()
         body = require('./body').new()
@@ -61,14 +63,16 @@ module.exports.reset = ->
         Policemen = require('./policemen').new()
     ]
 
-previousIntention = undefined
+
 module.exports.reactAsync = (intention)->
     deferred = q.defer()
 
-    previousIntention = previousIntention || intention
-    for key,value of intention 
-        if value == 'implicit'
+    for key,value of intention  when value == 'implicit'
+        if previousIntention?.type == 'dialog'
             intention[key] = previousIntention[key]
+        else
+            intention.entity = 'chief'
+
     previousIntention = intention
     
     reactions = []
