@@ -16,11 +16,11 @@ class  Context
     characters: (characters...)->
         @charactersNearby = characters.map((name)-> name.trim().toLowerCase())
 
-    say: (say)->
-        for key,result of say
-            characterName = util.extractRespondingCharacter(result)
-            @characterDialog[characterName] = @characterDialog[characterName] || {}
-            @characterDialog[characterName][key] = util.toDecorator(result)
+    dialogue: (character)->
+        return (phrase)->
+            for input,output of phrase
+                @characterDialog[character] = @characterDialog[character] || {}
+                @characterDialog[character][input] = util.toDecorator(output)
 
     actions: (actions)->
         for key,result of actions

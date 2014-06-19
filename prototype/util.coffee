@@ -25,12 +25,4 @@ module.exports.toDecorator = (argument)->
                         arrayDecorator.wasUsed = true
                 return arrayDecorator
 
-    return undefined;
-    
-nameMatchRegex = /^(.*):/
-module.exports.extractRespondingCharacter = (text) ->
-    for line in text.split('\n')
-        match = nameMatchRegex.exec(line)
-        if match != null && match[0].match(/Willy|Wildcard|Detecive/) == null
-            name = match[1]
-            return name.trim().toLowerCase()
+    return undefined

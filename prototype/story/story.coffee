@@ -4,9 +4,6 @@ col = require('./characters').colourFormat
 
 story = {
     intro: ->
-        @location loc.start
-        @characters 'Chief', 'Stevey', 'Henry', 'Wildcard'
-
         @text """
         Crime scene investigation
         Location : Middle of an empty field in the early hours of Sunday morning. 
@@ -46,16 +43,18 @@ story = {
                 We'll provide what ever you require. Just let us know what you need to solve this case.
         """
 
-        @say 
+        @dialogue('chief')
             'hello':
                 """
-                Chief : Oh where are my manners? 
+                Wildard : Hello .
+                Chief : Oh where are my manners ? 
                         Greetings Wildcard! Excuse me for skiping the introductions son. 
                         I have with me, Henry and Stevey. 
                         You've met Henry before. And Stevey, well he is straight out of the academy.
                 """
             'what is the case':
                 """
+                Wildcard : What is the situation ? 
                 The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
                 Chief : We got the call at 5AM this morning for a body found in the middle of this field.
                         The call was made by Mike Ranch over there, who was working in the vicinity. 
@@ -67,12 +66,13 @@ story = {
                 """
             'witnesses':
                 """
+                Wildcard : Any witnesses ?
                 Chief looks towards a nearby tractor. The tractor driver resting against it. 
                 Chief : Mike Ranch over there found the body. We don't have any other weakness besides him.
                 """
             'give me a gun':
                 """
-                Wildcard : I want a a gun .
+                Wildcard : Give me a gun !
                 Chief squints one of his eyes, in a questioning manner, and asks.  
                 Cheif : What do you need a gun for exactly ? 
                 Wildcard : I'm a detective, I need a gun .
@@ -86,6 +86,7 @@ story = {
                 The chief slowly leans towards Wildcard and asks : 
                 Chief : Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
                 """
+            
         @actions
             'look around': 
                 """
