@@ -1,101 +1,51 @@
 q = require 'Q'
-Context = require './context'
 util = require './util'
-TransitionFactory = require('./nlp/transition_factory').TransitionFactory
+{intention,environment} = require('world-modeling')
+
 server_logging = require './server_logging/logging_client'
-story = require './story/story'
 colouriseDialog = require('./story/characters').colouriseDialog
-characterModels = require('./story/characters').characters
 
 ##initialize for first read
-introDecorator = story.intro
-context = new Context()
-dialogueTransitions = {}
-allKnownActions = {}
-actionTransition = undefined
-startTime = new Date()
+node_builder = require('./node_builder').NodeBuilder
+loaded_context = require './loaded_context'
+story = require './story/story'
 
-extractEntityFrom = (actionString)->
-    if (actionString == 'look around')
-        return 'environment'
+story.intro.call(node_builder)
+introNode = node_builder.extractNode()
+loaded_context.loadNode(introNode)
 
-mergeIntoKnownActions = (newActions)->
-    for object,actions of newActions
-        allKnownActions[object] = allKnownActions[object] || []
-        for action in actions
-            if(allKnownActions[object].indexOf(action) < 0 )
-                allKnownActions[object].push(action)
-
-prepareTransitions = ->
-    setImmediate(->
-        allCharacterDialogue = context.getAllCharacterDialogue()
-        for characterName , dialogueOptions of allCharacterDialogue
-            options = Object.keys(dialogueOptions)
-            dialogueTransitions[characterName] = TransitionFactory.sayTransition(options)
-
-        newActions = {}
-        for action in Object.keys(context.getActions())
-            object = extractEntityFrom(action)
-            newActions[object] = newActions[object] || []
-            newActions[object].push(action)
-        mergeIntoKnownActions(newActions)
-
-        nearbyEntities = [].concat.apply(['environment'], context.getCharactersNearby())
-        nearbyEntities = [].concat.apply(nearbyEntities, context.getObjectsNearby())
-
-        currentPossibleActions = []
-        for object in nearbyEntities
-            currentPossibleActions = [].concat.apply(currentPossibleActions, allKnownActions[object])
-        actionTransition = TransitionFactory.actionTransition(currentPossibleActions)
-    )
-
-introDecorator.call(context);
-prepareTransitions()
-
-
+current_text = introNode.text
 module.exports.getCurrentText = ()->
-    current_text = colouriseDialog(context.getText()) + "-> "
-    totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
-    server_logging.record("\n[#{totalTimeInGame}]\n#{current_text}")
-    return current_text
+    server_logging.record(current_text)
+    colouredText = colouriseDialog(current_text) + "-> "
+    return colouredText
 
-
+    
 module.exports.processAsync = (userInput) ->
+    userInput = userInput.trim()
     server_logging.record(userInput)
-    processDefer = q.defer()
+    deferred = q.defer()
 
-    decoratorDefer = q.defer()
-    character = context.getDefaultCharacter()
-    q.all([
-        dialogueTransitions[character].matchAsync(userInput)
-        actionTransition.matchAsync(userInput)
-    ])
-    .done((results)->
-        allDialogue = context.getAllCharacterDialogue()
-        dialogMatch = results[0].match;
-        dialogueDecorator = allDialogue[character][dialogMatch]
-        if dialogMatch && dialogueDecorator && not dialogueDecorator.wasUsed
-            decoratorDefer.resolve(dialogueDecorator)
-            return
-        
-        allActions = context.getActions()
-        actionMatch = results[1].match
-        actionDecorator = allActions[actionMatch]
-        if actionMatch && actionDecorator
-            decoratorDefer.resolve(actionDecorator)
-            return
-
-        characterModels[character].tellAsync(userInput)
-        .done((dialogue)->
-            decorator = util.toDecorator(dialogue)
-            decoratorDefer.resolve(decorator))
+    environment_reaction = undefined 
+    intention.interpretAsync(userInput)
+    .then((interpretation)->
+        environment.reactAsync(interpretation)
+    )
+    .then((reactions)->
+        environment_reaction = reactions     
+        promises = []
+        context_transitions = loaded_context.transitions
+        for reaction in reactions 
+            intention = reaction.intention
+            if intention.type == 'dialogue'
+                transition = context_transitions.dialogue[intention.entity]
+            else 
+                transition = context_transitions[intention.type]
+            promises.push(transition?.matchAsync(intention.input))
+        return q.all(promises)
+    )
+    .done((context_reaction)->
+        deferred.resolve()
     )
 
-    decoratorDefer.promise.done((decorator)->
-        decorator.call(context)
-        processDefer.resolve()
-
-        prepareTransitions()
-    )
-
-    return processDefer.promise;
+    return deferred.promise;
