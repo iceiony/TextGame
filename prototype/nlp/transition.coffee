@@ -1,6 +1,6 @@
 q = require 'Q'
 natural = require 'natural'
-semantic = require './thesaurus'
+thesaurus = require './thesaurus'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
 #TODO see if instead of stripping it would be best to generate noise with common words
@@ -38,7 +38,7 @@ class Transition
 
                 transitionStrings = singleTransition.split('/')
                 transitionStrings = transitionStrings.map((string)->
-                    semanticRelated = semantic[string]?.split('/')
+                    semanticRelated = thesaurus[string]?.split('/')
                     semanticRelated = semanticRelated || []
                     semanticRelated.push(string)
                     return semanticRelated
