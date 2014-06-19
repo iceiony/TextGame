@@ -17,7 +17,8 @@ class  Context
         @charactersNearby = characters.map((name)-> name.trim().toLowerCase())
 
     dialogue: (character)->
-        return (phrase)->
+        character = character.toLowerCase()
+        return (phrase)=>
             for input,output of phrase
                 @characterDialog[character] = @characterDialog[character] || {}
                 @characterDialog[character][input] = util.toDecorator(output)
