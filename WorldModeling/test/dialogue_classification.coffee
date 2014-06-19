@@ -1,7 +1,7 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('Classifying dialog intentions correctly', ->
+describe('Classifying dialogue intentions correctly', ->
     describe('by input structure that is a question', ->
         questions = [
             {input: "what is your name", subject: "you", attribute: "name"}
@@ -25,7 +25,7 @@ describe('Classifying dialog intentions correctly', ->
             it(question.input, (done)->
                 intention.interpretAsync(question.input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
+                    assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
 
                     assert.strictEqual(res.isQuestion, true, "Not classified as question #{res.input}")
                     assert.strictEqual(res.isExclamation, false)
@@ -52,8 +52,7 @@ describe('Classifying dialog intentions correctly', ->
             it(question.input, (done)->
                 intention.interpretAsync(question.input)
                 .then((res)->
-                    console.log res
-                    assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
+                    assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
                     assert.strictEqual(res.entity, 'implicit')
 
                     if question.subject
@@ -81,7 +80,7 @@ describe('Classifying dialog intentions correctly', ->
             it(input, (done)->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'dialog', "For input #{res.input}")
+                    assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
                     assert.strictEqual(res.isExclamation, true, "Not classified as exclamation #{res.input}")
                     assert.strictEqual(res.isQuestion, false)
                     done()

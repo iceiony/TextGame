@@ -2,8 +2,8 @@ assert = require 'assert'
 intention = require '../model/intention'
 
 
-describe("Extracting character of interest from dialog", ->
-    dialog = [
+describe("Extracting character of interest from dialogue", ->
+    dialogue = [
         { input: "what is your name?", entity: "implicit", subject :"you", attribute:"name"  }
         { input:"how old are you Mark?", entity: "mark" , subject:"you"}
         { input:"how old are you Mark", entity: "mark" , subject:"you"}
@@ -17,11 +17,11 @@ describe("Extracting character of interest from dialog", ->
         { input:"chief, what do you make of this", entity : "chief", subject :"you", attribute:"make" }
     ]
 
-    dialog.forEach((testCase)->
+    dialogue.forEach((testCase)->
         it(testCase.input, (done)->
             intention.interpretAsync(testCase.input)
             .done((result)->
-                assert.strictEqual(result.type, 'dialog', "For input : #{result.input}")
+                assert.strictEqual(result.type, 'dialogue', "For input : #{result.input}")
                 assert.strictEqual(result.entity,testCase.entity)
                 if testCase.subject
                     assert.strictEqual(result.subject,testCase.subject)

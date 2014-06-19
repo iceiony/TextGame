@@ -40,7 +40,7 @@ retrieveEntityByName = (name, entityTree = composingEntities)->
         result = retrieveEntityByName(name, entity.composing)
         if result then return result
 
-getDialogDefaultByPriority = ()->
+getDialogueDefaultByPriority = ()->
     namesByPriority = ['anne', 'mark', 'chief'] 
     for name in namesByPriority 
         entity = retrieveEntityByName(name)
@@ -73,12 +73,12 @@ module.exports.reset = ->
 module.exports.reactAsync = (intention)->
     deferred = q.defer()
 
-    if intention.type == 'dialog'
+    if intention.type == 'dialogue'
         for key,value of intention  when value == 'implicit'
-            if previousIntention?.type == 'dialog'
+            if previousIntention?.type == 'dialogue'
                 intention[key] = previousIntention[key]
             else
-                intention.entity = getDialogDefaultByPriority()
+                intention.entity = getDialogueDefaultByPriority()
     previousIntention = intention
     
     reactions = []

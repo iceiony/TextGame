@@ -2,7 +2,7 @@ assert = require 'assert'
 intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
-describe('Interpreting dialog in environment',->
+describe('Interpreting dialogue in environment',->
 
     it('Greeting the chief should give a response',(done)->
         intention.interpretAsync('Hello chief')

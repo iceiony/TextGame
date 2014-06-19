@@ -13,7 +13,7 @@ class Wildcard extends Character
         switch  intention.type
             when 'movement'
                 return @move(entity)
-            when 'dialog'
+            when 'dialogue'
                 if not @isNear(entity)
                     return requires: {
                         entity: intention.entity

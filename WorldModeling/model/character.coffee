@@ -28,7 +28,7 @@ class Character extends Entity
 
         return {
             character: @name
-            type: "dialog"
+            type: "dialogue"
             reason: "answer"
             text : text
         }
@@ -37,7 +37,7 @@ class Character extends Entity
             return {
                 character: @name
                 entity: entity.name
-                type:"dialog"
+                type:"dialogue"
                 reason:"greet"
                 text: "#{@referredAs()} : Hello #{entity.referredAs()}."
             }
@@ -55,7 +55,7 @@ class Character extends Entity
         return {
             character:@name
             entity:characterEntity.name
-            type:"dialog"
+            type:"dialogue"
             reason: "ask"
             subject: subject
             attribute : attribute
@@ -80,7 +80,7 @@ class Character extends Entity
             }
    
     react: (stimulus)->
-        if stimulus.type == 'dialog' &&
+        if stimulus.type == 'dialogue' &&
          ( stimulus.entity == @name || stimulus.entity in @aliases )
             
             entity = environment.getObjectByName(stimulus.character)

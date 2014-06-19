@@ -54,7 +54,7 @@ module.exports.interpretAsync = (input)->
             entity = containsEntity.exec(input)?[0]
 
         if isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input)
-            type = 'dialog'
+            type = 'dialogue'
             character = containsCharacter.exec(input)?[0]
             entity = character || 'implicit'
             adjustedInput = input.replace(/[ ]he /g," you ")

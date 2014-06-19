@@ -1,13 +1,13 @@
 assert = require 'assert'
 environment = require '../../model/entities/environment'
 
-describe('Determining the implicit character for dialog depending on location',->
-    dialogMock =undefined 
+describe('Determining the implicit character for dialogue depending on location',->
+    dialogueMock =undefined 
     beforeEach(->
         environment.reset()
-        dialogMock =
+        dialogueMock =
             input: "how are you"
-            type : 'dialog'
+            type : 'dialogue'
             entity : 'implicit'
             subject : 'you'
             attribute : 'are'
@@ -15,7 +15,7 @@ describe('Determining the implicit character for dialog depending on location',-
     )
         
     it('For initial location it should be the chief',(done)->
-        environment.reactAsync(dialogMock)
+        environment.reactAsync(dialogueMock)
         .then((results)->
             result = results.shift()
             assert.strictEqual("Wildcard : How are you ?",result.text)
@@ -32,7 +32,7 @@ describe('Determining the implicit character for dialog depending on location',-
             entity: 'paramedics'
         environment.reactAsync(moveMock)
         .then( (reaction)->
-            environment.reactAsync(dialogMock)
+            environment.reactAsync(dialogueMock)
         )
         .then((results)->
             result = results.shift()
@@ -50,7 +50,7 @@ describe('Determining the implicit character for dialog depending on location',-
             entity: 'farmer'
         environment.reactAsync(moveMock)
         .then( (reaction)->
-            environment.reactAsync(dialogMock)
+            environment.reactAsync(dialogueMock)
         )
         .then((results)->
             result = results.shift()
@@ -68,7 +68,7 @@ describe('Determining the implicit character for dialog depending on location',-
             entity: 'body'
         environment.reactAsync(moveMock)
         .then( (reaction)->
-            environment.reactAsync(dialogMock)
+            environment.reactAsync(dialogueMock)
         )
         .then((results)->
             result = results.shift()
