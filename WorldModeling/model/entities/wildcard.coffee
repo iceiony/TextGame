@@ -16,6 +16,7 @@ class Wildcard extends Character
             when 'dialogue'
                 if not @isNear(entity)
                     return requires: {
+                        input : "go to #{intention.entity}"
                         entity: intention.entity
                         type: 'movement'
                     }

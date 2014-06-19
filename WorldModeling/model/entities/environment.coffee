@@ -84,8 +84,12 @@ module.exports.reactAsync = (intention)->
     reactions = []
     react = wildcard.execute(intention)
     if react.requires
-        reactions.push(wildcard.execute(react.requires))
+        requiresIntention = react.requires
+        react = wildcard.execute(requiresIntention)
+        react.intention = requiresIntention
+        reactions.push(react)
         react = wildcard.execute(intention)
+    react.intention = intention
     reactions.push(react)
     
     for react in reactions 
