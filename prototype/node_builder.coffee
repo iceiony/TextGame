@@ -36,4 +36,4 @@ class NodeBuilder
         @resetNode()
         return current_node
 
-module.exports = new NodeBuilder()
+module.exports.NodeBuilder = new NodeBuilder()
