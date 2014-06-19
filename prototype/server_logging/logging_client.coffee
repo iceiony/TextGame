@@ -33,9 +33,14 @@ _sendNextToServer = ->
   #meh , something went wrong , server is not up may be 
   finally
 
+
+startTime = new Date()
 module.exports.record = (data)->
   setImmediate(->
-    data = testSourceName + sessionId + "\n" + data
+      totalTimeInGame = (new Date() - startTime) / ( 1000 * 60 )
+      data = "\n#{data}\n[#{totalTimeInGame}]"
+
+      data = testSourceName + sessionId + "\n" + data
     dataQueue.push(data);
     if(dataQueue.length == 1)
       _sendNextToServer()
