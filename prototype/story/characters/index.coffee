@@ -54,7 +54,3 @@ colouriseDialog = (text)->
 
 module.exports.colourFormat = colourFormat
 module.exports.colouriseDialog = colouriseDialog
-
-module.exports.characters = {
-    Chief : require './Chief'
-}

@@ -12,21 +12,12 @@ putTransitionInCache = (allTransitionStrings, transition) ->
 
 class TransitionFactory
     
-    sayTransition: (transitionStrings) ->
-        transitionInCache = getTransitionFromCache(transitionStrings)
+    build: (allTransitionStrings) ->
+        transitionInCache = getTransitionFromCache(allTransitionStrings)
         if transitionInCache != undefined
             return transitionInCache
         else
-            transition = new Transition(transitionStrings)
-            putTransitionInCache(transitionStrings, transition)
+            transition = new Transition(allTransitionStrings)
+            putTransitionInCache(allTransitionStrings, transition)
             
-            
-    actionTransition: (transitionStrings) ->
-        transitionInCache = getTransitionFromCache(transitionStrings)
-        if transitionInCache != undefined
-            return transitionInCache
-        else
-            transition = new Transition(transitionStrings)
-            putTransitionInCache(transitionStrings, transition)
-
 module.exports.TransitionFactory = new TransitionFactory() 
