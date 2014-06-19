@@ -87,14 +87,14 @@ story = {
                 Chief : Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
                 """
             
-        @actions
+        @observation
             'look around': 
                 """
                 There are 5-6 other people present: the three officers, 2 paramedics and a farmer.
                 The farmer is sitting by his tractor, parked a about 20 meters away towards the road.
                 Behind the policeman, about 10 meters away you notice the body of a victim. 
                 """
-        @walk 
+        @movement 
             'go to farmer': ""
             'go to tractor': ""
             'go to paramedics': ""

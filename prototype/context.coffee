@@ -22,11 +22,11 @@ class  Context
                 @characterDialog[character] = @characterDialog[character] || {}
                 @characterDialog[character][input] = util.toDecorator(output)
 
-    actions: (actions)->
-        for key,result of actions
-            @allPossibleActions[key] = util.toDecorator(result)
+    observation: (phrases)->
+        for input,output of phrases
+            @allPossibleActions[input] = util.toDecorator(output)
 
-    walk: (destinations)->
+    movement: (destinations)->
         ##do nothing yet
         
     getDefaultCharacter :->
