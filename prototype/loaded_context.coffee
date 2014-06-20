@@ -55,3 +55,5 @@ module.exports.loadNode = (node)->
         prepareTransition('action')
 
 module.exports.transitions = context_transitions
+module.exports.decorators = context
+    
