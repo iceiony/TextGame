@@ -7,11 +7,12 @@ http.createServer((req, res)->
     postData += data.toString()
   )
   res.writeHead(200,
-    { 'Access-Control-Allow-Origin': 'http://188.226.234.126',
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Headers': 'Content-Type,X-Request-With', 'Content-Type': "text/html"
-    });
+      {
+          'Access-Control-Allow-Origin': 'http://188.226.234.126'
+          'Access-Control-Allow-Methods': 'POST'
+          'Access-Control-Allow-Credentials': 'true'
+          'Access-Control-Allow-Headers': 'Content-Type,X-Request-With', 'Content-Type': "text/html"
+      });
 
   req.on('end', ()->
     sessionId = postData.substr(0, postData.indexOf('\n'))[1..4]
