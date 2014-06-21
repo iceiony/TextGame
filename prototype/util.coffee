@@ -4,7 +4,7 @@ module.exports.toDecorator = (argument)->
     switch typeof argument
         when 'function'
             wrapper = ->
-                argument(@)
+                argument.call(@)
                 wrapper.wasUsed = true
             return wrapper
 
