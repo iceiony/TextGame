@@ -48,12 +48,13 @@ module.exports.processAsync = (userInput) ->
     .done((context_reaction)->
         for index in [0..context_reaction.length - 1 ]
             decorator = util.toDecorator(aggregator.aggregate(environment_reaction[index]))
-            if (context_reaction[index].match)
+            match = context_reaction[index].match
+            if match
                 intent = environment_reaction[index].intention
                 if intent.type == 'dialogue'
-                    decorator = loaded_context.decorators.dialogue[intent.entity][context_reaction[index].match]
+                    decorator = loaded_context.decorators.dialogue[intent.entity][match]
                 else
-                    decorator = loaded_context.decorators[intent.type][context_reaction.match]
+                    decorator = loaded_context.decorators[intent.type][match]
             else
             decorator.call(node_builder)
         

@@ -1,6 +1,6 @@
 runner = require('../runner')
 
-input = ["hello"]
+input = ["hello","go to body"]
 
 describe('Running with the predefined input', ->
     it('should not though any exception', (done)->
