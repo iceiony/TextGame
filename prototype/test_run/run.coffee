@@ -1,6 +1,11 @@
 runner = require('../runner')
 
-input = ["hello","go to body"]
+input = [
+    "hello"
+    "go to body"
+    "go to tractor"
+    "hello"
+]
 
 describe('Running with the predefined input', ->
     it('should not though any exception', (done)->
@@ -12,6 +17,8 @@ describe('Running with the predefined input', ->
                 console.log next + "\n"
                 runner.processAsync(next)
                 .done( (res,err)->
+                    if err then done(err)
+                    
                     text = runner.getCurrentText()
                     console.log(text)
                     executeNextInput()

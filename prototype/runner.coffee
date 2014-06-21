@@ -46,9 +46,10 @@ module.exports.processAsync = (userInput) ->
         return q.all(promises)
     )
     .done((context_reaction)->
-        for index in [0..context_reaction.length - 1 ]
-            decorator = util.toDecorator(aggregator.aggregate(environment_reaction[index]))
-            match = context_reaction[index].match
+        for index in [0..environment_reaction.length - 1 ] when index >= 0
+            generatedText = aggregator.aggregate(environment_reaction[index])
+            decorator = util.toDecorator(generatedText)
+            match = context_reaction[index]?.match
             if match
                 intent = environment_reaction[index].intention
                 if intent.type == 'dialogue'
