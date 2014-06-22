@@ -40,7 +40,7 @@ module.exports.loadNode = (node)->
     observationAdded = false
     for input,decorator of node.observation
         observationAdded = true
-        context.action[input] = decorator
+        context.observation[input] = decorator
 
     actionAdded = false
     for input,decorator of node.action
