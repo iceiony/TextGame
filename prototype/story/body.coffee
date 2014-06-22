@@ -1,3 +1,5 @@
+story = require './story'
+
 module.exports = ->
     @text """
     Willy walks past the officers and approaches the body. They follow his lead. 
@@ -12,68 +14,65 @@ module.exports = ->
     His right fist seems to be closed in a tight grip. Willy could feel a faint smell of alcohol from that distance.
     """
 
-old = ->
-    @location loc.next_to_body
-    @text """
-    Willy walks past the officers and approaches the body. They follow his lead. 
-    Chief : That's how we found him. The medical personnel inspected him briefly
-    Henry : They said some of his bones are broken and he has a skull fracture. 
-            He is not bruised, and just has a few lesions.
-    """
-    if(not @steveyLeft )
-      @text ""
-    
-    @text """
-     
-    """
-    @everywhere ->
-      "he fell from the sky/he fell from large height / he fell from height/he fell from balloon / he fell from plane" : story.ending
-    
-    @location loc.next_to_body, ->
-      'tracks/footprint/look around the body/look around' :->
-        @text """
-        Willy looks around . No blood and no tracks to indicate that the body may have been dragged all the way there. 
-        There is only one set of footprints that are clearly indicated as belonging to the police.  
+    @observation 
+        'look at body' : """
+        Willy looks around . 
+        No blood and no tracks to indicate that the body may have been dragged to that location.  
+        There is a single set of footprints that clearly do not belong to the authorities. 
         """
-        @location loc.next_to_body, ->
-          "ask about footprints/ check footprints/who do those footprints belong to/look at footprints/check footprints" :->
-            @text """
-            Willy : What are those footprints ? 
-            Chief : We've identified those as belonging to Mike, the farmer who found the body. 
-            Willy looks at the tracks, they seem no different from those made by the officers. Nothing significant about them . 
-            """
-      'search him/search body' : ->
-        @text """
+        
+        'search body' : """
         The detective attempts to search the victim. 
         There is not much to search through, given the victim is not wearing a shirt. 
         He puts his hands through the trousers pockets but can't find anything. 
         
         Henry : We've searched him as well. We couldn't find anything. 
         """
-      'open mouth/check nails' : ->
-        @text """The detective opens the victim's mouth. There is nothing special except for a more obvious smell of alcohol and death """
-      'check nails/look at nails' : ->
-        @text """The detective looks at the nails. They are clean and well cut. """ 
-      'check pulse/verify pulse/take pulse': ->
-        @text """The detective checks the victim's pulse. He's deffinitely dead. """
-        if not @steveyLeft 
-          @text """Stevey wispers to Henry, "Why is this wierdo checking the pulse". """ 
-      'touch': ->
-        @text """
+        
+        'look at mouth' : """
+        The detective opens the victim's mouth. There is nothing special except for a more obvious smell of alcohol and death
+        """
+        
+        'look at nails' : """
+        The detective looks at the nails. They are clean and well cut. 
+        """
+        
+        'check pulse' : """
+        The detective checks the victim's pulse. He's deffinitely dead.
+        Stevey wispers to Henry.
+        Stevey : "Why is this wierdo checking the pulse". 
+        """
+        
+        'touch body' : """
         Wildcard touches the body. He doesn't seem to be looking for anything in particular though.
         It feels cold to the touch.
         """
-      'poke': ->
-        @text """
+        
+        'poke body' : """
         Wildcard pokes the body. It doesn't move. The guy is clearly not going anywhere. What was Wildcard thinking ?   
         """
-      'Where did it come from / how did it get here': ->
-        @text """
+    
+    @dialogue('chief')
+        'ask about footprints':"""
+        Willy : What are those footprints ? 
+        Chief : We've identified those as belonging to Mike, the farmer who found the body. 
+        Willy looks at the tracks, they seem no different from those made by the officers. Nothing significant about them though. 
+        """
+
+        'any id' : """
+        Wildcard : Any Id?
+        Henry : No. Nothing.   
+        """
+        
+        'how did it get here' : """
         Henry: "We don't know . We're far in the middle of nowhere here. The body could have come from anywhere."
         Chief: "That's why we called you detective"
         """
-      'turn over': ->
-        @text """
+        
+        'he fell from the sky' : story.ending
+
+    @action 
+        'turn over' : """
         Wildcard : I'll turn him over if that is ok .
         Chief    : Sure, go right ahead. 
         
@@ -86,29 +85,39 @@ old = ->
         
         There is nothing else special about the back of the body.
         """
-            
-      'Open fist / Look at fist / fist/ examine fist/inspect fist': ->
-        @text """
-        Wildcard : Can I touch him ? 
-        Chief    : Go ahead Willy. We've already collected the evidence need so far.
-    
-        Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding a short match, unused.
-        The detective picks up the match staring at it curiously.
-        The match seems to have been broken in two, and now only the top half could be found. 
-    
-        Henry    : What do you think that means Willy ?
-        """
-        @location loc.next_to_body, ->
-          'Take match/put in pocket': ->
-            @location loc.open_bag
+        
+        'look at fist' : ->
+            @text """
+            Wildcard : Can I touch him ? 
+            Chief    : Go ahead Willy. We've already collected the evidence need so far.
+        
+            Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding a short match, unused.
+            The detective picks up the match staring at it curiously.
+            The match seems to have been broken in two, and now only the top half could be found. 
+        
+            Henry    : What do you think that means Willy ?
+            """
+            @dialogue('chief')
+                'he was a smoker' : """
+                Wildcard : He smokes. 
+                Stevey : But why only half a match ? And why was it not used.
+                """
+                
+                'do not know' : ->
+                    @text """
+                    The group sits in silence for a few moments. 
+                    Henry : What if he was a smoker ?
+                    """
+                    @dialogue('chief')
+                        'do not know': " Willy is within his own thoughts... He does not say a thing."
+        
+        'take match' : -> 
             @text """
             Chief: "Sorry Willy you can't have that. We have to use it for evidence, what ever it is."
             The chief pulls out a small plastic bag from his poket. He opens it and performs a gesture requesting Wildcard to place in, the match.
             """
-            @location loc.open_bag, ->
-              'light match/use match': ->
-                @location loc.next_to_body
-                @text """
+            @action 
+                'use match' : """
                 Ignoring the Chief's request, Wildcard calmly checks his own pockets in search for something. 
                 The let one, the right one on his coat, both are empty. Ahh the inner pocket, he pulls out a cigar.
                 While completely avoiding eye contact with the Chief's intensive stare, he ligts the match on the side of his shoe and proceeds to light his cigar.
@@ -117,18 +126,13 @@ old = ->
                 The chief puts the plastic bag back in his pocket. He is clearly not happy, and stares at Wildcard in a frightening manner.
                 He doesn't say a word though.
                 """
-                @chiefIsAngry = true
                 
-              'give match/yes/put in bag': ->
-                @location loc.next_to_body
-                @text """
+                'give match' : """
                 Willy puts the match into the bag. 
                 The chief thanks him, seals the bag and hands it to Henry.  
                 """
                 
-              'no/keep match/take match/put in pocket': ->
-                @location loc.next_to_body
-                @text """
+                'take match/keep match' : """
                 Ignorign the chief's request Wildcard puts the match in his pocket. 
                 Chief : What are you doing ? [ with a slight frustration in his voice ]
                 Willy : I need it...
@@ -138,33 +142,7 @@ old = ->
                 He trusts Willy enough to follow his methods to the end.
                 
                 [....Willy has acquired an unused match....]                    
-                
                 """
-                @hasMatch = true
-                
-              '': ->
-                @location loc.open_bag
-                @text """Chief : Come on Willy put it in."""
-                
-              'ignore': ->
-                @location loc.open_bag
-                @text """Chief : Come on Willy put it in."""
-                
-          'That he was a smoker / smoking / smoke': ->
-            @text """
-            Henry: But why only half a match ? And why was it not used.
-            """
-          "Don't know / nothing /shut up/": ->
-            @text """
-            The group sits in silence for a few moments. 
-            Henry : What if he was a smoker ?
-            """
             
-            if(not @steveyLeft)
-              @text """Stevey : But why only half a match ? And why was it not used. """
-            
-            @location loc.next_to_body, ->
-               "Don't know / nothing /shut up/": -> 
-                 @text """
-                 Willy is within his own thoughts... He does not say a thing.
-                 """
+            @dialogue('chief')
+                '' : "Chief : Come on Willy put it in."
