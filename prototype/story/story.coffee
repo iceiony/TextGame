@@ -122,9 +122,7 @@ old = ->
                 """
                 @everywhere ->
                     "chief's name/what is your name chief": ->
-                        @text """
-            Chief : Willy, take your medication please .
-            """
+                        @text 
     ending: ->
         @text """
             Willy : He fell from the sky . 
