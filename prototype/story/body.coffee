@@ -15,6 +15,12 @@ module.exports = ->
     """
 
     @observation 
+        'look around' : """
+        There are 5-6 other people present: the three officers, 2 paramedics and a farmer.
+        The farmer is sitting by his tractor, parked a about 20 meters away towards the road.   
+        And also... there is the body .
+        """
+    
         'look at body' : """
         Willy looks around . 
         No blood and no tracks to indicate that the body may have been dragged to that location.  
