@@ -1,5 +1,3 @@
-#locations 
-loc = require ('./locations')
 col = require('./characters').colourFormat
 
 story = {
@@ -43,6 +41,20 @@ story = {
                 We'll provide what ever you require. Just let us know what you need to solve this case.
         """
 
+        @observation
+            'look around':
+                """
+                There are 5-6 other people present: the three officers, 2 paramedics and a farmer.
+                The farmer is sitting by his tractor, parked a about 20 meters away towards the road.
+                Behind the policeman, about 10 meters away you notice the body of a victim. 
+                """
+            
+        @movement
+            'go to body': require('./body')
+            'go to paramedics': require('./paramedics')
+            'go to farmer': require('./farmer').farmer
+            'go to tractor': require('./farmer').tractor
+            
         @dialogue('chief')
             'hello':
                 """
@@ -79,106 +91,35 @@ story = {
                 Chief : Look son, I don't know if you're being serious or not but we just want you to solve this case not shoot people.
                         I'm not giving you a gun! And I hope you've been taking your medication.
                 """
-            'what is your name': 
-                """
-                Wildcard : What's your name chief?
-                The officers gain a bit of a shoked expressions on their faces.
-                The chief slowly leans towards Wildcard and asks : 
-                Chief : Son, are you ok ? Have you been taking your medication properly ? You know who I am right ? 
-                """
-            
-        @observation
-            'look around': 
-                """
-                There are 5-6 other people present: the three officers, 2 paramedics and a farmer.
-                The farmer is sitting by his tractor, parked a about 20 meters away towards the road.
-                Behind the policeman, about 10 meters away you notice the body of a victim. 
-                """
-        @movement 
-            'go to farmer': ""
-            'go to tractor': ""
-            'go to paramedics': ""
-            'go to body': ""
+            'what is your name': require('./medication')
+               
 }
 old = ->
-    @location loc.start, ->
-        'look around/examine surroundings/analyse area': ->
-            @text """
-            There are 5-6 other people present: the three officers, 2 paramedics and a farmer.
-            The farmer is sitting by his tractor, parked a about 20 meters away towards the road.
-            Behind the policeman, about 10 meters away you notice the body of a victim. 
-            """
-            @knowsAboutBody = true
-        "Greetings/Hello/hey/hi": ->
-            @text """
-            Chief : Oh where are my manners? 
-                    Greetings Wildcard! Excuse me for skiping the introductions son. 
-                    I have with me, Henry and Stevey. 
-                    You've met Henry before. And Stevey, well he is straight out of the academy.
-            """
-            @location loc.start, ->
-                "your name/chief's name/what is your name chief": story.chief_name
-
-        "What's the case/What's up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened/ask about the case/talk to chief": ->
-            if @knowsAboutBody
-                @text "The chief turns around and starts walking towards the body."
-            else
-                @text 
-
-            @text 
-        'witness/anyone around': ->
-            @text 
-        'a gun/give me a gun/ i want a gun': ->
-            @text 
     @everywhere ->
         require('./gags')(story)
     @everywhere ->
-        "chief's name/what is your name chief": story.chief_name
-        'Look at body / Go to body/ inspect body': require('./body')(story)
-        'Paramedics/go to paramedics/talk to paramedics': require('./paramedics')(story)
+        "": story.chief_name
+        'Look at body / Go to body/ inspect body': ""
+        'Paramedics/go to paramedics/talk to paramedics': ""
 
         'tractor/inspect tractor/examine tractor/go to tractor': ->
-            @location loc.next_to_tractor
-            @text """
-            The detective walks to the the front of the tractor. 
-            He leans to one side and observes the back of it is geared up with a plow to prepare the earth for seeding.  
-            You touch the tractor's front motor to see if it has been in use recently. But it feels cold to the touch."""
-            if not @farmerStandsUp
-                @text "The farmer sitting next to it stands up as the detective approaches."
-            @farmerStandsUp = true;
-
-            @location loc.next_to_tractor, ->
-                require('./farmer')(story)
-
         'farmer/go to farmer/talk to farmer': ->
-            @location loc.next_to_tractor
-            @text "Willy walks to the farmer. Middle aged man, dirty black hands, with a bit of a red face."
-            if not @farmerStandsUp
-                @text "He was sitting on the ground but stands up as the detective approaches ."
-            @farmerStandsUp = true
-
-            @location loc.next_to_tractor, ->
-                require('./farmer')(story)
+            
         'default': ->
             @text """ Wildcard mutters something indistinguishable """
 
     chief_name: ->
-        @text 
         @everywhere ->
             require('./medication')(story)
         @everywhere ->
             "yes": ->
                 @text """
-        Chief: Good ! Don't scare me like that.... Let's solve this case then ! Shall we ? 
-        """
+                
+                """
             "no": ->
                 @text """
-        Chief looks even more shoked. 
-        Chief: I know you since you were kid. How can you forget my name ? 
-               I think you should take your medication now. It's not good if you skip it. 
-        Wildcard usually takes it with his morning coffee. But on this ocassion he had to skip breakfast to respond 
-        to the urgent crime call.
-        """
+                
+                """
                 @everywhere ->
                     "chief's name/what is your name chief": ->
                         @text """

@@ -1,8 +1,4 @@
-loc = require './locations'
-
-module.exports = (story) ->
-  ->
-    @location loc.next_to_paramedics
+module.exports = ->
     @text """
     Willy walks to the 2 paramedics resting on the ground next to their equipment. One male and one female. 
     They don't sem to notice the detective approaching, and continue their conversation
@@ -18,7 +14,11 @@ module.exports = (story) ->
             Can you please answer any of his questions .
     Female : "Sure"; she says as she stands up from the ground. 
     The male paramedics stands up as well .
-    """  
+    """
+
+old =  ->
+    @location loc.next_to_paramedics
+    
     @female = "The female"
     @male = "The male"
     

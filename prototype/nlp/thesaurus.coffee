@@ -4,4 +4,9 @@ module.exports = {
     'witnesses' : 'any witnesses/anyone around'
     'give me a gun' : 'a gun/ i want a gun'
     'look around': 'examine surroundings/analyse area/explore/investigate'
+    'ask for water': 'get water/request water/give me water/something to drink'
+    'what medication' : 'ask about medication'
+    'what is your name' : 'ask about the name'
+    'yes' : 'sure/right/correct'
+    'no' : "don not know/not sure/incorrect"
 }

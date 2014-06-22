@@ -1,7 +1,18 @@
-loc = require './locations'
+module.exports = ->
+    @text """
+    Willy walks past the officers and approaches the body. They follow his lead. 
+    Chief : That's how we found him. The medical personnel inspected him briefly.
+    Henry : They said some of his bones are broken and he has a skull fracture. 
+            He is not bruised, and just has a few lesions.
+    Stevey : You know what's weird, there is just no blood around. Like at all.
+    
+    As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the storm last night.
+    
+    Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
+    His right fist seems to be closed in a tight grip. Willy could feel a faint smell of alcohol from that distance.
+    """
 
-module.exports = (story) ->
-  ->
+old = ->
     @location loc.next_to_body
     @text """
     Willy walks past the officers and approaches the body. They follow his lead. 
@@ -10,13 +21,10 @@ module.exports = (story) ->
             He is not bruised, and just has a few lesions.
     """
     if(not @steveyLeft )
-      @text "Stevey : You know what's weird, there is just no blood around. Like at all."
-
-    @text """
-    As they get next to the body Willy kneels next to it to examine. The earth feels slightly humid because of the storm last night.
+      @text ""
     
-    Body is faced up, a middle aged white male, maybe 45 and 90kq, half naked. 
-    His right fist seems to be closed in a tight grip. Willy could feel a faint smell of alcohol from that distance. 
+    @text """
+     
     """
     @everywhere ->
       "he fell from the sky/he fell from large height / he fell from height/he fell from balloon / he fell from plane" : story.ending
@@ -72,7 +80,7 @@ module.exports = (story) ->
         As he attempts to turn the body to the side, he notices the imprint on the ground. 
         The body, altough simingly lying straight, was buried about 4cm in debth.  
         The shape of the imprint had the features of the body itself.
-
+    
         Wildcard rolls him to the side and pushes him all the way through. He notices how sludgy the body feels and how 
         most of the bone anatomy doesn't feel right . 
         
@@ -83,11 +91,11 @@ module.exports = (story) ->
         @text """
         Wildcard : Can I touch him ? 
         Chief    : Go ahead Willy. We've already collected the evidence need so far.
-
+    
         Willy opens the fist of the man without much effort. It wasn't very stiff. Seems he was holding a short match, unused.
         The detective picks up the match staring at it curiously.
         The match seems to have been broken in two, and now only the top half could be found. 
-
+    
         Henry    : What do you think that means Willy ?
         """
         @location loc.next_to_body, ->

@@ -1,35 +1,47 @@
-loc = require './locations'
-
-_askName = ->
-  @location loc.next_to_tractor , ->
-  "what is your name/ask name" : ->
+module.exports.tractor = ->
     @text """
-        Willy : what was your name again ?
-        Farmer : Mark Ranch, but people call me Edd.
-        """
-    @location log.next_to_tractor , ->
-      'what is your name/ask name' :->
-        @text """
-            Willy : I forgot your name, what was it ? 
-            Farmer : Mark Ranch, or Edd. 
+    The detective walks to the the front of the tractor. 
+    He leans to one side and observes the back of it is geared up with a plow to prepare the earth for seeding.  
+    You touch the tractor's front motor to see if it has been in use recently. But it feels cold to the touch.
+    
+    The farmer sitting next to it stands up as the detective approaches."""
+
+module.exports.farmer = ->
+    @text """
+    Willy walks to the farmer. Middle aged man, dirty black hands, with a bit of a red face.
+    He was sitting on the ground but stands up as the detective approaches .
+    """
+
+old = ->
+    _askName = ->
+        @location loc.next_to_tractor , ->
+        "what is your name/ask name" : ->
+            @text """
+            Willy : what was your name again ?
+            Farmer : Mark Ranch, but people call me Edd.
             """
-
-module.exports = (story)->
-################farmer################
-  'what is your name/ask name':->
-    @text """
-    Willy  : What is your name ?
-    With a big smile on his face, the farmer wipes his hands on the back of his trousers and extends one to shake the detective's hand. 
+            @location log.next_to_tractor , ->
+                'what is your name/ask name' :->
+                    @text """
+                Willy : I forgot your name, what was it ? 
+                Farmer : Mark Ranch, or Edd. 
+                """
+               
+    ################farmer################
+    'what is your name/ask name':->
+        @text """
+        Willy  : What is your name ?
+        With a big smile on his face, the farmer wipes his hands on the back of his trousers and extends one to shake the detective's hand. 
+        
+        Farmer : "Mark Ranch sir , how do you do !" , shaking the detective's hand in an excited manner.   
+        """
+        _askName.call(@)
     
-    Farmer : "Mark Ranch sir , how do you do !" , shaking the detective's hand in an excited manner.   
-    """
-    _askName.call(@)
-    
-  'hello/greetings/hey/hi' :->
-    @text """
-    Willy  : Greetings !
-    Farmer : Good morning sir.
-    """
+    'hello/greetings/hey/hi' :->
+        @text """
+        Willy  : Greetings !
+        Farmer : Good morning sir.
+        """
     @location loc.next_to_tractor, ->
       'hello/greetings/hey/hi' :-> 
         @text """
@@ -41,25 +53,25 @@ module.exports = (story)->
         Willy : How do you do ?
         Farmer: I'm ok now. I was a bit shooken up about the findings earlier. But I'm ok now.
         """
-  'where are you from' :->
-    @text """
-    Detective : Where are you from ?
-    Farmer : Oh I live a few miles a way. Near a small town. I'm not exactly in town.
-             I keep to myself ... 
-    """
-  'what do you do/working on what/what are you working on':->
-    @text """
-    Willy : What is it that you do ? 
-    Mark  : "I drive this here tractor to plow the land for seeding", he says as he pridefully rests against the tractor.
-
-    For some reason , Mark seems a bit tipsy and the detective notices. 
-    """
+    'where are you from' :->
+        @text """
+        Detective : Where are you from ?
+        Farmer : Oh I live a few miles a way. Near a small town. I'm not exactly in town.
+                 I keep to myself ... 
+        """
+    'what do you do/working on what/what are you working on':->
+        @text """
+        Willy : What is it that you do ? 
+        Mark  : "I drive this here tractor to plow the land for seeding", he says as he pridefully rests against the tractor.
+        
+        For some reason , Mark seems a bit tipsy and the detective notices. 
+        """
     
-  'why':->
-    @text """
-    Willy : Why ?
-    Mark  : Why what ?
-    """  
+    'why':->
+        @text """
+        Willy : Why ?
+        Mark  : Why what ?
+        """  
     @location loc.next_to_tractor ,->
       'why' : -> 
         @text """
@@ -68,46 +80,46 @@ module.exports = (story)->
         [.....you can tell this conversation is going places.....]
         """
         
-  'wtf/what the fuck' :->
-    @text """
-    Willy : WTF ?
-    While scratching his head with a dumb look on his face Mark says:
-        "I don't know what you want mister" 
-    """
+    'wtf/what the fuck' :->
+        @text """
+        Willy : WTF ?
+        While scratching his head with a dumb look on his face Mark says:
+            "I don't know what you want mister" 
+        """
     
-  'lol/haha/hahaha' :->
-    @text """
-    Willy laughs histerically : " HaHahAhAhahaha!"
-    Marks is not smiling anymore . He now seems a bit scared of the detective's unrequired display.
-    """
+    'lol/haha/hahaha' :->
+        @text """
+        Willy laughs histerically : " HaHahAhAhahaha!"
+        Marks is not smiling anymore . He now seems a bit scared of the detective's unrequired display.
+        """
     
-  'why Sunday/you work Sunday/working sunday':->
-    @text """
-    Willy : Why you working on a Sunday ?
-    Mark's face changes to a serios one. His voice starts trembling . 
-    Mark : Because, because... I need to plow this here land . 
-    Willy : "Do you usually work on a Sundays?" The detective says squinting his eyes.
-    Mark's eyes wide open. He crosses his at his chest and says.
-    Mark : "Look here I needed to do my job, right ? So that's why I'm here on a Sunday. You can't arrest me for working Sunday!
-           ...Rihtght ?".  He says in a loud slightly agressive manner. 
-    As he says that, the detective smells the alcohol filled breath of the farmer. He's been drinking. 
-    """
+    'why Sunday/you work Sunday/working sunday':->
+        @text """
+        Willy : Why you working on a Sunday ?
+        Mark's face changes to a serios one. His voice starts trembling . 
+        Mark : Because, because... I need to plow this here land . 
+        Willy : "Do you usually work on a Sundays?" The detective says squinting his eyes.
+        Mark's eyes wide open. He crosses his at his chest and says.
+        Mark : "Look here I needed to do my job, right ? So that's why I'm here on a Sunday. You can't arrest me for working Sunday!
+               ...Rihtght ?".  He says in a loud slightly agressive manner. 
+        As he says that, the detective smells the alcohol filled breath of the farmer. He's been drinking. 
+        """
     
-  "you have been drinking/drunk/drunk driving/drunk at work/drinking": ->
-    @text """
-    Willy : You've been drinking. I can arrest you for drinking Mark .
-            What are you doing here on a Sunday morning, drunk and driving a tractor ?
-    Mark seems scared now, he pleads to Willy and the officers : 
-    Mark  : Look I came here to work! Sure I had a bit to drink, but I didn't hurt no body! 
-    Willy : What about the body ? How did it get here ? 
-    Mark  : "I don't know how it got here !" he says in a loud tone gesticulating with his right hand towards the detective. 
-            Why did I call you fellas in the first place ? 
-    
-    [....a moment of silence....]
-    
-    The chief pulls Willy's coat a bit and wispers in his ear ? 
-    Chief : What do you think willy? Think he did it  ?
-    """
+    "you have been drinking/drunk/drunk driving/drunk at work/drinking": ->
+        @text """
+        Willy : You've been drinking. I can arrest you for drinking Mark .
+                What are you doing here on a Sunday morning, drunk and driving a tractor ?
+        Mark seems scared now, he pleads to Willy and the officers : 
+        Mark  : Look I came here to work! Sure I had a bit to drink, but I didn't hurt no body! 
+        Willy : What about the body ? How did it get here ? 
+        Mark  : "I don't know how it got here !" he says in a loud tone gesticulating with his right hand towards the detective. 
+                Why did I call you fellas in the first place ? 
+        
+        [....a moment of silence....]
+        
+        The chief pulls Willy's coat a bit and wispers in his ear ? 
+        Chief : What do you think willy? Think he did it  ?
+        """
     @location loc.next_to_tractor,->
       "not yet/don't know/No" : ->
         @text """
@@ -134,7 +146,7 @@ module.exports = (story)->
             Mark  : No... NO ! I didn't run anyone down. I was here to work, I had to finish the job since I couldn't yesterday.
                     Because the storm hit in the evening and I couldn't work till late! 
                     "To finish !" , he insists 
-
+    
             Chief wispers to Wildcard. 
             Chief : Do you believe him Willy ? 
             """ 
@@ -183,11 +195,11 @@ module.exports = (story)->
         
         [The End]
         """
-  'who is edd' : ->
-    @text """
-    Willy : Who is Edd ? 
-    Farmer : Why I am sir. People call me Edd ?
-    """
+    'who is edd' : ->
+        @text """
+        Willy : Who is Edd ? 
+        Farmer : Why I am sir. People call me Edd ?
+        """
     @location loc.next_to_tractor , ->
       "i thought you are Mark/wasn't your name Mark/ your name is Mark":->
         @text """
@@ -202,28 +214,28 @@ module.exports = (story)->
             Willy : I don't get it
             Farmer : You never do, I bet ! ; he laughts in a sly manner.
             """
-  'did you know him/have you ever seen him before': ->
-    @text """
-    Willy : Did you happen to know the victim ? 
-    Farmer : Well , when I realised he's dead, I got so frightent that I didn't get a good luck at him.
-             But he didn't look familiar... And I don't get to meet a lot of people so I don't know him.
-    """
-  'you found the body/how did you find the body/how did you find it/ask about body' :->
-    @text """
-    Willy  : Tell me how you found the body .
-    Farmer : I got here about 5AM this morning. Because of the storm last night , the earth is soft so it's easier to work it with the tractor.
-             So I was about 100 meters in from the road when I notice something in the distance. I couldn't tell what it was. 
-             But I stopped the tractor to check it. When I got close I saw the person lying there, not moving.
-             So I thought to myself , this guy is dead. And then I rushed to my tractor , drove to the nearest phone and called the police.
-    """
+    'did you know him/have you ever seen him before': ->
+        @text """
+        Willy : Did you happen to know the victim ? 
+        Farmer : Well , when I realised he's dead, I got so frightent that I didn't get a good luck at him.
+                 But he didn't look familiar... And I don't get to meet a lot of people so I don't know him.
+        """
+    'you found the body/how did you find the body/how did you find it/ask about body' :->
+        @text """
+        Willy  : Tell me how you found the body .
+        Farmer : I got here about 5AM this morning. Because of the storm last night , the earth is soft so it's easier to work it with the tractor.
+                 So I was about 100 meters in from the road when I notice something in the distance. I couldn't tell what it was. 
+                 But I stopped the tractor to check it. When I got close I saw the person lying there, not moving.
+                 So I thought to myself , this guy is dead. And then I rushed to my tractor , drove to the nearest phone and called the police.
+        """
     @location loc.next_to_tractor,->
       'tell me more/ask for more/question more/anything else': ->
         @text """
         Willy : Anything else you can share ?
         Farmer : That's all I know detective. 
         """
-################tractor###############
-  'drive tractor/drive it/drive':->
+    ################tractor###############
+    'drive tractor/drive it/drive':->
     @text "You don't have a key you silly duck!"
     @location loc.next_to_tractor, ->
       'drive tractor/drive it/drive': ->

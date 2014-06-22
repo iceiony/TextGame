@@ -30,6 +30,10 @@ class NodeBuilder
     movement: (phrases)->
         for input, output of phrases
             @node.movement[input] = util.toDecorator(output)
+            
+    action : (phrases)->
+        for input , output of phrases
+            @node.action[input] = util.toDecorator(output)
 
     extractNode:()->
         current_node = @node
