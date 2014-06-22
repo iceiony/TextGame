@@ -36,8 +36,20 @@ module.exports.interpretAsync = (input)->
         attribute = undefined 
         unit = undefined
         verb = undefined
-        type = 'action'
+        
+        adjustedInput = input.replace(/[ ]he /g," you ")
+                             .replace(/[ ]is$/g," are")
+        tags = helper.tag(adjustedInput)
 
+        if (verbs = helper.getVerbs(input)).length > 0
+            type = 'action'
+            nouns = helper.getNouns(input)
+            verb = _(verbs).first()
+            entity = _(nouns).filter((noun)-> noun != verb).last()
+            if(not entity)
+                entity = containsEntity.exec(input)?[0]
+                entity = entity || 'implicit'
+        
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
             distance = 'implicit'
@@ -52,14 +64,12 @@ module.exports.interpretAsync = (input)->
             type = 'observation'
             direction = isDirection.exec(input)?[0]
             entity = containsEntity.exec(input)?[0]
-
-        if isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input)
+            
+        if isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input) || (verbs = helper.getVerbs(input)).length == 0 || tags[0].tag == 'MD'
             type = 'dialogue'
             character = containsCharacter.exec(input)?[0]
             entity = character || 'implicit'
-            adjustedInput = input.replace(/[ ]he /g," you ")
-                                 .replace(/[ ]is$/g," are")
-            tags = helper.tag(adjustedInput)
+
             lastYouIndex = _(tags).findLastIndex((pair)-> isYou.test(pair.word))
             lastNounIndex = _(tags).findLastIndex((pair)-> helper.isNoun(pair.tag) && pair.word not in characters )
             verbIndex = _(tags).findIndex((pair)-> helper.isVerb(pair.tag))
@@ -77,15 +87,6 @@ module.exports.interpretAsync = (input)->
                 lastVerb = _(tags).filter((pair)-> helper.isVerb(pair.tag)).last()
                 attribute = lastVerb?.word
             
-            
-        if type == 'action' 
-            verbs = helper.getVerbs(input)
-            nouns = helper.getNouns(input)
-            verb = _(verbs).first()
-            entity = _(nouns).filter((noun)-> noun != verb).last()
-            if(not entity)
-                entity = containsEntity.exec(input)?[0]
-                entity = entity || 'implicit'
             
         deferred.resolve({
             input: input

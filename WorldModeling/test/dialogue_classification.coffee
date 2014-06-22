@@ -45,6 +45,10 @@ describe('Classifying dialogue intentions correctly', ->
         questions = [
             {input: "give me the keys", subject: "keys" }
             {input: "I don't think so"}
+            {input: "I don't know"}
+            {input: "yes"}
+            {input: "may be wrong"}
+            {input: "banana"}
 
         ]
 
