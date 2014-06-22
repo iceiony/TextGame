@@ -1,8 +1,10 @@
-module.exports.farmer = ->
+farmer = ->
     @text """
     Willy walks to the farmer. Middle aged man, dirty black hands, with a bit of a red face.
     He was sitting on the ground but stands up as the detective approaches .
     """
+    @observation 
+        'look at tractor' : tractor
     
     @dialogue('farmer')
         'what is your name': ["""
@@ -185,13 +187,16 @@ module.exports.farmer = ->
                 [The End]
                 """
 
-module.exports.tractor = ->
+tractor = ->
     @text """
     The detective walks to the the front of the tractor. 
     He leans to one side and observes the back of it is geared up with a plow to prepare the earth for seeding.  
     You touch the tractor's front motor to see if it has been in use recently. But it feels cold to the touch.
     
     The farmer sitting next to it stands up as the detective approaches."""
+    @action 
+        'talk to farmer' : farmer
+    
     @observation 
         'look for key' : "Wildcard wonders who would have the keys"
 
@@ -253,3 +258,6 @@ module.exports.tractor = ->
             Farmer looks now distressed, his eyes wide open . After a moment he calms a bit . 
             Farmer : Ok, OK ! I might have had a bit on the job. You know, it gets boring out here. 
             """   
+            
+module.exports.farmer = farmer
+module.exports.tractor = tractor
