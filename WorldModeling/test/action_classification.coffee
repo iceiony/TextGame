@@ -8,6 +8,7 @@ describe('Classifying plain action intentions correctly', ->
             "drive tractor"
             "take match"
             "punch farmer"
+            "talk to the farmer"
         ]
 
         actions.forEach((input)->
