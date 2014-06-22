@@ -30,7 +30,10 @@ module.exports = {
     'drunk driving' : 'drunk at work'
     'hit by tractor' : "hit with tractor/run over"
     'ask about body' : 'what can you tell me about the body/how did you find the body/tell me about the body'
-    'ask for more'   :'tell me more/question more/anything else'
+    'ask for more'   :'tell me more/question more/anything else/what else'
     'ask farmer for key' : 'do you have the key/ can i have the key'
     'ask about bottle' : 'what is this doing here/what is this bottle/is this bottle yours'
+    'cause of death' : 'death cause/medical exam/examination/post morten exam'
+    'about the broken bones' : 'tell me about the broken bones/broken bones'
+    'ask about the balloon race' : 'tell me about the race/what about the balloons/balloons race'
 }
