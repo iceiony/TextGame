@@ -25,6 +25,12 @@ class Wildcard extends Character
                     return @greet(entity)
                 if intention.isQuestion
                     return @askAbout(entity, intention.subject, intention.attribute)
+                    
+                return {
+                    input : intention.input
+                    type : intention.type
+                    text : "Wildcard : #{intention.input}"
+                }
             else 
                 return {
                     input : intention.input
