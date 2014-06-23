@@ -43,12 +43,17 @@ module.exports = ->
         The detective looks at the nails. They are clean and well cut. 
         """
         
+        'look at fist' : """
+        Wildcard looks at the man's fist. It is in a tight grip.
+        """
+        
         'check pulse' : """
         The detective checks the victim's pulse. He's deffinitely dead.
         Stevey wispers to Henry.
         Stevey : "Why is this wierdo checking the pulse". 
         """
         
+    @action 
         'touch body' : """
         Wildcard touches the body. He doesn't seem to be looking for anything in particular though.
         It feels cold to the touch.
@@ -92,7 +97,7 @@ module.exports = ->
         There is nothing else special about the back of the body.
         """
         
-        'look at fist' : ->
+        'open fist' : ->
             @text """
             Wildcard : Can I touch him ? 
             Chief    : Go ahead Willy. We've already collected the evidence need so far.
