@@ -47,8 +47,7 @@ module.exports.interpretAsync = (input)->
             verb = _(verbs).first()
             entity = _(nouns).filter((noun)-> noun != verb).last()
             if(not entity)
-                entity = containsEntity.exec(input)?[0]
-                entity = entity || 'implicit'
+                entity = containsEntity.exec(input)?[0] || 'implicit'
         
         if isMovementVerb.test(input) && ( isDirection.test(input) || containsEntity.test(input) )
             type = 'movement'
@@ -65,7 +64,7 @@ module.exports.interpretAsync = (input)->
             direction = isDirection.exec(input)?[0]
             lastWord  = _(tags).last().word
             lastNounWord = if helper.isNoun(lastWord) then lastWord
-            entity = containsEntity.exec(input)?[0] || lastNounWord || 'implicit'
+            entity = lastNounWord || 'implicit'
             
         if isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input) || (verbs = helper.getVerbs(input)).length == 0 || tags[0].tag == 'MD'
             type = 'dialogue'
