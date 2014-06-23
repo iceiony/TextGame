@@ -8,6 +8,8 @@ describe('Classifying observation intentions correctly', ->
             "examine environment"
             "check body"
             "inspect tractor"
+            "look more"
+            "search more"
         ]
 
         questions.forEach((input)->

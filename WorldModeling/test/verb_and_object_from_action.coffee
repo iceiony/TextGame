@@ -6,7 +6,6 @@ describe('Extracting the verb and entity from action',->
         {input:"punch Henry",verb:"punch",entity:"henry"}
         {input:"turn around body",verb:"turn",entity:"body"}
         {input:"open fist",verb:"open",entity:"fist"}
-        {input:"check fist",verb:"check",entity:"fist"}
     ]
     
     actions.forEach((action)->
