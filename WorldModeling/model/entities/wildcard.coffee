@@ -11,7 +11,7 @@ class Wildcard extends Character
     execute: (intention)->
         entity = environment.getObjectByName(intention.entity)
 
-        if intention.type != 'movement' && not @isNear(entity)
+        if intention.type != 'movement' && entity && not @isNear(entity)
             return requires: {
                 input : "go to #{intention.entity}"
                 entity: intention.entity

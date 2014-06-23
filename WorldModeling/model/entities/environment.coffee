@@ -79,6 +79,9 @@ module.exports.reactAsync = (intention)->
                 intention[key] = previousIntention[key]
             else
                 intention.entity = getDialogueDefaultByPriority()
+    else
+        for key,value of intention  when value == 'implicit'
+            intention[key] = previousIntention?[key] || 'implicit'
     previousIntention = intention
     
     reactions = []
