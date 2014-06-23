@@ -3,7 +3,9 @@ intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
 describe('Observing an entity that is not nearby', ->
-    environment.reset();
+    beforeEach(->
+        environment.reset()
+    )
 
     it('Looking at the body', (done)->
         input = 'look at the body'

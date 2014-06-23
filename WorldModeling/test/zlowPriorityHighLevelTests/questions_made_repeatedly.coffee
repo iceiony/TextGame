@@ -5,9 +5,11 @@ sinon = require 'sinon'
 
 
 describe('Asking re-occurring questions about objects and entities', ->
-
-    it('Asking the chief about the case (concept) should give a response', (done)->
+    beforeEach(->
         environment.reset()
+    )
+    
+    it('Asking the chief about the case (concept) should give a response', (done)->
         intent = undefined
         
         intention.interpretAsync('tell me about the case chief')
@@ -57,7 +59,6 @@ describe('Asking re-occurring questions about objects and entities', ->
 
     it('Asking the chief about a known entity but after at least 5 minutes', (done)->
         clock = sinon.useFakeTimers(0, "setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date")
-        environment.reset()
         intent = undefined
 
         intention.interpretAsync('tell me about the case chief')
@@ -92,7 +93,6 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
 
     it('Asking the chief about an unrelated thing repeatedly', (done)->
-        environment.reset()
         intent = undefined 
         intention.interpretAsync('tell me about the stars chief')
         .then((interpretation)->
@@ -120,7 +120,6 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
     
     it('Asking the chief things about himself - verb attribute',(done)->
-        environment.reset()
         intent = undefined 
         
         intention.interpretAsync('tell me what you think chief')
@@ -139,7 +138,6 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
     
     it('Asking the chief things about himself - noun attribute',(done)->
-        environment.reset()
         intent = undefined
         
         intention.interpretAsync('What is your age chief ?')

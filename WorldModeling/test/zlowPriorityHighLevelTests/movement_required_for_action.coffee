@@ -3,7 +3,9 @@ intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
 describe('Taking action up on an entity that is not nearby', ->
-    environment.reset();
+    beforeEach(->
+        environment.reset()
+    )
 
     it('Turn over the body', (done)->
         input = 'turn over the body'
@@ -21,8 +23,8 @@ describe('Taking action up on an entity that is not nearby', ->
             result = results.shift()
             assert.strictEqual("action",result.intention.type, "should put the original dialog intention");
             assert.strictEqual(input.toLowerCase(), result.intention.input , "should have the original input")
-        ).done(->
-            done()
+        ).done((result,error)->
+            done(error)
         )
     )
 )

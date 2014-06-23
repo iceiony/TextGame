@@ -3,7 +3,9 @@ intention = require '../../model/intention'
 environment = require '../../model/entities/environment'
 
 describe('Asking a question to a character that is not nearby', ->
-    environment.reset();
+    beforeEach(->
+        environment.reset()
+    )
 
     it('Asking the farmer how he is', (done)->
         input = 'Ask the farmer how he is'
