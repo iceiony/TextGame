@@ -10,17 +10,18 @@ class Wildcard extends Character
 
     execute: (intention)->
         entity = environment.getObjectByName(intention.entity)
+
+        if intention.type != 'movement' && not @isNear(entity)
+            return requires: {
+                input : "go to #{intention.entity}"
+                entity: intention.entity
+                type: 'movement'
+            }
+        
         switch  intention.type
             when 'movement'
                 return @move(entity)
             when 'dialogue'
-                if not @isNear(entity)
-                    return requires: {
-                        input : "go to #{intention.entity}"
-                        entity: intention.entity
-                        type: 'movement'
-                    }
-
                 if intention.isExclamation
                     return @greet(entity)
                 if intention.isQuestion
