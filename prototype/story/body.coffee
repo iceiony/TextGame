@@ -23,6 +23,7 @@ module.exports = ->
     
         'look at body' : """
         Willy looks around . 
+        
         No blood and no tracks to indicate that the body may have been dragged to that location.  
         There is a single set of footprints that clearly do not belong to the authorities. 
         """

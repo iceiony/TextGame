@@ -62,11 +62,11 @@ module.exports.getTransition = (lookup...) ->
         else break
     return result 
     
-module.exports.getDecorator = (lookup...)->
+module.exports.getDecorator = (match,lookup...)->
     result = undefined
     for path in lookup
         if context_decorators[path]
             result = context_decorators[path]
         else break
-    return result 
+    return result[match] 
     

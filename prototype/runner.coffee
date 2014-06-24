@@ -1,6 +1,7 @@
 q = require 'Q'
 util = require './util'
 {intention,environment,aggregator} = require('world-modeling')
+events = require('events')
 
 server_logging = require './server_logging/logging_client'
 colouriseDialog = require('./story/characters').colouriseDialog
@@ -26,43 +27,45 @@ module.exports.processAsync = (userInput) ->
     server_logging.record(userInput)
     deferred = q.defer()
 
-    model_reactions = undefined 
     intention.interpretAsync(userInput)
     .then((interpretation)->
         environment.reactAsync(interpretation)
     )
-    .then((reactions)->
-        model_reactions = reactions     
-        
-        transition_promises = []
-        for reaction in reactions 
-            intent = reaction.intention
-            transition = loaded_context.getTransition(intent.type,intent.entity)
-            transition_promises.push(transition?.matchAsync(intent.input))
-        transition_promises = transition_promises.filter((promise)-> promise)
-        
-        return q.all(transition_promises)
-    )
-    .done((transitions)->
-        model_reactions.map((element, index)->
-            if(transitions[index]?.match)
-                match = transitions[index]?.match
-                intent = model_reactions[index].intention
-                return loaded_context.getDecorator(intent.type, intent.entity)[match]
-            else
-                reaction = model_reactions[index]
-                text = aggregator.aggregate(reaction)
-                return util.toDecorator(text)
-        )
-        .forEach((decorator)->
-            decorator.call(node_builder)
-        )
-        
-        node = node_builder.extractNode()
-        loaded_context.loadNode(node)
-        current_text = node.text
+    .done((reactions)->
+        eventEmitter = new events.EventEmitter()
+        current_text = ""
 
-        deferred.resolve()
+        processNextReaction = (reaction)->
+            intent = reaction.intention
+            loaded_context
+            .getTransition(intent.type, intent.entity)
+            .matchAsync(intent.input)
+            .done((result)->
+                decorator = loaded_context.getDecorator(result.match, intent.type, intent.entity)
+                eventEmitter.emit('transition decorator', decorator)
+            )
+
+        eventEmitter.on('transition decorator', (decorator) ->
+            if not decorator
+                text = aggregator.aggregate(reaction)
+                decorator = util.toDecorator(text)
+
+            decorator.call(node_builder)
+            node = node_builder.extractNode()
+            loaded_context.loadNode(node)
+            current_text += node.text + "\n"
+
+            if reactions.length > 0
+                reaction = reactions.shift()
+                processNextReaction(reaction)
+            else
+                deferred.resolve()
+        )
+
+        reaction = reactions.shift()
+        processNextReaction(reaction)
+
     )
+    
 
     return deferred.promise;
