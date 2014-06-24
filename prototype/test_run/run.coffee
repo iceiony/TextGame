@@ -6,7 +6,7 @@ input = [
 ]
 
 describe('Running with the predefined input', ->
-    it('should not though any exception', (done)->
+    it('should not through any exception', (done)->
         console.log(runner.getCurrentText())
         
         executeNextInput = ->
