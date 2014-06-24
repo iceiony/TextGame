@@ -26,9 +26,13 @@ isObservationVerb = /^(inspect|examine|check|analyse|observe|look|search)/
 
 module.exports.interpretAsync = (input)-> 
     deferred = q.defer()
-    input = input.toLowerCase()
+    input = input.trim().toLowerCase()
 
     setImmediate(->
+        if(input.length == 0)
+            deferred.resolve({input: input, type: "silence" })
+            return;
+        
         direction = undefined 
         entity = undefined
         distance = undefined

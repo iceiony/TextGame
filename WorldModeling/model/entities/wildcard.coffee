@@ -32,6 +32,12 @@ class Wildcard extends Character
                     type : intention.type
                     text : "Wildcard : #{intention.input}"
                 }
+            when 'silence'
+                return {
+                    input : ""
+                    type : intention.type 
+                    text : "Wildcard does nothing."
+                }
             else 
                 return {
                     input : intention.input

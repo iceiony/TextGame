@@ -2,7 +2,7 @@ assert = require 'assert'
 intention = require '../model/intention'
 
 describe('Classifying plain action intentions correctly', ->
-    describe('by input structure that is a question', ->
+    describe('by input structure', ->
         actions = [
             "turn over body"
             "drive tractor"
