@@ -26,31 +26,31 @@ module.exports.processAsync = (userInput) ->
     server_logging.record(userInput)
     deferred = q.defer()
 
-    environment_reaction = undefined 
+    model_reactions = undefined 
     intention.interpretAsync(userInput)
     .then((interpretation)->
         environment.reactAsync(interpretation)
     )
     .then((reactions)->
-        environment_reaction = reactions     
+        model_reactions = reactions     
         
-        promises = []
+        transition_promises = []
         for reaction in reactions 
             intent = reaction.intention
             transition = loaded_context.getTransition(intent.type,intent.entity)
-            promises.push(transition?.matchAsync(intent.input))
-        promises = promises.filter((promise)-> promise)
+            transition_promises.push(transition?.matchAsync(intent.input))
+        transition_promises = transition_promises.filter((promise)-> promise)
         
-        return q.all(promises)
+        return q.all(transition_promises)
     )
-    .done((context_reaction)->
-        environment_reaction.map((element, index)->
-            if(context_reaction[index]?.match)
-                match = context_reaction[index]?.match
-                intent = environment_reaction[index].intention
+    .done((transitions)->
+        model_reactions.map((element, index)->
+            if(transitions[index]?.match)
+                match = transitions[index]?.match
+                intent = model_reactions[index].intention
                 return loaded_context.getDecorator(intent.type, intent.entity)[match]
             else
-                reaction = environment_reaction[index]
+                reaction = model_reactions[index]
                 text = aggregator.aggregate(reaction)
                 return util.toDecorator(text)
         )
