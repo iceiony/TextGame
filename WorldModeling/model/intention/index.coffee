@@ -82,9 +82,6 @@ module.exports.interpretAsync = (input)->
             attribute : attribute
 
             entity : entity
-            direction : direction
-            distance : distance
-            unit : unit
             verb : verb
         });
     )
