@@ -1,5 +1,5 @@
 _ = require 'lodash'
-helper = require './../pos_helper'
+pos = require './../pos_helper'
 containsEntity = require('./helper').containsEntity
 
 isDirection = /(north|south|east|west|left|right|up|down|around)/
@@ -14,7 +14,10 @@ module.exports.test = (input)->
 module.exports.analyse = (input)->
     type = 'movement'
     distance = 'implicit'
-    entity = containsEntity.exec(input)?[0]
+
+    nouns = pos.getNouns(input)
+    entity = containsEntity.exec(input)?[0] || _(nouns).last()
+    
     if distanceAndMetric.test(input)
         distanceString = distanceAndMetric.exec(input)[0].trim()
         unit = /[a-zA-Z]+/.exec(distanceString)[0]
