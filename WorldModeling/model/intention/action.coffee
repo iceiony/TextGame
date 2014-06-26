@@ -6,8 +6,8 @@ module.exports.test = (input)->
     return helper.getVerbs(input).length > 0
     
 module.exports.analyse = (input)->
-    verbs = helper.getVerbs(input)
     type = 'action'
+    verbs = helper.getVerbs(input)
     nouns = helper.getNouns(input)
     verb = _(verbs).first()
     entity = _(nouns).filter((noun)-> noun != verb).last()

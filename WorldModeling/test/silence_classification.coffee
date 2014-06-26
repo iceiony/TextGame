@@ -1,7 +1,7 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('No action classification for empty strings' , ->
+describe('Silence - No action classification for empty strings' , ->
 
         it('should be classified as "silence"', (done)->
             intention.interpretAsync('')

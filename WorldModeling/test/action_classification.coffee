@@ -4,20 +4,25 @@ intention = require '../model/intention'
 describe('Classifying plain action intentions correctly', ->
     describe('by input structure', ->
         actions = [
-            "turn over body"
-            "drive tractor"
-            "take match"
-            "punch farmer"
-            "talk to the farmer"
+            {input : "turn over body" , verb:"turn",entity:"body"}
+            {input : "drive tractor", verb:"drive",entity:"tractor"}
+            {input : "take match", verb:"take",entity:"match"}
+            {input : "punch farmer", verb:"punch",entity:"farmer"}
+            {input : "talk to the farmer", verb:"talk",entity:"farmer"}
         ]
 
-        actions.forEach((input)->
-            it(input, (done)->
-                intention.interpretAsync(input).done((res, err)->
-                    if (err) then throw err
+        actions.forEach((action)->
+            it(action.input, (done)->
+                intention.interpretAsync(action.input)
+                .then((res)->
                     assert.strictEqual(res.type, 'action', "For input #{res.input}")
-                    done()
+                    assert.strictEqual(res.verb, action.verb, "For input #{res.input}")
+                    assert.strictEqual(res.entity, action.entity, "For input #{res.input}")
+                )
+                .done((res,err)->
+                    done(err)
                 )
             ))
     )
+    
 )
