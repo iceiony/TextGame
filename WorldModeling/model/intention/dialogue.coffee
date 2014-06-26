@@ -40,13 +40,15 @@ module.exports.analyse = (input)->
     lastYouIndex = _(tags).findLastIndex((pair)-> isYou.test(pair.word))
     lastNounIndex = _(tags).findLastIndex((pair)-> pos.isNoun(pair.tag) && not containsCharacter.test(pair.word))
 
-    if( tags[0].tag == 'MD' || tags[0].word == 'did' ) && (lastNounIndex < 0 || lastNounIndex < firstVerbIndex  )
+    #1 rule: modal question "did you kill him ?"
+    if( tags[0].tag == 'MD'  && lastNounIndex < firstVerbIndex  )
         lastVerb = _(tags).filter((pair)-> pos.isVerb(pair.tag)).last()
         return currentResult.merge(
             subject : 'you'
             attribute:lastVerb?.word
         )
 
+    #2 rule: personal question "do you know him ?"
     if (lastYouIndex > firstVerbIndex)
         lastNounOrVerb = _(tags).filter((pair)-> pos.isNoun(pair.tag) || pos.isVerb(pair.tag)).last()
         return currentResult.merge(
@@ -54,7 +56,7 @@ module.exports.analyse = (input)->
             attribute: lastNounOrVerb?.word
         )
    
-        
+    #3 rule : normal question "ask about the body "
     lastNoun = _(tags).filter((pair)-> pos.isNoun(pair.tag) && not containsCharacter.test(pair.word)).last()
     subject = lastNoun?.word || 'implicit'
 
