@@ -8,6 +8,8 @@ describe('Determining the implicit character for dialogue depending on location'
         dialogueMock =
             input: "how are you"
             type : 'dialogue'
+            subtype : 'question'
+            
             entity : 'implicit'
             subject : 'you'
             attribute : 'are'

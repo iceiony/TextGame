@@ -8,12 +8,11 @@ isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
 isPronounDetected = /(you|your|my|me|i) /
 isYou = /(you|your)/
 
-
 module.exports.test = (input)->
     adjustedInput = input.replace(/[ ]he /g, " you ")
                          .replace(/[ ]is$/g, " are")
     tags = helper.tag(adjustedInput)
-    
+
     return isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input) || helper.getVerbs(input).length == 0 || tags[0].tag == 'MD'
 
 module.exports.analyse = (input)->
@@ -23,6 +22,11 @@ module.exports.analyse = (input)->
 
     type = 'dialogue'
     entity = containsCharacter.exec(input)?[0] || 'implicit'
+    
+    if isQuestion.test(input)
+        subtype = 'question'
+    if isExclamation.test(input)
+        subtype = 'exclamation'
 
     lastYouIndex = _(tags).findLastIndex((pair)-> isYou.test(pair.word))
     lastNounIndex = _(tags).findLastIndex((pair)-> helper.isNoun(pair.tag) && not containsCharacter.test(pair.word))
@@ -44,11 +48,12 @@ module.exports.analyse = (input)->
 
     return {
     input: input
+    
     type: type
+    subtype : subtype
+    
     entity: entity
     subject: subject
     attribute: attribute
 
-    isQuestion: isQuestion.test(input)
-    isExclamation: isExclamation.test(input)
     }

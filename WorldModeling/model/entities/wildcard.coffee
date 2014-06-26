@@ -8,6 +8,20 @@ class Wildcard extends Character
             name: "wildcard"
             location: { x: 20, y: 10 }
 
+    dialogue: (entity, intention)->
+        console.log intention
+        switch(intention.subtype)
+            when 'exclamation'
+                return @greet(entity)
+            when 'question'
+                return @askAbout(entity, intention.subject, intention.attribute)
+            else
+                return {
+                input: intention.input
+                type: intention.type
+                text: "Wildcard : #{intention.input}"
+                }
+            
     execute: (intention)->
         entity = environment.getObjectByName(intention.entity)
 
@@ -22,16 +36,7 @@ class Wildcard extends Character
             when 'movement'
                 return @move(entity)
             when 'dialogue'
-                if intention.isExclamation
-                    return @greet(entity)
-                if intention.isQuestion
-                    return @askAbout(entity, intention.subject, intention.attribute)
-                    
-                return {
-                    input : intention.input
-                    type : intention.type
-                    text : "Wildcard : #{intention.input}"
-                }
+                return @dialogue(entity,intention)
             when 'silence'
                 return {
                     input : ""

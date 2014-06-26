@@ -27,8 +27,7 @@ describe('Classifying dialogue intentions correctly', ->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
 
-                    assert.strictEqual(res.isQuestion, true, "Not classified as question #{res.input}")
-                    assert.strictEqual(res.isExclamation, false)
+                    assert.strictEqual(res.subtype, "question", "Not classified as question #{res.input}")
                     assert.strictEqual(res.entity, 'implicit')
 
                     if question.subject
@@ -85,8 +84,7 @@ describe('Classifying dialogue intentions correctly', ->
                 intention.interpretAsync(input).done((res, err)->
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
-                    assert.strictEqual(res.isExclamation, true, "Not classified as exclamation #{res.input}")
-                    assert.strictEqual(res.isQuestion, false)
+                    assert.strictEqual(res.subtype, 'exclamation', "Not classified as exclamation #{res.input}")
                     done()
                 )
             ))
