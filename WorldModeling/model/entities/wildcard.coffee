@@ -9,7 +9,6 @@ class Wildcard extends Character
             location: { x: 20, y: 10 }
 
     dialogue: (entity, intention)->
-        console.log intention
         switch(intention.subtype)
             when 'exclamation'
                 return @greet(entity)
