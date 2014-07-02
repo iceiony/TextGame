@@ -9,9 +9,10 @@ action = require './action'
 dialogue = require './dialogue'
 
 
-module.exports.interpretAsync = (input)->
+module.exports.interpretAsync = (input,lastTextOutput= "")->
     deferred = q.defer()
     input = input.trim().toLowerCase()
+    lastTextOutput = lastTextOutput.toLowerCase()
 
     setImmediate(->
         if (silence.test(input))
@@ -27,7 +28,7 @@ module.exports.interpretAsync = (input)->
             return
 
         if dialogue.test(input)
-            deferred.resolve(dialogue.analyse(input))
+            deferred.resolve(dialogue.analyse(input,lastTextOutput))
             return
 
         if action.test(input)

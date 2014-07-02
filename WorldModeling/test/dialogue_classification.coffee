@@ -89,4 +89,39 @@ describe('Classifying dialogue intentions correctly', ->
                 )
             ))
     )
+
+
+
+    describe('Setting implicit character when the last text output had a question from a character', ->
+        intentionInput = "i don't know"
+        lastTextOutputs = ["""
+        Chief : I wonder...
+        Henry : We don't know.
+                What do you think ? 
+        """
+        """
+        Chief : I wonder...
+        Henry : What do you think ? 
+        """
+        """
+        Chief : I wonder...
+        Henry : What do you think ? 
+        Henry asked the detective . 
+        """
+        ]
+        
+        lastTextOutputs.forEach((lastTextOutput)->
+            it('Should set the implicit character to the one that last asked the question',(done)->
+                intention.interpretAsync(intentionInput,lastTextOutput)
+                .then((interpretation)->
+                    assert.strictEqual(interpretation.type,"dialogue")
+                    assert.strictEqual(interpretation.entity,"henry","For last text \n#{lastTextOutput}")
+                )
+                .done((result,error)->
+                    done(error);
+                )
+            )
+        )
+        
+    )
 )

@@ -19,14 +19,27 @@ isStartedByModalWord =
         tags[0].tag == 'MD'
 
 
+entityFromLastQuestionAsked = (lastTextOutput)->
+    dialogueLines = _(lastTextOutput.split('\n')).filter( (line)->
+        return line.indexOf('  ') == 0 || line.indexOf(" : ") > 0 )
+
+    for line in dialogueLines.reverse().value()
+        if (isQuestion.test(line))
+            question = true
+        if(!question)
+            return undefined
+        else
+        if (containsCharacter.test(line))
+            return containsCharacter.exec(line)?[0]
+        
 module.exports.test = (input)->
     return isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input) || isFreeOfVerbs.test(input) || isStartedByModalWord.test(input)
 
-module.exports.analyse = (input)->
+module.exports.analyse = (input,lastTextOutput)->
     currentResult = 
         input : input
         type : 'dialogue'
-        entity : containsCharacter.exec(input)?[0] || 'implicit'
+        entity : containsCharacter.exec(input)?[0] || entityFromLastQuestionAsked(lastTextOutput) || 'implicit'
 
     if isExclamation.test(input)
         return currentResult.merge(subtype : 'exclamation')
