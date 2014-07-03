@@ -14,7 +14,7 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
     input = input.trim().toLowerCase()
     lastTextOutput = lastTextOutput.toLowerCase()
 
-    setImmediate(->
+    setImmediate(-> 
         if (silence.test(input))
             deferred.resolve(silence.analyse(input))
             return

@@ -1,5 +1,4 @@
 .idea
 node_modules
 bundle.min.js
-WorldModeling/js
-prototype/js
+*-out

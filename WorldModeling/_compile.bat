@@ -1,1 +1,0 @@
-coffee --output ./js/ --map  --compile ./
