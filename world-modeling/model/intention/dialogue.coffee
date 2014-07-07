@@ -2,6 +2,7 @@ _ = require 'lodash'
 pos = require './../pos_helper'
 
 containsCharacter = require('./helper').containsCharacter
+mergeToCurrent = require('./helper').mergeToCurrent
 
 isQuestion = /\?|what |where |why |how |ask |tell |did |are you/
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
@@ -40,6 +41,7 @@ module.exports.analyse = (input,lastTextOutput)->
         input : input
         type : 'dialogue'
         entity : containsCharacter.exec(input)?[0] || entityFromLastQuestionAsked(lastTextOutput) || 'implicit'
+        merge: mergeToCurrent
 
     if isExclamation.test(input)
         return currentResult.merge(subtype : 'exclamation')
