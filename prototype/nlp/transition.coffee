@@ -30,34 +30,37 @@ class Transition
         deferred = q.defer()
         @clasdifierPromise = deferred.promise;
 
-        setImmediate(->
-            logisticClassifier = new natural.LogisticRegressionClassifier();
-            for singleTransition in allTransitionStrings
-                if(singleTransition.trim().length == 0 )
-                    singleTransition = EMPTY_STRING_TRANSITION
-
-                transitionStrings = singleTransition.split('/')
-                transitionStrings = transitionStrings.map((string)->
-                    semanticRelated = thesaurus[string]?.split('/')
-                    semanticRelated = semanticRelated || []
-                    semanticRelated.push(string)
-                    return semanticRelated
-                )
-                transitionStrings = [].concat.apply([], transitionStrings) # flatten 
-                transitionStrings = transitionStrings.map((transitionString)->
-                    _sanitiseForTransition(transitionString))
-
-                transitionStrings.forEach((transitionString)->
-                    logisticClassifier.addDocument(transitionString, singleTransition))
-
-            logisticClassifier.train()
-            deferred.resolve(logisticClassifier))
+        setImmediate( ->
+            try
+                logisticClassifier = new natural.LogisticRegressionClassifier();
+                for singleTransition in allTransitionStrings
+                    if(singleTransition.trim().length == 0 )
+                        singleTransition = EMPTY_STRING_TRANSITION
+    
+                    transitionStrings = singleTransition.split('/')
+                    transitionStrings = transitionStrings.map((string)->
+                        semanticRelated = thesaurus[string]?.split('/')
+                        semanticRelated = semanticRelated || []
+                        semanticRelated.push(string)
+                        return semanticRelated
+                    )
+                    transitionStrings = [].concat.apply([], transitionStrings) # flatten 
+                    transitionStrings = transitionStrings.map((transitionString)->
+                        _sanitiseForTransition(transitionString))
+    
+                    transitionStrings.forEach((transitionString)->
+                        logisticClassifier.addDocument(transitionString, singleTransition))
+    
+                logisticClassifier.train()
+                deferred.resolve(logisticClassifier)
+            catch exception
+                deferred.reject(exception)
+        )
 
 
     matchAsync: (input)->
         deferred = q.defer();
-
-        @clasdifierPromise.done((classifier)->
+        @clasdifierPromise.done((classifier,error)->
             input = _sanitiseForTransition(input)
 
             matches = classifier.getClassifications(input)

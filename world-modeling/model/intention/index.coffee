@@ -15,26 +15,31 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
     lastTextOutput = lastTextOutput.toLowerCase()
 
     setImmediate(-> 
-        if (silence.test(input))
-            deferred.resolve(silence.analyse(input))
-            return
-
-        if (observation.test(input))
-            deferred.resolve(observation.analyse(input))
-            return
-
-        if (movement.test(input))
-            deferred.resolve(movement.analyse(input))
-            return
-
-        if dialogue.test(input)
-            deferred.resolve(dialogue.analyse(input,lastTextOutput))
-            return
-
-        if action.test(input)
-            deferred.resolve(action.analyse(input))
-            return
+        try
+            if (silence.test(input))
+                deferred.resolve(silence.analyse(input))
+                return
+    
+            if (observation.test(input))
+                deferred.resolve(observation.analyse(input))
+                return
+    
+            if (movement.test(input))
+                deferred.resolve(movement.analyse(input))
+                return
+    
+            if dialogue.test(input)
+                deferred.resolve(dialogue.analyse(input,lastTextOutput))
+                return
+    
+            if action.test(input)
+                deferred.resolve(action.analyse(input))
+                return
             
+            deferred.reject({Message:"Input should have matched an intention type"})
+        catch exception
+            deferred.reject(exception)
+        
     )
     return deferred.promise;
     
