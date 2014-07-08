@@ -55,18 +55,18 @@ module.exports.loadNode = (node)->
         prepareTransition('action')
 
 module.exports.getTransition = (lookup...) ->
-    result = undefined
-    for path in lookup
-        if context_transitions[path]
-            result = context_transitions[path]
+    result = context_transitions[lookup[0]]
+    for path in lookup[1..]
+        if result[path]
+            result = result[path]
         else break
     return result 
     
 module.exports.getDecorator = (match,lookup...)->
-    result = undefined
-    for path in lookup
-        if context_decorators[path]
-            result = context_decorators[path]
+    result = context_decorators[lookup[0]]
+    for path in lookup[1..]
+        if result[path]
+            result = result[path]
         else break
-    return result[match] 
+    return result?[match] 
     
