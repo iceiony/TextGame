@@ -118,7 +118,7 @@ farmer = ->
             The chief pulls Willy's coat a bit and wispers in his ear ? 
             Chief : What do you think willy? Think he did it  ?
             """
-            @dialogue('farmer')
+            @dialogue('chief')
                 'no': """
                 Willy wispers back .
                 Willy : No, not yet, but I need to question him more and find out what he was up to.
@@ -128,7 +128,7 @@ farmer = ->
                     Willy : Yes. For sure !
                     Chief : What about the body, why are all the bones broken ? What if he ran the fella over with his tractor ?
                     """
-                    @dialogue('farmer')
+                    @dialogue('chief')
                         'no' : """
                         Willy : I don't think so
                         Chief : Ok Will , I trust your judgement

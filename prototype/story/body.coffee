@@ -109,7 +109,7 @@ module.exports = ->
         
             Henry    : What do you think that means Willy ?
             """
-            @dialogue('chief')
+            @dialogue('henry')
                 'he was a smoker' : """
                 Wildcard : He smokes. 
                 Stevey : But why only half a match ? And why was it not used.

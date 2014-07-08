@@ -4,8 +4,8 @@ Character = require '../character'
 class Mark extends Character
     constructor: ->
         super 
-            name : "mark"
-            aliases : ["farmer","edd"]
+            name : "farmer"
+            aliases : ["mark","edd"]
             location  : { x: 3, y: 8 }
         @knowledge = 
             'you' : {

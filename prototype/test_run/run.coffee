@@ -1,8 +1,11 @@
 runner = require('../runner')
 
 input = [
-    "go to tractor"
-    "talk to farmer"
+    "go to farmer"
+    "are you drunk"
+    "no"
+    "yes"
+    "yes"
 ]
 
 describe('Running with the predefined input', ->

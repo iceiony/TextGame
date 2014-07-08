@@ -27,25 +27,27 @@ module.exports.processAsync = (userInput) ->
     server_logging.record(userInput)
     deferred = q.defer()
 
-    intention.interpretAsync(userInput)
+    intention.interpretAsync(userInput,current_text)
     .then((interpretation)->
         environment.reactAsync(interpretation)
     )
-    .done((reactions)->
+    .done((reactions,err)->
         eventEmitter = new events.EventEmitter()
         current_text = ""
 
         processNextReaction = (reaction)->
             intent = reaction.intention
+            entityCanonicalName  = environment.getObjectByName(intent.entity)?.name
+
             loaded_context
-            .getTransition(intent.type, intent.entity)
+            .getTransition(intent.type, entityCanonicalName)
             .matchAsync(intent.input)
-            .done((result)->
-                decorator = loaded_context.getDecorator(result.match, intent.type, intent.entity)
-                eventEmitter.emit('transition decorator', decorator)
+            .done((result,err)->
+                decorator = loaded_context.getDecorator(result.match, intent.type, entityCanonicalName)
+                eventEmitter.emit('transition decorator', decorator,reaction)
             )
 
-        eventEmitter.on('transition decorator', (decorator) ->
+        eventEmitter.on('transition decorator', (decorator,reaction) ->
             if not decorator
                 text = aggregator.aggregate(reaction)
                 decorator = util.toDecorator(text)
@@ -56,15 +58,12 @@ module.exports.processAsync = (userInput) ->
             current_text += node.text + "\n"
 
             if reactions.length > 0
-                reaction = reactions.shift()
-                processNextReaction(reaction)
+                processNextReaction(reactions.shift())
             else
                 deferred.resolve()
         )
 
-        reaction = reactions.shift()
-        processNextReaction(reaction)
-
+        processNextReaction(reactions.shift())
     )
     
 
