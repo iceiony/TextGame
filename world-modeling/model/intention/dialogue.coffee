@@ -6,7 +6,7 @@ mergeToCurrent = require('./helper').mergeToCurrent
 
 isQuestion = /\?|what |where |why |how |ask |tell |did |are you/
 isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
-isPronounDetected = /(you|your|my|me|i) /
+isPronounDetected = /(^| )(you|your|my|me|i|he) /
 isYou = /(you|your)/
 
 
@@ -70,10 +70,15 @@ module.exports.analyse = (input,lastTextOutput)->
             subject:'you'
             attribute: lastNounOrVerb?.word
         )
-   
-    #3 rule : normal question "ask about the body "
+
+    #3 rule : normal question or statement that has a subject "ask about the body "
     lastNoun = _(tags).filter((pair)-> pos.isNoun(pair.tag) && not containsCharacter.test(pair.word)).last()
     subject = lastNoun?.word || 'implicit'
+
+    #4 rule : contains personal pronoun but is not a question
+    if isPronounDetected.test(input) && !isQuestion.test(input)
+        currentResult.merge(subtype : 'statement')
+    
 
     return currentResult.merge(
         subject: subject
