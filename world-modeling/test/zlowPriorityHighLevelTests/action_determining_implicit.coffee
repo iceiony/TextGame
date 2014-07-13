@@ -10,7 +10,7 @@ describe('Acting on an implicit entity after moving to it',->
     it('should replace the implicit entity with the correct one' , (done)->
         intention.interpretAsync("walk to body")
         .then((intent)->
-            environment.reactAsync(intent)
+            environment.reactAsync(intent.shift())
         )
         .then((results)->
             result = results.shift()
@@ -18,7 +18,8 @@ describe('Acting on an implicit entity after moving to it',->
 
             intention.interpretAsync("turn it over")
         )
-        .then((intent)->
+        .then((intentions)->
+            intent = intentions.shift()
             assert.strictEqual("action",intent.type)
             assert.strictEqual("implicit",intent.entity)
 

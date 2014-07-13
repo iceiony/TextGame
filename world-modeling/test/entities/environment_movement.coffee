@@ -10,8 +10,8 @@ describe('Interpreting movement in environment',->
     it('moving to the body',(done)->
         input = 'go to body'
         intention.interpretAsync(input)
-        .then((interpretation)->
-            environment.reactAsync(interpretation))
+        .then((intentions)->
+            environment.reactAsync(intentions.shift()))
         .done((results)->
             result = results.shift()
             assert.strictEqual("Wildcard walks to the body.",result.text)

@@ -12,12 +12,15 @@ describe('Extracting entity or direction of interest from observation', ->
     observations.forEach((observation)->
         it(observation.input, (done)->
             intention.interpretAsync(observation.input)
-            .done((result)->
+            .then((intentions)->
+                result = intentions.shift()
                 assert.strictEqual('observation',result.type,"For input : #{result.input}")
                 assert.strictEqual(observation.direction,result.direction ,"For input : #{result.input}")
                 if observation.entity 
                     assert.strictEqual(observation.entity, result.entity, "For input : #{result.input} ")
-                done()
+            )
+            .done((res,err)->
+                done(err)
             )
         )
     )

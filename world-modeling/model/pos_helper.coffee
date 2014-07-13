@@ -33,22 +33,53 @@ module.exports.getNouns = (input)->
         if tag.lexicon[word] && isNoun(word)
             result.push(word)
     result
-    
+
 module.exports.tag = (input)->
-    input = input.replace(' ok',' OK')
-    result =  ( { word:part[0] , tag:part[1] } for part in tag.tag(lex.lex(input))) 
-    return result ; 
-    
+    input = input.replace(' ok', ' OK')
+    result = ( { word: part[0], tag: part[1] } for part in tag.tag(lex.lex(input)))
+    return result;
+
 module.exports.isNoun = (wordOrTag) ->
     isWord = tag.lexicon[wordOrTag]
     if(isWord)
-        return (isWord[0] in nounTags)    
+        return (isWord[0] in nounTags)
     else
         return (wordOrTag in nounTags)
+
+isEnumeration = /(and|or|,)/
+module.exports.splitPhrase = (input) ->
+    if(input.indexOf(',') > 0 )
+        #handle comma special case
+        #wish i could make this simpler : move x < y < z as positions of the parts to select a potential sub sentence 
+        parts = lex.lex(input)
+        sentences = []
+        chunkAlerted = false
+        x = y = z = 0
+        for part in parts
+            if (not chunkAlerted && part == ',' && y - x >= 3 )
+                chunkAlerted = true
+            else
+                z = Math.max(y, z)
+                if (not chunkAlerted)
+                    y++
+                else
+                    z++
+                    if( z - y == 3 )
+                        chunkAlerted = false
+                        if isEnumeration.test(parts[y+1..z].join(' '))
+                            y = z
+                        else
+                            sentences.push(parts[x..y-1].join(' '))
+                            x = y + 1
+                            y = z
+        if (x<y)
+            sentences.push(parts[x..y].join(' '))
+        return sentences
+    return [input]
 
 module.exports.isVerb = (wordOrTag) ->
     isWord = tag.lexicon[wordOrTag]
     if(isWord)
         return (isWord[0] in verbTags)
-    else 
+    else
         return (wordOrTag in verbTags)

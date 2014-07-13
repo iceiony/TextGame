@@ -23,7 +23,9 @@ describe('Classifying dialogue intentions correctly', ->
 
         questions.forEach((question)->
             it(question.input, (done)->
-                intention.interpretAsync(question.input).done((res, err)->
+                intention.interpretAsync(question.input)
+                .done((intentions, err)->
+                    res = intentions.shift()
                     if (err) then throw err
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
 
@@ -54,7 +56,8 @@ describe('Classifying dialogue intentions correctly', ->
         questions.forEach((question)->
             it(question.input, (done)->
                 intention.interpretAsync(question.input)
-                .then((res)->
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
                     assert.strictEqual(res.entity, 'implicit')
 
@@ -81,11 +84,15 @@ describe('Classifying dialogue intentions correctly', ->
         ]
         exclamation.forEach((input)->
             it(input, (done)->
-                intention.interpretAsync(input).done((res, err)->
-                    if (err) then throw err
+                intention.interpretAsync(input)
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
                     assert.strictEqual(res.subtype, 'exclamation', "Not classified as exclamation #{res.input}")
-                    done()
+                    
+                )
+                .done((res,err)->
+                    done(err)
                 )
             ))
     )
@@ -113,7 +120,8 @@ describe('Classifying dialogue intentions correctly', ->
         lastTextOutputs.forEach((lastTextOutput)->
             it('Should set the implicit character to the one that last asked the question',(done)->
                 intention.interpretAsync(intentionInput,lastTextOutput)
-                .then((interpretation)->
+                .then((intentions)->
+                    interpretation = intentions.shift()
                     assert.strictEqual(interpretation.type,"dialogue")
                     assert.strictEqual(interpretation.entity,"henry","For last text \n#{lastTextOutput}")
                 )

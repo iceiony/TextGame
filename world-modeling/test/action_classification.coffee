@@ -14,7 +14,8 @@ describe('Classifying plain action intentions correctly', ->
         actions.forEach((action)->  
             it(action.input, (done)->  
                 intention.interpretAsync(action.input) 
-                .then((res)->
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'action' , "For input #{res.input}")
                     assert.strictEqual(res.verb, action.verb, "For input #{res.input}")
                     assert.strictEqual(res.entity, action.entity, "For input #{res.input}")

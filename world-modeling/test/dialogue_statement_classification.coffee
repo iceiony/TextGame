@@ -12,7 +12,8 @@ describe('Dialogue Statements - should be classified correctly',->
             it(statement.input,(done)->
             
                 intention.interpretAsync(statement.input)
-                .then((result)->
+                .then((intentions)->
+                    result = intentions.shift()
                     assert.strictEqual(result.type,'dialogue',"Input : #{statement.input}");
                     assert.strictEqual(result.subtype,'statement',"Input: #{statement.input}")
                 )

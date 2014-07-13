@@ -14,7 +14,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         
         intention.interpretAsync('tell me about the case chief')
         .then((interpretation)->
-            intent = interpretation
+            intent = interpretation.shift()
             environment.reactAsync(intent)
         )
         .then((results)-># 0 - hidden reaction swallowed by the game
@@ -58,37 +58,43 @@ describe('Asking re-occurring questions about objects and entities', ->
     )
 
     it('Asking the chief about a known entity but after at least 5 minutes', (done)->
-        clock = sinon.useFakeTimers(0, "setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date")
         intent = undefined
+        clock = sinon.useFakeTimers(0, "setTimeout")
 
         intention.interpretAsync('tell me about the case chief')
         .then((interpretation)->
-            intent = interpretation
+            intent = interpretation.shift()
             environment.reactAsync(intent)
         )
         .then((results)->#0 - knowledge share here
             environment.reactAsync(intent)
         )
-        .done((results)->#1 - no more knowledge here
-            result = results.shift()
-            assert.strictEqual(result.chain[0].text, "Chief : There isn't anything more I can tell you about it.")
-            clock.tick(5 * 60 * 1000)
+        .done((results,err)->#1 - no more knowledge here
+            try
+                if err then throw err
 
-            setTimeout(->
-                environment.reactAsync(intent)
-                .then((results)-> #2 - reminder here 
-                    result = results.shift()
-                    try
-                        assert.notEqual(result.chain[0].text.indexOf("Chief : Like I said."), -1, result.chain[0].text)
-                        assert.notEqual(result.chain[0].text.indexOf("We have a body and need to find out what happened."),-1, result.chain[0].text)
-                    catch error
-                        err = error
-                    finally
-                        clock.restore()
-                        done(err)
-                )
-            , 1000)
-            clock.tick(1000)
+                result = results.shift()
+                assert.strictEqual(result.chain[0].text, "Chief : There isn't anything more I can tell you about it.")
+                clock.tick(5 * 60 * 1000)
+        
+                setTimeout(->
+                    environment.reactAsync(intent)
+                    .then((results)-> #2 - reminder here 
+                        result = results.shift()
+                        try
+                            assert.notEqual(result.chain[0].text.indexOf("Chief : Like I said."), -1, result.chain[0].text)
+                            assert.notEqual(result.chain[0].text.indexOf("We have a body and need to find out what happened."),-1, result.chain[0].text)
+                        catch error
+                            err = error
+                        finally
+                            clock.restore()
+                            done(err)
+                    )
+                , 1000)
+                clock.tick(1000)
+            catch err
+                clock.restore()
+                done(err)
         )
     )
 
@@ -96,7 +102,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         intent = undefined 
         intention.interpretAsync('tell me about the stars chief')
         .then((interpretation)->
-            intent = interpretation
+            intent = interpretation.shift()
             environment.reactAsync(intent)
         )
         .then((results)->
@@ -114,8 +120,8 @@ describe('Asking re-occurring questions about objects and entities', ->
             result = results.shift()
             assert.strictEqual(result.chain[0].text, "Chief : No !")
         )
-        .done(->
-            done()
+        .done((res,err)->
+            done(err)
         )
     )
     
@@ -124,7 +130,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         
         intention.interpretAsync('tell me what you think chief')
         .then((interpretation)->
-            intent = interpretation
+            intent = interpretation.shift()
             environment.reactAsync(intent)
         )
         .then((results)->
@@ -132,8 +138,8 @@ describe('Asking re-occurring questions about objects and entities', ->
             assert.strictEqual(result.text,"Wildcard : What do you think Chief ?")
             assert.strictEqual(result.chain[0].text, 'Chief : I think you should look at the body.')
         )
-        .done(->
-            done()
+        .done((res,err)->
+            done(err)
         )
     )
     
@@ -142,7 +148,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         
         intention.interpretAsync('What is your age chief ?')
         .then((interpretation)->
-            intent = interpretation
+            intent = interpretation.shift()
             environment.reactAsync(intent)
         )
         .then((results)->
@@ -150,8 +156,8 @@ describe('Asking re-occurring questions about objects and entities', ->
             assert.strictEqual(result.text,"Wildcard : What is your age Chief ?")
             assert.strictEqual(result.chain[0].text, "Chief : My age is 57, boy.")
         )
-        .done(->
-            done()
+        .done((res,err)->
+            done(err)
         )
     )
    

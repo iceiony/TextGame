@@ -11,7 +11,7 @@ describe('Observing an entity that is not nearby', ->
         input = 'look at the body'
         intention.interpretAsync(input)
         .then((interpretation)->
-            environment.reactAsync(interpretation)
+            environment.reactAsync(interpretation.shift())
         )
         .then((results)->
             result = results.shift()

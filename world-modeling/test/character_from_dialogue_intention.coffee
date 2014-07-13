@@ -20,7 +20,8 @@ describe("Extracting character of interest from dialogue", ->
     dialogue.forEach((testCase)->
         it(testCase.input, (done)->
             intention.interpretAsync(testCase.input)
-            .done((result)->
+            .done((results)->
+                result = results.shift()
                 assert.strictEqual(result.type, 'dialogue', "For input : #{result.input}")
                 assert.strictEqual(result.entity,testCase.entity)
                 if testCase.subject

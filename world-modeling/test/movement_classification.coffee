@@ -4,20 +4,23 @@ intention = require '../model/intention'
 describe('Classifying movement intentions correctly', ->
     describe('by actions and known entities ', ->
         movements = [
-            {input :"go to tractor", entity : "tractor"}
-            {input :"walk to farmer", entity : "farmer"}
-            {input :"go to body" , entity : "body"}
+            {input: "go to tractor", entity: "tractor"}
+            {input: "walk to farmer", entity: "farmer"}
+            {input: "go to body", entity: "body"}
         ]
 
         movements.forEach((movement)->
             it(movement.input, (done)->
-                intention.interpretAsync(movement.input).done((res, err)->
-                    if (err) then throw err
+                intention.interpretAsync(movement.input)
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
-                    assert.strictEqual(res.entity , movement.entity, "For input : #{res.input}")
-                    done()
+                    assert.strictEqual(res.entity, movement.entity, "For input : #{res.input}")
                 )
-            ))
+                .done((res, err)->
+                    done(err))
+            )
+        )
     )
 
     describe('by actions and unpredicted entities ( unknown ) ', ->
@@ -29,7 +32,8 @@ describe('Classifying movement intentions correctly', ->
         movements.forEach((movement)->
             it(movement.input, (done)->
                 intention.interpretAsync(movement.input)
-                .then((res)->
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
                     assert.strictEqual(res.entity , movement.entity, "For input : #{res.input}")
                 )
@@ -49,12 +53,15 @@ describe('Classifying movement intentions correctly', ->
         ]
         directions.forEach((direction)->
             it(direction.input, (done)->
-                intention.interpretAsync(direction.input).done((res, err)->
-                    if (err) then throw err
+                intention.interpretAsync(direction.input)
+                .then((intentions)->
+                    res = intentions.shift()
                     assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
                     assert.strictEqual(res.distance, direction.distance)
                     assert.strictEqual(res.unit, direction.unit)
-                    done()
+                )
+                .done((res,err)->
+                    done(err)
                 )
             ))
     )

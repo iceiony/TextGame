@@ -11,7 +11,7 @@ describe('Taking action up on an entity that is not nearby', ->
         input = 'turn over the body'
         intention.interpretAsync(input)
         .then((interpretation)->
-            environment.reactAsync(interpretation)
+            environment.reactAsync(interpretation.shift())
         )
         .then((results)->
             result = results.shift()

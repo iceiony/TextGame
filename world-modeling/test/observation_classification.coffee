@@ -14,10 +14,13 @@ describe('Classifying observation intentions correctly', ->
 
         questions.forEach((input)->
             it(input, (done)->
-                intention.interpretAsync(input).done((res, err)->
-                    if (err) then throw err
+                intention.interpretAsync(input)
+                .then((res)->
+                    res = res.shift()
                     assert.strictEqual(res.type, 'observation', "For input : #{res.input}")
-                    done()
+                )
+                .done((res,err)->
+                    done(err);
                 )
             ))
     )
