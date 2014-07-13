@@ -46,8 +46,12 @@ module.exports.isNoun = (wordOrTag) ->
     else
         return (wordOrTag in nounTags)
 
-isEnumeration = /(and|or|,)/
+isEnumerationPart = /(and|or|,)/
 module.exports.splitPhrase = (input) ->
+    
+    if(input.indexOf('.') > 0 && input.indexOf('.') < input.length-1 ) 
+        return input.split('.').map((sentence)->sentence.trim()) 
+        
     if(input.indexOf(',') > 0 )
         #handle comma special case
         #wish i could make this simpler : move x < y < z as positions of the parts to select a potential sub sentence 
@@ -57,6 +61,7 @@ module.exports.splitPhrase = (input) ->
         x = y = z = 0
         for part in parts
             if (not chunkAlerted && part == ',' && y - x >= 3 )
+                #prepare for new sentence if comma and previous chunk had 3 words
                 chunkAlerted = true
             else
                 z = Math.max(y, z)
@@ -66,7 +71,8 @@ module.exports.splitPhrase = (input) ->
                     z++
                     if( z - y == 3 )
                         chunkAlerted = false
-                        if isEnumeration.test(parts[y+1..z].join(' '))
+                        if isEnumerationPart.test(parts[y+1..z].join(' '))
+                            #if next 3 words are part of an enumeration format don't consider a new sentence  
                             y = z
                         else
                             sentences.push(parts[x..y-1].join(' '))
