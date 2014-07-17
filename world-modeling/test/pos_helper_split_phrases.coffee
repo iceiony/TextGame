@@ -1,5 +1,5 @@
 assert = require 'assert'
-helper = require '../../model/pos_helper'
+helper = require '../model/pos_helper'
 
 describe('PosHelper - When splitting input that is multiple sentences',->
     it('Should split phrases separated by coma',(done)->
