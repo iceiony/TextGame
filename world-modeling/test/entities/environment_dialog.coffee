@@ -6,9 +6,8 @@ describe('Interpreting dialogue in environment',->
 
     it('Greeting the chief should give a response',(done)->
         intention.interpretAsync('Hello chief')
-        .then((intentions)->
-            environment.reactAsync(intentions.shift())
-        )
+        .then((interpretation)->
+            environment.reactAsync(interpretation))
         .done((results)->
             result = results.shift()
             assert.strictEqual("Wildcard : Hello Chief.",result.text)
@@ -18,8 +17,8 @@ describe('Interpreting dialogue in environment',->
 
     it('Asking the chief about the case (entity) should give a response',(done)->
         intention.interpretAsync('tell me about the body chief')
-        .then((intentions)->
-            environment.reactAsync(intentions.shift())
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
         )
         .then((results)-> # 0 - hidden output swallowed by story  
             result = results.shift()
@@ -29,8 +28,8 @@ describe('Interpreting dialogue in environment',->
 
             intention.interpretAsync('tell me more')
         )
-        .then((intentions)->
-            environment.reactAsync(intentions.shift())
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
         )
         .then((results)->
             result = results.shift()
@@ -38,8 +37,8 @@ describe('Interpreting dialogue in environment',->
 
             intention.interpretAsync('anything else?')
         )
-        .then((intentions)->
-            environment.reactAsync(intentions.shift())
+        .then((interpretation)->
+            environment.reactAsync(interpretation)
         )
         .done((results)->
             result = results.shift()

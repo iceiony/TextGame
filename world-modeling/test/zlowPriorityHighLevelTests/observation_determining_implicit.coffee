@@ -10,7 +10,7 @@ describe('Observing an implicit entity after moving to it',->
     it('should replace the implicit entity with the correct one' , (done)->
         intention.interpretAsync("walk to body")
         .then((intent)->
-            environment.reactAsync(intent.shift())            
+            environment.reactAsync(intent)            
         )
         .then((results)->
             result = results.shift()
@@ -18,9 +18,8 @@ describe('Observing an implicit entity after moving to it',->
             
             intention.interpretAsync("look at it")
         )
-        .then((intentions)->
-            intent = intentions.shift()
-            
+        .then((intent)->
+            intent = intent.shift()
             assert.strictEqual("observation",intent.type)
             assert.strictEqual("implicit",intent.entity)
             

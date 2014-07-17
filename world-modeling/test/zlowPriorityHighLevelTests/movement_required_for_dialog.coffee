@@ -11,7 +11,7 @@ describe('Asking a question to a character that is not nearby', ->
         input = 'Ask the farmer how he is'
         intention.interpretAsync(input)
         .then((interpretation)->
-            environment.reactAsync(interpretation.shift())
+            environment.reactAsync(interpretation)
         )
         .then((results)->
             result = results.shift()

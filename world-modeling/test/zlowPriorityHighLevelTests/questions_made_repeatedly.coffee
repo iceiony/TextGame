@@ -14,7 +14,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         
         intention.interpretAsync('tell me about the case chief')
         .then((interpretation)->
-            intent = interpretation.shift()
+            intent = interpretation
             environment.reactAsync(intent)
         )
         .then((results)-># 0 - hidden reaction swallowed by the game
@@ -52,8 +52,8 @@ describe('Asking re-occurring questions about objects and entities', ->
             result = results.shift()
             assert.strictEqual(result.chain[0].text, "Chief : That's it Wildcard , you're off the case. Go home and take your medication and have a good rest.")
         )
-        .done(->
-            done() 
+        .done((res,err)->
+            done(err) 
         )
     )
 
@@ -63,7 +63,7 @@ describe('Asking re-occurring questions about objects and entities', ->
 
         intention.interpretAsync('tell me about the case chief')
         .then((interpretation)->
-            intent = interpretation.shift()
+            intent = interpretation
             environment.reactAsync(intent)
         )
         .then((results)->#0 - knowledge share here
@@ -102,7 +102,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         intent = undefined 
         intention.interpretAsync('tell me about the stars chief')
         .then((interpretation)->
-            intent = interpretation.shift()
+            intent = interpretation
             environment.reactAsync(intent)
         )
         .then((results)->
@@ -129,8 +129,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         intent = undefined 
         
         intention.interpretAsync('tell me what you think chief')
-        .then((interpretation)->
-            intent = interpretation.shift()
+        .then((intent)->
             environment.reactAsync(intent)
         )
         .then((results)->
@@ -147,8 +146,7 @@ describe('Asking re-occurring questions about objects and entities', ->
         intent = undefined
         
         intention.interpretAsync('What is your age chief ?')
-        .then((interpretation)->
-            intent = interpretation.shift()
+        .then((intent)->
             environment.reactAsync(intent)
         )
         .then((results)->

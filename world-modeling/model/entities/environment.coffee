@@ -70,33 +70,37 @@ module.exports.reset = ->
         Policemen = require('./policemen').new()
     ]
 
-module.exports.reactAsync = (intention)->
+module.exports.reactAsync = (intentions)->
     deferred = q.defer()
 
-    if intention.type == 'dialogue'
-        for key,value of intention  when value == 'implicit'
-            if previousIntention?.type == 'dialogue'
-                intention[key] = previousIntention[key]
-            else
-                intention.entity = getDialogueDefaultByPriority()
-    else
-        for key,value of intention  when value == 'implicit'
-            intention[key] = previousIntention?[key] || 'implicit'
-    previousIntention = intention
+    if intentions && not Array.isArray(intentions) 
+        intentions = [intentions]
     
     reactions = []
-    react = wildcard.execute(intention)
-    if react.requires
-        requiresIntention = react.requires
-        react = wildcard.execute(requiresIntention)
-        react.intention = requiresIntention
-        reactions.push(react)
+    for intention in intentions
+        if intention.type == 'dialogue'
+            for key,value of intention  when value == 'implicit'
+                if previousIntention?.type == 'dialogue'
+                    intention[key] = previousIntention[key]
+                else
+                    intention.entity = getDialogueDefaultByPriority()
+        else
+            for key,value of intention  when value == 'implicit'
+                intention[key] = previousIntention?[key] || 'implicit'
+        previousIntention = intention
+        
         react = wildcard.execute(intention)
-    react.intention = intention
-    reactions.push(react)
-    
-    for react in reactions 
-        react.chain = getChain(react)
+        if react.requires
+            requiresIntention = react.requires
+            react = wildcard.execute(requiresIntention)
+            react.intention = requiresIntention
+            reactions.push(react)
+            react = wildcard.execute(intention)
+        react.intention = intention
+        reactions.push(react)
+        
+        for react in reactions 
+            react.chain = getChain(react)
         
     deferred.resolve(reactions)
     
