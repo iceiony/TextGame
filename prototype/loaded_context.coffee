@@ -5,6 +5,7 @@ context_decorators = {
     observation: {}
     movement: {}
     action: {}
+    silence : {}
 }
 
 context_transitions = {
@@ -12,6 +13,7 @@ context_transitions = {
     observation: {}
     movement: {}
     action: {}
+    silence : undefined
 }
 
 prepareTransition = (type, character = undefined)->
@@ -20,6 +22,8 @@ prepareTransition = (type, character = undefined)->
             phrases = Object.keys(context_decorators.dialogue[character])
             if phrases?.length > 0
                 context_transitions.dialogue[character] = transition_factory.build(phrases)
+        when 'silence'
+            context_transitions.silence = transition_factory.build([''])
         else
             phrases = Object.keys(context_decorators[type])
             if phrases?.length > 0
@@ -46,6 +50,10 @@ module.exports.loadNode = (node)->
     for input,decorator of node.action
         actionAdded = true
         context_decorators.action[input] = decorator
+        
+    if (node.silence)
+       context_decorators.silence = { "" : node.silence } 
+       prepareTransition('silence')
 
     if movementAdded
         prepareTransition('movement')
@@ -60,6 +68,7 @@ module.exports.getTransition = (lookup...) ->
         if result[path]
             result = result[path]
         else break
+            
     return result 
     
 module.exports.getDecorator = (match,lookup...)->

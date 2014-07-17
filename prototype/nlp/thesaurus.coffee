@@ -36,4 +36,6 @@ module.exports = {
     'cause of death' : 'death cause/medical exam/examination/post morten exam'
     'about the broken bones' : 'tell me about the broken bones/broken bones'
     'ask about the balloon race' : 'tell me about the race/what about the balloons/balloons race'
+    'i am good': 'i am doing good/i am fine thanks/doing alright/fine'
+    'not so good': 'horrible/not very good/terrible'
 }

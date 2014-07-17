@@ -10,6 +10,7 @@ class NodeBuilder
             observation: {}
             movement: {}
             action: {}
+            silence: undefined
             text : ""
         }
 
@@ -34,6 +35,9 @@ class NodeBuilder
     action : (phrases)->
         for input , output of phrases
             @node.action[input] = util.toDecorator(output)
+            
+    silence : (output)->
+        @node.silence = util.toDecorator(output) 
 
     extractNode:()->
         current_node = @node
