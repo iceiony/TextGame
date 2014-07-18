@@ -39,13 +39,15 @@ module.exports.processAsync = (userInput) ->
             intent = reaction.intention
             entityCanonicalName  = environment.getObjectByName(intent.entity)?.name
 
-            loaded_context
-            .getTransition(intent.type, entityCanonicalName)
-            .matchAsync(intent.input)
-            .done((result,err)->
-                decorator = loaded_context.getDecorator(result.match, intent.type, entityCanonicalName)
-                eventEmitter.emit('transition decorator', decorator,reaction)
-            )
+            transition = loaded_context.getTransition(intent.type, entityCanonicalName)
+            console.log reaction
+            if transition.matchAsync != undefined 
+                transition.matchAsync(intent.input).done((result,err)->
+                    decorator = loaded_context.getDecorator(result.match, intent.type, entityCanonicalName)
+                    eventEmitter.emit('transition decorator', decorator,reaction)
+                )
+            else
+                eventEmitter.emit('transition decorator', undefined, reaction)
 
         eventEmitter.on('transition decorator', (decorator,reaction) ->
             if not decorator
