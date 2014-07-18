@@ -9,7 +9,7 @@ class Anne extends Character
 
         @knowledge =
             'case' : {known:["we have a body"]}
-            'body' : {known:["we don't know much with ought an autopsy"]}
+            'body' : {known:["we don't know much without an autopsy"]}
             'fuck' : {known:["Oi!"]}
             'tits' : {known:["Excuse me !?"]}
             'you' :
