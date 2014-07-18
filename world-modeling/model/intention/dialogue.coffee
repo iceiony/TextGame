@@ -19,6 +19,9 @@ isStartedByModalWord =
         tags = pos.tag(input)
         tags[0].tag == 'MD'
 
+isSingleWordAnswerToQuestion = (input,lastTextOutput)->
+   return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
+        
 
 entityFromLastQuestionAsked = (lastTextOutput)->
     dialogueLines = _(lastTextOutput.split('\n')).filter( (line)->
@@ -33,8 +36,13 @@ entityFromLastQuestionAsked = (lastTextOutput)->
         if (containsCharacter.test(line))
             return containsCharacter.exec(line)?[0]
         
-module.exports.test = (input)->
-    return isQuestion.test(input) || isExclamation.test(input) || isPronounDetected.test(input) || isFreeOfVerbs.test(input) || isStartedByModalWord.test(input)
+module.exports.test = (input,lastTextOutput)->
+    return isQuestion.test(input) || 
+        isExclamation.test(input) || 
+        isPronounDetected.test(input) || 
+        isFreeOfVerbs.test(input) || 
+        isStartedByModalWord.test(input) ||
+        isSingleWordAnswerToQuestion(input,lastTextOutput)
 
 module.exports.analyse = (input,lastTextOutput)->
     currentResult = 

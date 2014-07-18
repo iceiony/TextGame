@@ -34,7 +34,7 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
                     intentions.push(movement.analyse(part))
                     continue
         
-                if dialogue.test(part)
+                if dialogue.test(part,lastTextOutput)
                     intentions.push(dialogue.analyse(part,lastTextOutput))
                     continue
         
