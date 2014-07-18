@@ -81,7 +81,8 @@ module.exports.analyse = (input,lastTextOutput)->
 
     #2 rule: personal question "do you know him ?"
     if (lastYouIndex > firstVerbIndex)
-        lastNounOrVerb = _(tags).filter((pair)-> pos.isNoun(pair.tag) || pos.isVerb(pair.tag)).last()
+        lastNounOrVerb = _(tags).filter((pair)-> pos.isNoun(pair.tag) || pos.isVerb(pair.tag))
+                                .filter((pair)-> not containsCharacter.test(pair.word)).last()
         return currentResult.merge(
             subject:'you'
             attribute: lastNounOrVerb?.word

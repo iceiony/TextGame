@@ -13,6 +13,7 @@ describe("Extracting character of interest from dialogue", ->
         { input:"can you tell me about the body Henry", entity: "henry" , subject :"body" }
         { input:"tell me about the case chief", entity : "chief", subject :"case" }
         { input:"what do you think chief", entity : "chief", subject :"you", attribute:"think" }
+        { input:"what do you think henry", entity : "henry", subject :"you", attribute:"think" }
         { input:"ask the farmer how he is", entity : "farmer", subject :"you", attribute:"are"}
         { input:"chief, what do you make of this", entity : "chief", subject :"you", attribute:"make" }
     ]
