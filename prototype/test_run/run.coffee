@@ -2,7 +2,7 @@ runner = require('../runner')
 
 input = [
     " "
-    "horrible"
+    "fine"
     "what is the case"
 ]
 

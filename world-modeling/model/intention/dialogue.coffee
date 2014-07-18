@@ -20,21 +20,23 @@ isStartedByModalWord =
         tags[0].tag == 'MD'
 
 isSingleWordAnswerToQuestion = (input,lastTextOutput)->
-   return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
+    return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
         
 
 entityFromLastQuestionAsked = (lastTextOutput)->
-    dialogueLines = _(lastTextOutput.split('\n')).filter( (line)->
-        return line.indexOf('  ') == 0 || line.indexOf(" : ") > 0 )
-
+    dialogueLines = _(lastTextOutput.split('\n'))
+        .filter( (line)->
+            return line.indexOf('  ') == 0 || 
+                line.indexOf(": ") > 0 
+    )
     for line in dialogueLines.reverse().value()
         if (isQuestion.test(line))
             question = true
         if(!question)
             return undefined
         else
-        if (containsCharacter.test(line))
-            return containsCharacter.exec(line)?[0]
+            if (containsCharacter.test(line))
+                return containsCharacter.exec(line)?[0]
         
 module.exports.test = (input,lastTextOutput)->
     return isQuestion.test(input) || 
