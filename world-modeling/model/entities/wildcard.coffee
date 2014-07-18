@@ -42,10 +42,23 @@ class Wildcard extends Character
                     type : intention.type 
                     text : "Wildcard does nothing."
                 }
-            else 
+            when 'action'
                 return {
                     input : intention.input
                     type : intention.type 
+                    text : "Wildcard feels like #{intention.verb}ing something. But he can't right now."
+                }
+            when 'observation'
+                console.log entity
+                if not entity
+                    text = "Wildcard looks at the #{intention.entity}. There is nothing special."
+                else 
+                    text = "Wildcard looks at #{intention.entity}. There is nothing special."
+                
+                return {
+                    input : intention.input
+                    type : intention.type 
+                    text : text
                 }
 
 module.exports.new = ->
