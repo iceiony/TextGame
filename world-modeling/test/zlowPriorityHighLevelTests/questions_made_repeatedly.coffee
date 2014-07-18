@@ -108,6 +108,11 @@ describe('Asking re-occurring questions about objects and entities', ->
         .then((results)->
             result = results.shift()
             assert.strictEqual(result.text, 'Wildcard : Tell me about the stars Chief.')
+            assert.strictEqual(result.chain[0].text, "Chief : What are you talking about ?")
+            environment.reactAsync(intent)
+        )        
+        .then((results)->
+            result = results.shift()
             assert.strictEqual(result.chain[0].text, "Chief : What does that have to do with anything ?")
             environment.reactAsync(intent)
         )

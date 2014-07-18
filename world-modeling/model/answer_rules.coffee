@@ -50,9 +50,11 @@ answerUnknown = (intention, knowledge)->
     item = helper.retrieve(intention.subject, knowledge)
     item.exhaustCount++
     switch item.exhaustCount
-        when 1
-            return ["What does that have to do with anything ?"]
+        when 1 
+            return ["What are you talking about ?"]
         when 2
+            return ["What does that have to do with anything ?"]
+        when 3
             return ["What is it with you and the #{intention.subject} ?"]
         else
             return ["No !"]

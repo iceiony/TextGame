@@ -83,10 +83,13 @@ module.exports.reactAsync = (intentions)->
                 if previousIntention?.type == 'dialogue'
                     intention[key] = previousIntention[key]
                 else
-                    intention.entity = getDialogueDefaultByPriority()
+                    if key == 'entity'
+                        intention.entity = getDialogueDefaultByPriority()
+                    else 
+                        intention[key] = 'thing'
         else
             for key,value of intention  when value == 'implicit'
-                intention[key] = previousIntention?[key] || 'implicit'
+                intention[key] = previousIntention?[key] || 'it'
         previousIntention = intention
         
         react = wildcard.execute(intention)
