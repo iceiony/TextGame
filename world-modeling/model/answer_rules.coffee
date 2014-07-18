@@ -94,9 +94,9 @@ answerKnown = (intention, knowledge) ->
         item.reminder = false
 
     knownParts = item.known.slice(item.knowIndex, item.knowIndex + 3)
-    questionParts = item.question.slice(item.questionIndex, item.questionIndex + 3)
+    questionParts = item.question?.slice(item.questionIndex, item.questionIndex + 3) || []
     item.knowIndex += knownParts.length
-    item.questionIndex += questionParts.length
+    item.questionIndex += questionParts.length 
 
     lines.push.apply(lines, helper.combineParts(knownParts, questionParts))
 

@@ -12,9 +12,11 @@ class Chief extends Character
         @knowledge = 
             'case' : {known:["we have a body"] , question:["what happened"]}
             'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
+            'fuck' : {known:["Hey! Watch your language"]}
             'you' : 
                 'think' : ['you should look at the body']
                 'age' : ['57, boy']
+                'are' : ['fine, thanks']
 
     react: (stimulus)->
         if stimulus.type == 'movement'
