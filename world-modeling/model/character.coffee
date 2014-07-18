@@ -42,7 +42,8 @@ class Character extends Entity
                 text: "#{@referredAs()} : Hello #{entity.referredAs()}."
             }
             
-    askAbout: (characterEntity,subject,attribute)->
+    askAbout: (characterEntity,subject,attribute,intention)->
+        
         if attribute == undefined 
             text = "#{@referredAs()} : Tell me about the #{subject} #{characterEntity.referredAs()}."
         if attribute != undefined && helper.isVerb(attribute)
@@ -51,6 +52,8 @@ class Character extends Entity
             text = "#{@referredAs()} : What is your #{attribute} #{characterEntity.referredAs()} ?"
         if subject == 'you' && attribute == 'are' 
             text = "#{@referredAs()} : How are you ?"
+            
+        text = text || "#{@referredAs()} : #{intention.input[0].toUpperCase() + intention.input[1..]}"
             
         return {
             character:@name

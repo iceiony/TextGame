@@ -13,7 +13,7 @@ class Wildcard extends Character
             when 'exclamation'
                 return @greet(entity)
             when 'question'
-                return @askAbout(entity, intention.subject, intention.attribute)
+                return  @askAbout(entity, intention.subject, intention.attribute , intention)
             else
                 return {
                 input: intention.input
