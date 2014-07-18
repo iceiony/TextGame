@@ -40,7 +40,6 @@ module.exports.processAsync = (userInput) ->
             entityCanonicalName  = environment.getObjectByName(intent.entity)?.name
 
             transition = loaded_context.getTransition(intent.type, entityCanonicalName)
-            console.log reaction
             if transition.matchAsync != undefined 
                 transition.matchAsync(intent.input).done((result,err)->
                     decorator = loaded_context.getDecorator(result.match, intent.type, entityCanonicalName)
