@@ -81,6 +81,7 @@ describe('Classifying dialogue intentions correctly', ->
             'greetings'
             'oi!'
             'attention!'
+            'hahaha'
         ]
         exclamation.forEach((input)->
             it(input, (done)->

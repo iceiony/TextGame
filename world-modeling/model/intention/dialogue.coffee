@@ -5,7 +5,7 @@ containsCharacter = require('./helper').containsCharacter
 mergeToCurrent = require('./helper').mergeToCurrent
 
 isQuestion = /\?|what |where |why |how |ask |tell |did |are you/
-isExclamation = /(hi|hello|howdy|greetings|!)( .*|$)/
+isExclamation = /(hi|hello|howdy|greetings|(ha)+|!)( .*|$)/
 isPronounDetected = /(^| )(you|your|my|me|i|he) /
 isYou = /(you|your)/
 
