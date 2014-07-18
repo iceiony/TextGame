@@ -6,6 +6,7 @@ describe('Dialogue Statements - should be classified correctly',->
             {input:"i don't know"}
             {input:"he was a smoker"}
             {input:"he is guilty"}
+            {input:"this is brilliant"}
         ]
         
         statements.forEach((statement)->

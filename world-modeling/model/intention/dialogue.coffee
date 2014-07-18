@@ -19,6 +19,11 @@ isStartedByModalWord =
         tags = pos.tag(input)
         tags[0].tag == 'MD'
 
+isStartedByDeterminant = 
+    test : (input)->
+        tags = pos.tag(input)
+        tags[0].tag == 'DT'
+
 isSingleWordAnswerToQuestion = (input,lastTextOutput)->
     return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
         
@@ -44,6 +49,7 @@ module.exports.test = (input,lastTextOutput)->
         isPronounDetected.test(input) || 
         isFreeOfVerbs.test(input) || 
         isStartedByModalWord.test(input) ||
+        isStartedByDeterminant.test(input) ||
         isSingleWordAnswerToQuestion(input,lastTextOutput)
 
 module.exports.analyse = (input,lastTextOutput)->
@@ -86,7 +92,7 @@ module.exports.analyse = (input,lastTextOutput)->
     subject = lastNoun?.word || 'implicit'
 
     #4 rule : contains personal pronoun but is not a question
-    if isPronounDetected.test(input) && !isQuestion.test(input)
+    if ( isPronounDetected.test(input) || isStartedByDeterminant.test(input) ) && !isQuestion.test(input) 
         currentResult.merge(subtype : 'statement')
     
 
