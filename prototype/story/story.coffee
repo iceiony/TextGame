@@ -104,22 +104,6 @@ story = {
                         I'm not giving you a gun! And I hope you've been taking your medication.
                 """
             'what is your name': require('./medication')
-            
-    ending : """
-    Willy : He fell from the sky . 
-    The officers seem puzeled .
-    Chief : What gives you that crazy idea ? 
-    Willy : The deep imprint on the ground. The broken bones. The fact that there are no signs of the body being dragged here.
-    Henry : What about if he was carried here ?
-    Willy : Given the earth is this soft after the rain last night.I would expect to see some deep foot print around .
-            But there is nothing.
-    Stevey : Actually , I know there was this large festival yesterday a few towns away. 
-             They had balloon flights too. Maybe there was some trouble form the storm last night. 
-    Chief : Alright Willy , I think we know what we have to do now . Henry , get in contact with that festival .
-            Thanks for your help detective. Think you've cracked this .
-
-    [The End]
-    """
 }
 old = ->
     @everywhere ->
