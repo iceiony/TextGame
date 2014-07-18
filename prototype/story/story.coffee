@@ -104,6 +104,9 @@ story = {
                         I'm not giving you a gun! And I hope you've been taking your medication.
                 """
             'what is your name': require('./medication')
+            
+        @action 
+            'punch' : "Wildcard feels like punching someone. But he decides not to do it."
 }
 old = ->
     @everywhere ->
