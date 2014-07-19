@@ -18,7 +18,8 @@ class Wildcard extends Character
                 return {
                 input: intention.input
                 type: intention.type
-                text: "Wildcard : #{intention.input}"
+                subtype : intention.subtype
+                text: "Wildcard : #{intention.input[0].toUpperCase() + intention.input[1..]}."
                 }
             
     execute: (intention)->

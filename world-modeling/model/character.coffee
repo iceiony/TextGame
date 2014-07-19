@@ -59,6 +59,7 @@ class Character extends Entity
             character:@name
             entity:characterEntity.name
             type:"dialogue"
+            subtype : intention.subtype
             reason: "ask"
             subject: subject
             attribute : attribute

@@ -5,13 +5,13 @@
   "description": "",
   "main": "story.coffee",
   "dependencies": {
-    "style-format": "*",
+    "coffeeify": "~0.6.0",
     "iter": "0.0.9",
-    "read": "~1.0.5",
     "keypress": "~0.2.1",
-    "natural": "~0.1.27",
     "mocha": "~1.18.2",
+    "natural": "~0.1.27",
     "q": "~1.0.0",
-    "coffeeify": "~0.6.0"
+    "read": "~1.0.5",
+    "style-format": "*"
   }
 }

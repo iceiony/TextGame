@@ -3,6 +3,7 @@ util = require './util'
 {intention,environment,aggregator} = require('world-modeling')
 events = require('events')
 
+server_cleverbot = require './server_cleverbot/cleverbot_client'
 server_logging = require './server_logging/logging_client'
 colouriseDialog = require('./story/characters').colouriseDialog
 
@@ -49,19 +50,39 @@ module.exports.processAsync = (userInput) ->
                 eventEmitter.emit('transition decorator', undefined, reaction)
 
         eventEmitter.on('transition decorator', (decorator,reaction) ->
-            if not decorator
-                text = aggregator.aggregate(reaction)
-                decorator = util.toDecorator(text)
+            decorator_deferred = q.defer()
+            
+            if decorator
+                decorator_deferred.resolve(decorator)
+            else 
+                if(reaction.subtype == 'statement')
+                    message = reaction.text.split(': ')[1]
+                    server_cleverbot.write(message,(cleverbot_response)->
+                        response_message = cleverbot_response.message
+                        response_message.replace('Cleverbot','Chief')
+                        reaction.chain = [{
+                            text: "Chief : #{response_message}"
+                        }]
+                        text = aggregator.aggregate(reaction)
+                        decorator = util.toDecorator(text)
+                        decorator_deferred.resolve(decorator)
+                    )                    
+                else
+                    text = aggregator.aggregate(reaction)
+                    decorator = util.toDecorator(text)
+                    decorator_deferred.resolve(decorator)
 
-            decorator.call(node_builder)
-            node = node_builder.extractNode()
-            loaded_context.loadNode(node)
-            current_text += node.text + "\n"
+            decorator_deferred.promise.done((decorator,err)->
+                decorator.call(node_builder)
+                node = node_builder.extractNode()
+                loaded_context.loadNode(node)
+                current_text += node.text + "\n"
 
-            if reactions.length > 0
-                processNextReaction(reactions.shift())
-            else
-                deferred.resolve()
+                if reactions.length > 0
+                    processNextReaction(reactions.shift())
+                else
+                    deferred.resolve()
+            )
         )
 
         processNextReaction(reactions.shift())
