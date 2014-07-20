@@ -66,7 +66,14 @@ class Character extends Entity
             text: text
         }
 
-    move: (entity)->
+    move: (entity,intention)->
+        if not entity 
+            return {
+                character: @name
+                type :"nothing"
+                text : "There is no #{intention.entity} around to walk to."
+            }
+        
         if not @isNear(entity)
             @location = entity.getLocation()
             return {

@@ -17,5 +17,16 @@ describe('Interpreting movement in environment',->
             assert.strictEqual("Wildcard walks to the body.",result.text)
             assert.strictEqual("The officers follow him.",result.chain[0].text)
             done())
+    ) 
+    
+    it('moving to an nonexistent object',(done)->
+        input = 'go to the balloon'
+        intention.interpretAsync(input)
+        .then((interpretation)->
+            environment.reactAsync(interpretation))
+        .done((results)->
+            result = results.shift()
+            assert.strictEqual("There is no balloon around to walk to.",result.text)
+            done())
     )
 )

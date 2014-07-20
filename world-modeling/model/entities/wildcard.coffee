@@ -34,7 +34,7 @@ class Wildcard extends Character
         
         switch  intention.type
             when 'movement'
-                return @move(entity)
+                return @move(entity,intention)
             when 'dialogue'
                 return @dialogue(entity,intention)
             when 'silence'
@@ -50,7 +50,6 @@ class Wildcard extends Character
                     text : "Wildcard feels like #{intention.verb}ing something. But he can't right now."
                 }
             when 'observation'
-                console.log entity
                 if not entity
                     text = "Wildcard looks at the #{intention.entity}. There is nothing special."
                 else 
