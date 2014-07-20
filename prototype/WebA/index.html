@@ -100,9 +100,9 @@
                         case 27 :
                             break;
                         case 13 :
+                            term.write("\n\r");
                             runner.processAsync(userInput)
                                     .done(function (result, error) {
-                                        term.write("\n\r");
                                         term.write(_reFormatText(runner.getCurrentText()));
                                         userInput = "";
                                     });
