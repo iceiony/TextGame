@@ -80,7 +80,7 @@ story = {
             'what is the case':
                 """
                 Wildcard : What is the situation ? 
-                The chief turns around and starts walking towards a body, located about 10 meters behind the policeman. 
+                The chief turns around and points towards the body of a victime. It is located about 10 meters behind the policeman. 
                 Chief : We got the call at 5AM this morning for a body found in the middle of this field.
                         The call was made by Mike Ranch over there, who was working in the vicinity. 
                 The chief points towards a farmer sitting next to his tractor.
