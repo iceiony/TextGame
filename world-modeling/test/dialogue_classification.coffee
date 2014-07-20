@@ -17,6 +17,7 @@ describe('Dialogue Classification', ->
             {input: "can you help", subject: "you", attribute: "help"}
             {input: "how are you", subject: "you", attribute: "are"}
             {input: "are you a faggot", subject: "you", attribute: "faggot"}
+            {input: "so, what is this case about", subject: "case"}
             {input: "body ?", subject: "body"}
             {input: "huh ?"}
         ]

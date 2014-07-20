@@ -46,6 +46,13 @@ module.exports.isNoun = (wordOrTag) ->
     else
         return (wordOrTag in nounTags)
 
+module.exports.isVerb = (wordOrTag) ->
+    isWord = tag.lexicon[wordOrTag]
+    if(isWord)
+        return (isWord[0] in verbTags)
+    else
+        return (wordOrTag in verbTags)    
+        
 isEnumerationPart = /(and|or|,)/
 module.exports.splitPhrase = (input) ->
     
@@ -82,10 +89,3 @@ module.exports.splitPhrase = (input) ->
             sentences.push(parts[x..y].join(' '))
         return sentences
     return [input]
-
-module.exports.isVerb = (wordOrTag) ->
-    isWord = tag.lexicon[wordOrTag]
-    if(isWord)
-        return (isWord[0] in verbTags)
-    else
-        return (wordOrTag in verbTags)

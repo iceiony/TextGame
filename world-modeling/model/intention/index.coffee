@@ -15,6 +15,7 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
                 .replace("'m"," am")
                 .replace("don't","do not")
                 .replace("can't","can not")
+    
     lastTextOutput = lastTextOutput.toLowerCase()
 
     setImmediate(-> 
@@ -22,6 +23,8 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
             intentions = [];
             sentences = helper.splitPhrase(input) 
             for part in sentences
+                part = part.replace(/^so , |^so, |^so /,"") #todo: replace hack to remove beginning conjunction
+
                 if (silence.test(part))
                     intentions.push(silence.analyse(part))
                     continue
