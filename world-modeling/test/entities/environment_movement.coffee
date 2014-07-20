@@ -29,4 +29,19 @@ describe('Interpreting movement in environment',->
             assert.strictEqual("There is no balloon around to walk to.",result.text)
             done())
     )
+    
+    it('moving to cardinal location', (done)->
+        input = 'walk north'
+        intention.interpretAsync(input)
+        .then((interpretation)->
+            environment.reactAsync(interpretation))
+        .then((results)->
+            result = results.shift()
+            assert.strictEqual("Wildcard walks north 10 meters.",result.text)
+            assert.strictEqual("The officers follow him.",result.chain[0].text)
+        )
+        .done((res,error)->
+            done(error);
+        )
+    )
 )

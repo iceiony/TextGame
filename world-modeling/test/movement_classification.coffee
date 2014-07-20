@@ -46,8 +46,8 @@ describe('Classifying movement intentions correctly', ->
 
     describe('by actions and directions', ->
         directions = [
-            { input: "move north", distance: 'implicit'}
-            { input: "go south", distance: 'implicit'}
+            { input: "move north", distance: 10}
+            { input: "go south", distance: 10 }
             { input: "walk 10m to north", distance: 10, unit: "m"}
             { input: "walk north for 5feet", distance: 5, unit: "feet" }
         ]
@@ -58,7 +58,8 @@ describe('Classifying movement intentions correctly', ->
                     res = intentions.shift()
                     assert.strictEqual(res.type, 'movement', "For input : #{res.input}")
                     assert.strictEqual(res.distance, direction.distance)
-                    assert.strictEqual(res.unit, direction.unit)
+                    if (direction.unit)
+                        assert.strictEqual(res.unit, direction.unit)
                 )
                 .done((res,err)->
                     done(err)

@@ -26,7 +26,7 @@ class Chief extends Character
         if stimulus.type == 'movement'
                 if stimulus.character != 'wildcard' then return
                 entity = environment.getObjectByName(stimulus.character)
-                reaction = @move(entity)
+                reaction = @move(entity,stimulus)
                 reaction.reason = 'follow'
                 return reaction
             

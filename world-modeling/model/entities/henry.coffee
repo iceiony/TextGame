@@ -16,7 +16,7 @@ class Henry extends Character
     react : (stimulus)->
         entity = environment.getObjectByName(stimulus.entity)
         if stimulus.character == 'wildcard' && stimulus.type == 'movement'
-            reaction = @move(entity)
+            reaction = @move(entity,stimulus)
             reaction.reason = 'follow'
             return reaction
 

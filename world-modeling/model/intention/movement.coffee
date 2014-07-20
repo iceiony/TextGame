@@ -13,7 +13,8 @@ module.exports.test = (input)->
 
 module.exports.analyse = (input)->
     type = 'movement'
-    distance = 'implicit'
+    unit = 'meters'
+    distance = 10
 
     nouns = pos.getNouns(input)
     entity = containsEntity.exec(input)?[0] || _(nouns).last()
@@ -29,4 +30,5 @@ module.exports.analyse = (input)->
     entity : entity
     distance: distance
     unit : unit
+    isDirection : isDirection.test(entity)
     }
