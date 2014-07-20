@@ -39,6 +39,9 @@ module.exports.tag = (input)->
     result = ( { word: part[0], tag: part[1] } for part in tag.tag(lex.lex(input)))
     return result;
 
+module.exports.isWord = (input)->
+    return tag.lexicon[input] != undefined
+    
 module.exports.isNoun = (wordOrTag) ->
     isWord = tag.lexicon[wordOrTag]
     if(isWord)

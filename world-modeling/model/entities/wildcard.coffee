@@ -1,6 +1,7 @@
 q = require 'Q'
 environment = require './environment'
 Character = require '../character'
+pos_helper = require '../pos_helper'
 
 class Wildcard extends Character
     constructor: ->
@@ -44,11 +45,13 @@ class Wildcard extends Character
                     text : "Wildcard does nothing."
                 }
             when 'action'
-                return {
-                    input : intention.input
-                    type : intention.type 
-                    text : "Wildcard feels like #{intention.verb}ing something. But he can't right now."
-                }
+                actionVerb = intention.verb+"ing"
+                if (pos_helper.isWord(actionVerb))
+                    return {
+                        input : intention.input
+                        type : intention.type 
+                        text : "Wildcard feels like #{intention.verb}ing something. But he can't right now."
+                    }
             when 'observation'
                 if not entity
                     text = "Wildcard looks at the #{intention.entity}. There is nothing special."
