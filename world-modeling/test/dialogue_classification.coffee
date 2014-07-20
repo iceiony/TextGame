@@ -1,7 +1,7 @@
 assert = require 'assert'
 intention = require '../model/intention'
 
-describe('Classifying dialogue intentions correctly', ->
+describe('Dialogue Classification', ->
     describe('by input structure that is a question', ->
         questions = [
             {input: "what is your name", subject: "you", attribute: "name"}
@@ -43,7 +43,7 @@ describe('Classifying dialogue intentions correctly', ->
     )
 
     describe('by input structure that a statement with a personal pronoun', ->
-        questions = [
+        statements = [
             {input: "give me the keys", subject: "keys" }
             {input: "I don't think so"}
             {input: "I don't know"}
@@ -53,21 +53,22 @@ describe('Classifying dialogue intentions correctly', ->
 
         ]
 
-        questions.forEach((question)->
-            it(question.input, (done)->
-                intention.interpretAsync(question.input)
+        statements.forEach((statement)->
+            it(statement.input, (done)->
+                intention.interpretAsync(statement.input)
                 .then((intentions)->
                     res = intentions.shift()
                     assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
                     assert.strictEqual(res.entity, 'implicit')
-
-                    if question.subject
-                        assert.strictEqual(res.subject, question.subject, "For input #{res.input}")
-                    if question.attribute
-                        assert.strictEqual(res.attribute, question.attribute, "For input #{res.input}")
+                    assert.strictEqual(res.subtype,'statement', "For input #{res.input}")
+                    
+                    if statement.subject
+                        assert.strictEqual(res.subject, statement.subject, "For input #{res.input}")
+                    if statement.attribute
+                        assert.strictEqual(res.attribute, statement.attribute, "For input #{res.input}")
                 )
-                .done(->
-                    done()
+                .done((res,err)->
+                    done(err)
                 )
             )
         )

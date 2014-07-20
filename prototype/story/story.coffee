@@ -29,6 +29,7 @@ story = {
             Chief: Ah! Detective Wildcard, glad to see you son.
                    How are you ?
             """
+            @silence "Wildcard just waits and does nothing."
         
             @dialogue('chief')
                 "i am good": 

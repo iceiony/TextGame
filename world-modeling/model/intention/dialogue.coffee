@@ -4,7 +4,7 @@ pos = require './../pos_helper'
 containsCharacter = require('./helper').containsCharacter
 mergeToCurrent = require('./helper').mergeToCurrent
 
-isQuestion = /\?|what |where |why |how |ask |tell |did |are you/
+isQuestion = /\?|^what |^where |^why |^how |ask |tell |did |are you/
 isExclamation = /(hi|hello|howdy|greetings|(ha)+|gah|!)( .*|$)/
 isPronounDetected = /(^| )(you|your|my|me|i|he) /
 isYou = /(you|your)/
@@ -72,7 +72,7 @@ module.exports.analyse = (input,lastTextOutput)->
     lastNounIndex = _(tags).findLastIndex((pair)-> pos.isNoun(pair.tag) && not containsCharacter.test(pair.word))
 
     #1 rule: modal question "did you kill him ?"
-    if( tags[0].tag == 'MD'  && lastNounIndex < firstVerbIndex  )
+    if( tags[0].tag == 'MD' && tags[1].tag == 'PRP' && lastNounIndex < firstVerbIndex  )
         lastVerb = _(tags).filter((pair)-> pos.isVerb(pair.tag)).last()
         return currentResult.merge(
             subject : 'you'
@@ -89,11 +89,19 @@ module.exports.analyse = (input,lastTextOutput)->
         )
 
     #3 rule : normal question or statement that has a subject "ask about the body "
-    lastNoun = _(tags).filter((pair)-> pos.isNoun(pair.tag) && not containsCharacter.test(pair.word)).last()
-    subject = lastNoun?.word || 'implicit'
+    terminatingWord = _(tags).filter((pair)-> not containsCharacter.test(pair.word))
+                    .select((pair,index,array)-> index >= array.length - 2 )
+                    .filter((pair)-> pos.isNoun(pair.tag) || pos.isVerb(pair.tag))
+                    .last()
+    subject = terminatingWord?.word || 'implicit'
 
     #4 rule : contains personal pronoun but is not a question
-    if ( isPronounDetected.test(input) || isStartedByDeterminant.test(input) ) && !isQuestion.test(input) 
+    if !isQuestion.test(input) && ( 
+            isPronounDetected.test(input) || 
+            isStartedByDeterminant.test(input) ||
+            pos.tag(input).length == 1 ||
+            isStartedByModalWord.test(input)
+    )  
         currentResult.merge(subtype : 'statement')
     
 

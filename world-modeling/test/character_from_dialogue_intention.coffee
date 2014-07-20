@@ -5,6 +5,8 @@ intention = require '../model/intention'
 describe("Extracting character of interest from dialogue", ->
     dialogue = [
         { input: "what is your name?", entity: "implicit", subject :"you", attribute:"name"  }
+        { input:"can you tell me what to do ?", entity : "implicit", subject :"you" , attribute:"do"}
+        { input:"what should I do?", entity : "implicit", subject :"do" }
         { input:"how old are you Mark?", entity: "mark" , subject:"you"}
         { input:"how old are you Mark", entity: "mark" , subject:"you"}
         { input:"Mark, how old are you?", entity: "mark" , subject:"you"}
@@ -26,9 +28,9 @@ describe("Extracting character of interest from dialogue", ->
                 assert.strictEqual(result.type, 'dialogue', "For input : #{result.input}")
                 assert.strictEqual(result.entity,testCase.entity)
                 if testCase.subject
-                    assert.strictEqual(result.subject,testCase.subject)
+                    assert.strictEqual(result.subject,testCase.subject, "For input : #{result.input}")
                 if testCase.attribute
-                    assert.strictEqual(result.attribute,testCase.attribute)
+                    assert.strictEqual(result.attribute,testCase.attribute, "For input : #{result.input}")
                 done()
             )
         )
