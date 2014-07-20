@@ -3,7 +3,7 @@ pos = require './../pos_helper'
 containsEntity = require('./helper').containsEntity
 
 isDirection = /(north|south|east|west|left|right|up|down|around)/
-isMovementVerb = /^(go|walk|move|jump|sprint|step|run)/
+isMovementVerb = /^(go|walk|move|jump|sprint|step|run) /
 distanceAndMetric = /(\d+ ?[a-zA-Z]*|\d+ ?[a-zA-Z]*)( |$)/
 
 

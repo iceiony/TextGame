@@ -24,6 +24,8 @@ isStartedByDeterminant =
         tags = pos.tag(input)
         tags[0].tag == 'DT'
 
+isStartedByStatementWord = /^(good|aham|aha|ahem|ah) /
+
 isSingleWordAnswerToQuestion = (input,lastTextOutput)->
     return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
         
@@ -42,6 +44,8 @@ entityFromLastQuestionAsked = (lastTextOutput)->
         else
             if (containsCharacter.test(line))
                 return containsCharacter.exec(line)?[0]
+
+                
         
 module.exports.test = (input,lastTextOutput)->
     return isQuestion.test(input) || 
@@ -50,6 +54,7 @@ module.exports.test = (input,lastTextOutput)->
         isFreeOfVerbs.test(input) || 
         isStartedByModalWord.test(input) ||
         isStartedByDeterminant.test(input) ||
+        isStartedByStatementWord.test(input) ||
         isSingleWordAnswerToQuestion(input,lastTextOutput)
 
 module.exports.analyse = (input,lastTextOutput)->
@@ -96,12 +101,7 @@ module.exports.analyse = (input,lastTextOutput)->
     subject = terminatingWord?.word || 'implicit'
 
     #4 rule : contains personal pronoun but is not a question
-    if !isQuestion.test(input) && ( 
-            isPronounDetected.test(input) || 
-            isStartedByDeterminant.test(input) ||
-            pos.tag(input).length == 1 ||
-            isStartedByModalWord.test(input)
-    )  
+    if !isQuestion.test(input) 
         currentResult.merge(subtype : 'statement')
     
 

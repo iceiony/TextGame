@@ -50,6 +50,8 @@ describe('Dialogue Classification', ->
             {input: "I don't know"}
             {input: "yes"}
             {input: "may be wrong"}
+            {input: "good thanks"}
+            {input: "good to know"}
             {input: "banana"}
 
         ]
