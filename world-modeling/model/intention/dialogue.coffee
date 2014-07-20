@@ -5,9 +5,10 @@ containsCharacter = require('./helper').containsCharacter
 mergeToCurrent = require('./helper').mergeToCurrent
 
 isQuestion = /\?|^what |^where |^why |^how |ask |tell |did |are you/
-isExclamation = /(hi|hello|howdy|greetings|(ha)+|gah|!)( .*|$)/
+isExclamation = /(^hi($| )|hello|howdy|greetings|(ha)+|^gah|!)( .*|$)/
 isPronounDetected = /(^| )(you|your|my|me|i|he) /
 isYou = /(you|your)/
+isStartedByStatementWord = /^(good|aham|aha|ahem|ah |very|not |been) /
 
 
 isFreeOfVerbs = 
@@ -24,7 +25,6 @@ isStartedByDeterminant =
         tags = pos.tag(input)
         tags[0].tag == 'DT'
 
-isStartedByStatementWord = /^(good|aham|aha|ahem|ah) /
 
 isSingleWordAnswerToQuestion = (input,lastTextOutput)->
     return entityFromLastQuestionAsked(lastTextOutput) && pos.tag(input).length == 1 
