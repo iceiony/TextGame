@@ -1,3 +1,5 @@
+end_game = require './end_game'
+
 farmer = ->
     @text """
     Willy walks to the farmer. Middle aged man, dirty black hands, with a bit of a red face.
@@ -170,22 +172,23 @@ farmer = ->
                                 
                                 Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
                                 """
-                'hit by tractor' : """
-                Willy : He ran the victim over with the tracor, while drunk .
-                Chief : I see , I see. We won't know for certain until the autopsy. But ! 
-                Chief looks at Mark, the farmer .
-                Chief : Where were you last night ?
-                Mark  : I was home. 
-                Chief : Anyone home with you  ?
-                Mark  : No. I'm all by myself. 
-                Chief : Ok Henry cuff him . You're under arest Mark.
-                
-                Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
-                Chief : We'll let the curt decide that.
-                        Ok detective, I think we can handle it from here. Thanks for your help 
-                
-                [The End]
-                """
+                'hit by tractor' : ->
+                    @text """
+                    Willy : He ran the victim over with the tracor, while drunk .
+                    Chief : I see , I see. We won't know for certain until the autopsy. But ! 
+                    Chief looks at Mark, the farmer .
+                    Chief : Where were you last night ?
+                    Mark  : I was home. 
+                    Chief : Anyone home with you  ?
+                    Mark  : No. I'm all by myself. 
+                    Chief : Ok Henry cuff him . You're under arest Mark.
+                    
+                    Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
+                    Chief : We'll let the curt decide that.
+                            Ok detective, I think we can handle it from here. Thanks for your help 
+                    """
+                    end_game.solveEnding("murder")
+                    @text end_game.getEndingStatus()
 
 tractor = ->
     @text """
@@ -213,25 +216,30 @@ tractor = ->
         'drive tractor' : ->
             @text "Wildcard would, but he is missing the key."
             @action 
-                'drive tractor' : """
-                Wildcard uses the tractor key to open the cabin. As soon as he does, he notices a bottle ledged under the seat. 
-                Catching his attention he pulls it out and realises, it is a half empty bottle of wisky. 
-                He opens it, takes a large sip, throws the bottle to the chief and steps up into the tractor's cabin.
-                The chief looks mesmerised and enigmatic at the detective's actions. 
-                As he opens his mouth to speak, Wildcard shuts the door to the cabin, and locks it . 
-                He proceeds to turn on the engine and to press the acceleration peddal. 
-                As he does so, the people around take astep back.
-                The tractor speeds in a straight line towards the paramedics who jump out of it's way. 
-                The tractor keeps heading straight, as if out of controll, barely passing the body with its weels. 
-                Unfortuantely the plowing gear which are wider , hits the body and shreads it to bits. 
+                'drive tractor' : ->
+                    @text """
+                    Wildcard uses the tractor key to open the cabin. As soon as he does, he notices a bottle ledged under the seat. 
+                    Catching his attention he pulls it out and realises, it is a half empty bottle of wisky. 
+                    He opens it, takes a large sip, throws the bottle to the chief and steps up into the tractor's cabin.
+                    The chief looks mesmerised and enigmatic at the detective's actions. 
+                    As he opens his mouth to speak, Wildcard shuts the door to the cabin, and locks it . 
+                    He proceeds to turn on the engine and to press the acceleration peddal. 
+                    As he does so, the people around take astep back.
+                    The tractor speeds in a straight line towards the paramedics who jump out of it's way. 
+                    The tractor keeps heading straight, as if out of controll, barely passing the body with its weels. 
+                    Unfortuantely the plowing gear which are wider , hits the body and shreads it to bits. 
+                    
+                    In the gruesome course of events, Stevey recovers composure and starts runnign after the tractor. 
+                    He catches up, jumps against the cabin and shouts as hard as his lungs could take him. 
+                    Stevey : Wildcard you better stop! Stop this tractor right now ! 
+                    Wildcard simply ignores his cries, as if he did not even notice Stevey was there.
+                    Stevey pulls out his gun and shoots Wildcard through the window.
+                    Wildcard is dead.
+                    """
+                    end_game.solveEnding('tractor')
+                    @text end_game.getEndingStatus()
+                    
                 
-                In the gruesome course of events, Stevey recovers composure and starts runnign after the tractor. 
-                He catches up, jumps against the cabin and shouts as hard as his lungs could take him. 
-                Stevey : Wildcard you better stop! Stop this tractor right now ! 
-                Wildcard simply ignores his cries, as if he did not even notice Stevey was there.
-                Stevey pulls out his gun and shoots Wildcard through the window.
-                Wildcard is dead.
-                """
         'open tractor/use key' : ->
             @text """
             Wildcard uses the tractor key to open the cabin. As soon as he does he notices the a bottle ledged under the seat. 

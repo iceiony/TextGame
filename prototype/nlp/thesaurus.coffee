@@ -21,7 +21,7 @@ module.exports = {
     'take match': 'put match in pocket / put it in the pocket'
     'use match': 'light match'
     'give match': 'give him the match/put match in bag'
-    'he fell from the sky': 'he fell from large height / he fell from height/he fell from balloon / he fell from plane'
+    'he fell from the sky': 'he fell from large height /he fell from height/he fell from balloon /he fell from plane/fell from the sky/fell from sky'
     'where are you from': 'where do you live'
     'what do you do': 'working on what/what are you working on'
     'wtf': 'what the fuck'

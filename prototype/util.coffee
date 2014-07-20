@@ -18,7 +18,11 @@ module.exports.toDecorator = (argument)->
             if Array.isArray(argument)
                 count = 0;
                 arrayDecorator = ->
-                    @text argument[count];
+                    if (typeof argument[count] == 'string')
+                        @text argument[count];
+                    if (typeof argument[count] == 'function')
+                        argument[count].call(@)
+                        
                     if argument.length > count
                         count++
                     else

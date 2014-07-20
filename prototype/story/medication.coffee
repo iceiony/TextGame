@@ -1,3 +1,5 @@
+end_game = require './end_game'
+
 module.exports = (story)->
     @text """
     Wildcard : What's your name chief?
@@ -10,24 +12,27 @@ module.exports = (story)->
         'take medication/check pockets' : [ """
         Wildcard reaches into his pockets. He pulls out an orange perscription bottle, half full with pills. 
         As he pops one out realises he needs something to drink it with. 
-        """
+        """,
             
-        "Wildcard swallows the pill."
-        "Wildcard pops another pill and swallows it."
-        "Wildcard pops another pill and swallows it. It's not going down as easily."
+        "Wildcard swallows the pill.",
+        "Wildcard pops another pill and swallows it.",
+        "Wildcard pops another pill and swallows it. It's not going down as easily.",
 
-        """
-        Wildcard pops another pill. Something happens. The whole world around him becomes black. 
-        
-        [....an undetermined amount of time passes....]
-        
-        In a bed in a dark room, with a hazy site, an individual wakes up. He tries to make sense of where he is and what has happend.
-        Individual : What happend, I was just now... The case. 
-        His wandering gaze falls on the nightstand next to his bed. On top of it is an orange bottle of perscription pills. 
-        
-        Individual : ohh yes, I've dreamt again... I'm no longer a detective... not for a long time. 
-        His hand falls over his eyes in a weeping gesture. But you wouldn't hear a sound, just a long sigh... 
-        """
+        () ->
+            @text """
+            Wildcard pops another pill. Something happens. The whole world around him becomes black. 
+            
+            [....an undetermined amount of time passes....]
+            
+            In a bed in a dark room, with a hazy site, an individual wakes up. He tries to make sense of where he is and what has happend.
+            Individual : What happend, I was just now... The case. 
+            His wandering gaze falls on the nightstand next to his bed. On top of it is an orange bottle of perscription pills. 
+            
+            Individual : ohh yes, I've dreamt again... I'm no longer a detective... not for a long time. 
+            His hand falls over his eyes in a weeping gesture. But you wouldn't hear a sound... 
+            """
+            end_game.solveEnding('dream')
+            @text end_game.getEndingStatus()
         ]
 
     @dialogue('chief')
