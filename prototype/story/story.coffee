@@ -84,7 +84,7 @@ story = {
             'what is the case':
                 """
                 Wildcard : What is the situation ? 
-                The chief turns around and points towards the body of a victime. It is located about 10 meters behind the policeman. 
+                The chief turns around and points towards the body of a victim. It is located about 10 meters behind the policeman. 
                 Chief : We got the call at 5AM this morning for a body found in the middle of this field.
                         The call was made by Mike Ranch over there, who was working in the vicinity. 
                 The chief points towards a farmer sitting next to his tractor.
@@ -97,7 +97,7 @@ story = {
                 """
                 Wildcard : Any witnesses ?
                 Chief looks towards a nearby tractor. The tractor driver resting against it. 
-                Chief : Mike Ranch over there found the body. We don't have any other weakness besides him.
+                Chief : Mike Ranch over there found the body. We don't have any other witness besides him.
                 """
             'give me a gun':
                 """
