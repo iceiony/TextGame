@@ -83,7 +83,7 @@ story = {
                 Wildcard : What is the situation ? 
                 The chief turns around and points towards the body of a victim. It is located about 10 meters behind the policeman. 
                 Chief : We got the call at 5AM this morning for a body found in the middle of this field.
-                        The call was made by Mike Ranch over there, who was working in the vicinity. 
+                        The call was made by Mark Ranch over there, who was working in the vicinity. 
                 The chief points towards a farmer sitting next to his tractor.
                 Chief : Given the remote location, we arrived at the scene 1 hours later.
                         We weren't able to identify him yet and no reports of a missing person, from nearby towns.
@@ -96,14 +96,15 @@ story = {
                 Chief : Uhm... Well you can start by looking around. 
                         But I'm not going to start telling you how to do your job .
                 
-                Behind the chief, Stevey wispers to Henry . 
+                Behind the chief, Stevey whispers to Henry . 
                 Stevey : What a clown. Phff !
                 """
             'witnesses':
                 """
                 Wildcard : Any witnesses ?
                 Chief looks towards a nearby tractor. The tractor driver resting against it. 
-                Chief : Mike Ranch over there found the body. We don't have any other witness besides him.
+                Chief : Mark Ranch over there found the body. We don't have any other witness besides him.
+                        You can go talk to him if you want. 
                 """
             'give me a gun':
                 """
@@ -114,6 +115,7 @@ story = {
                 Chief : Look son, I don't know if you're being serious or not but we just want you to solve this case not shoot people.
                         I'm not giving you a gun! And I hope you've been taking your medication.
                 """
+            'lets do that' : require('./farmer').farmer
             'what is your name': require('./medication')
 }
 old = ->

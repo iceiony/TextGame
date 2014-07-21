@@ -120,6 +120,17 @@ farmer = ->
             The chief pulls Willy's coat a bit and wispers in his ear ? 
             Chief : What do you think willy? Think he did it  ?
             """
+            @dialogue('mark')
+                'what are you afraid of': """
+                    Wildcard : What are you afraid of .
+                    Mark : What are you talking about. I'm not afraid ! 
+                    Willy doesn't get the impression that he's being honest
+                    """
+                'we are going to arrest you' :
+                    """
+                    Wildcard : We are going to arrest you .
+                    Mark : Weight a second darn it , why did I call you here. I didn't call you here to arrest me . 
+                    """
             @dialogue('chief')
                 'no': """
                 Willy wispers back .

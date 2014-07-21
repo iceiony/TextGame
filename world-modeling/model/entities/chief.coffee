@@ -15,6 +15,8 @@ class Chief extends Character
             'fuck' : {known:["Hey! Watch your language"]}
             'dick' : {known:["You better watch your mouth boy !"]}
             'care' : {known:["Because this is your job"]}
+            'fist' : {known:["I don't know. Why don't you open it "]}
+            'pictures' : {known:["the paramedics took photos but everything is as we found it"]}
             'you' : 
                 'think' : ['you should look at the body']
                 'age' : ['57, boy']

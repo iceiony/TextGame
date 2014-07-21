@@ -67,7 +67,7 @@ module.exports = ->
     @dialogue('chief')
         'ask about footprints':"""
         Willy : What are those footprints ? 
-        Chief : We've identified those as belonging to Mike, the farmer who found the body. 
+        Chief : We've identified those as belonging to Mark, the farmer who found the body. 
         Willy looks at the tracks, they seem no different from those made by the officers. Nothing significant about them though. 
         """
 

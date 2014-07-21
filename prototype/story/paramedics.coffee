@@ -19,6 +19,11 @@ module.exports = ->
     The male paramedics stands up as well .
     """
     @dialogue('anne')
+        'hello' : 
+            """
+            Wildcard : Hello .
+            Paramedic : Well hello . 
+            """
         'what is your name/what are your names' : -> 
             @text """
             Wildcard : What are your names ? 
@@ -28,7 +33,7 @@ module.exports = ->
             female = "Anne"
             male = "David"
             
-        'ask about the body/cause of death' : """
+        'ask about the body/cause of death/what did you discover' : """
         Willy : So what can you tell me .
         The female paramedic starts gesticulating as if counting .
         #{female} : Well, the victim is male about 90 kilograms, and about 45years old.

@@ -12,6 +12,7 @@ class Anne extends Character
             'body' : {known:["we don't know much without an autopsy"]}
             'fuck' : {known:["Oi!"]}
             'tits' : {known:["Excuse me !?"]}
+            'death' : {known:["broken internal"]}
             'you' :
                 'tits' : ['... ? Not in your dreams']
                 'age' : ['private']
@@ -19,5 +20,6 @@ class Anne extends Character
                 'fuck': ['slap you, if you continue.']
                 'suck' : ['?']
                 'dick' : ['not for you to see']
+                'death' : ['broken internals']
 
 module.exports.new = -> new Anne()

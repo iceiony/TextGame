@@ -10,7 +10,7 @@ module.exports = {
     'yes': 'sure/right/correct'
     'no': "do not know/not sure/incorrect/not yet/do not think so/do not"
     'look at body': 'check body/investigate body/examine body/look around the body'
-    'ask about footprints': 'check footprints/who do those footprints belong to/what are those footprints/what are those tracks'
+    'ask about footprints': 'check footprints/who do those footprints belong to/what are those footprints/what are those tracks/whos are the footprints'
     'search body': 'search victim'
     'look at mouth': 'check out mouth/investigate mouth/open mouth'
     'look at nails': 'check out nails/check nails'
@@ -40,4 +40,6 @@ module.exports = {
     'not so good': 'horrible/not very good/terrible/not great/i feel sick/i am sick/not so well/i have been better/been better'
     'what should i do' : "i do not know what to do/tell me what to do"
     'fell from the sky' : "fell from somewhere/fell from high"
+    'what are you afraid of' : "why are you afraid/why are you scared/what are you scared of"
+    'what did you discover' : "what can you tell me"
 }
