@@ -69,7 +69,6 @@ extractCharacterDirectedAt= (input)->
     if character
         noSubjectInput = input.replace('about '+character,"") #handle situation where question is about a character
         character = containsCharacter.exec(noSubjectInput)?[0]
-
     return character 
 
 module.exports.test = (input,lastTextOutput)->

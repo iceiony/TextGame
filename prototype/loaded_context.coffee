@@ -1,5 +1,8 @@
 transition_factory = require('./nlp/transition_factory').TransitionFactory
 
+temporal_dialogue= {
+}
+
 context_decorators = {
     dialogue: {}
     observation: {}
@@ -29,13 +32,36 @@ prepareTransition = (type, character = undefined)->
             if phrases?.length > 0
                 context_transitions[type] = transition_factory.build(phrases)
 
+containsQuestionOnLastLine = (text)->
+    lines = text.trim().split('\n')
+    last_line = lines[lines.length-1]
+    return last_line.indexOf('?') > 0 
+                
 module.exports.loadNode = (node)->
+    isAnswerExpected = containsQuestionOnLastLine(node.text)
+    stateAggregate = {}
+    for character in Object.keys(context_decorators.dialogue)
+        stateAggregate[character] = Object.keys(context_decorators.dialogue[character]).join('')
+    
+    for character in Object.keys(temporal_dialogue)
+        for input in temporal_dialogue[character]
+            delete context_decorators.dialogue[character][input]
+        delete temporal_dialogue[character]
+    
     for character in Object.keys(node.dialogue)
         context_decorators.dialogue[character] = context_decorators.dialogue[character] || {}
         for input,decorator of node.dialogue[character]
             context_decorators.dialogue[character][input] = decorator
-        prepareTransition("dialogue", character)
-
+            if isAnswerExpected
+                temporal_dialogue[character] = temporal_dialogue[character] || []
+                temporal_dialogue[character].push(input)
+    
+    for character in Object.keys(context_decorators.dialogue)
+        newState = Object.keys(context_decorators.dialogue[character]).join('')
+        if(newState != stateAggregate[character])
+            prepareTransition('dialogue',character)
+                
+                
     movementAdded = false
     for input,decorator of node.movement
         movementAdded = true

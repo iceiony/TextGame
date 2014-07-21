@@ -32,7 +32,7 @@ story = {
             @silence "Wildcard just waits and does nothing."
         
             @dialogue('chief')
-                "i am good": [
+                "i am good": 
                     """
                     Wildcard : Great.
                     Chief : Aham...  
@@ -45,10 +45,8 @@ story = {
                     
                     Chief : So Detective! ( the chief exclaim, while corner eyeing the two officers to his right ) 
                            The crime scene is yours to investigate. We'll answer any questsions we can. 
-                    """,
-                    "Wildcard: Good !"
-                ]
-                "not so good":[
+                    """
+                "not so good":
                     """
                     Wildcard : Not so good.
                     Chief : Aham...  
@@ -62,8 +60,7 @@ story = {
                     Chief : So Detective! ( the chief exclaim, while corner eyeing the two officers to his right ) 
                            The crime scene is yours to investigate. We'll answer any questsions we can. 
                     """
-                    "Wildcard : Bad !"
-                ]
+                
                 
         @observation
             'look around':
