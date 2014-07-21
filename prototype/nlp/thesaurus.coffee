@@ -39,4 +39,5 @@ module.exports = {
     'i am good': 'i am doing good/i am fine thanks/doing alright/fine/good thanks/doing good thanks/i am alright'
     'not so good': 'horrible/not very good/terrible/not great/i feel sick/i am sick/not so well/i have been better/been better'
     'what should i do' : "i do not know what to do/tell me what to do"
+    'fell from the sky' : "fell from somewhere/fell from high"
 }

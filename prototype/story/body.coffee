@@ -81,7 +81,7 @@ module.exports = ->
         Chief: "That's why we called you detective"
         """
         
-        'he fell from the sky' : ->
+        'fell from the sky' : ->
             @text """
             Willy : He fell from the sky . 
             The officers seem puzeled .

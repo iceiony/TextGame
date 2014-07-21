@@ -160,18 +160,22 @@ farmer = ->
                                         I still have the bottle in my tractor over here. 
                                 He takes out his key and opens the tractor's cabin. He then pulls from below the seat a bottle of wisky. 
                                 """
-                                'no' : """
-                                Willy : He ran the victim over with the tracor, while drunk .
-                                Chief : I see , I see. We won't know for certain until the autopsy. But ! 
-                                Chief looks at Mark, the farmer .
-                                Chief : Where were you last night ?
-                                Mark  : I was home. 
-                                Chief : Anyone home with you  ?
-                                Mark  : No. I'm all by myself. 
-                                Chief : Ok Henry cuff him . You're under arest Mark.
+                                'no' : ->
+                                    @text """
+                                    Willy : He ran the victim over with the tracor, while drunk .
+                                    Chief : I see , I see. We won't know for certain until the autopsy. But ! 
+                                    Chief looks at Mark, the farmer .
+                                    Chief : Where were you last night ?
+                                    Mark  : I was home. 
+                                    Chief : Anyone home with you  ?
+                                    Mark  : No. I'm all by myself. 
+                                    Chief : Ok Henry cuff him . You're under arest Mark.
+                                    
+                                    Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
+                                    """
+                                    end_game.solveEnding("murder")
+                                    @text end_game.getEndingStatus()
                                 
-                                Mark : "But I didn't do nothing.", he says and struggles as Henry was puttin on the hand cuffs .
-                                """
                 'hit by tractor' : ->
                     @text """
                     Willy : He ran the victim over with the tracor, while drunk .
