@@ -4,7 +4,7 @@ thesaurus = require './thesaurus'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
 #TODO see if instead of stripping it would be best to generate noise with common words
-commonWordsToStrip = ["a", "what", "is", "i"];
+commonWordsToStrip = ["a", "what", "is", "i" ,"he"];
 
 _sanitiseForTransition = (transitionString)->
     if(transitionString.trim().length == 0 )
