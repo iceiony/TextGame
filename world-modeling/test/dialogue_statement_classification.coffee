@@ -9,6 +9,7 @@ describe('Dialogue Statements - should be classified correctly',->
             {input:"this is brilliant"}
             {input:"i don't know what to do"}
             {input:"I can't tell"}
+            {input:"good for you"}
         ]
         
         statements.forEach((statement)->

@@ -109,7 +109,7 @@ module.exports.analyse = (input,lastTextOutput)->
         )
 
     #2 rule: personal question "do you know him ?"
-    if (lastYouIndex > firstVerbIndex)
+    if (lastYouIndex > firstVerbIndex && firstVerbIndex >= 0 )
         topicOfInterest = extractTopicOfInterest(tags)
 
         return currentResult.merge(
@@ -118,10 +118,10 @@ module.exports.analyse = (input,lastTextOutput)->
         )
         
         
-    #3.3 normal question or statement
+    #3 rule: normal question or statement
     interest = extractTopicOfInterest(tags)
     subject = interest || 'implicit'
-
+    
     #4 rule : contains personal pronoun but is not a question
     if !isQuestion.test(input) 
         currentResult.merge(subtype : 'statement')
