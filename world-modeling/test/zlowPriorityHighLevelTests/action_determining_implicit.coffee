@@ -14,22 +14,20 @@ describe('Acting on an implicit entity after moving to it',->
         )
         .then((results)->
             result = results.shift()
-            assert.strictEqual("movement",result.type)
+            assert.strictEqual(result.type,"movement")
 
             intention.interpretAsync("turn it over")
         )
         .then((intent)->
             intent = intent.shift()
-            assert.strictEqual("action",intent.type)
-            assert.strictEqual("implicit",intent.entity)
+            assert.strictEqual(intent.type,"action")
+            assert.strictEqual(intent.entity,"implicit")
 
             environment.reactAsync(intent)
         )
         .then((results)->
             result = results.shift()
-            intention = result.intention
-
-            assert.strictEqual("body",intention.entity, "intention should be implicitly set to body")
+            assert.strictEqual(result.intention.entity,"body", "implicit intention should be set to body")
         )
         .done((result,error)->
             done(error)
