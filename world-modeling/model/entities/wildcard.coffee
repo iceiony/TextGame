@@ -51,7 +51,7 @@ class Wildcard extends Character
                 return {
                     input : intention.input
                     type : intention.type 
-                    text : text || ""
+                    text : text || "Wildcard tries to #{intention.verb} something."
                 }
             when 'observation'
                 if not entity
