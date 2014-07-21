@@ -90,6 +90,15 @@ story = {
                         Given it is early Sunday, none of us want to really be here. 
                         So I was hoping you may be able to solve this faster. 
                 """
+            'what should i do' : 
+                """
+                Wildcard : What should I do ?
+                Chief : Uhm... Well you can start by looking around. 
+                        But I'm not going to start telling you how to do your job .
+                
+                Behind the chief, Stevey wispers to Henry . 
+                Stevey : What a clown. Phff !
+                """
             'witnesses':
                 """
                 Wildcard : Any witnesses ?

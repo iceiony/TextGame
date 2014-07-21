@@ -4,7 +4,7 @@ thesaurus = require './thesaurus'
 
 EMPTY_STRING_TRANSITION = "empty string transition"
 #TODO see if instead of stripping it would be best to generate noise with common words
-commonWordsToStrip = ["a", "what", "is"];
+commonWordsToStrip = ["a", "what", "is", "i"];
 
 _sanitiseForTransition = (transitionString)->
     if(transitionString.trim().length == 0 )
@@ -65,7 +65,7 @@ class Transition
 
             matches = classifier.getClassifications(input)
             .filter((element)->
-                element.value > 0.81)
+                element.value > 0.87)
 
 #            console.log "\nlogistic: " + input
 #            console.log classifier.getClassifications(input)

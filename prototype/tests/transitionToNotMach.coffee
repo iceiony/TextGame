@@ -7,6 +7,7 @@ transitionsStrings = [ "Look around/Examine surroundings"
                        "body / look at the body / go to body"
                        "Cigar/Fag/Smoke/have a smoke"
                        "What's the case/What is up/What's the situation/What am I seeing/Information/Details/Situation/What is going on/What have we got/What happened "
+                       "what should i do"
 ];
 transition = new Transition(transitionsStrings);
 
@@ -26,5 +27,15 @@ describe("Transition - Should not mach any of the transitions", ->
       assert(!result.match, "#{result.input} should not match : #{result.match} - with ratio #{result.ratio}");
       done(exception);
     )
+  )
+  
+  it("should not 'i like going outside'",(done)->
+      transition.matchAsync("a")
+      .then((result)->
+        assert(!result.match, "#{result.input} should not match: #{result.match} - with ratio #{result.ratio}")
+      )
+      .done((res,err)->
+        done(err)
+      )
   )
 )
