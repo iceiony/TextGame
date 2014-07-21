@@ -28,7 +28,7 @@ module.exports = {
     'lol': 'haha/hahaha'
     'you have been drinking' : 'are you drunk/have you  been drinking/what have you been drinking'
     'drunk driving' : 'drunk at work'
-    'hit by tractor' : "hit with tractor/run over"
+    'hit by tractor' : "run over/he was hit by tractor/he was run over"
     'ask about body' : 'what can you tell me about the body/how did you find the body/tell me about the body'
     'ask for more'   :'tell me more/question more/anything else/what else'
     'ask farmer for key' : 'do you have the key/ can i have the key'
