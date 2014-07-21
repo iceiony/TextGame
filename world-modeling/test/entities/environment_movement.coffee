@@ -8,8 +8,7 @@ describe('Interpreting movement in environment',->
     )
     
     it('moving to the body',(done)->
-        input = 'go to body'
-        intention.interpretAsync(input)
+        intention.interpretAsync('go to body')
         .then((interpretation)->
             environment.reactAsync(interpretation))
         .done((results)->

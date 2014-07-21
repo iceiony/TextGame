@@ -47,11 +47,12 @@ class Wildcard extends Character
             when 'action'
                 actionVerb = intention.verb+"ing"
                 if (pos_helper.isWord(actionVerb))
-                    return {
-                        input : intention.input
-                        type : intention.type 
-                        text : "Wildcard feels like #{intention.verb}ing something. But he can't right now."
-                    }
+                    text = "Wildcard feels like #{intention.verb}ing something. But he can't right now."
+                return {
+                    input : intention.input
+                    type : intention.type 
+                    text : text || ""
+                }
             when 'observation'
                 if not entity
                     text = "Wildcard looks at the #{intention.entity}. There is nothing special."

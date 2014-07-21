@@ -9,6 +9,8 @@ describe('Classifying plain action intentions correctly', ->
             {input : "take match", verb:"take",entity:"match"}
             {input : "punch farmer", verb:"punch",entity:"farmer"}
             {input : "talk to the farmer", verb:"talk",entity:"farmer"}
+            {input : "talk to him", verb:"talk",entity:"implicit"}
+            {input : "lets talk to him", verb:"talk",entity:"implicit"}
             {input : "punch the sky", verb:"punch",entity:"sky"}]
         
         actions.forEach((action)->  

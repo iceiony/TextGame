@@ -23,7 +23,7 @@ module.exports.interpretAsync = (input,lastTextOutput= "")->
             intentions = [];
             sentences = helper.splitPhrase(input) 
             for part in sentences
-                part = part.replace(/^so , |^so, |^so /,"") #todo: replace hack to remove beginning conjunction
+                part = part.replace(/^so , |^so, |^so |lets /,"") #todo: replace hack to remove beginning conjunction
 
                 if (silence.test(part))
                     intentions.push(silence.analyse(part))

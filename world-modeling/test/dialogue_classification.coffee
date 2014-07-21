@@ -12,6 +12,8 @@ describe('Dialogue Classification', ->
             {input: "how come ?"}
             {input: "where is the body?", subject: "body"}
             {input: "ask about the body", subject: "body"}
+            {input: "what do you know about mark", subject: "you" , attribute: "mark"}
+            {input: "tell me about him", subject: "implicit"}
             {input: "did you kill him", subject: "you", attribute: "kill"}
             {input: "tell me what you saw", subject: "you", attribute: "saw"}
             {input: "can you help", subject: "you", attribute: "help"}
@@ -28,15 +30,15 @@ describe('Dialogue Classification', ->
                 .done((intentions, err)->
                     res = intentions.shift()
                     if (err) then throw err
-                    assert.strictEqual(res.type, 'dialogue', "For input #{res.input}")
+                    assert.strictEqual(res.type, 'dialogue', "Type for input #{res.input}")
 
                     assert.strictEqual(res.subtype, "question", "Not classified as question #{res.input}")
-                    assert.strictEqual(res.entity, 'implicit')
+                    assert.strictEqual(res.entity, 'implicit', "Entity for input #{res.input}")
 
                     if question.subject
-                        assert.strictEqual(res.subject, question.subject, "For input #{res.input}")
+                        assert.strictEqual(res.subject, question.subject, "Subject for input #{res.input}")
                     if question.attribute
-                        assert.strictEqual(res.attribute, question.attribute, "For input #{res.input}")
+                        assert.strictEqual(res.attribute, question.attribute, "Attribute for input #{res.input}")
 
                     done()
                 )

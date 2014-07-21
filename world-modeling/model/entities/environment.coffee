@@ -93,7 +93,7 @@ module.exports.reactAsync = (intentions)->
         previousIntention = intention
         
         react = wildcard.execute(intention)
-        if react.requires
+        if react?.requires
             requiresIntention = react.requires
             react = wildcard.execute(requiresIntention)
             react.intention = requiresIntention
