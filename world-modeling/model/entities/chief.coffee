@@ -14,6 +14,7 @@ class Chief extends Character
             'body' : {known:["middle aged man","found in the middle of nowhere","half naked","he probably died last night"], question:["how the body got here","the cause of death"]}
             'fuck' : {known:["Hey! Watch your language"]}
             'dick' : {known:["You better watch your mouth boy !"]}
+            'care' : {known:["Because this is your job"]}
             'you' : 
                 'think' : ['you should look at the body']
                 'age' : ['57, boy']
