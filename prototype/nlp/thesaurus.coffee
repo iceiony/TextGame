@@ -37,7 +37,7 @@ module.exports = {
     'about the broken bones' : 'tell me about the broken bones/broken bones'
     'ask about the balloon race' : 'tell me about the race/what about the balloons/balloons race'
     'i am good': 'i am doing good/i am fine thanks/doing alright/fine/good thanks/doing good thanks/i am alright'
-    'not so good': 'horrible/not very good/terrible/not great/i feel sick/i am sick/not so well/i have been better/been better'
+    'not so good': 'horrible/not very good/terrible/not great/i feel sick/i am sick/not so well/i have been better/been better/i feel like crap/i feel crap'
     'what should i do' : "i do not know what to do/tell me what to do"
     'fell from the sky' : "fell from somewhere/fell from high"
     'what are you afraid of' : "why are you afraid/why are you scared/what are you scared of"
