@@ -36,7 +36,7 @@ story = {
                     """
                     Wildcard : Great.
                     Chief : Aham...  
-                            Well any how, thanks for doing us the favour and coming down. This is a verry odd case. And we kind of hit a wall here. 
+                            Well any how, thanks for doing us the favour and coming down. This is a very odd case. And we kind of hit a wall here. 
                             That's why we need your help Willy, to solve it or point us in the right direction.
                     Stevey: "Willy", Hrhrhrhaharrr!  ( Stevey chuckles ) 
 
@@ -44,13 +44,13 @@ story = {
                     He then leans towards Willy and says, #{col.Chief "Don't mind the rookie. He's a good kid" }
                     
                     Chief : So Detective! ( the chief exclaim, while corner eyeing the two officers to his right ) 
-                           The crime scene is yours to investigate. We'll answer any questsions we can. 
+                           The crime scene is yours to investigate. We'll answer any questions we can. 
                     """
                 "not so good":
                     """
                     Wildcard : Not so good.
                     Chief : Aham...  
-                            Well any how, thanks for doing us the favour and coming down. This is a verry odd case. And we kind of hit a wall here. 
+                            Well any how, thanks for doing us the favour and coming down. This is a very odd case. And we kind of hit a wall here. 
                             That's why we need your help Willy, to solve it or point us in the right direction.
                     Stevey: "Willy", Hrhrhrhaharrr!  ( Stevey chuckles ) 
 
@@ -58,7 +58,7 @@ story = {
                     He then leans towards Willy and says, #{col.Chief "Don't mind the rookie. He's a good kid" }
                     
                     Chief : So Detective! ( the chief exclaim, while corner eyeing the two officers to his right ) 
-                           The crime scene is yours to investigate. We'll answer any questsions we can. 
+                           The crime scene is yours to investigate. We'll answer any questions we can. 
                     """
                 
                 

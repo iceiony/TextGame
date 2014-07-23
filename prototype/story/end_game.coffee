@@ -13,7 +13,7 @@ module.exports.getEndingStatus = ()->
     result = "\n[ #{totalEndings - endingLeft}/#{totalEndings} total endings achieved ]"
     if (endingLeft > 0)
         nextEnding = Object.keys(endings)[0]
-        result += "\n[ Can you find the other ? ] \nHint: #{endings[nextEnding]}"
+        result += "\n[ Can you find the others ? ] \nHint: #{endings[nextEnding]}"
     
     return result
     
