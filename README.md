@@ -1,7 +1,7 @@
 ## How to run the prototype
 
 #####Easy Way
-Just access : http://188.226.234.126
+Just access : http://188.226.234.126/WebA/
 
 #####Hard Way
 
