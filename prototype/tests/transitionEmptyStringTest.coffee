@@ -1,5 +1,5 @@
 assert = require 'assert'
-Q = require 'Q'
+Q = require 'q'
 Transition = require '../nlp/transition'
 
 expectedTransition = "";

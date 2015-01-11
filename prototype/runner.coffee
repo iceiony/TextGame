@@ -1,4 +1,4 @@
-q = require 'Q'
+q = require 'q'
 util = require './util'
 {intention,environment,aggregator} = require('world-modeling')
 events = require('events')

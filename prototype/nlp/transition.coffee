@@ -1,4 +1,4 @@
-q = require 'Q'
+q = require 'q'
 natural = require 'natural'
 thesaurus = require './thesaurus'
 

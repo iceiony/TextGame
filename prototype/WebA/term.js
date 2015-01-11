@@ -1717,7 +1717,7 @@ Terminal.prototype.write = function(data) {
           case 'R': // French
             cs = Terminal.charsets.French;
             break;
-          case 'Q': // FrenchCanadian
+          case 'q': // FrenchCanadian
             cs = Terminal.charsets.FrenchCanadian;
             break;
           case 'K': // German

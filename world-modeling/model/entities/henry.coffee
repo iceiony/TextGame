@@ -1,4 +1,4 @@
-q = require 'Q'
+q = require 'q'
 environment = require './environment'
 Character = require '../character'
 

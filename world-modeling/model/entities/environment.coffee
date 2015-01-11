@@ -1,4 +1,4 @@
-q = require 'Q'
+q = require 'q'
 _ = require 'lodash'
 
 previousIntention = undefined

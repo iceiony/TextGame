@@ -1,4 +1,4 @@
-q = require 'Q'
+q = require 'q'
 Character = require '../character'
 
 class Mark extends Character

@@ -1,5 +1,5 @@
 _ = require 'lodash'
-q = require 'Q'
+q = require 'q'
 helper = require './../pos_helper'
 
 silence = require './silence'
