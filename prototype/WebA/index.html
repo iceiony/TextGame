@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
 </head>
@@ -100,7 +100,7 @@
                         case 27 :
                             break;
                         case 13 :
-                            term.write("\n\r");
+                            term.write(" (please wait)\n\r");
                             runner.processAsync(userInput)
                                     .done(function (result, error) {
                                         term.write(_reFormatText(runner.getCurrentText()));
