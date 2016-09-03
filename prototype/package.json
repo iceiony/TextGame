@@ -3,17 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "description": "",
-  "browserify": { "transform": ["coffeeify"] },
+  "browserify": {
+    "transform": [
+      "coffeeify"
+    ]
+  },
   "main": "story.coffee",
   "dependencies": {
+    "cleverbot-node": "github:fojas/cleverbot-node",
     "coffeeify": "~0.6.0",
     "iter": "0.0.9",
     "keypress": "~0.2.1",
     "mocha": "~1.18.2",
-    "world-modeling": "*",
     "natural": "~0.1.27",
     "q": "~1.0.0",
     "read": "~1.0.5",
-    "style-format": "*"
+    "style-format": "github:azer/style-format",
+    "world-modeling": "*"
   }
 }
