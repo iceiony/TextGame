@@ -3,8 +3,7 @@ util = require './util'
 {intention,environment,aggregator} = require('world-modeling')
 events = require('events')
 
-Cleverbot = require 'cleverbot-node'
-cleverbot = new Cleverbot();
+cleverbot_client = require './server_cleverbot/cleverbot_client'
 
 server_logging = require './server_logging/logging_client'
 colouriseDialog = require('./story/characters').colouriseDialog
@@ -59,17 +58,16 @@ module.exports.processAsync = (userInput) ->
             else 
                 if(reaction.subtype == 'statement')
                     message = reaction.text.split(': ')[1]
-                    Cleverbot.prepare ()->
-                        cleverbot.write(message,(cleverbot_response)->
-                            response_message = cleverbot_response.message
-                            response_message.replace('Cleverbot','Chief')
-                            reaction.chain = [{
-                                text: "Chief : #{response_message}"
-                            }]
-                            text = aggregator.aggregate(reaction)
-                            decorator = util.toDecorator(text)
-                            decorator_deferred.resolve(decorator)
-                        )                    
+                    cleverbot_client.write(message,(cleverbot_response)->
+                        response_message = cleverbot_response.message
+                        response_message.replace('Cleverbot','Chief')
+                        reaction.chain = [{
+                            text: "Chief : #{response_message}"
+                        }]
+                        text = aggregator.aggregate(reaction)
+                        decorator = util.toDecorator(text)
+                        decorator_deferred.resolve(decorator)
+                    )                    
                 else
                     text = aggregator.aggregate(reaction)
                     decorator = util.toDecorator(text)

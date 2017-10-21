@@ -1,0 +1,15 @@
+{
+  "name": "cleverbot-server-cros",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "cleverbot_server.coffee",
+  "scripts": {
+      "start": "coffee cleverbot_server.coffee"
+  },
+  "dependencies": {
+    "cleverbot-node": "github:fojas/cleverbot-node",
+    "finalhandler": "^1.1.0",
+    "serve-static": "^1.13.1"
+  }
+}
